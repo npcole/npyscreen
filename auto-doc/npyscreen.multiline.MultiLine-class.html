@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>npyscreen.multiline.MultiLine</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="npyscreen-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="npyscreen-module.html">Package&nbsp;npyscreen</a> ::
+        <a href="npyscreen.multiline-module.html">Module&nbsp;multiline</a> ::
+        Class&nbsp;MultiLine
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="npyscreen.multiline.MultiLine-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class MultiLine</h1><span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine">source&nbsp;code</a></span><br /><br />
+<pre class="base-tree">
+         object --+        
+                  |        
+<a href="npyscreen.widget.InputHandler-class.html">widget.InputHandler</a> --+    
+                      |    
+          <a href="npyscreen.widget.Widget-class.html">widget.Widget</a> --+
+                          |
+                         <strong class="uidshort">MultiLine</strong>
+</pre>
+
+<hr />
+Display a list of items to the user.  By overloading the display_value
+  method, this widget can be made to display different kinds of 
+  objects.<br /><br />
+
+<!-- ==================== NESTED CLASSES ==================== -->
+<a name="section-NestedClasses"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Nested Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-NestedClasses"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="npyscreen.textbox.Textfield-class.html" class="summary-name">_contained_widgets</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="npyscreen.multiline.MultiLine-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">screen</span>,
+        <span class="summary-sig-arg">values</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">value</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">slow_scroll</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">scroll_exit</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">return_exit</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">exit_left</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">exit_right</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">**keywords</span>)</span><br />
+      The following named arguments may be supplied: name= set the name 
+      of the widget.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="npyscreen.multiline.MultiLine-class.html#display_value" class="summary-sig-name">display_value</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">vl</span>)</span><br />
+      Overload this function to change how values are displayed.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.display_value">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="npyscreen.multiline.MultiLine-class.html#calculate_area_needed" class="summary-sig-name">calculate_area_needed</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Classes should provide a function to calculate the screen area 
+      they need, returning either y,x, or 0,0 if they want all the screen 
+      they can.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.calculate_area_needed">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="npyscreen.multiline.MultiLine-class.html#update" class="summary-sig-name">update</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">clear</span>=<span class="summary-sig-default">True</span>)</span><br />
+      How should object display itself on the screen.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.update">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_print_line"></a><span class="summary-sig-name">_print_line</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">line</span>,
+        <span class="summary-sig-arg">value_indexer</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine._print_line">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="npyscreen.multiline.MultiLine-class.html#set_up_handlers" class="summary-sig-name">set_up_handlers</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      This function should be called somewhere during object 
+      initialisation (which all library-defined widgets do).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.set_up_handlers">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="h_find_char"></a><span class="summary-sig-name">h_find_char</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">input</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.h_find_char">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="t_input_isprint"></a><span class="summary-sig-name">t_input_isprint</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">input</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.t_input_isprint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="h_cursor_beginning"></a><span class="summary-sig-name">h_cursor_beginning</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ch</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.h_cursor_beginning">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="h_cursor_end"></a><span class="summary-sig-name">h_cursor_end</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ch</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.h_cursor_end">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="h_cursor_page_down"></a><span class="summary-sig-name">h_cursor_page_down</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ch</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.h_cursor_page_down">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="h_cursor_page_up"></a><span class="summary-sig-name">h_cursor_page_up</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ch</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.h_cursor_page_up">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="h_cursor_line_up"></a><span class="summary-sig-name">h_cursor_line_up</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ch</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.h_cursor_line_up">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="h_cursor_line_down"></a><span class="summary-sig-name">h_cursor_line_down</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ch</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.h_cursor_line_down">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="h_exit"></a><span class="summary-sig-name">h_exit</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ch</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.h_exit">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="h_select"></a><span class="summary-sig-name">h_select</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ch</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.h_select">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="h_select_exit"></a><span class="summary-sig-name">h_select_exit</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ch</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.h_select_exit">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="npyscreen.multiline.MultiLine-class.html#edit" class="summary-sig-name">edit</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Allow the user to edit the widget: ie.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.edit">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="npyscreen.widget.Widget-class.html">widget.Widget</a></code></b>:
+      <code><a href="npyscreen.widget.Widget-class.html#clear">clear</a></code>,
+      <code><a href="npyscreen.widget.Widget-class.html#destroy">destroy</a></code>,
+      <code><a href="npyscreen.widget.Widget-class.html#display">display</a></code>,
+      <code><a href="npyscreen.widget.Widget-class.html#get_and_use_key_press">get_and_use_key_press</a></code>,
+      <code><a href="npyscreen.widget.Widget-class.html#get_editable">get_editable</a></code>,
+      <code><a href="npyscreen.widget.Widget-class.html#safe_filter">safe_filter</a></code>,
+      <code><a href="npyscreen.widget.Widget-class.html#safe_string">safe_string</a></code>,
+      <code><a href="npyscreen.widget.Widget-class.html#set_editable">set_editable</a></code>,
+      <code><a href="npyscreen.widget.Widget-class.html#set_size">set_size</a></code>,
+      <code><a href="npyscreen.widget.Widget-class.html#space_available">space_available</a></code>,
+      <code><a href="npyscreen.widget.Widget-class.html#try_adjust_widgets">try_adjust_widgets</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="npyscreen.widget.InputHandler-class.html">widget.InputHandler</a></code></b>:
+      <code><a href="npyscreen.widget.InputHandler-class.html#add_complex_handlers">add_complex_handlers</a></code>,
+      <code><a href="npyscreen.widget.InputHandler-class.html#add_handlers">add_handlers</a></code>,
+      <code><a href="npyscreen.widget.InputHandler-class.html#h_exit_down">h_exit_down</a></code>,
+      <code><a href="npyscreen.widget.InputHandler-class.html#h_exit_escape">h_exit_escape</a></code>,
+      <code><a href="npyscreen.widget.InputHandler-class.html#h_exit_left">h_exit_left</a></code>,
+      <code><a href="npyscreen.widget.InputHandler-class.html#h_exit_right">h_exit_right</a></code>,
+      <code><a href="npyscreen.widget.InputHandler-class.html#h_exit_up">h_exit_up</a></code>,
+      <code><a href="npyscreen.widget.InputHandler-class.html#handle_input">handle_input</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">screen</span>,
+        <span class="sig-arg">values</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">value</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">slow_scroll</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">scroll_exit</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">return_exit</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">exit_left</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">exit_right</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">**keywords</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  The following named arguments may be supplied: name= set the name of 
+  the widget. width= set the width of the widget. height= set the height. 
+  max_height= let the widget choose a height up to this maximum. max_width=
+  let the widget choose a width up to this maximum. editable=True/False the
+  user may change the value of the widget. hidden=True/False The widget is 
+  hidden.
+  <dl class="fields">
+    <dt>Overrides:
+      <a href="npyscreen.widget.Widget-class.html#__init__">widget.Widget.__init__</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="display_value"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">display_value</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">vl</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.display_value">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  Overload this function to change how values are displayed. Should 
+  accept one argument (the object to be represented), and return a 
+  string.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="calculate_area_needed"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">calculate_area_needed</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.calculate_area_needed">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  Classes should provide a function to calculate the screen area they 
+  need, returning either y,x, or 0,0 if they want all the screen they can.
+  However, do not use this to say how big a given widget is ... use .height
+  and .width instead
+  <dl class="fields">
+    <dt>Overrides:
+      <a href="npyscreen.widget.Widget-class.html#calculate_area_needed">widget.Widget.calculate_area_needed</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="update"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">update</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">clear</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.update">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  How should object display itself on the screen. Define here, but do 
+  not actually refresh the curses display, since this should be done as 
+  little as possible.  This base widget puts nothing on screen.
+  <dl class="fields">
+    <dt>Overrides:
+      <a href="npyscreen.widget.Widget-class.html#update">widget.Widget.update</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_up_handlers"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_up_handlers</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.set_up_handlers">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  This function should be called somewhere during object initialisation 
+  (which all library-defined widgets do). You might like to override this 
+  in your own definition, but in most cases the add_handers or 
+  add_complex_handlers methods are what you want.
+  <dl class="fields">
+    <dt>Overrides:
+      <a href="npyscreen.widget.InputHandler-class.html#set_up_handlers">widget.InputHandler.set_up_handlers</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="edit"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">edit</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="npyscreen.multiline-pysrc.html#MultiLine.edit">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  Allow the user to edit the widget: ie. start handling keypresses.
+  <dl class="fields">
+    <dt>Overrides:
+      <a href="npyscreen.widget.Widget-class.html#edit">widget.Widget.edit</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="npyscreen-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0beta1 on Thu Mar 29 15:58:54 2007
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>
