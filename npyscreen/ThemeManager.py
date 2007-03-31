@@ -5,6 +5,9 @@ import curses
 import widget
 import Form
 
+DISABLE_ALL_COLORS    = False
+
+
 class ThemeManager(object):
     def __init__(self):
         self._max_pairs = curses.COLOR_PAIRS - 1
@@ -14,7 +17,7 @@ class ThemeManager(object):
         self.initialize_names()
     
     def setTheme(self, caller, request='DEFAULT'):
-        if not curses.has_colors():
+        if not curses.has_colors() or DISABLE_ALL_COLORS:
             return False
 
         # Locate the requested colour pair.  Default to default if not found.
