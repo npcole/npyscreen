@@ -5,7 +5,7 @@ import button
 import curses.wrapper
 import weakref
 import pmfuncs
-import Menu
+#import Menu
 import ThemeManager
 
 APPLICATION_THEME_MANAGER = None
@@ -23,7 +23,7 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 		self.name=name
 		self.editing = False
 		self._widgets__= []
-		self.__menus  = []
+		## OLD MENU CODE REMOVED self.__menus  = []
 
 		self.nextrely = 2
 		self.nextrelx = self.__class__.DEFAULT_X_OFFSET
@@ -108,30 +108,30 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 		while w.relx < self.show_from_x:
 			self.show_from_x -= 1
 		
-	def menuOfMenus(self, *args, **keywords):
-		"""DEPRICATED"""
-		tmpmnu = Menu.Menu(name = "All Menus", show_aty=2, show_atx=2)
-		#tmpmnu.before_item_select = self.display
-		for mnu in self.__menus:
-			text = ""
-			if mnu.name: text += mnu.name
-			for keypress in self.handlers.keys():
-				if self.handlers[keypress] == mnu.edit:
-					if keypress: text += " (%s)" % keypress
-					text += " >"
-			tmpmnu.add_item(text, mnu.edit)
-			tmpmnu.edit()
-
-	def add_menu(self, menu=None, key=None, *args, **keywords):
-		"""DEPRICATED"""
-		if menu is None:
-			mu = Menu.Menu(*args, **keywords)
-			self.__menus.append(mu)
-		else:
-			mu = menu
-			self.__menus.append(mu)
-		self.add_handlers({key: mu.edit})
-		return weakref.proxy(mu)
+## REMOVING OLD MENU CODE  def menuOfMenus(self, *args, **keywords):
+## REMOVING OLD MENU CODE  	"""DEPRICATED"""
+## REMOVING OLD MENU CODE  	tmpmnu = Menu.Menu(name = "All Menus", show_aty=2, show_atx=2)
+## REMOVING OLD MENU CODE  	#tmpmnu.before_item_select = self.display
+## REMOVING OLD MENU CODE  	for mnu in self.__menus:
+## REMOVING OLD MENU CODE  		text = ""
+## REMOVING OLD MENU CODE  		if mnu.name: text += mnu.name
+## REMOVING OLD MENU CODE  		for keypress in self.handlers.keys():
+## REMOVING OLD MENU CODE  			if self.handlers[keypress] == mnu.edit:
+## REMOVING OLD MENU CODE  				if keypress: text += " (%s)" % keypress
+## REMOVING OLD MENU CODE  				text += " >"
+## REMOVING OLD MENU CODE  		tmpmnu.add_item(text, mnu.edit)
+## REMOVING OLD MENU CODE  		tmpmnu.edit()
+## REMOVING OLD MENU CODE
+## REMOVING OLD MENU CODE  def add_menu(self, menu=None, key=None, *args, **keywords):
+## REMOVING OLD MENU CODE  	"""DEPRICATED"""
+## REMOVING OLD MENU CODE  	if menu is None:
+## REMOVING OLD MENU CODE  		mu = Menu.Menu(*args, **keywords)
+## REMOVING OLD MENU CODE  		self.__menus.append(mu)
+## REMOVING OLD MENU CODE  	else:
+## REMOVING OLD MENU CODE  		mu = menu
+## REMOVING OLD MENU CODE  		self.__menus.append(mu)
+## REMOVING OLD MENU CODE  	self.add_handlers({key: mu.edit})
+## REMOVING OLD MENU CODE  	return weakref.proxy(mu)
 
 	def edit(self):
 		"""Edit the fields until the user selects the ok button added in the lower right corner. Button will

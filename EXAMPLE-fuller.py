@@ -22,21 +22,8 @@ class TestApp(npyscreen.NPSApp):
 
 		bn = F.add(npyscreen.MiniButton, name = "Button")
 		
-		# This block of code adds a popup menu with lots of options.
-		mnu = F.add_menu(name="Nothing Menu", key="^F")
-		mnu.add_item("Do Nothing",   self.tstDoNothing)
-		mnu.add_item("Do Nothing 2", self.tstDoNothing)
-		mnu.add_item("Do Nothing 3", self.tstDoNothing)
-		for x in range(10): # Just add lots so we can show off what happens with a long menu.
-			mnu.add_item("Do Nothing x", self.tstDoNothing)
-		
 		# This lets the user play with the Form.
 		F.edit()
-		
-
-	def tstDoNothing(self):
-		import curses
-		curses.beep()
 
 if __name__ == "__main__":
 	App = TestApp()

@@ -9,6 +9,8 @@ import weakref
 
 
 class Menu(object):
+	"This class is obsolete and Depricated.  Use NewMenu instead."
+
 	def __init__(self, name=None, show_atx=None, show_aty=None):
 		self.__menu_items = []
 		self.name = name
