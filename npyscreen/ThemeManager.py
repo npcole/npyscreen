@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
-
+"""IMPORTANT - COLOUR SUPPORT IS CURRENTLY EXTREMELY EXPERIMENTAL.  THE API MAY CHANGE, AND NO DEFAULT
+WIDGETS CURRENTLY TAKE ADVANTAGE OF THEME SUPPORT AT ALL."""
 import curses
 import widget
 import Form
@@ -15,8 +16,8 @@ class ThemeManager(object):
         self._names         = {}
         self.initialize_pairs()
         self.initialize_names()
-    
-    def setTheme(self, caller, request='DEFAULT'):
+        
+    def findPair(self, caller, request='DEFAULT'):
         if not curses.has_colors() or DISABLE_ALL_COLORS:
             return False
 
@@ -28,6 +29,11 @@ class ThemeManager(object):
 
         # now make the actual attribute
         color_attribute = curses.color_pair(pair[0])
+        
+        return color_attribute
+    
+    def setTheme(self, caller, request='DEFAULT'):
+        color_attribute = self.findPair(caller, request=request)
         
         # find the screen to operate on:
         if isinstance(caller, widget.Widget):
