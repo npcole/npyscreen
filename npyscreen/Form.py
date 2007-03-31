@@ -212,7 +212,7 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 					break
 
 	def display(self):
-		APPLICATION_THEME_MANAGER.setTheme(self)
+		#APPLICATION_THEME_MANAGER.setTheme(self)
 		self.curses_pad.erase()
 		self.draw_form()
 		for w in self._widgets__: 

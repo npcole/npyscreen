@@ -36,7 +36,12 @@ class ThemeManager(object):
             pad = caller.curses_pad
         
         # Set the attribute
-        pad.attron(color_attribute)
+        if isinstance(caller, widget.Widget):
+            pad.attron(color_attribute)
+        elif isinstance(caller, Form.Form):
+            pad.bkgdset(' ', color_attribute)
+            pad.attron(color_attribute)
+            
                 
     def setDefault(self, caller):
         return False
@@ -58,7 +63,7 @@ class ThemeManager(object):
             self.initalize_pair(cp[0], cp[1], cp[2])
     
     def initialize_names(self):
-        self._names['DEFAULT' ]  = 'WHITE_BLACK'
+        self._names['DEFAULT' ]  = 'BLACK_WHITE'
         self._names['NO_EDIT' ]  = 'BLUE_BLACK'
         self._names['STANDOUT']  = 'CYAN_BLACK'
     
