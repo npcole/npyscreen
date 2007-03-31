@@ -6,7 +6,9 @@ import curses.wrapper
 import weakref
 import pmfuncs
 import Menu
+import ThemeManager
 
+APPLICATION_THEME_MANAGER = None
 
 class Form(screen_area.ScreenArea, widget.InputHandler):
 	OK_BUTTON_BR_OFFSET = (2,6)
@@ -14,7 +16,9 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 	DEFAULT_X_OFFSET = 2
 	def __init__(self, name=None, framed=True, help=None, *args, **keywords):
 		super(Form, self).__init__(*args, **keywords)
-
+		global APPLICATION_THEME_MANAGER
+		if APPLICATION_THEME_MANAGER is None:
+			APPLICATION_THEME_MANAGER = ThemeManager.ThemeManager()
 		self.framed = framed
 		self.name=name
 		self.editing = False
@@ -208,6 +212,7 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 					break
 
 	def display(self):
+		APPLICATION_THEME_MANAGER.setTheme(self)
 		self.curses_pad.erase()
 		self.draw_form()
 		for w in self._widgets__: 
