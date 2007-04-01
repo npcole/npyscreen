@@ -67,6 +67,7 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 			widget.EXITED_LEFT:    self.find_previous_editable,
 			widget.EXITED_ESCAPE:  self.do_nothing,
 			True:	               self.find_next_editable, # A default value
+			widget.EXITED_MOUSE:   self.get_and_use_mouse_event,
 			}
 
 	def handle_exiting_widgets(self, condition):
@@ -193,6 +194,10 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 	def h_display(self, input):
 		self.curses_pad.redrawwin()
 		self.display()
+		
+	def get_and_use_mouse_event(self):
+		curses.beep()
+	
 			
 	def find_next_editable(self, *args):
 		if not self.editw == len(self._widgets__):		
@@ -201,6 +206,7 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 					self.editw = n
 					break
 		self.display()
+		
 
 	def find_previous_editable(self, *args):
 		if not self.editw == 0:		

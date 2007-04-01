@@ -12,6 +12,7 @@ EXITED_UP    = -1
 EXITED_LEFT  = -2
 EXITED_RIGHT =  2
 EXITED_ESCAPE= 127
+EXITED_MOUSE = 130
 
 class InputHandler(object):
 	"An object that can handle user input"
@@ -62,6 +63,7 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
 			       "^P":		        self.h_exit_up,
 			       "^N":		        self.h_exit_down,
 			       curses.ascii.ESC:	self.h_exit_escape,
+			       curses.KEY_MOUSE:	self.h_exit_mouse,
 			       }
 
 		self.complex_handlers = []
@@ -103,6 +105,9 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
 		self.editing = False
 		self.how_exited = EXITED_ESCAPE
 
+	def h_exit_mouse(self, input):
+		self.editing = False
+		self.how_exited = MOUSE_EVENT
 	
 
 class Widget(InputHandler):
@@ -238,7 +243,6 @@ big a given widget is ... use .height and .width instead"""
 		while self.editing:
 			self.display()
 			self.get_and_use_key_press()
-
 		self.highlight = 0
 		self.update()
 
