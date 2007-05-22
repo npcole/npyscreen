@@ -146,7 +146,8 @@ class MonthBox(DateEntryBase):
 		
 			# Print the Title Line
 			if self.do_colors():
-				self.parent.curses_pad.addstr(self.rely, self.relx, ("%s - %s" % (year, month)), self.parent.theme_manager.findPair(self))
+				self.parent.curses_pad.addstr(self.rely, self.relx, ("%s - %s" % (year, month)), 
+													self.parent.theme_manager.findPair(self))
 			else:
 				self.parent.curses_pad.addstr(self.rely, self.relx, ("%s - %s" % (year, month)))
 		

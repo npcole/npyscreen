@@ -16,9 +16,13 @@ class MiniButton(checkbox.Checkbox):
 	def update(self, clear=True):
 		if clear: self.clear()
 		
-		if self.value:
+		if self.value and self.do_colors():
+			self.parent.curses_pad.addstr(self.rely, self.relx, '>', self.parent.theme_manager.findPair(self))
+			self.parent.curses_pad.addstr(self.rely, self.relx+self.width-1, '<', self.parent.theme_manager.findPair(self))
+		elif self.value:
 			self.parent.curses_pad.addstr(self.rely, self.relx, '>')
 			self.parent.curses_pad.addstr(self.rely, self.relx+self.width-1, '<')
+			
 		
 		if self.editing:
 			button_state = curses.A_STANDOUT

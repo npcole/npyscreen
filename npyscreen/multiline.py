@@ -125,7 +125,10 @@ Should accept one argument (the object to be represented), and return a string."
 				#line.highlight = False
 				#line.show_bold = False
 				line.clear()
-				self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
+				if self.do_colors():
+					self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL, self.parent.theme_manager.findPair(self, 'CONTROL'))
+				else:
+					self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
 			
 			if self.editing: 
 				self._my_widgets[(self.cursor_line-self.start_display_at)].highlight=True

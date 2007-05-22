@@ -84,8 +84,14 @@ class MultiLineEdit(widget.Widget):
 
 		for line_counter in range(self.height):
 			if line_counter >= len(text_to_display)-self.start_display_at: break
-			self.parent.curses_pad.addnstr(self.rely+line_counter, self.relx, 
-				text_to_display[self.start_display_at+line_counter][xdisplay_offset:], display_width)
+			
+			if self.do_colors():
+				self.parent.curses_pad.addnstr(self.rely+line_counter, self.relx, 
+					text_to_display[self.start_display_at+line_counter][xdisplay_offset:], display_width,
+					self.parent.theme_manager.findPair(self))
+			else:
+				self.parent.curses_pad.addnstr(self.rely+line_counter, self.relx, 
+					text_to_display[self.start_display_at+line_counter][xdisplay_offset:], display_width)
 			
 
 		if self.editing:

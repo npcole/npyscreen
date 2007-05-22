@@ -2,6 +2,8 @@
 
 import curses.wrapper as wrapper
 
+import ThemeManager
+
 from NPSApp import NPSApp
 from NPSAppManaged import NPSAppManaged
 from Form import Form, TitleForm, TitleFooterForm, SplitForm
