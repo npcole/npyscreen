@@ -39,7 +39,10 @@ class Slider(widget.Widget):
 		if self.label:
 			label_str = self.translate_value()
 			blocks_on_screen -= len(label_str)+3
-			self.parent.curses_pad.addstr(self.rely, self.relx+blocks_on_screen+2, label_str) 
+			if self.do_colors():
+				self.parent.curses_pad.addstr(self.rely, self.relx+blocks_on_screen+2, label_str, self.parent.theme_manager.findPair(self))
+			else:
+				self.parent.curses_pad.addstr(self.rely, self.relx+blocks_on_screen+2, label_str) 
 			
 			# If want to handle neg. numbers, this line would need changing.
 		blocks_to_fill = (float(self.value) / float(self.out_of)) * int(blocks_on_screen)
@@ -59,10 +62,16 @@ class Slider(widget.Widget):
 	
 		for n in xrange(blocks_on_screen):
 			xoffset = self.relx
-			self.parent.curses_pad.addch(self.rely,n+xoffset, BACKGROUND_CHAR, curses.A_NORMAL)	
+			if self.do_colors():
+				self.parent.curses_pad.addch(self.rely,n+xoffset, BACKGROUND_CHAR, curses.A_NORMAL | self.parent.theme_manager.findPair(self, 'CONTROL'))
+			else:
+				self.parent.curses_pad.addch(self.rely,n+xoffset, BACKGROUND_CHAR, curses.A_NORMAL)
 	
 		for n in xrange(int(blocks_to_fill)):
-			self.parent.curses_pad.addstr(self.rely,n+xoffset, ' ', curses.A_STANDOUT) #curses.ACS_BLOCK)
+			if self.do_colors():
+				self.parent.curses_pad.addstr(self.rely,n+xoffset, ' ', curses.A_STANDOUT | self.parent.theme_manager.findPair(self, 'CONTROL'))
+			else:
+				self.parent.curses_pad.addstr(self.rely,n+xoffset, ' ', curses.A_STANDOUT) #curses.ACS_BLOCK)
 
 		self.parent.curses_pad.attroff(curses.A_BOLD)
 		self.parent.curses_pad.bkgdset(curses.A_NORMAL)

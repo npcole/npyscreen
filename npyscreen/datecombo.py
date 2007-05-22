@@ -36,7 +36,10 @@ class DateCombo(textbox.Textfield, monthbox.DateEntryBase):
 			return "- Unset -"
 			
 	def _print(self):
-		self.parent.curses_pad.addnstr(self.rely, self.relx, self.display_value(self.value), self.width)
+		if self.do_colors():
+			self.parent.curses_pad.addnstr(self.rely, self.relx, self.display_value(self.value), self.width, self.parent.theme_manager.findPair(self,))
+		else:
+			self.parent.curses_pad.addnstr(self.rely, self.relx, self.display_value(self.value), self.width)
 			
 	def h_change_value(self, *arg):
 		# Remember to leave extra space at the end of the popup, or the clear function can't work properly.

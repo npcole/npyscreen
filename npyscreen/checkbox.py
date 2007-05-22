@@ -28,9 +28,14 @@ class Checkbox(Widget):
 		self.label_area.value = self.name
 		
 		if self.value:
-			self.parent.curses_pad.addstr(self.rely, self.relx, self.__class__.True_box)
+			cb_display = self.__class__.True_box
 		else:
-			self.parent.curses_pad.addstr(self.rely, self.relx, self.__class__.False_box)
+			cb_display = self.__class__.False_box
+		
+		if self.do_colors():	
+			self.parent.curses_pad.addstr(self.rely, self.relx, cb_display, self.parent.theme_manager.findPair(self, 'CONTROL'))
+		else:
+			self.parent.curses_pad.addstr(self.rely, self.relx, cb_display)
 
 
 		if self.editing:

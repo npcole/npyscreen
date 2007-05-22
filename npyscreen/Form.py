@@ -14,7 +14,7 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 	OK_BUTTON_BR_OFFSET = (2,6)
 	OKBUTTON_TYPE = button.MiniButton
 	DEFAULT_X_OFFSET = 2
-	def __init__(self, name=None, framed=True, help=None, *args, **keywords):
+	def __init__(self, name=None, framed=True, help=None, color='FORMDEFAULT', *args, **keywords):
 		super(Form, self).__init__(*args, **keywords)
 		global APPLICATION_THEME_MANAGER
 		if APPLICATION_THEME_MANAGER is None:
@@ -32,6 +32,8 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 		self.editw = 0 # Index of widget to edit.
 
 		self.help = help
+		
+		self.color = color
 
 		self.set_up_handlers()
 		self.set_up_exit_condition_handlers()

@@ -30,7 +30,10 @@ Should accept one argument (the object to be represented), and return a string."
 				printme = self.display_value(self.values[self.value])
 			except IndexError:
 				printme = '-error-'
-		self.parent.curses_pad.addnstr(self.rely, self.relx, printme, self.width)
+		if self.do_colors():
+			self.parent.curses_pad.addnstr(self.rely, self.relx, printme, self.width, self.parent.theme_manager.findPairs(self))
+		else:
+			self.parent.curses_pad.addnstr(self.rely, self.relx, printme, self.width)
 
 
 	def edit(self):

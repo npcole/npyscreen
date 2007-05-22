@@ -77,9 +77,11 @@ class ThemeManager(object):
     
     def initialize_names(self):
         self._names['DEFAULT' ]  = 'RED_BLACK'
+        self._names['FORMDEFAULT'] = 'YELLOW_BLACK'
         self._names['NO_EDIT' ]  = 'BLUE_BLACK'
         self._names['STANDOUT']  = 'CYAN_BLACK'
         self._names['LABEL']     = 'BLUE_BLACK'
+        self._names['CONTROL']   = 'GREEN_BLACK'
     
     def initalize_pair(self, name, fg, bg):
         # Initialize a color_pair for the required colour and return the number. Raise an exception if this is not possible.

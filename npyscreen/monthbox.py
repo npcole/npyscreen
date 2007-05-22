@@ -145,11 +145,18 @@ class MonthBox(DateEntryBase):
 			day   = self.value.day
 		
 			# Print the Title Line
-			self.parent.curses_pad.addstr(self.rely, self.relx, ("%s - %s" % (year, month)))
+			if self.do_colors():
+				self.parent.curses_pad.addstr(self.rely, self.relx, ("%s - %s" % (year, month)), self.parent.theme_manager.findPair(self))
+			else:
+				self.parent.curses_pad.addstr(self.rely, self.relx, ("%s - %s" % (year, month)))
 		
 			# Print the day names
 			# weekheader puts an extra space at the end of each name
-			self.parent.curses_pad.addstr(self.rely+1, self.relx, calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1))
+			if self.do_colors():
+				self.parent.curses_pad.addstr(self.rely+1, self.relx, calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1),
+												self.parent.theme_manager.findPair(self, 'LABEL'))
+			else:
+				self.parent.curses_pad.addstr(self.rely+1, self.relx, calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1))
 		
 			# Print the days themselves
 			cal_data = calendar.monthcalendar(year, month)
@@ -162,14 +169,23 @@ class MonthBox(DateEntryBase):
 					if thisday is 0:
 						pass
 					elif day == thisday:
-						self.parent.curses_pad.addstr(print_line, print_column, str(thisday), curses.A_STANDOUT)
+						if self.do_colors():
+							self.parent.curses_pad.addstr(print_line, print_column, str(thisday), curses.A_STANDOUT | self.parent.theme_manager.findPair(self, self.color))
+						else:
+							self.parent.curses_pad.addstr(print_line, print_column, str(thisday), curses.A_STANDOUT)
 					else:
-						self.parent.curses_pad.addstr(print_line, print_column, str(thisday))
+						if self.do_colors():
+							self.parent.curses_pad.addstr(print_line, print_column, str(thisday), self.parent.theme_manager.findPair(self, self.color))
+						else:
+							self.parent.curses_pad.addstr(print_line, print_column, str(thisday))
 					print_column += self.__class__.DAY_FIELD_WIDTH
 			
 				print_line += 1
 			# Print some help
-			self.parent.curses_pad.addstr(self.rely+9, self.relx, "keys: dwmyDWMYt")
+			if self.do_colors():
+				self.parent.curses_pad.addstr(self.rely+9, self.relx, "keys: dwmyDWMYt", self.parent.theme_manager.findPair(self, 'LABEL'))
+			else:
+				self.parent.curses_pad.addstr(self.rely+9, self.relx, "keys: dwmyDWMYt")
 
 		
 	def set_up_handlers(self):

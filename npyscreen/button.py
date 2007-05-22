@@ -21,11 +21,15 @@ class MiniButton(checkbox.Checkbox):
 			self.parent.curses_pad.addstr(self.rely, self.relx+self.width-1, '<')
 		
 		if self.editing:
-			self.parent.curses_pad.attron(curses.A_STANDOUT)
+			button_state = curses.A_STANDOUT
+		else:
+			button_state = curses.A_NORMAL
 		
 		str = self.name.center(self.label_width)
-		self.parent.curses_pad.addnstr(self.rely, self.relx+1, str, self.label_width) 
-		self.parent.curses_pad.attroff(curses.A_STANDOUT)
+		if self.do_colors():
+			self.parent.curses_pad.addnstr(self.rely, self.relx+1, str, self.label_width, self.parent.theme_manager.findPair(self, 'CONTROL') | button_state)
+		else:
+			self.parent.curses_pad.addnstr(self.rely, self.relx+1, str, self.label_width, button_state) 
 		
 
 def testme(sa):
