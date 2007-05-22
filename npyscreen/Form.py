@@ -18,7 +18,9 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 		super(Form, self).__init__(*args, **keywords)
 		global APPLICATION_THEME_MANAGER
 		if APPLICATION_THEME_MANAGER is None:
-			APPLICATION_THEME_MANAGER = ThemeManager.ThemeManager()
+			self.theme_manager = ThemeManager.ThemeManager()
+		else:
+		    self.theme_manager = APPLICATION_THEME_MANAGER
 		self.framed = framed
 		self.name=name
 		self.editing = False
@@ -219,6 +221,10 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 
 	def display(self):
 		#APPLICATION_THEME_MANAGER.setTheme(self)
+		if curses.has_colors() and not ThemeManager.DISABLE_ALL_COLORS:
+			color_attribute = self.theme_manager.findPair(self)
+			self.curses_pad.bkgdset(' ', color_attribute)
+			self.curses_pad.attron(color_attribute)
 		self.curses_pad.erase()
 		self.draw_form()
 		for w in self._widgets__: 

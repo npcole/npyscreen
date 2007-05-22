@@ -92,8 +92,14 @@ class Textfield(widget.Widget):
 			self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
 
 	def _print(self):
+		string_to_print = self.safe_string(self.value)
 		if self.value == None: return
-		self.parent.curses_pad.addstr(self.rely,self.relx, self.value[self.begin_at:self.maximum_string_length+self.begin_at])
+		if self.do_colors():
+			self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
+											self.parent.theme_manager.findPair(self))
+		else:
+		    self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])
+		    
 
 ##use addch to let us write to last corner
 # This doesn't work.

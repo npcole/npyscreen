@@ -5,6 +5,7 @@ import curses
 import curses.ascii
 import curses.wrapper
 import weakref
+import ThemeManager
 
 
 EXITED_DOWN  =  1
@@ -124,6 +125,7 @@ class Widget(InputHandler):
 			max_height = False, max_width=False,
 			editable=True,
 			hidden=False,
+			color='DEFAULT',
 			**keywords):
 		"""The following named arguments may be supplied:
 		name= set the name of the widget.
@@ -139,6 +141,8 @@ class Widget(InputHandler):
 		self.parent = weakref.proxy(screen)
 		self.relx = relx
 		self.rely = rely
+		
+		self.color = color
 		
 		self.set_up_handlers()
 		
@@ -165,7 +169,14 @@ class Widget(InputHandler):
 		self.editing = False		# Change to true during an edit
 		
 		self.editable = editable
-	
+		
+	def do_colors(self):
+		"Returns True if the widget should try to paint in coloour."
+		if curses.has_colors() and not ThemeManager.DISABLE_ALL_COLORS:
+			return True
+		else:
+			return False
+		
 	def space_available(self):
 		"""The space available left on the screen, returned as rows, columns"""
 		y, x = self.parent.widget_useable_space(self.rely, self.relx)

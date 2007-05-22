@@ -21,6 +21,11 @@ class ThemeManager(object):
         if not curses.has_colors() or DISABLE_ALL_COLORS:
             return False
 
+        try:
+            if request=='DEFAULT':
+                request = caller.color
+        except:
+	        pass                
         # Locate the requested colour pair.  Default to default if not found.
         try:
             pair = self._defined_pairs[self._names[request]]
@@ -33,6 +38,8 @@ class ThemeManager(object):
         return color_attribute
     
     def setTheme(self, caller, request='DEFAULT'):
+        "This function is dangerous and should not be used"
+        raise Exception, "Don't use this function!"
         color_attribute = self.findPair(caller, request=request)
         
         # find the screen to operate on:
@@ -69,9 +76,10 @@ class ThemeManager(object):
             self.initalize_pair(cp[0], cp[1], cp[2])
     
     def initialize_names(self):
-        self._names['DEFAULT' ]  = 'BLACK_WHITE'
+        self._names['DEFAULT' ]  = 'RED_BLACK'
         self._names['NO_EDIT' ]  = 'BLUE_BLACK'
         self._names['STANDOUT']  = 'CYAN_BLACK'
+        self._names['LABEL']     = 'BLUE_BLACK'
     
     def initalize_pair(self, name, fg, bg):
         # Initialize a color_pair for the required colour and return the number. Raise an exception if this is not possible.
