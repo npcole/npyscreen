@@ -2,6 +2,10 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+
+2.0pre21
+	Colour system fully added and operational. Approaching release status.
+
 2.0pre20
 	Date class fixed so that it is no longer possible to crash the library by selecting an invalid date.
 	Minor bug that had stopped the new root menu system working fixed.
