@@ -10,6 +10,14 @@ import ThemeManager
 
 APPLICATION_THEME_MANAGER = None
 
+def setTheme(theme):
+	global APPLICATION_THEME_MANAGER
+	APPLICATION_THEME_MANAGER = theme()
+
+def getTheme():
+	return APPLICATION_THEME_MANAGER
+
+
 class Form(screen_area.ScreenArea, widget.InputHandler):
 	OK_BUTTON_BR_OFFSET = (2,6)
 	OKBUTTON_TYPE = button.MiniButton

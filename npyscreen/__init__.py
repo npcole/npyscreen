@@ -3,10 +3,11 @@
 import curses.wrapper as wrapper
 
 import ThemeManager
+import Themes
 
 from NPSApp import NPSApp
 from NPSAppManaged import NPSAppManaged
-from Form import Form, TitleForm, TitleFooterForm, SplitForm
+from Form import Form, TitleForm, TitleFooterForm, SplitForm, setTheme
 from ActionForm import ActionForm
 from FormWithMenus import FormWithMenus, ActionFormWithMenus
 

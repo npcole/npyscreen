@@ -10,6 +10,14 @@ DISABLE_ALL_COLORS    = False
 
 
 class ThemeManager(object):
+    default_colors = {
+        'DEFAULT'     : 'WHITE_BLACK',
+        'FORMDEFAULT' : 'WHITE_BLACK',
+        'NO_EDIT'     : 'BLUE_BLACK',
+        'STANDOUT'    : 'CYAN_BLACK',
+        'LABEL'       : 'GREEN_BLACK',
+        'CONTROL'     : 'YELLOW_BLACK',
+    }
     def __init__(self):
         self._max_pairs = curses.COLOR_PAIRS - 1
         self._defined_pairs = {}
@@ -76,12 +84,7 @@ class ThemeManager(object):
             self.initalize_pair(cp[0], cp[1], cp[2])
     
     def initialize_names(self):
-        self._names['DEFAULT' ]  = 'RED_BLACK'
-        self._names['FORMDEFAULT'] = 'YELLOW_BLACK'
-        self._names['NO_EDIT' ]  = 'BLUE_BLACK'
-        self._names['STANDOUT']  = 'CYAN_BLACK'
-        self._names['LABEL']     = 'BLUE_BLACK'
-        self._names['CONTROL']   = 'GREEN_BLACK'
+           self._names.update(self.__class__.default_colors)
     
     def initalize_pair(self, name, fg, bg):
         # Initialize a color_pair for the required colour and return the number. Raise an exception if this is not possible.
