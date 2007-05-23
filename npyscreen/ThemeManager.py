@@ -8,6 +8,13 @@ import Form
 
 DISABLE_ALL_COLORS    = False
 
+def disableColor():
+	global DISABLE_ALL_COLORS
+	DISABLE_ALL_COLORS = True
+
+def enableColor():
+	global DISABLE_ALL_COLORS
+	DISABLE_ALL_COLORS = False
 
 class ThemeManager(object):
     default_colors = {

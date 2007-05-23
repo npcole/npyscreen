@@ -2,9 +2,8 @@
 
 import curses.wrapper as wrapper
 
-import ThemeManager
+from ThemeManager import ThemeManager, disableColor, enableColor
 import Themes
-
 from NPSApp import NPSApp
 from NPSAppManaged import NPSAppManaged
 from Form import Form, TitleForm, TitleFooterForm, SplitForm, setTheme
