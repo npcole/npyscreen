@@ -23,6 +23,7 @@ class ThemeManager(object):
         'NO_EDIT'     : 'BLUE_BLACK',
         'STANDOUT'    : 'CYAN_BLACK',
         'LABEL'       : 'GREEN_BLACK',
+        'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'YELLOW_BLACK',
     }
     def __init__(self):

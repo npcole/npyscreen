@@ -95,8 +95,16 @@ class Textfield(widget.Widget):
 		string_to_print = self.safe_string(self.value)
 		if self.value == None: return
 		if self.do_colors():
-			self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
-											self.parent.theme_manager.findPair(self))
+			if self.show_bold:
+				if self.color == 'DEFAULT':
+					bcol = 'BOLD'
+				else:
+					bcol = self.color
+				self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
+												self.parent.theme_manager.findPair(self, bcol) | curses.A_BOLD)
+			else:
+				self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
+												self.parent.theme_manager.findPair(self))
 		else:
 		    self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])
 		    

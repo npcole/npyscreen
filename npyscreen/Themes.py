@@ -7,6 +7,7 @@ class DefaultTheme(ThemeManager.ThemeManager):
         'NO_EDIT'     : 'BLUE_BLACK',
         'STANDOUT'    : 'CYAN_BLACK',
         'LABEL'       : 'BLUE_BLACK',
+        'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'GREEN_BLACK',
     }
 
@@ -17,5 +18,6 @@ class ColorfulTheme(ThemeManager.ThemeManager):
         'NO_EDIT'     : 'BLUE_BLACK',
         'STANDOUT'    : 'CYAN_BLACK',
         'LABEL'       : 'BLUE_BLACK',
+        'LABELBOLD'   : 'YELLOW_BLACK',
         'CONTROL'     : 'GREEN_BLACK',
     }

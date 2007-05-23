@@ -73,8 +73,12 @@ class TitleText(widget.Widget):
 	def update(self, clear = True):
 		if clear: self.clear()
 		if self.hidden: return False
-		if self.editing: self.label_widget.show_bold = True
-		else: self.label_widget.show_bold = False
+		if self.editing: 
+			self.label_widget.show_bold = True
+			self.label_widget.color = 'LABELBOLD'
+		else: 
+			self.label_widget.show_bold = False
+			self.label_widget.color = 'LABEL'
 		self.label_widget.update()
 		self.entry_widget.update()	
 	
