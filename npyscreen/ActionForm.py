@@ -74,10 +74,6 @@ class ActionForm(Form.Form):
 		del self.c_button
 		self.nextrely, self.nextrelx = tmp_rely, tmp_relx
 		self.display()
-		
-		
-		
-		
 		self.editing = False
 
 	def on_cancel(self):
