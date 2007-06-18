@@ -6,6 +6,7 @@ import curses.ascii
 import curses.wrapper
 import weakref
 import ThemeManager
+import GlobalOptions
 
 
 EXITED_DOWN  =  1
@@ -172,7 +173,7 @@ class Widget(InputHandler):
 		
 	def do_colors(self):
 		"Returns True if the widget should try to paint in coloour."
-		if curses.has_colors() and not ThemeManager.DISABLE_ALL_COLORS:
+		if curses.has_colors() and not GlobalOptions.DISABLE_ALL_COLORS:
 			return True
 		else:
 			return False

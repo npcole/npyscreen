@@ -4,17 +4,13 @@
 WIDGETS CURRENTLY TAKE ADVANTAGE OF THEME SUPPORT AT ALL."""
 import curses
 import widget
-import Form
-
-DISABLE_ALL_COLORS    = False
+import GlobalOptions
 
 def disableColor():
-	global DISABLE_ALL_COLORS
-	DISABLE_ALL_COLORS = True
+	GlobalOptions.DISABLE_ALL_COLORS = True
 
 def enableColor():
-	global DISABLE_ALL_COLORS
-	DISABLE_ALL_COLORS = False
+	GlobalOptions.DISABLE_ALL_COLORS = False
 
 class ThemeManager(object):
     default_colors = {
@@ -34,7 +30,7 @@ class ThemeManager(object):
         self.initialize_names()
         
     def findPair(self, caller, request='DEFAULT'):
-        if not curses.has_colors() or DISABLE_ALL_COLORS:
+        if not curses.has_colors() or GlobalOptions.DISABLE_ALL_COLORS:
             return False
 
         try:
@@ -52,25 +48,6 @@ class ThemeManager(object):
         color_attribute = curses.color_pair(pair[0])
         
         return color_attribute
-    
-    def setTheme(self, caller, request='DEFAULT'):
-        "This function is dangerous and should not be used"
-        raise Exception, "Don't use this function!"
-        color_attribute = self.findPair(caller, request=request)
-        
-        # find the screen to operate on:
-        if isinstance(caller, widget.Widget):
-            pad = caller.parent.curses_pad
-        elif isinstance(caller, Form.Form):
-            pad = caller.curses_pad
-        
-        # Set the attribute
-        if isinstance(caller, widget.Widget):
-            pad.attron(color_attribute)
-        elif isinstance(caller, Form.Form):
-            pad.bkgdset(' ', color_attribute)
-            pad.attron(color_attribute)
-            
                 
     def setDefault(self, caller):
         return False

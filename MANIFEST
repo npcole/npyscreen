@@ -6,12 +6,13 @@ npyscreen/ActionForm.py
 npyscreen/Form.py
 npyscreen/FormWithMenus.py
 npyscreen/Menu.py
-npyscreen/MenuScreen.py
 npyscreen/NMenuDisplay.py
 npyscreen/NPSApp.py
 npyscreen/NPSAppManaged.py
 npyscreen/NewMenu.py
 npyscreen/Popup.py
+npyscreen/ThemeManager.py
+npyscreen/Themes.py
 npyscreen/__init__.py
 npyscreen/autocomplete.py
 npyscreen/button.py

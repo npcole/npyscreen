@@ -6,6 +6,7 @@ import curses.wrapper
 import weakref
 import pmfuncs
 #import Menu
+import GlobalOptions
 import ThemeManager
 
 APPLICATION_THEME_MANAGER = None
@@ -231,7 +232,7 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 
 	def display(self):
 		#APPLICATION_THEME_MANAGER.setTheme(self)
-		if curses.has_colors() and not ThemeManager.DISABLE_ALL_COLORS:
+		if curses.has_colors() and not GlobalOptions.DISABLE_ALL_COLORS:
 			color_attribute = self.theme_manager.findPair(self)
 			self.curses_pad.bkgdset(' ', color_attribute)
 			self.curses_pad.attron(color_attribute)

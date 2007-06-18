@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import npyscreen
-#npyscreen.ThemeManager.DISABLE_ALL_COLORS = True
 class TestApp(npyscreen.NPSApp):
 	def main(self):
 		# These lines create the form and populate it with widgets.
