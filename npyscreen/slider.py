@@ -33,6 +33,9 @@ class Slider(widget.Widget):
 	
 	def update(self, clear=True):
 		if clear: self.clear()
+		if self.hidden:
+			self.clear()
+			return False
 		length_of_display = self.width + 1
 		blocks_on_screen = length_of_display
 

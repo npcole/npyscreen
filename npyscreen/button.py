@@ -15,6 +15,10 @@ class MiniButton(checkbox.Checkbox):
 
 	def update(self, clear=True):
 		if clear: self.clear()
+		if self.hidden:
+			self.clear()
+			return False
+		
 		
 		if self.value and self.do_colors():
 			self.parent.curses_pad.addstr(self.rely, self.relx, '>', self.parent.theme_manager.findPair(self))

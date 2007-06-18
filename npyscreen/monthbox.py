@@ -136,7 +136,9 @@ class MonthBox(DateEntryBase):
 	
 	def update(self, clear=True):
 		if clear: self.clear()
-		
+		if self.hidden:
+			self.clear()
+			return False
 		if not self.value:
 			self.addstr(self.rely, self.relx, "No value set")
 		else:

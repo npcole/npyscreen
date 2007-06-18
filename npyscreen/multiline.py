@@ -60,6 +60,9 @@ Should accept one argument (the object to be represented), and return a string."
 		
 
 	def update(self, clear=True):
+		if self.hidden:
+			self.clear()
+			return False
 		# clear = None is a good value for this widget
 		display_length = len(self._my_widgets)
 

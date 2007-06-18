@@ -23,6 +23,9 @@ class Checkbox(Widget):
 
 	def update(self, clear=True):
 		if clear: self.clear()
+		if self.hidden:
+			self.clear()
+			return False
 		if self.hide: return True
 
 		self.label_area.value = self.name

@@ -5,6 +5,9 @@ class SelectOne(multiline.MultiLine):
 	_contained_widgets = checkbox.RoundCheckBox
 	
 	def update(self, clear=True):
+		if self.hidden:
+			self.clear()
+			return False
 		# Make sure that self.value is a list
 		if not hasattr(self.value, "append"):
 			if self.value is not None:
