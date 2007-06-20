@@ -14,7 +14,7 @@ class FormWithMenus(Form.Form, NMenuDisplay.HasMenus):
         self.initialize_menus()
     
     def display_menu_advert_at(self):
-        return self.lines-1, 2
+        return self.lines-1, 1
     
     def draw_form(self):
         super(FormWithMenus, self).draw_form()
@@ -22,11 +22,20 @@ class FormWithMenus(Form.Form, NMenuDisplay.HasMenus):
         y, x = self.display_menu_advert_at()
         self.curses_pad.addnstr(y, x, menu_advert, self.columns - x - 1)
 
-
+# The following class does not inherit from FormWithMenus and so some code is duplicated.  
+# The pig is getting to inherit edit() from ActionForm, but draw_form from FormWithMenus
 class ActionFormWithMenus(ActionForm.ActionForm, NMenuDisplay.HasMenus):
     def __init__(self, *args, **keywords):
-        super(FormWithMenus, self).__init__(*args, **keywords)
+        super(ActionFormWithMenus, self).__init__(*args, **keywords)
         self.initialize_menus()
+    def display_menu_advert_at(self):
+        return self.lines-1, 1
+
+    def draw_form(self):
+        super(ActionFormWithMenus, self).draw_form()
+        menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
+        y, x = self.display_menu_advert_at()
+        self.curses_pad.addnstr(y, x, menu_advert, self.columns - x - 1)
         
 class SplitFormWithMenus(FormWithMenus):
     """Just the same as the Title Form, but with a horizontal line"""

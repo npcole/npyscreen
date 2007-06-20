@@ -4,6 +4,7 @@ import NewMenu
 import Form
 import multiline
 import weakref
+import curses
 
 
 class MenuDisplay(object):
@@ -67,9 +68,12 @@ class MenuDisplay(object):
                 _fctn = _actionsToTake[_vlu][0]
                 _args = _actionsToTake[_vlu][1:]
             except IndexError:
-                _fctn = _actionsToTake[_vlu]
-                _args = []
-            
+                try:
+                    _fctn = _actionsToTake[_vlu]
+                    _args = []
+                except IndexError:
+                    # Menu must be empty.
+                    return False
             _return_value = _fctn(*_args)
         
         return _return_value
