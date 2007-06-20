@@ -4,19 +4,21 @@ Npyscreen
 
 "User interfaces without all that mucking around in hyperspace"
 
+.. contents::
 
 Overview
 ========
 
-Npyscreen is a python library that is designed to make the writing of curses-based user interfaces quick and easy.  It is designed to run using only the python standard library, and the only requirements are a working python (2.4 or above) installation and a working curses library.  Npyscreen will therefore work on almost all common platforms, and even in the Cygwin environment on Windows.
+Npyscreen is a python library that is designed to make the writing of curses-based user interfaces quick and easy.  
+
+It is designed to run using only the python standard library, and the only requirements are a working python (2.4 or above) installation and a working curses library.  Npyscreen will therefore work on almost all common platforms, and even in the Cygwin environment on Windows.
 
 
 
 Status of this Document
 =======================
 
-This document attempts to explain the key features of Npyscreen - enough to get you using it.  It is, however, a work in progress.
-
+This document explains the key features of Npyscreen - enough to get you using it.  It is, however, a work in progress.
 
 
 Objects Overview
@@ -145,6 +147,47 @@ Displaying and Editing Forms
 
 *.edit()*
     Allow the user to interactively edit the value of each widget.  You should not need to call this method if correctly using the *NPSAppManaged* class, but will need to use it otherwise.
+
+Form Classes
+============
+
+Form, Popup
+   The basic Form class.  When editing the form, the user can exit by selecting the OK button in the bottom right corner.
+   
+   By default, a Form will fill the Terminal.  Popup is simply a Form with a smaller default size.
+   
+ActionForm, ActionPopup
+   The ActionForm creates OK and Cancel buttons.  Selecting either exits the form.  The method *on_ok* or *on_cancel* is called when the Form exits.  Subclasses may therefore usefully override one or both of these methods, which by default do nothing.
+   
+TitleForm, TitleFooterForm, SplitForm
+   These are Form classes with slightly different layouts.
+   
+   The SplitForm has a horizontal line across the middle.  The method *get_half_way()* will tell you where it has been drawn.
+   
+FormWithMenus, ActionFormWithMenus
+   These forms are similar to the Form and ActionForm classes, but provide the additional functionality of Popup menus.
+   
+   To add a new menu to the Form use the method *new_menu(name='')*.  This will create the menu and return a proxy to it.  For more details see the section on Menus below.
+   
+Menus
+=====
+
+Some Form classes support the use of popup menus.  Indeed, menus could in theory be used as widgets on their own.  Popup menus (inspired, in fact, by the menu system in RiscOS) were selected instead of drop-down menus as being more suitable for a keyboard environment, making better use of available screen space and being easier to deploy on terminals of varied sizes.
+
+Menus are usually created by calling a (supporting) Form's *new_menu* method.  Thereafter, the following methods are useful:
+
+*addItem(text='', onSelect=function)*
+   *text* should be the string to be menu.  onSelect should be a function to be called if that item is selected by the user.  This is one of the few easy opportunities in npyscreen to create circular references - you may wish to pass in a proxy to a function instead.  I've tried to guard you against circular references as much as possible - but this is just one of those times I can't second-guess your application structure.
+   
+*addNewSubmenu(...)*
+   Create a new submenu (returning a proxy to it).  This is the preferred way of creating submenus. 
+   
+*addSubmenu(submenu)*
+    Add an existing Menu to the Menu as a submenu.  All things considered, addNewSubmenu is usually a better bet.
+    
+(Internally, this menu system is referred to as the "New" menu system - it replaces a drop-down menu system with which I was never very happy.)
+
+
 
 Widgets: Basic Features
 =======================
@@ -328,44 +371,7 @@ FormControlCheckbox
       
 
 
-Form Classes
-============
 
-Form, Popup
-   The basic Form class.  When editing the form, the user can exit by selecting the OK button in the bottom right corner.
-   
-   By default, a Form will fill the Terminal.  Popup is simply a Form with a smaller default size.
-   
-ActionForm, ActionPopup
-   The ActionForm creates OK and Cancel buttons.  Selecting either exits the form.  The method *on_ok* or *on_cancel* is called when the Form exits.  Subclasses may therefore usefully override one or both of these methods, which by default do nothing.
-   
-TitleForm, TitleFooterForm, SplitForm
-   These are Form classes with slightly different layouts.
-   
-   The SplitForm has a horizontal line across the middle.  The method *get_half_way()* will tell you where it has been drawn.
-   
-FormWithMenus, ActionFormWithMenus
-   These forms are similar to the Form and ActionForm classes, but provide the additional functionality of Popup menus.
-   
-   To add a new menu to the Form use the method *new_menu(name='')*.  This will create the menu and return a proxy to it.  For more details see the section on Menus below.
-   
-Menus
-=====
-
-Some Form classes support the use of popup menus.  Indeed, menus could in theory be used as widgets on their own.  Popup menus (inspired, in fact, by the menu system in RiscOS) were selected instead of drop-down menus as being more suitable for a keyboard environment, making better use of available screen space and being easier to deploy on terminals of varied sizes.
-
-Menus are usually created by calling a (supporting) Form's *new_menu* method.  Thereafter, the following methods are useful:
-
-*addItem(text='', onSelect=function)*
-   *text* should be the string to be menu.  onSelect should be a function to be called if that item is selected by the user.  This is one of the few easy opportunities in npyscreen to create circular references - you may wish to pass in a proxy to a function instead.  I've tried to guard you against circular references as much as possible - but this is just one of those times I can't second-guess your application structure.
-   
-*addNewSubmenu(...)*
-   Create a new submenu (returning a proxy to it).  This is the preferred way of creating submenus. 
-   
-*addSubmenu(submenu)*
-    Add an existing Menu to the Menu as a submenu.  All things considered, addNewSubmenu is usually a better bet.
-    
-(Internally, this menu system is referred to as the "New" menu system - it replaces a drop-down menu system with which I was never very happy.)
     
 All about Key Bindings
 ======================
@@ -375,13 +381,13 @@ Many objects can take actions based on user key presses.  All such objects inher
 *handlers*
    Might look something like this::
    
-        {curses.ascii.NL:  self.h_exit_down,
-         curses.ascii.CR:  self.h_exit_down,
-         curses.ascii.TAB: self.h_exit_down,
-         curses.KEY_DOWN:  self.h_exit_down,
-         curses.KEY_UP:    self.h_exit_up,
-         curses.KEY_LEFT:  self.h_exit_left,
-         curses.KEY_RIGHT: self.h_exit_right,
+        {curses.ascii.NL:   self.h_exit_down,
+         curses.ascii.CR:   self.h_exit_down,
+         curses.ascii.TAB:  self.h_exit_down,
+         curses.KEY_DOWN:   self.h_exit_down,
+         curses.KEY_UP:     self.h_exit_up,
+         curses.KEY_LEFT:   self.h_exit_left,
+         curses.KEY_RIGHT:  self.h_exit_right,
          "^P":		        self.h_exit_up,
          "^N":		        self.h_exit_down,
          curses.ascii.ESC:	self.h_exit_escape,
@@ -427,6 +433,7 @@ A basic theme looks like this::
         }
         
 The colours - such as WHITE_BLACK ("white on black") - are defined in the *initialize_pairs* method of the ThemeManager class.  The following are defined by default::
+    
     ('BLACK_WHITE',      curses.COLOR_BLACK,      curses.COLOR_WHITE),
      ('BLUE_BLACK',       curses.COLOR_BLUE,       curses.COLOR_BLACK),
      ('CYAN_BLACK',       curses.COLOR_CYAN,       curses.COLOR_BLACK),
@@ -436,9 +443,9 @@ The colours - such as WHITE_BLACK ("white on black") - are defined in the *initi
      ('YELLOW_BLACK',     curses.COLOR_YELLOW,     curses.COLOR_BLACK),
     )
 
-(WHITE_BLACK) is always defined.    
+('WHITE_BLACK' is always defined.)    
 
-If you find you need more, feel free to subclass ThemeManager and change class attribute _colours_to_define.   You are perfectly free to use colours other than the standard curses ones, but since not all terminals support doing so, npyscreen does not.
+If you find you need more, feel free to subclass ThemeManager and change class attribute *_colours_to_define*.   You are perfectly free to use colours other than the standard curses ones, but since not all terminals support doing so, npyscreen does not.
 
 If you want to disable all colour in your application, npyscreen defines two convenient functions: *disableColor()* and *enableColor()*.
 
