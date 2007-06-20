@@ -19,8 +19,10 @@ class NPSAppManaged(NPSApp.NPSApp):
     2. Forms that are managed by this class can access a proxy to the parent application through their ".parentApp" attribute, which is
        created by this class.
        
-    3. Optionally, Forms managed by this class may be given an .activate method, which will be called instead of their .edit loop
-    
+    3. a Optionally, Forms managed by this class may be given an .activate method, which will be called instead of their .edit loop
+       b If not given an .activate method, any .afterEditing method which a form possesses will be called after .edit() has exited.  
+         3b is the preferred method to change NEXT_ACTIVE_FORM
+         
     4. The method onInMainLoop is called after each screen has exited. This can be overridden. 
     
     5. This method should be able to see which screen was last active using the self._LAST_NEXT_ACTIVE_FORM attribute, which is only set
@@ -29,6 +31,7 @@ class NPSAppManaged(NPSApp.NPSApp):
     6. Unless you override the attribute STARTING_FORM, the first form to be called should be named 'MAIN'
     
     7. Do override the onStart and onCleanExit functions if you wish.
+    
     """
 
     STARTING_FORM = "MAIN"
@@ -39,14 +42,21 @@ class NPSAppManaged(NPSApp.NPSApp):
         self._LAST_NEXT_ACTIVE_FORM = None
         self._Forms = {}
     
-    def addForm(self, name, fm):
-        """name should be a string which should uniquely identify the form.  fm should be a Form."""
-        fm.parentApp = weakref.proxy(self)
-        self._Forms[name] = fm
+    def createForm(self, id, FormClass, *args, **keywords):
+        """Create a form of the given class. id should be a string which will uniquely identify the form. *args will be passed to the Form constructor.
+        Forms created in this way are handled entirely by the NPSAppManaged class."""
+        fm = FormClass(*args, **keywords)
+        self.addForm(id, fm)
+        return weakref.proxy(fm)
         
-    def removeForm(self, name):
-        del self._Forms[name].parentApp
-        del self._Forms[name]
+    def addForm(self, id, fm):
+        """id should be a string which should uniquely identify the form.  fm should be a Form."""
+        fm.parentApp = weakref.proxy(self)
+        self._Forms[id] = fm
+        
+    def removeForm(self, id):
+        del self._Forms[id].parentApp
+        del self._Forms[id]
 
     def main(self):
         """Call this function to start your application.  You should not override this function, but override the nInMainLoop, onStart and
@@ -73,6 +83,8 @@ class NPSAppManaged(NPSApp.NPSApp):
                 self._Forms[self.NEXT_ACTIVE_FORM].activate()
             else:
                 self._Forms[self.NEXT_ACTIVE_FORM].edit()
+                if hasattr(self._Forms[self.NEXT_ACTIVE_FORM], "afterEditing"):
+                    self._Forms[self.NEXT_ACTIVE_FORM].afterEditing()
             
             self.onInMainLoop()
         self.onCleanExit()
@@ -86,7 +98,21 @@ class NPSAppManaged(NPSApp.NPSApp):
                 
     def onCleanExit(self):
         """Override this method to perform any cleanup when application is exiting without error."""
-        
+
+
+def testmanaged(*args):
+     import ActionForm
+     import textbox
+
+     class TestForm(ActionForm.ActionForm):
+         def afterEditing(self):
+             self.parentApp.NEXT_ACTIVE_FORM = None
+
+     T = NPSAppManaged()
+     a = T.createForm('MAIN', TestForm, name='Test')
+     a.add(textbox.Textfield, name='Test')
+     T.main()
+     
 def main(*args):
     import ActionForm
     import textbox
@@ -97,7 +123,7 @@ def main(*args):
             self.parentApp.NEXT_ACTIVE_FORM = None
     
     T = NPSAppManaged()
-    a = TestForm()
+    a = T.createForm(TestForm, name='Test')
     a.add(textbox.Textfield, name='Test')
     T.addForm('MAIN', a)
     T.main()
@@ -105,5 +131,5 @@ def main(*args):
 
 if __name__ == '__main__':
     import curses
-    curses.wrapper(main)
+    curses.wrapper(testmanaged)
 

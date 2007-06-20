@@ -13,6 +13,16 @@ def enableColor():
 	GlobalOptions.DISABLE_ALL_COLORS = False
 
 class ThemeManager(object):
+    _colors_to_define = ( 
+     ('BLACK_WHITE',      curses.COLOR_BLACK,      curses.COLOR_WHITE),
+     ('BLUE_BLACK',       curses.COLOR_BLUE,       curses.COLOR_BLACK),
+     ('CYAN_BLACK',       curses.COLOR_CYAN,       curses.COLOR_BLACK),
+     ('GREEN_BLACK',      curses.COLOR_GREEN,      curses.COLOR_BLACK),
+     ('MAGENTA_BLACK',    curses.COLOR_MAGENTA,    curses.COLOR_BLACK),
+     ('RED_BLACK',        curses.COLOR_RED,        curses.COLOR_BLACK),
+     ('YELLOW_BLACK',     curses.COLOR_YELLOW,     curses.COLOR_BLACK),
+    )
+    
     default_colors = {
         'DEFAULT'     : 'WHITE_BLACK',
         'FORMDEFAULT' : 'WHITE_BLACK',
@@ -55,17 +65,7 @@ class ThemeManager(object):
     def initialize_pairs(self):
         # White on Black is fixed as color_pair 0
         self._defined_pairs['WHITE_BLACK'] = (0, curses.COLOR_WHITE, curses.COLOR_BLACK)
-        
-        _colors_to_define = ( 
-                    ('BLACK_WHITE',      curses.COLOR_BLACK,      curses.COLOR_WHITE),
-                    ('BLUE_BLACK',       curses.COLOR_BLUE,       curses.COLOR_BLACK),
-                    ('CYAN_BLACK',       curses.COLOR_CYAN,       curses.COLOR_BLACK),
-                    ('GREEN_BLACK',      curses.COLOR_GREEN,      curses.COLOR_BLACK),
-                    ('MAGENTA_BLACK',    curses.COLOR_MAGENTA,    curses.COLOR_BLACK),
-                    ('RED_BLACK',        curses.COLOR_RED,        curses.COLOR_BLACK),
-                    ('YELLOW_BLACK',     curses.COLOR_YELLOW,     curses.COLOR_BLACK),
-                )
-        for cp in _colors_to_define:
+        for cp in self.__class__._colors_to_define:
             self.initalize_pair(cp[0], cp[1], cp[2])
     
     def initialize_names(self):

@@ -14,11 +14,13 @@ class TitleText(widget.Widget):
 		value = None,
 		use_two_lines = None,
 		hidden=False,
+		labelColor='LABEL',
 		**keywords):
 		
 		self.hidden = hidden
 		self.text_field_begin_at = begin_entry_at
 		self.field_width_request = field_width
+		self.labelColor = labelColor
 		super(TitleText, self).__init__(screen, **keywords)
 	
 		if self.name is None: self.name = 'NoName'
@@ -28,7 +30,7 @@ class TitleText(widget.Widget):
 			else: self.use_two_lines = False
 		else: self.use_two_lines = use_two_lines
 
-		self.label_widget = textbox.Textfield(screen, relx=self.relx, rely=self.rely, width=len(self.name)+1, value=self.name, color='LABEL')
+		self.label_widget = textbox.Textfield(screen, relx=self.relx, rely=self.rely, width=len(self.name)+1, value=self.name, color=self.labelColor)
 		if self.label_widget.on_last_line and self.use_two_lines:
 			# we're in trouble here.
 			if len(self.name) > 12: ab_label = 12
@@ -78,7 +80,7 @@ class TitleText(widget.Widget):
 			self.label_widget.color = 'LABELBOLD'
 		else: 
 			self.label_widget.show_bold = False
-			self.label_widget.color = 'LABEL'
+			self.label_widget.color = self.labelColor
 		self.label_widget.update()
 		self.entry_widget.update()	
 	

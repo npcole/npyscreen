@@ -24,6 +24,7 @@ from multiselect import MultiSelect, TitleMultiSelect, MultiSelectFixed, TitleMu
 from editmultiline import MultiLineEdit
 from combobox import ComboBox, TitleCombo
 from checkbox import Checkbox, RoundCheckBox
+from formControlCheckbox import FormControlCheckbox
 from autocomplete import TitleFilename, Filename, Autocomplete
 from Popup import Popup, MessagePopup, ActionPopup
 from Menu import Menu

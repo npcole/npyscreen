@@ -1,7 +1,7 @@
 import checkbox
 import weakref
 
-class formControlCheckbox(checkbox.Checkbox):
+class FormControlCheckbox(checkbox.Checkbox):
 	def __init__(self, *args, **keywords):
 		super(formControlCheckbox, self).__init__(*args, **keywords)
 		self._visibleWhenSelected    = []
@@ -56,7 +56,7 @@ class formControlCheckbox(checkbox.Checkbox):
 if __name__ == "__main__":
 	def testform(*args):
 		F = Form.Form()
-		wtest = F.add(formControlCheckbox, name="Test Me")
+		wtest = F.add(FormControlCheckbox, name="Test Me")
 		w2    = F.add(checkbox.Checkbox, name="Just a Test")
 		w3    = F.add(checkbox.Checkbox, name="Another Test")
 		wtest.addVisibleWhenSelected(w2)
