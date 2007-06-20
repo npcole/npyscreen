@@ -85,11 +85,12 @@ class MenuDisplayScreen(Form.Form):
         self._menuListWidget = self.add(multiline.MultiLine, return_exit=True)
 
 class HasMenus(object):
+    MENU_KEY = "^X"
     def initialize_menus(self):
         self._NMDisplay = MenuDisplay()
         self._NMenuList = []
         self._MainMenu  = NewMenu.NewMenu
-        self.add_handlers({'^X': self.root_menu})
+        self.add_handlers({self.__class__.MENU_KEY: self.root_menu})
         
         
     def new_menu(self, name=None):

@@ -184,6 +184,7 @@ Menus are usually created by calling a (supporting) Form's *new_menu* method.  T
    
 *addSubmenu(submenu)*
     Add an existing Menu to the Menu as a submenu.  All things considered, addNewSubmenu is usually a better bet.
+
     
 (Internally, this menu system is referred to as the "New" menu system - it replaces a drop-down menu system with which I was never very happy.)
 
@@ -445,7 +446,7 @@ The colours - such as WHITE_BLACK ("white on black") - are defined in the *initi
 
 ('WHITE_BLACK' is always defined.)    
 
-If you find you need more, feel free to subclass ThemeManager and change class attribute *_colours_to_define*.   You are perfectly free to use colours other than the standard curses ones, but since not all terminals support doing so, npyscreen does not.
+If you find you need more, feel free to subclass ThemeManager and change class attribute *_colours_to_define*.   You are perfectly free to use colours other than the standard curses ones, but since not all terminals support doing so, npyscreen does not by default.
 
 If you want to disable all colour in your application, npyscreen defines two convenient functions: *disableColor()* and *enableColor()*.
 

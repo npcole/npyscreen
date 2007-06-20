@@ -5,6 +5,7 @@ setup.py
 npyscreen/ActionForm.py
 npyscreen/Form.py
 npyscreen/FormWithMenus.py
+npyscreen/GlobalOptions.py
 npyscreen/Menu.py
 npyscreen/NMenuDisplay.py
 npyscreen/NPSApp.py
@@ -20,6 +21,7 @@ npyscreen/checkbox.py
 npyscreen/combobox.py
 npyscreen/datecombo.py
 npyscreen/editmultiline.py
+npyscreen/formControlCheckbox.py
 npyscreen/monthbox.py
 npyscreen/multiline.py
 npyscreen/multiselect.py
