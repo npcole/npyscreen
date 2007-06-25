@@ -43,6 +43,8 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 		self.help = help
 		
 		self.color = color
+		
+		self.keypress_timeout = None
 
 		self.set_up_handlers()
 		self.set_up_exit_condition_handlers()

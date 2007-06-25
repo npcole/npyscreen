@@ -259,16 +259,24 @@ big a given widget is ... use .height and .width instead"""
 		self.update()
 
 	def try_adjust_widgets(self):
-		try:
+		if hasattr(self.parent, "adjust_widgets"):
 			self.parent.adjust_widgets()
-		except AttributeError:
-			pass
+	
+	def try_while_waiting(self):
+		if hasattr(self.parent, "while_waiting"):
+			self.parent.while_waiting()
 
 	def get_and_use_key_press(self):
 			curses.meta(1)
 			self.parent.curses_pad.keypad(1)
-			ch = self.parent.curses_pad.getch()
-			
+			if self.parent.keypress_timeout:
+				curses.halfdelay(self.parent.keypress_timeout)
+				ch = self.parent.curses_pad.getch()
+				if ch == -1:
+					return self.try_while_waiting()
+			else:
+			    self.parent.curses_pad.timeout(-1)
+			    ch = self.parent.curses_pad.getch()
 			# handle escape-prefixed rubbish.
 			if ch == curses.ascii.ESC:
 				#self.parent.curses_pad.timeout(1)

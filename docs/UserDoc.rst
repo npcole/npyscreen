@@ -52,7 +52,7 @@ Letting NPSAppManaged manage your Forms
 There are two methods for registering a Form object with an NPSAppManaged instance:
 
 .addForm(*id*, *fm*)
-	*id* should be a string that uniquely identifies the form.  *fm* should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - contrast with the .createForm version.
+	*id* should be a string that uniquely identifies the form.  *fm* should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - in contrast to the .createForm version.
 	
 .createForm(*id*, *FormClass* ...)
 	This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  *id* should be a string that uniquely identifies the Form.  *FormClass* should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.
@@ -120,7 +120,9 @@ The Following arguments can be passed to a Form's constructor:
 *lines=0, columns=0, minimum_lines=24, minimum_columns=80*
     You can adjust the size of the Form, either providing an absolute size (with *lines=* and *columns=*) or a minimum size (*minimum_lines=* and *minimum_columns=*).  The default miniums (24x80) provide the standard size for terminal.  If you plan your Forms to fit within that size, they should be viewable on almost all systems without the need to scroll the Form.  Note that you can use the absolute sizing in one direction and the minimum in the other, should you wish.
     
-Forms cannot be resized once created.
+Forms cannot be resized once created.  A system to dynamically re-arrange widgets as a terminal is resized is in a experimental state but is not part of the current distribution.
+
+The standard constructor will call the method *.create()*, which you should override to create the Form widgets.  See below.
 
 Placing widgets on a Form
 *************************
@@ -150,6 +152,13 @@ Other Standard Form Features
     Be very careful with this method.  It is called for every keypress while the Form is being edited, and there is no guarantee that it might not be called even more frequently.  By default it does nothing, and is intended for you to override.  Since it gets called so frequently, thoughtlessness here could slow down your whole application.  
 
    For example, be very conservative with redraws of the whole Form (a slow operation) - make sure you put in code to test whether a redraw is necessary, and try to only redraw widgets that really need to be changed, rather than redrawing the whole screen.
+   
+*while_waiting(), keypress_timeout*
+   If you wish to perform actions while waiting for the user to press a key, you may define a *while_waiting* method.  You should also set the attribute *keypress_timeout*, which is a value in ms.  Whenever waiting for input, if more than the time given in *keypress_timeout* passes, while_waiting will be called.  Note that npyscreen takes no steps to ensure that *while_waiting()* is called at exactly regular intervals, and in fact it may never be called at all if the user continually presses keys.
+   
+   A *keypress_timeout* value of 10 ensures that the *while_waiting* method is called about every second.
+   
+   See the included example TIMEOUT-EXAMPLE.py for a fully worked example.
 
 Displaying and Editing Forms
 ****************************
