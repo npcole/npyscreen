@@ -39,7 +39,6 @@ class ActionForm(Form.Form):
 		self.ok_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=ok_button_text, rely=my, relx=mx)
 		ok_button_postion = len(self._widgets__)-1
 		self.ok_button.update()
-		
 
 		self.display()
 

@@ -187,11 +187,12 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 			if self.editw > len(self._widgets__)-1: self.editw = len(self._widgets__)-1
 			if self.ok_button.value:
 				self.editing = False
-				self.ok_button.destroy()
-				del self._widgets__[ok_button_postion]
-				del self.ok_button
-				self.nextrely, self.nextrelx = tmp_rely, tmp_relx
-				self.display()
+		
+		self.ok_button.destroy()
+		del self._widgets__[ok_button_postion]
+		del self.ok_button
+		self.nextrely, self.nextrelx = tmp_rely, tmp_relx
+		self.display()
 
 		self.editing = False
 			
