@@ -10,7 +10,7 @@ import npyscreen
 
 class MyTestApp(npyscreen.NPSAppManaged):
     def onStart(self):
-        self.addForm("MAIN", MainForm())
+        self.registerForm("MAIN", MainForm())
     
 class MainForm(npyscreen.Form):
     def create(self):

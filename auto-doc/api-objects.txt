@@ -454,7 +454,7 @@ npyscreen.NPSAppManaged.NPSAppManaged.removeForm	npyscreen.NPSAppManaged.NPSAppM
 npyscreen.NPSApp.NPSApp.run	npyscreen.NPSApp.NPSApp-class.html#run
 npyscreen.NPSAppManaged.NPSAppManaged.onCleanExit	npyscreen.NPSAppManaged.NPSAppManaged-class.html#onCleanExit
 npyscreen.NPSApp.NPSApp._run_called	npyscreen.NPSApp.NPSApp-class.html#_run_called
-npyscreen.NPSAppManaged.NPSAppManaged.addForm	npyscreen.NPSAppManaged.NPSAppManaged-class.html#addForm
+npyscreen.NPSAppManaged.NPSAppManaged.registerForm	npyscreen.NPSAppManaged.NPSAppManaged-class.html#registerForm
 npyscreen.NPSAppManaged.NPSAppManaged.onStart	npyscreen.NPSAppManaged.NPSAppManaged-class.html#onStart
 npyscreen.NPSAppManaged.NPSAppManaged.onInMainLoop	npyscreen.NPSAppManaged.NPSAppManaged-class.html#onInMainLoop
 npyscreen.NPSAppManaged.NPSAppManaged.main	npyscreen.NPSAppManaged.NPSAppManaged-class.html#main

@@ -371,9 +371,9 @@ ul.auto-toc {
 <h4><a class="toc-backref" href="#id7">Letting NPSAppManaged manage your Forms</a></h4>
 <p>There are two methods for registering a Form object with an NPSAppManaged instance:</p>
 <dl class="docutils">
-<dt>.addForm(<em>id</em>, <em>fm</em>)</dt>
-<dd><em>id</em> should be a string that uniquely identifies the form.  <em>fm</em> should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - contrast with the .createForm version.</dd>
-<dt>.createForm(<em>id</em>, <em>FormClass</em> ...)</dt>
+<dt>.registerForm(<em>id</em>, <em>fm</em>)</dt>
+<dd><em>id</em> should be a string that uniquely identifies the form.  <em>fm</em> should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - contrast with the .addForm version.</dd>
+<dt>.addForm(<em>id</em>, <em>FormClass</em> ...)</dt>
 <dd>This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  <em>id</em> should be a string that uniquely identifies the Form.  <em>FormClass</em> should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.</dd>
 </dl>
 <p>All Forms registered with an NPSAppManaged instance can access the controlling application as <em>self.parentApp</em>.</p>

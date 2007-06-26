@@ -51,10 +51,10 @@ Letting NPSAppManaged manage your Forms
 
 There are two methods for registering a Form object with an NPSAppManaged instance:
 
-.addForm(*id*, *fm*)
-	*id* should be a string that uniquely identifies the form.  *fm* should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - in contrast to the .createForm version.
+.registerForm(*id*, *fm*)
+	*id* should be a string that uniquely identifies the form.  *fm* should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - in contrast to the .addForm version.
 	
-.createForm(*id*, *FormClass* ...)
+.addForm(*id*, *FormClass* ...)
 	This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  *id* should be a string that uniquely identifies the Form.  *FormClass* should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.
 
 All Forms registered with an NPSAppManaged instance can access the controlling application as *self.parentApp*.
@@ -242,6 +242,9 @@ Constructor arguments
 
 *color='DEFAULT'*, labelColor='LABEL'
    Provides a hint to the colour-management system as to how the widget should be displayed.  More details elsewhere.
+   
+*scroll_exit=False*, *slow_scroll=False*, *exit_left*, *exit_right*
+    These affect the way a user interacts with multi-line widgets.  *scroll_exit* decides whether or not the user can move from the first or last item to the previous or next widget.  *slow_scroll* means that widgets that scroll will do so one line at at time, not by the screen-full. The options *exit_left|right* dictate whether the user can exit a widget using the left and right arrow keys.
 
 Using and Displaying Widgets
 ****************************
@@ -398,6 +401,9 @@ FormControlCheckbox
 All about Key Bindings
 ======================
 
+What's going on
+***************
+
 Many objects can take actions based on user key presses.  All such objects inherit from the internal class InputHandler.  That class defines a dictionary called *handlers* and a list called *complex_handlers*.  Both of these are set up by a method called set_up_handlers called during the Constructor.
 
 *handlers*
@@ -426,6 +432,17 @@ Many objects can take actions based on user key presses.  All such objects inher
     Complex handlers are used, for example, to ensure that only printable characters are entered into a textbox.  Since they will be run frequently, there should be as few of them as possible, and they should execute as quickly as possible.
     
 When a user is editing a widget and a key is pressed, *handlers* and then *complex_handlers* are used to try to find a function to execute.  If the widget doesn't define an action to be taken, the *handlers* and *complex_handlers* of the parent Form are then checked.
+
+Adding your own handlers
+************************
+
+Objects that can handle user input define the following methods to assist with adding your own key bindings:
+
+*add_handlers(new_handlers)*
+    *new_handlers* should be a dictionary.
+
+*add_complex_handlers(new_handlers)*
+    *new_handlers* should be a list of lists.  Each sublist must be a pair *(test_function, callback)*
 
 Support for Colour
 ==================
@@ -467,7 +484,7 @@ The colours - such as WHITE_BLACK ("white on black") - are defined in the *initi
 
 ('WHITE_BLACK' is always defined.)    
 
-If you find you need more, feel free to subclass ThemeManager and change class attribute *_colours_to_define*.   You are perfectly free to use colours other than the standard curses ones, but since not all terminals support doing so, npyscreen does not by default.
+If you find you need more, subclass ThemeManager and change class attribute *_colours_to_define*.   You are able to use colours other than the standard curses ones, but since not all terminals support doing so, npyscreen does not by default.
 
 If you want to disable all colour in your application, npyscreen defines two convenient functions: *disableColor()* and *enableColor()*.
 
