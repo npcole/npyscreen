@@ -11,7 +11,7 @@ class NPSAppManaged(NPSApp.NPSApp):
     """This class is intended to make it easier to program applications with many screens:
     
     1. The programmer should not now select which 'Form' to display himself.  Instead, he should set the NEXT_ACTIVE_FORM class variable.  
-       See the addForm method for details.
+       See the registerForm method for details.
        
        Doing this will avoid accidentally exceeding the maximum recursion depth.  Forms themselves should be placed under the management
        of the class using the 'addFrom' method.
@@ -42,14 +42,14 @@ class NPSAppManaged(NPSApp.NPSApp):
         self._LAST_NEXT_ACTIVE_FORM = None
         self._Forms = {}
     
-    def createForm(self, id, FormClass, *args, **keywords):
+    def addForm(self, id, FormClass, *args, **keywords):
         """Create a form of the given class. id should be a string which will uniquely identify the form. *args will be passed to the Form constructor.
         Forms created in this way are handled entirely by the NPSAppManaged class."""
         fm = FormClass(*args, **keywords)
-        self.addForm(id, fm)
+        self.registerForm(id, fm)
         return weakref.proxy(fm)
         
-    def addForm(self, id, fm):
+    def registerForm(self, id, fm):
         """id should be a string which should uniquely identify the form.  fm should be a Form."""
         fm.parentApp = weakref.proxy(self)
         self._Forms[id] = fm
@@ -73,7 +73,7 @@ class NPSAppManaged(NPSApp.NPSApp):
         in which case that method will be called instead.  This is done so that the same class of form can be made 
         NPSAppManaged aware and have the normal non-NPSAppManaged edit loop.
         
-        Note that NEXT_ACTIVE_FORM is a string that is the name of the form that was specified when .addForm was called.
+        Note that NEXT_ACTIVE_FORM is a string that is the name of the form that was specified when .registerForm was called.
         """
         
         self.onStart()
@@ -109,7 +109,7 @@ def testmanaged(*args):
              self.parentApp.NEXT_ACTIVE_FORM = None
 
      T = NPSAppManaged()
-     a = T.createForm('MAIN', TestForm, name='Test')
+     a = T.addForm('MAIN', TestForm, name='Test')
      a.add(textbox.Textfield, name='Test')
      T.main()
      
@@ -123,9 +123,9 @@ def main(*args):
             self.parentApp.NEXT_ACTIVE_FORM = None
     
     T = NPSAppManaged()
-    a = T.createForm(TestForm, name='Test')
+    a = T.addForm(TestForm, name='Test')
     a.add(textbox.Textfield, name='Test')
-    T.addForm('MAIN', a)
+    T.registerForm('MAIN', a)
     T.main()
 
 

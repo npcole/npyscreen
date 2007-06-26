@@ -5,7 +5,7 @@ import curses
 
 class TimeoutApplication(npyscreen.NPSAppManaged):
 	def onStart(self):
-		self.mainForm = self.createForm('MAIN', TimeoutForm)
+		self.mainForm = self.addForm('MAIN', TimeoutForm)
 		
 		
 class TimeoutForm(npyscreen.Form):
