@@ -20,6 +20,7 @@ class NPSAppManaged(NPSApp.NPSApp):
        created by this class.
        
     3. a Optionally, Forms managed by this class may be given an .activate method, which will be called instead of their .edit loop
+       
        b If not given an .activate method, any .afterEditing method which a form possesses will be called after .edit() has exited.  
          3b is the preferred method to change NEXT_ACTIVE_FORM
          
@@ -59,7 +60,7 @@ class NPSAppManaged(NPSApp.NPSApp):
         del self._Forms[id]
 
     def main(self):
-        """Call this function to start your application.  You should not override this function, but override the nInMainLoop, onStart and
+        """Call this function to start your application.  You should not override this function, but override the onInMainLoop, onStart and
         onCleanExit methods instead, if you need to modify the application's behaviour. 
 
         When this method is called, it will activate the form named by the class variable STARTING_FORM.  By default this Form will be called
@@ -72,6 +73,8 @@ class NPSAppManaged(NPSApp.NPSApp):
         The form selected will be edited using it's .edit() method UNLESS it has been provided with an .activate() method,
         in which case that method will be called instead.  This is done so that the same class of form can be made 
         NPSAppManaged aware and have the normal non-NPSAppManaged edit loop.
+        
+        After a Form has been edited, if it has an .afterEditing method, this will be called, unless it was invoked with the activate() method.
         
         Note that NEXT_ACTIVE_FORM is a string that is the name of the form that was specified when .registerForm was called.
         """

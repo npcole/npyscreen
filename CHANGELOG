@@ -2,6 +2,10 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+
+2.0pre25 
+	Bug fixes.
+
 2.0pre24
 	while_waiting() and keypress_timeout added (see widget class for details).  How to use is explained in the user documentation.
 
