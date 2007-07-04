@@ -6,7 +6,7 @@ ExampleManaged.py
 Created by Nicholas Cole on 2007-02-22.
 """
 
-import npyscreen
+import npyscreen, curses
 
 class MyTestApp(npyscreen.NPSAppManaged):
     def onStart(self):
@@ -18,7 +18,8 @@ class MainForm(npyscreen.Form):
         self.how_exited_handers[npyscreen.widget.EXITED_ESCAPE]  = self.exit_application    
 
     def exit_application(self):
-        self.parentApp.ACTIVE_FORM = None
+        curses.beep()
+        self.parentApp.NEXT_ACTIVE_FORM = None
         self.editing = False
 
 def main():

@@ -79,12 +79,13 @@ class NPSAppManaged(NPSApp.NPSApp):
         self.onStart()
         while self.NEXT_ACTIVE_FORM != "" and self.NEXT_ACTIVE_FORM != None:
             self._LAST_NEXT_ACTIVE_FORM = self._Forms[self.NEXT_ACTIVE_FORM]
-            if hasattr(self._Forms[self.NEXT_ACTIVE_FORM], "activate"):
-                self._Forms[self.NEXT_ACTIVE_FORM].activate()
+            _THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]
+            if hasattr(_THISFORM, "activate"):
+                _THISFORM.activate()
             else:
-                self._Forms[self.NEXT_ACTIVE_FORM].edit()
-                if hasattr(self._Forms[self.NEXT_ACTIVE_FORM], "afterEditing"):
-                    self._Forms[self.NEXT_ACTIVE_FORM].afterEditing()
+                _THISFORM.edit()
+                if hasattr(_THISFORM, "afterEditing"):
+                    _THISFORM.afterEditing()
             
             self.onInMainLoop()
         self.onCleanExit()
