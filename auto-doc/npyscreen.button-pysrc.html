@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>npyscreen.button</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="npyscreen-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="npyscreen-module.html">Package&nbsp;npyscreen</a> ::
+        Module&nbsp;button
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="npyscreen.button-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="npyscreen.button-module.html">Module npyscreen.button</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-keyword">import</tt> <tt class="py-name">curses</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module npyscreen.widget=npyscreen.widget-module.html"><a title="npyscreen.widget" class="py-name" href="#" onclick="return doclink('link-0', 'widget', 'link-0');">widget</a></tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module npyscreen.checkbox=npyscreen.checkbox-module.html"><a title="npyscreen.checkbox" class="py-name" href="#" onclick="return doclink('link-1', 'checkbox', 'link-1');">checkbox</a></tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Module npyscreen.textbox=npyscreen.textbox-module.html"><a title="npyscreen.textbox" class="py-name" href="#" onclick="return doclink('link-2', 'textbox', 'link-2');">textbox</a></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"> </tt>
+<a name="MiniButton"></a><div id="MiniButton-def"><a name="L7"></a><tt class="py-lineno"> 7</tt> <a class="py-toggle" href="#" id="MiniButton-toggle" onclick="return toggle('MiniButton');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="npyscreen.button.MiniButton-class.html">MiniButton</a><tt class="py-op">(</tt><tt class="py-base-class">checkbox</tt><tt class="py-op">.</tt><tt class="py-base-class">Checkbox</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MiniButton-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="MiniButton-expanded"><a name="MiniButton.__init__"></a><div id="MiniButton.__init__-def"><a name="L8"></a><tt class="py-lineno"> 8</tt> <a class="py-toggle" href="#" id="MiniButton.__init__-toggle" onclick="return toggle('MiniButton.__init__');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.button.MiniButton-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">screen</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">=</tt><tt class="py-string">'Button'</tt><tt class="py-op">,</tt> <tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">keywords</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MiniButton.__init__-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="MiniButton.__init__-expanded"><a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">name</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">label_width</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-number">2</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">                <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-3" class="py-name" targets="Class npyscreen.button.MiniButton=npyscreen.button.MiniButton-class.html"><a title="npyscreen.button.MiniButton" class="py-name" href="#" onclick="return doclink('link-3', 'MiniButton', 'link-3');">MiniButton</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method npyscreen.Form.Form.__init__()=npyscreen.Form.Form-class.html#__init__,Method npyscreen.FormWithMenus.ActionFormWithMenus.__init__()=npyscreen.FormWithMenus.ActionFormWithMenus-class.html#__init__,Method npyscreen.FormWithMenus.FormWithMenus.__init__()=npyscreen.FormWithMenus.FormWithMenus-class.html#__init__,Method npyscreen.Menu.Menu.__init__()=npyscreen.Menu.Menu-class.html#__init__,Method npyscreen.MenuScreen.MenuScreen.__init__()=npyscreen.MenuScreen.MenuScreen-class.html#__init__,Method npyscreen.NMenuDisplay.MenuDisplay.__init__()=npyscreen.NMenuDisplay.MenuDisplay-class.html#__init__,Method npyscreen.NPSAppManaged.NPSAppManaged.__init__()=npyscreen.NPSAppManaged.NPSAppManaged-class.html#__init__,Method npyscreen.NewMenu.MenuItem.__init__()=npyscreen.NewMenu.MenuItem-class.html#__init__,Method npyscreen.NewMenu.NewMenu.__init__()=npyscreen.NewMenu.NewMenu-class.html#__init__,Method npyscreen.Popup.ActionPopup.__init__()=npyscreen.Popup.ActionPopup-class.html#__init__,Method npyscreen.Popup.MessagePopup.__init__()=npyscreen.Popup.MessagePopup-class.html#__init__,Method npyscreen.Popup.Popup.__init__()=npyscreen.Popup.Popup-class.html#__init__,Method npyscreen.button.MiniButton.__init__()=npyscreen.button.MiniButton-class.html#__init__,Method npyscreen.checkbox.Checkbox.__init__()=npyscreen.checkbox.Checkbox-class.html#__init__,Method npyscreen.combobox.ComboBox.__init__()=npyscreen.combobox.ComboBox-class.html#__init__,Method npyscreen.datecombo.DateCombo.__init__()=npyscreen.datecombo.DateCombo-class.html#__init__,Method npyscreen.editmultiline.MultiLineEdit.__init__()=npyscreen.editmultiline.MultiLineEdit-class.html#__init__,Method npyscreen.monthbox.DateEntryBase.__init__()=npyscreen.monthbox.DateEntryBase-class.html#__init__,Method npyscreen.monthbox.MonthBox.__init__()=npyscreen.monthbox.MonthBox-class.html#__init__,Method npyscreen.multiline.MultiLine.__init__()=npyscreen.multiline.MultiLine-class.html#__init__,Method npyscreen.screen_area.ScreenArea.__init__()=npyscreen.screen_area.ScreenArea-class.html#__init__,Method npyscreen.slider.Slider.__init__()=npyscreen.slider.Slider-class.html#__init__,Method npyscreen.textbox.Textfield.__init__()=npyscreen.textbox.Textfield-class.html#__init__,Method npyscreen.titlefield.TitleText.__init__()=npyscreen.titlefield.TitleText-class.html#__init__,Method npyscreen.widget.Widget.__init__()=npyscreen.widget.Widget-class.html#__init__"><a title="npyscreen.Form.Form.__init__
+npyscreen.FormWithMenus.ActionFormWithMenus.__init__
+npyscreen.FormWithMenus.FormWithMenus.__init__
+npyscreen.Menu.Menu.__init__
+npyscreen.MenuScreen.MenuScreen.__init__
+npyscreen.NMenuDisplay.MenuDisplay.__init__
+npyscreen.NPSAppManaged.NPSAppManaged.__init__
+npyscreen.NewMenu.MenuItem.__init__
+npyscreen.NewMenu.NewMenu.__init__
+npyscreen.Popup.ActionPopup.__init__
+npyscreen.Popup.MessagePopup.__init__
+npyscreen.Popup.Popup.__init__
+npyscreen.button.MiniButton.__init__
+npyscreen.checkbox.Checkbox.__init__
+npyscreen.combobox.ComboBox.__init__
+npyscreen.datecombo.DateCombo.__init__
+npyscreen.editmultiline.MultiLineEdit.__init__
+npyscreen.monthbox.DateEntryBase.__init__
+npyscreen.monthbox.MonthBox.__init__
+npyscreen.multiline.MultiLine.__init__
+npyscreen.screen_area.ScreenArea.__init__
+npyscreen.slider.Slider.__init__
+npyscreen.textbox.Textfield.__init__
+npyscreen.titlefield.TitleText.__init__
+npyscreen.widget.Widget.__init__" class="py-name" href="#" onclick="return doclink('link-4', '__init__', 'link-4');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">screen</tt><tt class="py-op">,</tt> <tt class="py-op">*</tt><tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-name">keywords</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">                 </tt>
+<a name="MiniButton.calculate_area_needed"></a><div id="MiniButton.calculate_area_needed-def"><a name="L13"></a><tt class="py-lineno">13</tt> <a class="py-toggle" href="#" id="MiniButton.calculate_area_needed-toggle" onclick="return toggle('MiniButton.calculate_area_needed');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.button.MiniButton-class.html#calculate_area_needed">calculate_area_needed</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MiniButton.calculate_area_needed-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="MiniButton.calculate_area_needed-expanded"><a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">label_width</tt><tt class="py-op">+</tt><tt class="py-number">2</tt> </tt>
+</div><a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="MiniButton.update"></a><div id="MiniButton.update-def"><a name="L16"></a><tt class="py-lineno">16</tt> <a class="py-toggle" href="#" id="MiniButton.update-toggle" onclick="return toggle('MiniButton.update');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.button.MiniButton-class.html#update">update</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">clear</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MiniButton.update-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="MiniButton.update-expanded"><a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt id="link-5" class="py-name" targets="Method npyscreen.widget.Widget.clear()=npyscreen.widget.Widget-class.html#clear"><a title="npyscreen.widget.Widget.clear" class="py-name" href="#" onclick="return doclink('link-5', 'clear', 'link-5');">clear</a></tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="npyscreen.widget.Widget.clear" class="py-name" href="#" onclick="return doclink('link-6', 'clear', 'link-5');">clear</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line">                 </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Variable npyscreen.slider.Slider.value=npyscreen.slider.Slider-class.html#value,Variable npyscreen.titlefield.TitleText.value=npyscreen.titlefield.TitleText-class.html#value"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-7', 'value', 'link-7');">value</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">curses_pad</tt><tt class="py-op">.</tt><tt class="py-name">addstr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rely</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">relx</tt><tt class="py-op">,</tt> <tt class="py-string">'&gt;'</tt><tt class="py-op">)</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">curses_pad</tt><tt class="py-op">.</tt><tt class="py-name">addstr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rely</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">relx</tt><tt class="py-op">+</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">width</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'&lt;'</tt><tt class="py-op">)</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">                 </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">editing</tt><tt class="py-op">:</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">curses_pad</tt><tt class="py-op">.</tt><tt class="py-name">attron</tt><tt class="py-op">(</tt><tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">A_STANDOUT</tt><tt class="py-op">)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">                 </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">                <tt class="py-name">str</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">name</tt><tt class="py-op">.</tt><tt class="py-name">center</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">label_width</tt><tt class="py-op">)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">curses_pad</tt><tt class="py-op">.</tt><tt class="py-name">addnstr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rely</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">relx</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">label_width</tt><tt class="py-op">)</tt>  </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">curses_pad</tt><tt class="py-op">.</tt><tt class="py-name">attroff</tt><tt class="py-op">(</tt><tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">A_STANDOUT</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">                 </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"> </tt>
+<a name="testme"></a><div id="testme-def"><a name="L31"></a><tt class="py-lineno">31</tt> <a class="py-toggle" href="#" id="testme-toggle" onclick="return toggle('testme');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.button-module.html#testme">testme</a><tt class="py-op">(</tt><tt class="py-param">sa</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="testme-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="testme-expanded"><a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-keyword">import</tt> <tt id="link-8" class="py-name" targets="Module npyscreen.screen_area=npyscreen.screen_area-module.html"><a title="npyscreen.screen_area" class="py-name" href="#" onclick="return doclink('link-8', 'screen_area', 'link-8');">screen_area</a></tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">SA</tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name"><a title="npyscreen.screen_area" class="py-name" href="#" onclick="return doclink('link-9', 'screen_area', 'link-8');">screen_area</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Class npyscreen.screen_area.ScreenArea=npyscreen.screen_area.ScreenArea-class.html"><a title="npyscreen.screen_area.ScreenArea" class="py-name" href="#" onclick="return doclink('link-10', 'ScreenArea', 'link-10');">ScreenArea</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-name">w</tt> <tt class="py-op">=</tt> <tt id="link-11" class="py-name"><a title="npyscreen.button.MiniButton" class="py-name" href="#" onclick="return doclink('link-11', 'MiniButton', 'link-3');">MiniButton</a></tt><tt class="py-op">(</tt><tt class="py-name">SA</tt><tt class="py-op">,</tt> <tt class="py-name">rely</tt><tt class="py-op">=</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> <tt class="py-name">relx</tt><tt class="py-op">=</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">        <tt class="py-name">w</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method npyscreen.ActionForm.ActionForm.edit()=npyscreen.ActionForm.ActionForm-class.html#edit,Method npyscreen.Form.Form.edit()=npyscreen.Form.Form-class.html#edit,Method npyscreen.Menu.Menu.edit()=npyscreen.Menu.Menu-class.html#edit,Method npyscreen.NMenuDisplay.MenuDisplay.edit()=npyscreen.NMenuDisplay.MenuDisplay-class.html#edit,Method npyscreen.combobox.ComboBox.edit()=npyscreen.combobox.ComboBox-class.html#edit,Method npyscreen.datecombo.DateCombo.edit()=npyscreen.datecombo.DateCombo-class.html#edit,Method npyscreen.multiline.MultiLine.edit()=npyscreen.multiline.MultiLine-class.html#edit,Method npyscreen.multiline.Pager.edit()=npyscreen.multiline.Pager-class.html#edit,Method npyscreen.textbox.FixedText.edit()=npyscreen.textbox.FixedText-class.html#edit,Method npyscreen.textbox.Textfield.edit()=npyscreen.textbox.Textfield-class.html#edit,Method npyscreen.titlefield.TitleText.edit()=npyscreen.titlefield.TitleText-class.html#edit,Method npyscreen.widget.Widget.edit()=npyscreen.widget.Widget-class.html#edit"><a title="npyscreen.ActionForm.ActionForm.edit
+npyscreen.Form.Form.edit
+npyscreen.Menu.Menu.edit
+npyscreen.NMenuDisplay.MenuDisplay.edit
+npyscreen.combobox.ComboBox.edit
+npyscreen.datecombo.DateCombo.edit
+npyscreen.multiline.MultiLine.edit
+npyscreen.multiline.Pager.edit
+npyscreen.textbox.FixedText.edit
+npyscreen.textbox.Textfield.edit
+npyscreen.titlefield.TitleText.edit
+npyscreen.widget.Widget.edit" class="py-name" href="#" onclick="return doclink('link-12', 'edit', 'link-12');">edit</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-name">w</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method npyscreen.Form.Form.display()=npyscreen.Form.Form-class.html#display,Method npyscreen.widget.Widget.display()=npyscreen.widget.Widget-class.html#display"><a title="npyscreen.Form.Form.display
+npyscreen.widget.Widget.display" class="py-name" href="#" onclick="return doclink('link-13', 'display', 'link-13');">display</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">napms</tt><tt class="py-op">(</tt><tt class="py-number">1500</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-keyword">import</tt> <tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">wrapper</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">wrapper</tt><tt class="py-op">(</tt><tt id="link-14" class="py-name" targets="Function npyscreen.autocomplete.testme()=npyscreen.autocomplete-module.html#testme,Function npyscreen.button.testme()=npyscreen.button-module.html#testme,Function npyscreen.checkbox.testme()=npyscreen.checkbox-module.html#testme,Function npyscreen.editmultiline.testme()=npyscreen.editmultiline-module.html#testme,Function npyscreen.multiline.testme()=npyscreen.multiline-module.html#testme,Function npyscreen.slider.testme()=npyscreen.slider-module.html#testme"><a title="npyscreen.autocomplete.testme
+npyscreen.button.testme
+npyscreen.checkbox.testme
+npyscreen.editmultiline.testme
+npyscreen.multiline.testme
+npyscreen.slider.testme" class="py-name" href="#" onclick="return doclink('link-14', 'testme', 'link-14');">testme</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Join me, and we will end this destructive conflict"</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="npyscreen-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0beta1 on Thu Mar 29 15:58:56 2007
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

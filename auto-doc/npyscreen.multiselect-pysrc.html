@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>npyscreen.multiselect</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="npyscreen-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="npyscreen-module.html">Package&nbsp;npyscreen</a> ::
+        Module&nbsp;multiselect
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="npyscreen.multiselect-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="npyscreen.multiselect-module.html">Module npyscreen.multiselect</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module npyscreen.multiline=npyscreen.multiline-module.html"><a title="npyscreen.multiline" class="py-name" href="#" onclick="return doclink('link-0', 'multiline', 'link-0');">multiline</a></tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module npyscreen.selectone=npyscreen.selectone-module.html"><a title="npyscreen.selectone" class="py-name" href="#" onclick="return doclink('link-1', 'selectone', 'link-1');">selectone</a></tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Module npyscreen.checkbox=npyscreen.checkbox-module.html"><a title="npyscreen.checkbox" class="py-name" href="#" onclick="return doclink('link-2', 'checkbox', 'link-2');">checkbox</a></tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">curses</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"> </tt>
+<a name="MultiSelect"></a><div id="MultiSelect-def"><a name="L7"></a><tt class="py-lineno"> 7</tt> <a class="py-toggle" href="#" id="MultiSelect-toggle" onclick="return toggle('MultiSelect');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="npyscreen.multiselect.MultiSelect-class.html">MultiSelect</a><tt class="py-op">(</tt><tt class="py-base-class">selectone</tt><tt class="py-op">.</tt><tt class="py-base-class">SelectOne</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiSelect-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="MultiSelect-expanded"><a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line">        <tt class="py-name">_contained_widgets</tt> <tt class="py-op">=</tt> <tt id="link-3" class="py-name"><a title="npyscreen.checkbox" class="py-name" href="#" onclick="return doclink('link-3', 'checkbox', 'link-2');">checkbox</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Class npyscreen.checkbox.Checkbox=npyscreen.checkbox.Checkbox-class.html"><a title="npyscreen.checkbox.Checkbox" class="py-name" href="#" onclick="return doclink('link-4', 'Checkbox', 'link-4');">Checkbox</a></tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"> </tt>
+<a name="MultiSelect.set_up_handlers"></a><div id="MultiSelect.set_up_handlers-def"><a name="L11"></a><tt class="py-lineno">11</tt> <a class="py-toggle" href="#" id="MultiSelect.set_up_handlers-toggle" onclick="return toggle('MultiSelect.set_up_handlers');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.multiselect.MultiSelect-class.html#set_up_handlers">set_up_handlers</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiSelect.set_up_handlers-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="MultiSelect.set_up_handlers-expanded"><a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">                <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-5" class="py-name" targets="Class npyscreen.multiselect.MultiSelect=npyscreen.multiselect.MultiSelect-class.html"><a title="npyscreen.multiselect.MultiSelect" class="py-name" href="#" onclick="return doclink('link-5', 'MultiSelect', 'link-5');">MultiSelect</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method npyscreen.Form.Form.set_up_handlers()=npyscreen.Form.Form-class.html#set_up_handlers,Method npyscreen.autocomplete.Autocomplete.set_up_handlers()=npyscreen.autocomplete.Autocomplete-class.html#set_up_handlers,Method npyscreen.checkbox.Checkbox.set_up_handlers()=npyscreen.checkbox.Checkbox-class.html#set_up_handlers,Method npyscreen.combobox.ComboBox.set_up_handlers()=npyscreen.combobox.ComboBox-class.html#set_up_handlers,Method npyscreen.datecombo.DateCombo.set_up_handlers()=npyscreen.datecombo.DateCombo-class.html#set_up_handlers,Method npyscreen.editmultiline.MultiLineEdit.set_up_handlers()=npyscreen.editmultiline.MultiLineEdit-class.html#set_up_handlers,Method npyscreen.monthbox.DateEntryBase.set_up_handlers()=npyscreen.monthbox.DateEntryBase-class.html#set_up_handlers,Method npyscreen.monthbox.MonthBox.set_up_handlers()=npyscreen.monthbox.MonthBox-class.html#set_up_handlers,Method npyscreen.multiline.MultiLine.set_up_handlers()=npyscreen.multiline.MultiLine-class.html#set_up_handlers,Method npyscreen.multiline.Pager.set_up_handlers()=npyscreen.multiline.Pager-class.html#set_up_handlers,Method npyscreen.multiselect.MultiSelect.set_up_handlers()=npyscreen.multiselect.MultiSelect-class.html#set_up_handlers,Method npyscreen.multiselect.MultiSelectFixed.set_up_handlers()=npyscreen.multiselect.MultiSelectFixed-class.html#set_up_handlers,Method npyscreen.slider.Slider.set_up_handlers()=npyscreen.slider.Slider-class.html#set_up_handlers,Method npyscreen.textbox.Textfield.set_up_handlers()=npyscreen.textbox.Textfield-class.html#set_up_handlers,Method npyscreen.widget.InputHandler.set_up_handlers()=npyscreen.widget.InputHandler-class.html#set_up_handlers"><a title="npyscreen.Form.Form.set_up_handlers
+npyscreen.autocomplete.Autocomplete.set_up_handlers
+npyscreen.checkbox.Checkbox.set_up_handlers
+npyscreen.combobox.ComboBox.set_up_handlers
+npyscreen.datecombo.DateCombo.set_up_handlers
+npyscreen.editmultiline.MultiLineEdit.set_up_handlers
+npyscreen.monthbox.DateEntryBase.set_up_handlers
+npyscreen.monthbox.MonthBox.set_up_handlers
+npyscreen.multiline.MultiLine.set_up_handlers
+npyscreen.multiline.Pager.set_up_handlers
+npyscreen.multiselect.MultiSelect.set_up_handlers
+npyscreen.multiselect.MultiSelectFixed.set_up_handlers
+npyscreen.slider.Slider.set_up_handlers
+npyscreen.textbox.Textfield.set_up_handlers
+npyscreen.widget.InputHandler.set_up_handlers" class="py-name" href="#" onclick="return doclink('link-6', 'set_up_handlers', 'link-6');">set_up_handlers</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">handlers</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method npyscreen.button.MiniButton.update()=npyscreen.button.MiniButton-class.html#update,Method npyscreen.checkbox.Checkbox.update()=npyscreen.checkbox.Checkbox-class.html#update,Method npyscreen.combobox.ComboBox.update()=npyscreen.combobox.ComboBox-class.html#update,Method npyscreen.datecombo.DateCombo.update()=npyscreen.datecombo.DateCombo-class.html#update,Method npyscreen.editmultiline.MultiLineEdit.update()=npyscreen.editmultiline.MultiLineEdit-class.html#update,Method npyscreen.monthbox.MonthBox.update()=npyscreen.monthbox.MonthBox-class.html#update,Method npyscreen.multiline.MultiLine.update()=npyscreen.multiline.MultiLine-class.html#update,Method npyscreen.multiline.Pager.update()=npyscreen.multiline.Pager-class.html#update,Method npyscreen.selectone.SelectOne.update()=npyscreen.selectone.SelectOne-class.html#update,Method npyscreen.slider.Slider.update()=npyscreen.slider.Slider-class.html#update,Method npyscreen.textbox.FixedText.update()=npyscreen.textbox.FixedText-class.html#update,Method npyscreen.textbox.Textfield.update()=npyscreen.textbox.Textfield-class.html#update,Method npyscreen.titlefield.TitleText.update()=npyscreen.titlefield.TitleText-class.html#update,Method npyscreen.widget.Widget.update()=npyscreen.widget.Widget-class.html#update"><a title="npyscreen.button.MiniButton.update
+npyscreen.checkbox.Checkbox.update
+npyscreen.combobox.ComboBox.update
+npyscreen.datecombo.DateCombo.update
+npyscreen.editmultiline.MultiLineEdit.update
+npyscreen.monthbox.MonthBox.update
+npyscreen.multiline.MultiLine.update
+npyscreen.multiline.Pager.update
+npyscreen.selectone.SelectOne.update
+npyscreen.slider.Slider.update
+npyscreen.textbox.FixedText.update
+npyscreen.textbox.Textfield.update
+npyscreen.titlefield.TitleText.update
+npyscreen.widget.Widget.update" class="py-name" href="#" onclick="return doclink('link-7', 'update', 'link-7');">update</a></tt><tt class="py-op">(</tt><tt class="py-op">{</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">                                        <tt class="py-name">ord</tt><tt class="py-op">(</tt><tt class="py-string">"x"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method npyscreen.multiselect.MultiSelect.h_select_toggle()=npyscreen.multiselect.MultiSelect-class.html#h_select_toggle"><a title="npyscreen.multiselect.MultiSelect.h_select_toggle" class="py-name" href="#" onclick="return doclink('link-8', 'h_select_toggle', 'link-8');">h_select_toggle</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">                                        <tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">ascii</tt><tt class="py-op">.</tt><tt class="py-name">SP</tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="npyscreen.multiselect.MultiSelect.h_select_toggle" class="py-name" href="#" onclick="return doclink('link-9', 'h_select_toggle', 'link-8');">h_select_toggle</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">                                        <tt class="py-name">ord</tt><tt class="py-op">(</tt><tt class="py-string">"X"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method npyscreen.multiline.MultiLine.h_select()=npyscreen.multiline.MultiLine-class.html#h_select,Method npyscreen.selectone.SelectOne.h_select()=npyscreen.selectone.SelectOne-class.html#h_select"><a title="npyscreen.multiline.MultiLine.h_select
+npyscreen.selectone.SelectOne.h_select" class="py-name" href="#" onclick="return doclink('link-10', 'h_select', 'link-10');">h_select</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">                                        <tt class="py-string">"^U"</tt><tt class="py-op">:</tt>            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method npyscreen.multiselect.MultiSelect.h_select_none()=npyscreen.multiselect.MultiSelect-class.html#h_select_none"><a title="npyscreen.multiselect.MultiSelect.h_select_none" class="py-name" href="#" onclick="return doclink('link-11', 'h_select_none', 'link-11');">h_select_none</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line">                                <tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">         </tt>
+<a name="MultiSelect.h_select_none"></a><div id="MultiSelect.h_select_none-def"><a name="L20"></a><tt class="py-lineno">20</tt> <a class="py-toggle" href="#" id="MultiSelect.h_select_none-toggle" onclick="return toggle('MultiSelect.h_select_none');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.multiselect.MultiSelect-class.html#h_select_none">h_select_none</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">input</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiSelect.h_select_none-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="MultiSelect.h_select_none-expanded"><a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Variable npyscreen.slider.Slider.value=npyscreen.slider.Slider-class.html#value,Variable npyscreen.titlefield.TitleText.value=npyscreen.titlefield.TitleText-class.html#value"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-12', 'value', 'link-12');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">         </tt>
+<a name="MultiSelect.h_select_toggle"></a><div id="MultiSelect.h_select_toggle-def"><a name="L23"></a><tt class="py-lineno">23</tt> <a class="py-toggle" href="#" id="MultiSelect.h_select_toggle-toggle" onclick="return toggle('MultiSelect.h_select_toggle');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.multiselect.MultiSelect-class.html#h_select_toggle">h_select_toggle</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">input</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiSelect.h_select_toggle-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="MultiSelect.h_select_toggle-expanded"><a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cursor_line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-13', 'value', 'link-12');">value</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-14', 'value', 'link-12');">value</a></tt><tt class="py-op">.</tt><tt class="py-name">remove</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cursor_line</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-15', 'value', 'link-12');">value</a></tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cursor_line</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">         </tt>
+<a name="MultiSelect.h_select_exit"></a><div id="MultiSelect.h_select_exit-def"><a name="L29"></a><tt class="py-lineno">29</tt> <a class="py-toggle" href="#" id="MultiSelect.h_select_exit-toggle" onclick="return toggle('MultiSelect.h_select_exit');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.multiselect.MultiSelect-class.html#h_select_exit">h_select_exit</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">ch</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiSelect.h_select_exit-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="MultiSelect.h_select_exit-expanded"><a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cursor_line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-16', 'value', 'link-12');">value</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-17', 'value', 'link-12');">value</a></tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cursor_line</tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">return_exit</tt><tt class="py-op">:</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">editing</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">how_exited</tt><tt class="py-op">=</tt><tt class="py-name">True</tt> </tt>
+</div></div><a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">                 </tt>
+<a name="MultiSelectFixed"></a><div id="MultiSelectFixed-def"><a name="L36"></a><tt class="py-lineno">36</tt> <a class="py-toggle" href="#" id="MultiSelectFixed-toggle" onclick="return toggle('MultiSelectFixed');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="npyscreen.multiselect.MultiSelectFixed-class.html">MultiSelectFixed</a><tt class="py-op">(</tt><tt class="py-base-class">MultiSelect</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiSelectFixed-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="MultiSelectFixed-expanded"><a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-comment"># This does not allow the user to change Values, but does allow the user to move around.</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># Useful for displaying Data.</tt> </tt>
+<a name="MultiSelectFixed.user_set_value"></a><div id="MultiSelectFixed.user_set_value-def"><a name="L39"></a><tt class="py-lineno">39</tt> <a class="py-toggle" href="#" id="MultiSelectFixed.user_set_value-toggle" onclick="return toggle('MultiSelectFixed.user_set_value');">-</a><tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.multiselect.MultiSelectFixed-class.html#user_set_value">user_set_value</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">input</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiSelectFixed.user_set_value-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="MultiSelectFixed.user_set_value-expanded"><a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">                <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">         </tt>
+<a name="MultiSelectFixed.set_up_handlers"></a><div id="MultiSelectFixed.set_up_handlers-def"><a name="L42"></a><tt class="py-lineno">42</tt> <a class="py-toggle" href="#" id="MultiSelectFixed.set_up_handlers-toggle" onclick="return toggle('MultiSelectFixed.set_up_handlers');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.multiselect.MultiSelectFixed-class.html#set_up_handlers">set_up_handlers</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiSelectFixed.set_up_handlers-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="MultiSelectFixed.set_up_handlers-expanded"><a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">                <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-18" class="py-name" targets="Class npyscreen.multiselect.MultiSelectFixed=npyscreen.multiselect.MultiSelectFixed-class.html"><a title="npyscreen.multiselect.MultiSelectFixed" class="py-name" href="#" onclick="return doclink('link-18', 'MultiSelectFixed', 'link-18');">MultiSelectFixed</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="npyscreen.Form.Form.set_up_handlers
+npyscreen.autocomplete.Autocomplete.set_up_handlers
+npyscreen.checkbox.Checkbox.set_up_handlers
+npyscreen.combobox.ComboBox.set_up_handlers
+npyscreen.datecombo.DateCombo.set_up_handlers
+npyscreen.editmultiline.MultiLineEdit.set_up_handlers
+npyscreen.monthbox.DateEntryBase.set_up_handlers
+npyscreen.monthbox.MonthBox.set_up_handlers
+npyscreen.multiline.MultiLine.set_up_handlers
+npyscreen.multiline.Pager.set_up_handlers
+npyscreen.multiselect.MultiSelect.set_up_handlers
+npyscreen.multiselect.MultiSelectFixed.set_up_handlers
+npyscreen.slider.Slider.set_up_handlers
+npyscreen.textbox.Textfield.set_up_handlers
+npyscreen.widget.InputHandler.set_up_handlers" class="py-name" href="#" onclick="return doclink('link-19', 'set_up_handlers', 'link-6');">set_up_handlers</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">handlers</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="npyscreen.button.MiniButton.update
+npyscreen.checkbox.Checkbox.update
+npyscreen.combobox.ComboBox.update
+npyscreen.datecombo.DateCombo.update
+npyscreen.editmultiline.MultiLineEdit.update
+npyscreen.monthbox.MonthBox.update
+npyscreen.multiline.MultiLine.update
+npyscreen.multiline.Pager.update
+npyscreen.selectone.SelectOne.update
+npyscreen.slider.Slider.update
+npyscreen.textbox.FixedText.update
+npyscreen.textbox.Textfield.update
+npyscreen.titlefield.TitleText.update
+npyscreen.widget.Widget.update" class="py-name" href="#" onclick="return doclink('link-20', 'update', 'link-7');">update</a></tt><tt class="py-op">(</tt><tt class="py-op">{</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">                        <tt class="py-name">ord</tt><tt class="py-op">(</tt><tt class="py-string">"x"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>       <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method npyscreen.multiselect.MultiSelectFixed.user_set_value()=npyscreen.multiselect.MultiSelectFixed-class.html#user_set_value"><a title="npyscreen.multiselect.MultiSelectFixed.user_set_value" class="py-name" href="#" onclick="return doclink('link-21', 'user_set_value', 'link-21');">user_set_value</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">                        <tt class="py-name">ord</tt><tt class="py-op">(</tt><tt class="py-string">"X"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>       <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="npyscreen.multiselect.MultiSelectFixed.user_set_value" class="py-name" href="#" onclick="return doclink('link-22', 'user_set_value', 'link-21');">user_set_value</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">                        <tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">ascii</tt><tt class="py-op">.</tt><tt class="py-name">SP</tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="npyscreen.multiselect.MultiSelectFixed.user_set_value" class="py-name" href="#" onclick="return doclink('link-23', 'user_set_value', 'link-21');">user_set_value</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">                        <tt class="py-string">"^U"</tt><tt class="py-op">:</tt>            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="npyscreen.multiselect.MultiSelectFixed.user_set_value" class="py-name" href="#" onclick="return doclink('link-24', 'user_set_value', 'link-21');">user_set_value</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">                        <tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">ascii</tt><tt class="py-op">.</tt><tt class="py-name">NL</tt><tt class="py-op">:</tt>        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name" targets="Method npyscreen.widget.InputHandler.h_exit_down()=npyscreen.widget.InputHandler-class.html#h_exit_down"><a title="npyscreen.widget.InputHandler.h_exit_down" class="py-name" href="#" onclick="return doclink('link-25', 'h_exit_down', 'link-25');">h_exit_down</a></tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">                         </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">                <tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt>
+<a name="TitleMultiSelect"></a><div id="TitleMultiSelect-def"><a name="L53"></a><tt class="py-lineno">53</tt> <a class="py-toggle" href="#" id="TitleMultiSelect-toggle" onclick="return toggle('TitleMultiSelect');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="npyscreen.multiselect.TitleMultiSelect-class.html">TitleMultiSelect</a><tt class="py-op">(</tt><tt class="py-base-class">multiline</tt><tt class="py-op">.</tt><tt class="py-base-class">TitleMultiLine</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TitleMultiSelect-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="TitleMultiSelect-expanded"><a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">        <tt class="py-name">_entry_type</tt> <tt class="py-op">=</tt> <tt id="link-26" class="py-name"><a title="npyscreen.multiselect.MultiSelect" class="py-name" href="#" onclick="return doclink('link-26', 'MultiSelect', 'link-5');">MultiSelect</a></tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">                         </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">                 </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">                 </tt>
+<a name="TitleMultiSelectFixed"></a><div id="TitleMultiSelectFixed-def"><a name="L58"></a><tt class="py-lineno">58</tt> <a class="py-toggle" href="#" id="TitleMultiSelectFixed-toggle" onclick="return toggle('TitleMultiSelectFixed');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="npyscreen.multiselect.TitleMultiSelectFixed-class.html">TitleMultiSelectFixed</a><tt class="py-op">(</tt><tt class="py-base-class">multiline</tt><tt class="py-op">.</tt><tt class="py-base-class">TitleMultiLine</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TitleMultiSelectFixed-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="TitleMultiSelectFixed-expanded"><a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">        <tt class="py-name">_entry_type</tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name"><a title="npyscreen.multiselect.MultiSelectFixed" class="py-name" href="#" onclick="return doclink('link-27', 'MultiSelectFixed', 'link-18');">MultiSelectFixed</a></tt> </tt>
+</div><a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">         </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">         </tt>
+<a name="simpletest"></a><div id="simpletest-def"><a name="L62"></a><tt class="py-lineno">62</tt> <a class="py-toggle" href="#" id="simpletest-toggle" onclick="return toggle('simpletest');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.multiselect-module.html#simpletest">simpletest</a><tt class="py-op">(</tt><tt class="py-param">screen</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="simpletest-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="simpletest-expanded"><a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">        <tt class="py-keyword">import</tt> <tt id="link-28" class="py-name" targets="Module npyscreen.screen_area=npyscreen.screen_area-module.html"><a title="npyscreen.screen_area" class="py-name" href="#" onclick="return doclink('link-28', 'screen_area', 'link-28');">screen_area</a></tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">        <tt class="py-name">SA</tt> <tt class="py-op">=</tt> <tt id="link-29" class="py-name"><a title="npyscreen.screen_area" class="py-name" href="#" onclick="return doclink('link-29', 'screen_area', 'link-28');">screen_area</a></tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Class npyscreen.screen_area.ScreenArea=npyscreen.screen_area.ScreenArea-class.html"><a title="npyscreen.screen_area.ScreenArea" class="py-name" href="#" onclick="return doclink('link-30', 'ScreenArea', 'link-30');">ScreenArea</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">        <tt class="py-name">w</tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name" targets="Class npyscreen.multiselect.TitleMultiSelect=npyscreen.multiselect.TitleMultiSelect-class.html"><a title="npyscreen.multiselect.TitleMultiSelect" class="py-name" href="#" onclick="return doclink('link-31', 'TitleMultiSelect', 'link-31');">TitleMultiSelect</a></tt><tt class="py-op">(</tt><tt class="py-name">SA</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">=</tt><tt class="py-string">"Title Multi"</tt><tt class="py-op">,</tt> <tt id="link-32" class="py-name" targets="Variable npyscreen.combobox.TitleCombo.values=npyscreen.combobox.TitleCombo-class.html#values,Variable npyscreen.multiline.TitleMultiLine.values=npyscreen.multiline.TitleMultiLine-class.html#values"><a title="npyscreen.combobox.TitleCombo.values
+npyscreen.multiline.TitleMultiLine.values" class="py-name" href="#" onclick="return doclink('link-32', 'values', 'link-32');">values</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">"line 1"</tt><tt class="py-op">,</tt> <tt class="py-string">"line 2"</tt><tt class="py-op">,</tt> <tt class="py-string">"line 3"</tt><tt class="py-op">,</tt> <tt class="py-string">"line 4"</tt><tt class="py-op">,</tt> <tt class="py-string">"line 5"</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">max_height</tt><tt class="py-op">=</tt><tt class="py-number">4</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">        <tt class="py-name">w</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-33', 'value', 'link-12');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-number">2</tt><tt class="py-op">]</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">        <tt class="py-name">w</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Method npyscreen.ActionForm.ActionForm.edit()=npyscreen.ActionForm.ActionForm-class.html#edit,Method npyscreen.Form.Form.edit()=npyscreen.Form.Form-class.html#edit,Method npyscreen.Menu.Menu.edit()=npyscreen.Menu.Menu-class.html#edit,Method npyscreen.NMenuDisplay.MenuDisplay.edit()=npyscreen.NMenuDisplay.MenuDisplay-class.html#edit,Method npyscreen.combobox.ComboBox.edit()=npyscreen.combobox.ComboBox-class.html#edit,Method npyscreen.datecombo.DateCombo.edit()=npyscreen.datecombo.DateCombo-class.html#edit,Method npyscreen.multiline.MultiLine.edit()=npyscreen.multiline.MultiLine-class.html#edit,Method npyscreen.multiline.Pager.edit()=npyscreen.multiline.Pager-class.html#edit,Method npyscreen.textbox.FixedText.edit()=npyscreen.textbox.FixedText-class.html#edit,Method npyscreen.textbox.Textfield.edit()=npyscreen.textbox.Textfield-class.html#edit,Method npyscreen.titlefield.TitleText.edit()=npyscreen.titlefield.TitleText-class.html#edit,Method npyscreen.widget.Widget.edit()=npyscreen.widget.Widget-class.html#edit"><a title="npyscreen.ActionForm.ActionForm.edit
+npyscreen.Form.Form.edit
+npyscreen.Menu.Menu.edit
+npyscreen.NMenuDisplay.MenuDisplay.edit
+npyscreen.combobox.ComboBox.edit
+npyscreen.datecombo.DateCombo.edit
+npyscreen.multiline.MultiLine.edit
+npyscreen.multiline.Pager.edit
+npyscreen.textbox.FixedText.edit
+npyscreen.textbox.Textfield.edit
+npyscreen.titlefield.TitleText.edit
+npyscreen.widget.Widget.edit" class="py-name" href="#" onclick="return doclink('link-34', 'edit', 'link-34');">edit</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">        <tt class="py-name">w</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="npyscreen.button.MiniButton.update
+npyscreen.checkbox.Checkbox.update
+npyscreen.combobox.ComboBox.update
+npyscreen.datecombo.DateCombo.update
+npyscreen.editmultiline.MultiLineEdit.update
+npyscreen.monthbox.MonthBox.update
+npyscreen.multiline.MultiLine.update
+npyscreen.multiline.Pager.update
+npyscreen.selectone.SelectOne.update
+npyscreen.slider.Slider.update
+npyscreen.textbox.FixedText.update
+npyscreen.textbox.Textfield.update
+npyscreen.titlefield.TitleText.update
+npyscreen.widget.Widget.update" class="py-name" href="#" onclick="return doclink('link-35', 'update', 'link-7');">update</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">        <tt class="py-name">SA</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Method npyscreen.screen_area.ScreenArea.refresh()=npyscreen.screen_area.ScreenArea-class.html#refresh"><a title="npyscreen.screen_area.ScreenArea.refresh" class="py-name" href="#" onclick="return doclink('link-36', 'refresh', 'link-36');">refresh</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">        <tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">napms</tt><tt class="py-op">(</tt><tt class="py-number">2000</tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">w</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-37', 'value', 'link-12');">value</a></tt> </tt>
+</div><a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">         </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line"> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">        <tt class="py-keyword">import</tt> <tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">wrapper</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">wrapper</tt><tt class="py-op">(</tt><tt id="link-38" class="py-name" targets="Function npyscreen.multiselect.simpletest()=npyscreen.multiselect-module.html#simpletest,Function npyscreen.textbox.simpletest()=npyscreen.textbox-module.html#simpletest,Function npyscreen.widget.simpletest()=npyscreen.widget-module.html#simpletest"><a title="npyscreen.multiselect.simpletest
+npyscreen.textbox.simpletest
+npyscreen.widget.simpletest" class="py-name" href="#" onclick="return doclink('link-38', 'simpletest', 'link-38');">simpletest</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"The circle is now complete"</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="npyscreen-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0beta1 on Thu Mar 29 15:58:56 2007
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

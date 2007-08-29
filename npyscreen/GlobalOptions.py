@@ -1,0 +1,1 @@
+DISABLE_ALL_COLORS = False
