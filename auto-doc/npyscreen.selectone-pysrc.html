@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>npyscreen.selectone</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="npyscreen-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="npyscreen-module.html">Package&nbsp;npyscreen</a> ::
+        Module&nbsp;selectone
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="npyscreen.selectone-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="npyscreen.selectone-module.html">Module npyscreen.selectone</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module npyscreen.multiline=npyscreen.multiline-module.html"><a title="npyscreen.multiline" class="py-name" href="#" onclick="return doclink('link-0', 'multiline', 'link-0');">multiline</a></tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module npyscreen.checkbox=npyscreen.checkbox-module.html"><a title="npyscreen.checkbox" class="py-name" href="#" onclick="return doclink('link-1', 'checkbox', 'link-1');">checkbox</a></tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"> </tt>
+<a name="SelectOne"></a><div id="SelectOne-def"><a name="L4"></a><tt class="py-lineno"> 4</tt> <a class="py-toggle" href="#" id="SelectOne-toggle" onclick="return toggle('SelectOne');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="npyscreen.selectone.SelectOne-class.html">SelectOne</a><tt class="py-op">(</tt><tt class="py-base-class">multiline</tt><tt class="py-op">.</tt><tt class="py-base-class">MultiLine</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SelectOne-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="SelectOne-expanded"><a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line">        <tt class="py-name">_contained_widgets</tt> <tt class="py-op">=</tt> <tt id="link-2" class="py-name"><a title="npyscreen.checkbox" class="py-name" href="#" onclick="return doclink('link-2', 'checkbox', 'link-1');">checkbox</a></tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Class npyscreen.checkbox.RoundCheckBox=npyscreen.checkbox.RoundCheckBox-class.html"><a title="npyscreen.checkbox.RoundCheckBox" class="py-name" href="#" onclick="return doclink('link-3', 'RoundCheckBox', 'link-3');">RoundCheckBox</a></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line">         </tt>
+<a name="SelectOne.update"></a><div id="SelectOne.update-def"><a name="L7"></a><tt class="py-lineno"> 7</tt> <a class="py-toggle" href="#" id="SelectOne.update-toggle" onclick="return toggle('SelectOne.update');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.selectone.SelectOne-class.html#update">update</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">clear</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SelectOne.update-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="SelectOne.update-expanded"><a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line">                <tt class="py-comment"># Make sure that self.value is a list</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"></tt>                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Variable npyscreen.slider.Slider.value=npyscreen.slider.Slider-class.html#value,Variable npyscreen.titlefield.TitleText.value=npyscreen.titlefield.TitleText-class.html#value"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-4', 'value', 'link-4');">value</a></tt><tt class="py-op">,</tt> <tt class="py-string">"append"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-5', 'value', 'link-4');">value</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">                                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-6', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-7', 'value', 'link-4');">value</a></tt><tt class="py-op">,</tt> <tt class="py-op">]</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">                        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">                                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-8', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">                                 </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">                <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-9" class="py-name" targets="Class npyscreen.selectone.SelectOne=npyscreen.selectone.SelectOne-class.html"><a title="npyscreen.selectone.SelectOne" class="py-name" href="#" onclick="return doclink('link-9', 'SelectOne', 'link-9');">SelectOne</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method npyscreen.button.MiniButton.update()=npyscreen.button.MiniButton-class.html#update,Method npyscreen.checkbox.Checkbox.update()=npyscreen.checkbox.Checkbox-class.html#update,Method npyscreen.combobox.ComboBox.update()=npyscreen.combobox.ComboBox-class.html#update,Method npyscreen.datecombo.DateCombo.update()=npyscreen.datecombo.DateCombo-class.html#update,Method npyscreen.editmultiline.MultiLineEdit.update()=npyscreen.editmultiline.MultiLineEdit-class.html#update,Method npyscreen.monthbox.MonthBox.update()=npyscreen.monthbox.MonthBox-class.html#update,Method npyscreen.multiline.MultiLine.update()=npyscreen.multiline.MultiLine-class.html#update,Method npyscreen.multiline.Pager.update()=npyscreen.multiline.Pager-class.html#update,Method npyscreen.selectone.SelectOne.update()=npyscreen.selectone.SelectOne-class.html#update,Method npyscreen.slider.Slider.update()=npyscreen.slider.Slider-class.html#update,Method npyscreen.textbox.FixedText.update()=npyscreen.textbox.FixedText-class.html#update,Method npyscreen.textbox.Textfield.update()=npyscreen.textbox.Textfield-class.html#update,Method npyscreen.titlefield.TitleText.update()=npyscreen.titlefield.TitleText-class.html#update,Method npyscreen.widget.Widget.update()=npyscreen.widget.Widget-class.html#update"><a title="npyscreen.button.MiniButton.update
+npyscreen.checkbox.Checkbox.update
+npyscreen.combobox.ComboBox.update
+npyscreen.datecombo.DateCombo.update
+npyscreen.editmultiline.MultiLineEdit.update
+npyscreen.monthbox.MonthBox.update
+npyscreen.multiline.MultiLine.update
+npyscreen.multiline.Pager.update
+npyscreen.selectone.SelectOne.update
+npyscreen.slider.Slider.update
+npyscreen.textbox.FixedText.update
+npyscreen.textbox.Textfield.update
+npyscreen.titlefield.TitleText.update
+npyscreen.widget.Widget.update" class="py-name" href="#" onclick="return doclink('link-10', 'update', 'link-10');">update</a></tt><tt class="py-op">(</tt><tt id="link-11" class="py-name" targets="Method npyscreen.widget.Widget.clear()=npyscreen.widget.Widget-class.html#clear"><a title="npyscreen.widget.Widget.clear" class="py-name" href="#" onclick="return doclink('link-11', 'clear', 'link-11');">clear</a></tt><tt class="py-op">=</tt><tt id="link-12" class="py-name"><a title="npyscreen.widget.Widget.clear" class="py-name" href="#" onclick="return doclink('link-12', 'clear', 'link-11');">clear</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"> </tt>
+<a name="SelectOne.h_select"></a><div id="SelectOne.h_select-def"><a name="L17"></a><tt class="py-lineno">17</tt> <a class="py-toggle" href="#" id="SelectOne.h_select-toggle" onclick="return toggle('SelectOne.h_select');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.selectone.SelectOne-class.html#h_select">h_select</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">ch</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SelectOne.h_select-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="SelectOne.h_select-expanded"><a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-13', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cursor_line</tt><tt class="py-op">,</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
+<a name="SelectOne._print_line"></a><div id="SelectOne._print_line-def"><a name="L22"></a><tt class="py-lineno">22</tt> <a class="py-toggle" href="#" id="SelectOne._print_line-toggle" onclick="return toggle('SelectOne._print_line');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="npyscreen.selectone.SelectOne-class.html#_print_line">_print_line</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">line</tt><tt class="py-op">,</tt> <tt class="py-param">value_indexer</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SelectOne._print_line-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="SelectOne._print_line-expanded"><a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">                <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">                        <tt class="py-name">line</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-14', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Variable npyscreen.combobox.TitleCombo.values=npyscreen.combobox.TitleCombo-class.html#values,Variable npyscreen.multiline.TitleMultiLine.values=npyscreen.multiline.TitleMultiLine-class.html#values"><a title="npyscreen.combobox.TitleCombo.values
+npyscreen.multiline.TitleMultiLine.values" class="py-name" href="#" onclick="return doclink('link-15', 'values', 'link-15');">values</a></tt><tt class="py-op">[</tt><tt class="py-name">value_indexer</tt><tt class="py-op">]</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">                        <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">hide</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">value_indexer</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-16', 'value', 'link-4');">value</a></tt> <tt class="py-keyword">and</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-17', 'value', 'link-4');">value</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">                                <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">show_bold</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">                                <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="npyscreen.combobox.TitleCombo.values
+npyscreen.multiline.TitleMultiLine.values" class="py-name" href="#" onclick="return doclink('link-18', 'values', 'link-15');">values</a></tt><tt class="py-op">[</tt><tt class="py-name">value_indexer</tt><tt class="py-op">]</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">                                <tt class="py-name">line</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-19', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">                        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">                                <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">show_bold</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">                                <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="npyscreen.combobox.TitleCombo.values
+npyscreen.multiline.TitleMultiLine.values" class="py-name" href="#" onclick="return doclink('link-20', 'values', 'link-15');">values</a></tt><tt class="py-op">[</tt><tt class="py-name">value_indexer</tt><tt class="py-op">]</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">                                <tt class="py-name">line</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="npyscreen.slider.Slider.value
+npyscreen.titlefield.TitleText.value" class="py-name" href="#" onclick="return doclink('link-21', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">                         </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">                <tt class="py-keyword">except</tt> <tt class="py-name">IndexError</tt><tt class="py-op">:</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">                        <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">                        <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">hide</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">                <tt class="py-name">line</tt><tt class="py-op">.</tt><tt class="py-name">highlight</tt><tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+</div></div><a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">                 </tt>
+<a name="TitleSelectOne"></a><div id="TitleSelectOne-def"><a name="L41"></a><tt class="py-lineno">41</tt> <a class="py-toggle" href="#" id="TitleSelectOne-toggle" onclick="return toggle('TitleSelectOne');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="npyscreen.selectone.TitleSelectOne-class.html">TitleSelectOne</a><tt class="py-op">(</tt><tt class="py-base-class">multiline</tt><tt class="py-op">.</tt><tt class="py-base-class">TitleMultiLine</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TitleSelectOne-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="TitleSelectOne-expanded"><a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-name">_entry_type</tt> <tt class="py-op">=</tt> <tt id="link-22" class="py-name"><a title="npyscreen.selectone.SelectOne" class="py-name" href="#" onclick="return doclink('link-22', 'SelectOne', 'link-9');">SelectOne</a></tt> </tt>
+</div><a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="npyscreen-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0beta1 on Thu Mar 29 15:58:55 2007
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>
