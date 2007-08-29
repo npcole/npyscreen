@@ -4,8 +4,34 @@ import widget
 import textbox
 import curses
 import titlefield
+import Popup
+import weakref
 
 MORE_LABEL = "- more -" # string to tell user there are more options
+
+class FilterPopupHelper(Popup.Popup):
+	def create(self):
+		super(FilterPopupHelper, self).create()
+		self.filterbox = self.add(titlefield.TitleText, name='Find:', )
+		self.nextrely += 1
+		self.statusline = self.add(textbox.Textfield, color = 'LABEL', editable = False)
+	
+	def updatestatusline(self):
+		self.owner_widget._filter   = self.filterbox.value
+		filtered_lines = self.owner_widget.get_filtered_indexes()
+		len_f = len(filtered_lines)
+		if self.filterbox.value == None or self.filterbox.value == '':
+			self.statusline.value = ''
+		elif len_f == 0: 
+			self.statusline.value = '(No Matches)'
+		elif len_f == 1:
+			self.statusline.value = '(1 Match)'
+		else:
+			self.statusline.value = '(%s Matches)' % len_f
+	
+	def adjust_widgets(self):
+		self.updatestatusline()
+		self.statusline.display()
 
 class MultiLine(widget.Widget):
 	"""Display a list of items to the user.  By overloading the display_value method, this widget can be made to 
@@ -34,13 +60,14 @@ display different kinds of objects."""
 		self.start_display_at = 0
 		self.cursor_line = 0
 		self.values = values or []
-		
+		self._filter = None
 		
 		#These are just to do some optimisation tricks
 		self._last_start_display_at = None
 		self._last_cursor_line = None
 		self._last_values = copy.copy(values)
 		self._last_value = copy.copy(value)
+		self._last_filter = None
 
 		#override - it looks nicer.
 		if self.scroll_exit: self.slow_scroll=True
@@ -65,6 +92,8 @@ Should accept one argument (the object to be represented), and return a string."
 			return False
 		# clear = None is a good value for this widget
 		display_length = len(self._my_widgets)
+		self._remake_filter_cache()
+		self._filtered_values_cache = self.get_filtered_indexes()
 
 		if self.editing:
 			if self.cursor_line < 0: self.cursor_line = 0
@@ -91,6 +120,7 @@ Should accept one argument (the object to be represented), and return a string."
 			(self.start_display_at == self._last_start_display_at) and \
 			(clear != True) and \
 			(self._last_cursor_line == self.cursor_line) and \
+			(self._last_filter == self._filter) and \
 			self.editing:
 				pass
 			
@@ -154,7 +184,12 @@ Should accept one argument (the object to be represented), and return a string."
 				line.show_bold=False
 				line.name = None
 				line.hide = True
-		
+			
+			if value_indexer in self._filtered_values_cache:
+				line.important = True
+			else:
+				line.important = False
+			
 			if (value_indexer == self.value) and \
 				(self.value is not None):
 				line.show_bold=True
@@ -162,7 +197,63 @@ Should accept one argument (the object to be represented), and return a string."
 		
 			line.highlight=False
 			
+
+	def get_filtered_indexes(self):
+		if self._filter == None or '':
+			return self.values
+		list_of_indexes = []
+		for indexer in range(len(self.values)):
+			if self.filter_value(indexer):
+				list_of_indexes.append(indexer)
+		return list_of_indexes
 	
+	def _remake_filter_cache(self):
+		self._filtered_values_cache = self.get_filtered_indexes()
+		
+
+	def filter_value(self, index):
+		if self._filter in self.values[index]:
+			return True
+		else:
+			return False
+	def jump_to_first_filtered(self, ):
+		self.h_cursor_beginning(None)
+		self.move_next_filtered(include_this_line=True)
+
+	def clear_filter(self):
+		self._filter = None
+
+	def move_next_filtered(self, include_this_line=False, *args):
+		if self._filter == None:
+			return False
+		for possible in self._filtered_values_cache:
+			if (possible==self.cursor_line and include_this_line==True):
+				self.update()
+				break
+			elif possible > self.cursor_line:
+				self.cursor_line = possible
+				self.update()
+				break
+		if self.cursor_line-self.start_display_at > len(self._my_widgets) or \
+		self._my_widgets[self.cursor_line-self.start_display_at].task == MORE_LABEL: 
+			if self.slow_scroll:
+				self.start_display_at += 1
+			else:
+				self.start_display_at = self.cursor_line
+		
+	def move_previous_filtered(self, *args):
+		if self._filter == None:
+			return False
+		nextline = self.cursor_line
+		_filtered_values_cache_reversed = copy.copy(self._filtered_values_cache)
+		_filtered_values_cache_reversed.reverse()
+		for possible in _filtered_values_cache_reversed:
+			if possible < self.cursor_line:
+				self.cursor_line = possible
+				return True
+				break
+
+
 	def set_up_handlers(self):
 		super(MultiLine, self).set_up_handlers()
 		self.handlers.update ( {
@@ -178,7 +269,14 @@ Should accept one argument (the object to be represented), and return a string."
 					curses.ascii.NL:	self.h_select_exit,
 					curses.KEY_HOME:	self.h_cursor_beginning,
 					curses.KEY_END:		self.h_cursor_end,
+					ord('g'):		self.h_cursor_beginning,
+					ord('G'):		self.h_cursor_end,
 					ord('x'):		self.h_select,
+					ord('l'):		self.h_set_filter,
+					ord('L'):		self.h_clear_filter,
+					ord('n'):		self.move_next_filtered,
+					ord('N'):		self.move_previous_filtered,
+					ord('p'):		self.move_previous_filtered,
 					curses.ascii.SP:	self.h_select,
 					curses.ascii.ESC:	self.h_exit,
 				} )
@@ -194,7 +292,7 @@ Should accept one argument (the object to be represented), and return a string."
 			})
 
 		self.complex_handlers = [
-					(self.t_input_isprint, self.h_find_char)
+					#(self.t_input_isprint, self.h_find_char)
 					]
 	
 	def h_find_char(self, input):
@@ -214,6 +312,17 @@ Should accept one argument (the object to be represented), and return a string."
 		if curses.ascii.isprint(input): return True
 		else: return False
 	
+	def h_set_filter(self, ch):
+		P = FilterPopupHelper()
+		P.owner_widget = weakref.proxy(self)
+		P.display()
+		P.filterbox.edit()
+		self._remake_filter_cache()
+		self.jump_to_first_filtered()
+		
+	def h_clear_filter(self, ch):
+		self.clear_filter()
+		self.display()
 	
 	def h_cursor_beginning(self, ch):
 		self.cursor_line = 0

@@ -34,6 +34,11 @@ class SelectOne(multiline.MultiLine):
 				line.show_bold = False
 				line.name = self.values[value_indexer]
 				line.value = False
+			if value_indexer in self._filtered_values_cache:
+				line.important = True
+			else:
+				line.important = False
+			
 			
 		except IndexError:
 			line.name = None

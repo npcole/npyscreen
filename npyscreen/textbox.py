@@ -17,6 +17,7 @@ class Textfield(widget.Widget):
 		
 		self.show_bold = False
 		self.highlight = False
+		self.important = False
 		
 		self.begin_at = 0	# Where does the display string begin?
 		if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
@@ -75,12 +76,15 @@ class Textfield(widget.Widget):
 
 		if self.show_bold:
 			self.parent.curses_pad.attron(curses.A_BOLD)
+		if self.important and not self.do_colors():
+			self.parent.curses_pad.attron(curses.A_UNDERLINE)
 		
 		
 		self._print()
 
 		# reset everything to normal
 		self.parent.curses_pad.attroff(curses.A_BOLD)
+		self.parent.curses_pad.attroff(curses.A_UNDERLINE)
 		self.parent.curses_pad.bkgdset(' ',curses.A_NORMAL)
 		
 		if self.editing and cursor:
@@ -95,18 +99,20 @@ class Textfield(widget.Widget):
 		string_to_print = self.safe_string(self.value)
 		if self.value == None: return
 		if self.do_colors():
-			if self.show_bold:
-				if self.color == 'DEFAULT':
-					bcol = 'BOLD'
-				else:
-					bcol = self.color
+			coltofind = 'DEFAULT'
+			if self.show_bold and self.color != 'DEFAULT':
+				coltofind = 'BOLD'
 				self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
-												self.parent.theme_manager.findPair(self, bcol) | curses.A_BOLD)
+													self.parent.theme_manager.findPair(self, coltofind) | curses.A_BOLD)
+			elif self.important:
+				coltofind = 'IMPORTANT'
+				self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
+													self.parent.theme_manager.findPair(self, coltofind) | curses.A_BOLD)
 			else:
 				self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
 												self.parent.theme_manager.findPair(self))
 		else:
-		    self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])
+			self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])
 		    
 
 ##use addch to let us write to last corner

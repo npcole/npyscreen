@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import npyscreen
+#npyscreen.disableColor()
 class TestApp(npyscreen.NPSApp):
 	def main(self):
 		# These lines create the form and populate it with widgets.

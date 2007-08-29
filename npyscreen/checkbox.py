@@ -16,9 +16,9 @@ class Checkbox(Widget):
 		
 		self.label_area = Textfield(screen, rely=self.rely, relx=self.relx+5, 
 					  width=self.width-5, value=self.name)
-
 		self.show_bold = False
 		self.highlight = False
+		self.important = False
 		self.hide      = False
 
 	def update(self, clear=True):
@@ -50,6 +50,11 @@ class Checkbox(Widget):
 			self.label_area.show_bold = True
 		else: 
 			self.label_area.show_bold = False
+			
+		if self.important:
+			self.label_area.important = True
+		else:
+			self.label_area.important = False
 
 		if self.highlight: 
 			self.label_area.highlight = True
