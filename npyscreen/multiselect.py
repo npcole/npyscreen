@@ -7,7 +7,6 @@ import curses
 class MultiSelect(selectone.SelectOne):
 	_contained_widgets = checkbox.Checkbox
 
-
 	def set_up_handlers(self):
 		super(MultiSelect, self).set_up_handlers()
 		self.handlers.update({
