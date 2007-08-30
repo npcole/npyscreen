@@ -3,3 +3,4 @@ include setup.py
 include EXAMPLE.py
 include LICENCE
 include DOCUMENTATION
+include docs
