@@ -212,10 +212,11 @@ Should accept one argument (the object to be represented), and return a string."
 		
 
 	def filter_value(self, index):
-		if self._filter in self.values[index]:
+		if self._filter in self.display_value(self.values[index]):
 			return True
 		else:
 			return False
+			
 	def jump_to_first_filtered(self, ):
 		self.h_cursor_beginning(None)
 		self.move_next_filtered(include_this_line=True)
