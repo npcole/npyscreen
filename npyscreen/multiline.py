@@ -199,8 +199,8 @@ Should accept one argument (the object to be represented), and return a string."
 			
 
 	def get_filtered_indexes(self):
-		if self._filter == None or '':
-			return self.values
+		if self._filter == None or self._filter == '':
+			return []
 		list_of_indexes = []
 		for indexer in range(len(self.values)):
 			if self.filter_value(indexer):
