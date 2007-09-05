@@ -25,6 +25,9 @@ class MultiSelect(selectone.SelectOne):
 		else:
 			self.value.append(self.cursor_line)
 	
+	def h_set_filtered_to_selected(self, ch):
+		self.value = self._filtered_values_cache
+	
 	def h_select_exit(self, ch):
 		if not self.cursor_line in self.value:
 			self.value.append(self.cursor_line)
