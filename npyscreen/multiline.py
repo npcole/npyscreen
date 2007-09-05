@@ -68,6 +68,7 @@ display different kinds of objects."""
 		self._last_values = copy.copy(values)
 		self._last_value = copy.copy(value)
 		self._last_filter = None
+		self._filtered_values_cache = []
 
 		#override - it looks nicer.
 		if self.scroll_exit: self.slow_scroll=True
@@ -278,6 +279,7 @@ Should accept one argument (the object to be represented), and return a string."
 					ord('n'):		self.move_next_filtered,
 					ord('N'):		self.move_previous_filtered,
 					ord('p'):		self.move_previous_filtered,
+					"^L":		 self.h_set_filtered_to_selected,
 					curses.ascii.SP:	self.h_select,
 					curses.ascii.ESC:	self.h_exit,
 				} )
@@ -368,6 +370,13 @@ Should accept one argument (the object to be represented), and return a string."
 	def h_exit(self, ch):
 		self.editing = False
 		self.how_exited = True
+	
+	def h_set_filtered_to_selected(self, ch):
+		if len(self._filtered_values_cache) < 2:
+			self.value = self._filtered_values_cache
+		else:
+			# There is an error - trying to select too many things.
+			curses.beep()
 	
 	def h_select(self, ch):
 		self.value = self.cursor_line
