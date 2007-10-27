@@ -182,7 +182,6 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 
 		self.editing = False
 			
-	
 	def h_display_help(self, input):
 		if self.help == None: return
 		if self.name:
