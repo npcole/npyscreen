@@ -7,16 +7,8 @@ import weakref
 import pmfuncs
 #import Menu
 import GlobalOptions
-import ThemeManager
 
-APPLICATION_THEME_MANAGER = None
 
-def setTheme(theme):
-	global APPLICATION_THEME_MANAGER
-	APPLICATION_THEME_MANAGER = theme()
-
-def getTheme():
-	return APPLICATION_THEME_MANAGER
 
 
 class Form(screen_area.ScreenArea, widget.InputHandler):
@@ -25,11 +17,6 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 	DEFAULT_X_OFFSET = 2
 	def __init__(self, name=None, framed=True, help=None, color='FORMDEFAULT', *args, **keywords):
 		super(Form, self).__init__(*args, **keywords)
-		global APPLICATION_THEME_MANAGER
-		if APPLICATION_THEME_MANAGER is None:
-			self.theme_manager = ThemeManager.ThemeManager()
-		else:
-		    self.theme_manager = APPLICATION_THEME_MANAGER
 		self.framed = framed
 		self.name=name
 		self.editing = False
@@ -44,7 +31,6 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 		
 		self.color = color
 		
-		self.keypress_timeout = None
 
 		self.set_up_handlers()
 		self.set_up_exit_condition_handlers()
@@ -232,6 +218,11 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 				if self._widgets__[n].editable and not self._widgets__[n].hidden: 
 					self.editw = n
 					break
+
+	def widget_useable_space(self, rely=0, relx=0):
+		#Slightly misreports space available.
+		mxy, mxx = self.lines-1, self.columns-1
+		return (mxy-1-rely, mxx-1-relx)
 
 	def display(self):
 		#APPLICATION_THEME_MANAGER.setTheme(self)

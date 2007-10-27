@@ -170,6 +170,9 @@ class Widget(InputHandler):
 		self.editing = False		# Change to true during an edit
 		
 		self.editable = editable
+		if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
+		else: self.on_last_line = False
+		
 		
 	def do_colors(self):
 		"Returns True if the widget should try to paint in coloour."
@@ -215,7 +218,7 @@ big a given widget is ... use .height and .width instead"""
 
 		if self.height == -1 or self.width == -1:
 			# Not enough space for widget
-			pass # unsafe. Need to add error here.
+			raise Exception, "Not enough space" # unsafe. Need to add error here.
 	def update(self):
 		"""How should object display itself on the screen. Define here, but do not actually refresh the curses
 		display, since this should be done as little as possible.  This base widget puts nothing on screen."""

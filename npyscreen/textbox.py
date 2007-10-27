@@ -20,8 +20,6 @@ class Textfield(widget.Widget):
 		self.important = False
 		
 		self.begin_at = 0	# Where does the display string begin?
-		if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
-		else: self.on_last_line = False
 		
 		if self.on_last_line:
 			self.maximum_string_length = self.width - 1
@@ -100,8 +98,9 @@ class Textfield(widget.Widget):
 		if self.value == None: return
 		if self.do_colors():
 			coltofind = 'DEFAULT'
-			if self.show_bold and self.color != 'DEFAULT':
+			if self.show_bold and self.color == 'DEFAULT':
 				coltofind = 'BOLD'
+			if self.show_bold:
 				self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
 													self.parent.theme_manager.findPair(self, coltofind) | curses.A_BOLD)
 			elif self.important:
@@ -280,7 +279,7 @@ def cleartest(screen):
 	import screen_area
 	SA = screen_area.ScreenArea()
 	w  = Textfield(SA, rely=1, relx=3)
-	w.value = "This is some text! height: %s, width %s" % (w.height, w.width)
+	w.value = "This is some text! height: %s, width %s." % (w.height, w.width)
 	w.display()
 	curses.napms(1000)
 	curses.beep()
@@ -291,14 +290,17 @@ def cleartest(screen):
 def simpletest(screen):
 	import screen_area
 	SA = screen_area.ScreenArea()
-	w = Textfield(SA, rely=23, relx=66)
+	w = Textfield(SA, rely=23, relx=6, width=15)
 	w.value = "height: %s, width %s" % (w.height, w.width)
 	w.edit()
 	w.update()
+	w2 = Textfield(SA, rely=20, relx=6, width=15)
+	w.clear(usechar='x')
+	w2.clear(usechar='x')
 	SA.refresh()
 	curses.napms(2000)
 	
 
 if __name__ == "__main__":
-	curses.wrapper(cleartest)
+	curses.wrapper(simpletest)
 	print "The circle is now complete"

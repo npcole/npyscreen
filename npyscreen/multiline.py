@@ -208,6 +208,12 @@ Should accept one argument (the object to be represented), and return a string."
 				list_of_indexes.append(indexer)
 		return list_of_indexes
 	
+	def get_filtered_values(self):
+		fvls = []
+		for vli in self.get_filtered_indexes():
+			fvls.append(self.values[vli])
+		return fvls
+	
 	def _remake_filter_cache(self):
 		self._filtered_values_cache = self.get_filtered_indexes()
 		
