@@ -5,7 +5,7 @@ import curses.ascii
 def mainloop(scr):
 	while 1:
 		scr.keypad(1)
-		curses.halfdelay(10)
+		curses.halfdelay(100)
 		ch = scr.getch()
 		if ch == "-1": scr.addstr(2, 0, '-1')
 		try: 
@@ -15,7 +15,7 @@ def mainloop(scr):
 			scr.addstr(1,0, str(ch))
 		except:
 			pass
-		return ch
+		#return ch
 		scr.refresh()
 	
 if __name__ == "__main__":
