@@ -1,0 +1,137 @@
+This is some very quick documentation.  It is very incomplete, I'm sorry!
+
+I hope that the code itself is easy enough to read, and I will get around to
+documenting it properly some day.
+
+The following should give you enough info about what is going on in
+EXAMPLE.py
+
+
+
+Installation: 
+=============
+
+npyscreen is packaged using the standard python tools, so you can type - 
+
+	python setup.py install
+
+to install.
+
+Creating an Application:
+=========================
+
+To use the module, import using:
+
+import npyscreen
+
+Possibly the easiest (and used by the example script) is to subclass the
+object NPSApp. 
+
+NPSApp objects have a method .run() which sets up the terminal for curses
+and calls the main loop of your application, which you should create by
+overloading the method .main().  
+
+Creating User Interfaces:
+=========================
+
+There are two basic object types: forms and widgets.  Forms are the screens
+on which your objects appear, and generally fill the whole terminal.
+
+There is also a Menu class for putting "drop-down" menus or similar on the screen. 
+
+The Forms you can use currently are called
+
+Form
+TitleForm
+TitleFooterForm
+Popup
+
+ActionForm
+
+The TitleForm versions lack the box going all the way around the screen.
+
+Form is a good choice for most dialogs.
+
+ActionForm has OK and Cancel buttons.  You should override the on_ok method, and possibly the on_cancel method.
+
+Widgets are added to Forms using the .add(WidgetType, args ... ) method. You
+can control the position using the relx= and rely= arguments.  You can
+control the size of some widgets with additional arguments (max_height=,
+max_width= to set maximums, or width=, height= to request an absolute size.)
+Unless specified, widgets will assume that it is safe to use all of the
+remaining screen space.
+
+Both Forms and Widgets should be given a name (using the argument name=)
+when they are constructed.  This is used to give clues to the user (such as
+titles on forms, and names for text fields).
+
+The widgets available are
+
+
+MiniButton (aliased as Button)
+
+Textfield
+TitleText
+PasswordEntry
+TitlePassword
+MultiLineEdit
+
+Autocomplete  (see Filename and TitleFilename for an example of how to
+		subclass this widget to do useful things)
+TitleFilename
+Filename
+
+Slider
+TitleSlider
+
+MultiSelect (select several things from a list)
+MultiLine   (select one from a list of options)
+Pager
+
+Checkbox
+
+DateCombo
+TitleDateCombo
+MonthBox
+
+
+Most of these widgets store their value in the attribute .value.  For
+widgets where it makes sense (for example where the user is choosing from a
+list of values) the attribute .values stores the list of values, while
+.value stores the user's selection.
+
+If the user should not be able to edit the value of a widget, set the
+attribute .editable to False or pass in the argument editable=False at
+contruction time.
+
+The .add method of Forms returns a proxy to each widget - if you want to get
+the data out of a form later, it is helpful to keep hold of these!
+
+Both Widgets and Forms have a .edit() method.  It is normal to use the
+.edit() method of a form, which allows a user to scroll between widgets.
+Control will be returned when the user has selected OK.
+
+Key Handlers
+============
+
+Both Forms and widgets can handle key presses.  To add a key binding, you
+should edit the dictionary .handlers of the object.  The keys for this are
+the keypress, and the value is the function to be called.
+
+If you need to do a more complex test, you can use the complex_handlers
+list.  This is a list of lists of the form (testfunction,
+dispatch_function).  If the first is true for any keypress, the second
+function is called.
+
+Only the first function to match, from either list is ever called.  For more
+details, see the code in widget.py
+
+
+
+------------------------------------------------------------------------------------------
+
+There is also the utility function:
+
+CallSubShell
+
+

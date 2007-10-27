@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>npyscreen</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;npyscreen
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="npyscreen-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="npyscreen-module.html">Package npyscreen</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">curses</tt><tt class="py-op">.</tt><tt class="py-name">wrapper</tt> <tt class="py-keyword">as</tt> <tt class="py-name">wrapper</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module npyscreen.NPSApp=npyscreen.NPSApp-module.html,Class npyscreen.NPSApp.NPSApp=npyscreen.NPSApp.NPSApp-class.html"><a title="npyscreen.NPSApp
+npyscreen.NPSApp.NPSApp" class="py-name" href="#" onclick="return doclink('link-0', 'NPSApp', 'link-0');">NPSApp</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name"><a title="npyscreen.NPSApp
+npyscreen.NPSApp.NPSApp" class="py-name" href="#" onclick="return doclink('link-1', 'NPSApp', 'link-0');">NPSApp</a></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Module npyscreen.NPSAppManaged=npyscreen.NPSAppManaged-module.html,Class npyscreen.NPSAppManaged.NPSAppManaged=npyscreen.NPSAppManaged.NPSAppManaged-class.html"><a title="npyscreen.NPSAppManaged
+npyscreen.NPSAppManaged.NPSAppManaged" class="py-name" href="#" onclick="return doclink('link-2', 'NPSAppManaged', 'link-2');">NPSAppManaged</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name"><a title="npyscreen.NPSAppManaged
+npyscreen.NPSAppManaged.NPSAppManaged" class="py-name" href="#" onclick="return doclink('link-3', 'NPSAppManaged', 'link-2');">NPSAppManaged</a></tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name" targets="Module npyscreen.Form=npyscreen.Form-module.html,Class npyscreen.Form.Form=npyscreen.Form.Form-class.html"><a title="npyscreen.Form
+npyscreen.Form.Form" class="py-name" href="#" onclick="return doclink('link-4', 'Form', 'link-4');">Form</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name"><a title="npyscreen.Form
+npyscreen.Form.Form" class="py-name" href="#" onclick="return doclink('link-5', 'Form', 'link-4');">Form</a></tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name" targets="Class npyscreen.Form.TitleForm=npyscreen.Form.TitleForm-class.html"><a title="npyscreen.Form.TitleForm" class="py-name" href="#" onclick="return doclink('link-6', 'TitleForm', 'link-6');">TitleForm</a></tt><tt class="py-op">,</tt> <tt id="link-7" class="py-name" targets="Class npyscreen.Form.TitleFooterForm=npyscreen.Form.TitleFooterForm-class.html"><a title="npyscreen.Form.TitleFooterForm" class="py-name" href="#" onclick="return doclink('link-7', 'TitleFooterForm', 'link-7');">TitleFooterForm</a></tt><tt class="py-op">,</tt> <tt id="link-8" class="py-name" targets="Class npyscreen.Form.SplitForm=npyscreen.Form.SplitForm-class.html"><a title="npyscreen.Form.SplitForm" class="py-name" href="#" onclick="return doclink('link-8', 'SplitForm', 'link-8');">SplitForm</a></tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-9" class="py-name" targets="Module npyscreen.ActionForm=npyscreen.ActionForm-module.html,Class npyscreen.ActionForm.ActionForm=npyscreen.ActionForm.ActionForm-class.html"><a title="npyscreen.ActionForm
+npyscreen.ActionForm.ActionForm" class="py-name" href="#" onclick="return doclink('link-9', 'ActionForm', 'link-9');">ActionForm</a></tt> <tt class="py-keyword">import</tt> <tt id="link-10" class="py-name"><a title="npyscreen.ActionForm
+npyscreen.ActionForm.ActionForm" class="py-name" href="#" onclick="return doclink('link-10', 'ActionForm', 'link-9');">ActionForm</a></tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-11" class="py-name" targets="Module npyscreen.FormWithMenus=npyscreen.FormWithMenus-module.html,Class npyscreen.FormWithMenus.FormWithMenus=npyscreen.FormWithMenus.FormWithMenus-class.html"><a title="npyscreen.FormWithMenus
+npyscreen.FormWithMenus.FormWithMenus" class="py-name" href="#" onclick="return doclink('link-11', 'FormWithMenus', 'link-11');">FormWithMenus</a></tt> <tt class="py-keyword">import</tt> <tt id="link-12" class="py-name"><a title="npyscreen.FormWithMenus
+npyscreen.FormWithMenus.FormWithMenus" class="py-name" href="#" onclick="return doclink('link-12', 'FormWithMenus', 'link-11');">FormWithMenus</a></tt><tt class="py-op">,</tt> <tt id="link-13" class="py-name" targets="Class npyscreen.FormWithMenus.ActionFormWithMenus=npyscreen.FormWithMenus.ActionFormWithMenus-class.html"><a title="npyscreen.FormWithMenus.ActionFormWithMenus" class="py-name" href="#" onclick="return doclink('link-13', 'ActionFormWithMenus', 'link-13');">ActionFormWithMenus</a></tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-14" class="py-name" targets="Module npyscreen.button=npyscreen.button-module.html"><a title="npyscreen.button" class="py-name" href="#" onclick="return doclink('link-14', 'button', 'link-14');">button</a></tt> <tt class="py-keyword">import</tt> <tt id="link-15" class="py-name" targets="Class npyscreen.button.MiniButton=npyscreen.button.MiniButton-class.html"><a title="npyscreen.button.MiniButton" class="py-name" href="#" onclick="return doclink('link-15', 'MiniButton', 'link-15');">MiniButton</a></tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-16" class="py-name"><a title="npyscreen.button" class="py-name" href="#" onclick="return doclink('link-16', 'button', 'link-14');">button</a></tt> <tt class="py-keyword">import</tt> <tt id="link-17" class="py-name"><a title="npyscreen.button.MiniButton" class="py-name" href="#" onclick="return doclink('link-17', 'MiniButton', 'link-15');">MiniButton</a></tt> <tt class="py-keyword">as</tt> <tt class="py-name">Button</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-18" class="py-name" targets="Module npyscreen.textbox=npyscreen.textbox-module.html"><a title="npyscreen.textbox" class="py-name" href="#" onclick="return doclink('link-18', 'textbox', 'link-18');">textbox</a></tt> <tt class="py-keyword">import</tt> <tt id="link-19" class="py-name" targets="Class npyscreen.textbox.Textfield=npyscreen.textbox.Textfield-class.html"><a title="npyscreen.textbox.Textfield" class="py-name" href="#" onclick="return doclink('link-19', 'Textfield', 'link-19');">Textfield</a></tt><tt class="py-op">,</tt> <tt id="link-20" class="py-name" targets="Class npyscreen.textbox.FixedText=npyscreen.textbox.FixedText-class.html"><a title="npyscreen.textbox.FixedText" class="py-name" href="#" onclick="return doclink('link-20', 'FixedText', 'link-20');">FixedText</a></tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-21" class="py-name" targets="Module npyscreen.titlefield=npyscreen.titlefield-module.html"><a title="npyscreen.titlefield" class="py-name" href="#" onclick="return doclink('link-21', 'titlefield', 'link-21');">titlefield</a></tt> <tt class="py-keyword">import</tt> <tt id="link-22" class="py-name" targets="Class npyscreen.titlefield.TitleText=npyscreen.titlefield.TitleText-class.html"><a title="npyscreen.titlefield.TitleText" class="py-name" href="#" onclick="return doclink('link-22', 'TitleText', 'link-22');">TitleText</a></tt><tt class="py-op">,</tt> <tt id="link-23" class="py-name" targets="Class npyscreen.titlefield.TitleFixedText=npyscreen.titlefield.TitleFixedText-class.html"><a title="npyscreen.titlefield.TitleFixedText" class="py-name" href="#" onclick="return doclink('link-23', 'TitleFixedText', 'link-23');">TitleFixedText</a></tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-24" class="py-name" targets="Module npyscreen.password=npyscreen.password-module.html"><a title="npyscreen.password" class="py-name" href="#" onclick="return doclink('link-24', 'password', 'link-24');">password</a></tt> <tt class="py-keyword">import</tt> <tt id="link-25" class="py-name" targets="Class npyscreen.password.PasswordEntry=npyscreen.password.PasswordEntry-class.html"><a title="npyscreen.password.PasswordEntry" class="py-name" href="#" onclick="return doclink('link-25', 'PasswordEntry', 'link-25');">PasswordEntry</a></tt><tt class="py-op">,</tt> <tt id="link-26" class="py-name" targets="Class npyscreen.password.TitlePassword=npyscreen.password.TitlePassword-class.html"><a title="npyscreen.password.TitlePassword" class="py-name" href="#" onclick="return doclink('link-26', 'TitlePassword', 'link-26');">TitlePassword</a></tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-27" class="py-name" targets="Module npyscreen.slider=npyscreen.slider-module.html"><a title="npyscreen.slider" class="py-name" href="#" onclick="return doclink('link-27', 'slider', 'link-27');">slider</a></tt> <tt class="py-keyword">import</tt> <tt id="link-28" class="py-name" targets="Class npyscreen.slider.Slider=npyscreen.slider.Slider-class.html"><a title="npyscreen.slider.Slider" class="py-name" href="#" onclick="return doclink('link-28', 'Slider', 'link-28');">Slider</a></tt><tt class="py-op">,</tt> <tt id="link-29" class="py-name" targets="Class npyscreen.slider.TitleSlider=npyscreen.slider.TitleSlider-class.html"><a title="npyscreen.slider.TitleSlider" class="py-name" href="#" onclick="return doclink('link-29', 'TitleSlider', 'link-29');">TitleSlider</a></tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-30" class="py-name" targets="Module npyscreen.multiline=npyscreen.multiline-module.html"><a title="npyscreen.multiline" class="py-name" href="#" onclick="return doclink('link-30', 'multiline', 'link-30');">multiline</a></tt> <tt class="py-keyword">import</tt> <tt id="link-31" class="py-name" targets="Class npyscreen.multiline.MultiLine=npyscreen.multiline.MultiLine-class.html"><a title="npyscreen.multiline.MultiLine" class="py-name" href="#" onclick="return doclink('link-31', 'MultiLine', 'link-31');">MultiLine</a></tt><tt class="py-op">,</tt> <tt id="link-32" class="py-name" targets="Class npyscreen.multiline.Pager=npyscreen.multiline.Pager-class.html"><a title="npyscreen.multiline.Pager" class="py-name" href="#" onclick="return doclink('link-32', 'Pager', 'link-32');">Pager</a></tt><tt class="py-op">,</tt> <tt id="link-33" class="py-name" targets="Class npyscreen.multiline.TitleMultiLine=npyscreen.multiline.TitleMultiLine-class.html"><a title="npyscreen.multiline.TitleMultiLine" class="py-name" href="#" onclick="return doclink('link-33', 'TitleMultiLine', 'link-33');">TitleMultiLine</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-34" class="py-name" targets="Module npyscreen.multiselect=npyscreen.multiselect-module.html"><a title="npyscreen.multiselect" class="py-name" href="#" onclick="return doclink('link-34', 'multiselect', 'link-34');">multiselect</a></tt> <tt class="py-keyword">import</tt> <tt id="link-35" class="py-name" targets="Class npyscreen.multiselect.MultiSelect=npyscreen.multiselect.MultiSelect-class.html"><a title="npyscreen.multiselect.MultiSelect" class="py-name" href="#" onclick="return doclink('link-35', 'MultiSelect', 'link-35');">MultiSelect</a></tt><tt class="py-op">,</tt> <tt id="link-36" class="py-name" targets="Class npyscreen.multiselect.TitleMultiSelect=npyscreen.multiselect.TitleMultiSelect-class.html"><a title="npyscreen.multiselect.TitleMultiSelect" class="py-name" href="#" onclick="return doclink('link-36', 'TitleMultiSelect', 'link-36');">TitleMultiSelect</a></tt><tt class="py-op">,</tt> <tt id="link-37" class="py-name" targets="Class npyscreen.multiselect.MultiSelectFixed=npyscreen.multiselect.MultiSelectFixed-class.html"><a title="npyscreen.multiselect.MultiSelectFixed" class="py-name" href="#" onclick="return doclink('link-37', 'MultiSelectFixed', 'link-37');">MultiSelectFixed</a></tt><tt class="py-op">,</tt> <tt id="link-38" class="py-name" targets="Class npyscreen.multiselect.TitleMultiSelectFixed=npyscreen.multiselect.TitleMultiSelectFixed-class.html"><a title="npyscreen.multiselect.TitleMultiSelectFixed" class="py-name" href="#" onclick="return doclink('link-38', 'TitleMultiSelectFixed', 'link-38');">TitleMultiSelectFixed</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-39" class="py-name" targets="Module npyscreen.editmultiline=npyscreen.editmultiline-module.html"><a title="npyscreen.editmultiline" class="py-name" href="#" onclick="return doclink('link-39', 'editmultiline', 'link-39');">editmultiline</a></tt> <tt class="py-keyword">import</tt> <tt id="link-40" class="py-name" targets="Class npyscreen.editmultiline.MultiLineEdit=npyscreen.editmultiline.MultiLineEdit-class.html"><a title="npyscreen.editmultiline.MultiLineEdit" class="py-name" href="#" onclick="return doclink('link-40', 'MultiLineEdit', 'link-40');">MultiLineEdit</a></tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-41" class="py-name" targets="Module npyscreen.combobox=npyscreen.combobox-module.html"><a title="npyscreen.combobox" class="py-name" href="#" onclick="return doclink('link-41', 'combobox', 'link-41');">combobox</a></tt> <tt class="py-keyword">import</tt> <tt id="link-42" class="py-name" targets="Class npyscreen.combobox.ComboBox=npyscreen.combobox.ComboBox-class.html"><a title="npyscreen.combobox.ComboBox" class="py-name" href="#" onclick="return doclink('link-42', 'ComboBox', 'link-42');">ComboBox</a></tt><tt class="py-op">,</tt> <tt id="link-43" class="py-name" targets="Class npyscreen.combobox.TitleCombo=npyscreen.combobox.TitleCombo-class.html"><a title="npyscreen.combobox.TitleCombo" class="py-name" href="#" onclick="return doclink('link-43', 'TitleCombo', 'link-43');">TitleCombo</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-44" class="py-name" targets="Module npyscreen.checkbox=npyscreen.checkbox-module.html"><a title="npyscreen.checkbox" class="py-name" href="#" onclick="return doclink('link-44', 'checkbox', 'link-44');">checkbox</a></tt> <tt class="py-keyword">import</tt> <tt id="link-45" class="py-name" targets="Class npyscreen.checkbox.Checkbox=npyscreen.checkbox.Checkbox-class.html"><a title="npyscreen.checkbox.Checkbox" class="py-name" href="#" onclick="return doclink('link-45', 'Checkbox', 'link-45');">Checkbox</a></tt><tt class="py-op">,</tt> <tt id="link-46" class="py-name" targets="Class npyscreen.checkbox.RoundCheckBox=npyscreen.checkbox.RoundCheckBox-class.html"><a title="npyscreen.checkbox.RoundCheckBox" class="py-name" href="#" onclick="return doclink('link-46', 'RoundCheckBox', 'link-46');">RoundCheckBox</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-47" class="py-name" targets="Module npyscreen.autocomplete=npyscreen.autocomplete-module.html"><a title="npyscreen.autocomplete" class="py-name" href="#" onclick="return doclink('link-47', 'autocomplete', 'link-47');">autocomplete</a></tt> <tt class="py-keyword">import</tt> <tt id="link-48" class="py-name" targets="Class npyscreen.autocomplete.TitleFilename=npyscreen.autocomplete.TitleFilename-class.html"><a title="npyscreen.autocomplete.TitleFilename" class="py-name" href="#" onclick="return doclink('link-48', 'TitleFilename', 'link-48');">TitleFilename</a></tt><tt class="py-op">,</tt> <tt id="link-49" class="py-name" targets="Class npyscreen.autocomplete.Filename=npyscreen.autocomplete.Filename-class.html"><a title="npyscreen.autocomplete.Filename" class="py-name" href="#" onclick="return doclink('link-49', 'Filename', 'link-49');">Filename</a></tt><tt class="py-op">,</tt> <tt id="link-50" class="py-name" targets="Class npyscreen.autocomplete.Autocomplete=npyscreen.autocomplete.Autocomplete-class.html"><a title="npyscreen.autocomplete.Autocomplete" class="py-name" href="#" onclick="return doclink('link-50', 'Autocomplete', 'link-50');">Autocomplete</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-51" class="py-name" targets="Module npyscreen.Popup=npyscreen.Popup-module.html,Class npyscreen.Popup.Popup=npyscreen.Popup.Popup-class.html"><a title="npyscreen.Popup
+npyscreen.Popup.Popup" class="py-name" href="#" onclick="return doclink('link-51', 'Popup', 'link-51');">Popup</a></tt> <tt class="py-keyword">import</tt> <tt id="link-52" class="py-name"><a title="npyscreen.Popup
+npyscreen.Popup.Popup" class="py-name" href="#" onclick="return doclink('link-52', 'Popup', 'link-51');">Popup</a></tt><tt class="py-op">,</tt> <tt id="link-53" class="py-name" targets="Class npyscreen.Popup.MessagePopup=npyscreen.Popup.MessagePopup-class.html"><a title="npyscreen.Popup.MessagePopup" class="py-name" href="#" onclick="return doclink('link-53', 'MessagePopup', 'link-53');">MessagePopup</a></tt><tt class="py-op">,</tt> <tt id="link-54" class="py-name" targets="Class npyscreen.Popup.ActionPopup=npyscreen.Popup.ActionPopup-class.html"><a title="npyscreen.Popup.ActionPopup" class="py-name" href="#" onclick="return doclink('link-54', 'ActionPopup', 'link-54');">ActionPopup</a></tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-55" class="py-name" targets="Module npyscreen.Menu=npyscreen.Menu-module.html,Class npyscreen.Menu.Menu=npyscreen.Menu.Menu-class.html"><a title="npyscreen.Menu
+npyscreen.Menu.Menu" class="py-name" href="#" onclick="return doclink('link-55', 'Menu', 'link-55');">Menu</a></tt> <tt class="py-keyword">import</tt> <tt id="link-56" class="py-name"><a title="npyscreen.Menu
+npyscreen.Menu.Menu" class="py-name" href="#" onclick="return doclink('link-56', 'Menu', 'link-55');">Menu</a></tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-57" class="py-name" targets="Module npyscreen.selectone=npyscreen.selectone-module.html"><a title="npyscreen.selectone" class="py-name" href="#" onclick="return doclink('link-57', 'selectone', 'link-57');">selectone</a></tt> <tt class="py-keyword">import</tt> <tt id="link-58" class="py-name" targets="Class npyscreen.selectone.SelectOne=npyscreen.selectone.SelectOne-class.html"><a title="npyscreen.selectone.SelectOne" class="py-name" href="#" onclick="return doclink('link-58', 'SelectOne', 'link-58');">SelectOne</a></tt><tt class="py-op">,</tt> <tt id="link-59" class="py-name" targets="Class npyscreen.selectone.TitleSelectOne=npyscreen.selectone.TitleSelectOne-class.html"><a title="npyscreen.selectone.TitleSelectOne" class="py-name" href="#" onclick="return doclink('link-59', 'TitleSelectOne', 'link-59');">TitleSelectOne</a></tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-60" class="py-name" targets="Module npyscreen.datecombo=npyscreen.datecombo-module.html"><a title="npyscreen.datecombo" class="py-name" href="#" onclick="return doclink('link-60', 'datecombo', 'link-60');">datecombo</a></tt> <tt class="py-keyword">import</tt> <tt id="link-61" class="py-name" targets="Class npyscreen.datecombo.DateCombo=npyscreen.datecombo.DateCombo-class.html"><a title="npyscreen.datecombo.DateCombo" class="py-name" href="#" onclick="return doclink('link-61', 'DateCombo', 'link-61');">DateCombo</a></tt><tt class="py-op">,</tt> <tt id="link-62" class="py-name" targets="Class npyscreen.datecombo.TitleDateCombo=npyscreen.datecombo.TitleDateCombo-class.html"><a title="npyscreen.datecombo.TitleDateCombo" class="py-name" href="#" onclick="return doclink('link-62', 'TitleDateCombo', 'link-62');">TitleDateCombo</a></tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-63" class="py-name" targets="Module npyscreen.monthbox=npyscreen.monthbox-module.html"><a title="npyscreen.monthbox" class="py-name" href="#" onclick="return doclink('link-63', 'monthbox', 'link-63');">monthbox</a></tt> <tt class="py-keyword">import</tt> <tt id="link-64" class="py-name" targets="Class npyscreen.monthbox.MonthBox=npyscreen.monthbox.MonthBox-class.html"><a title="npyscreen.monthbox.MonthBox" class="py-name" href="#" onclick="return doclink('link-64', 'MonthBox', 'link-64');">MonthBox</a></tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-65" class="py-name" targets="Module npyscreen.NewMenu=npyscreen.NewMenu-module.html,Class npyscreen.NewMenu.NewMenu=npyscreen.NewMenu.NewMenu-class.html"><a title="npyscreen.NewMenu
+npyscreen.NewMenu.NewMenu" class="py-name" href="#" onclick="return doclink('link-65', 'NewMenu', 'link-65');">NewMenu</a></tt> <tt class="py-keyword">import</tt> <tt id="link-66" class="py-name"><a title="npyscreen.NewMenu
+npyscreen.NewMenu.NewMenu" class="py-name" href="#" onclick="return doclink('link-66', 'NewMenu', 'link-65');">NewMenu</a></tt><tt class="py-op">,</tt> <tt id="link-67" class="py-name" targets="Class npyscreen.NewMenu.MenuItem=npyscreen.NewMenu.MenuItem-class.html"><a title="npyscreen.NewMenu.MenuItem" class="py-name" href="#" onclick="return doclink('link-67', 'MenuItem', 'link-67');">MenuItem</a></tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-68" class="py-name" targets="Module npyscreen.NMenuDisplay=npyscreen.NMenuDisplay-module.html"><a title="npyscreen.NMenuDisplay" class="py-name" href="#" onclick="return doclink('link-68', 'NMenuDisplay', 'link-68');">NMenuDisplay</a></tt> <tt class="py-keyword">import</tt> <tt id="link-69" class="py-name" targets="Class npyscreen.NMenuDisplay.MenuDisplay=npyscreen.NMenuDisplay.MenuDisplay-class.html"><a title="npyscreen.NMenuDisplay.MenuDisplay" class="py-name" href="#" onclick="return doclink('link-69', 'MenuDisplay', 'link-69');">MenuDisplay</a></tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-70" class="py-name" targets="Module npyscreen.pmfuncs=npyscreen.pmfuncs-module.html"><a title="npyscreen.pmfuncs" class="py-name" href="#" onclick="return doclink('link-70', 'pmfuncs', 'link-70');">pmfuncs</a></tt> <tt class="py-keyword">import</tt> <tt id="link-71" class="py-name" targets="Function npyscreen.pmfuncs.CallSubShell()=npyscreen.pmfuncs-module.html#CallSubShell"><a title="npyscreen.pmfuncs.CallSubShell" class="py-name" href="#" onclick="return doclink('link-71', 'CallSubShell', 'link-71');">CallSubShell</a></tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0beta1 on Thu Mar 29 15:58:55 2007
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>
