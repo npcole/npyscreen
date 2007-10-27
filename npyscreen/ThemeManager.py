@@ -31,7 +31,7 @@ class ThemeManager(object):
         'LABEL'       : 'GREEN_BLACK',
         'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'YELLOW_BLACK',
-        'IMPORTANT'   : 'GREEN_BLACK'
+        'IMPORTANT'   : 'GREEN_BLACK',
     }
     def __init__(self):
         self._max_pairs = curses.COLOR_PAIRS - 1

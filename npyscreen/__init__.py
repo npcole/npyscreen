@@ -6,7 +6,8 @@ from ThemeManager import ThemeManager, disableColor, enableColor
 import Themes
 from NPSApp import NPSApp
 from NPSAppManaged import NPSAppManaged
-from Form import Form, TitleForm, TitleFooterForm, SplitForm, setTheme
+from screen_area import setTheme
+from Form import Form, TitleForm, TitleFooterForm, SplitForm
 from ActionForm import ActionForm
 from FormWithMenus import FormWithMenus, ActionFormWithMenus
 

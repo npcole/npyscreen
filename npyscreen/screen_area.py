@@ -5,9 +5,23 @@ import curses.panel
 import curses.wrapper
 import pmfuncs
 import os
+import ThemeManager
+
 
 # For more complex method of getting the size of screen
 import fcntl, termios, struct, sys
+
+
+APPLICATION_THEME_MANAGER = None
+
+def setTheme(theme):
+	global APPLICATION_THEME_MANAGER
+	APPLICATION_THEME_MANAGER = theme()
+
+def getTheme():
+	return APPLICATION_THEME_MANAGER
+
+
 
 class ScreenArea(object):
 	"""A screen area that can be safely resized.  But this is a low-level class,
@@ -40,6 +54,15 @@ class ScreenArea(object):
 		self.show_atx = show_atx
 		self.show_aty = show_aty
 		self.ALL_SHOWN = False
+		
+		global APPLICATION_THEME_MANAGER
+		if APPLICATION_THEME_MANAGER is None:
+			self.theme_manager = ThemeManager.ThemeManager()
+		else:
+		    self.theme_manager = APPLICATION_THEME_MANAGER
+		
+		self.keypress_timeout = None
+		
 
 		self._create_screen()
 
@@ -88,7 +111,7 @@ class ScreenArea(object):
 
 	def widget_useable_space(self, rely=0, relx=0):
 		#Slightly misreports space available.
-		mxy, mxx = self.lines-1, self.columns-1
+		mxy, mxx = self.lines, self.columns-1
 		return (mxy-1-rely, mxx-1-relx)
 	
 	def refresh(self):

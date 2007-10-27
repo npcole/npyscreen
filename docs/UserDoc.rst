@@ -371,6 +371,29 @@ Slider, TitleSlider
       stri = stri.rjust(l)
       return stri
 
+Trees and Tree displays
+***********************
+(The tree objects are the newest part of the library, and are therefore not as mature as the rest of it. In particular, the exact way they are displayed may change in future versions.).
+
+
+
+NPSTreeData
+    The NPSTreeData class is used to represent tree objects.  Each nod of the tree, including the root node, is an NPSTreeData instance.  Each node may have its own content, a parent or children.
+
+    The content of each node is either set when it is created or using the *.setContent* method.
+
+    *.getContent* returns the content.
+
+    *.getContentForDisplay* is used by the widgets that display trees, which expect it to return a string that can be displayed to the user to represent the content.  You might want to overload this method.
+
+    *newChild(content=...)* creates a new child node.
+    
+Widgets
+~~~~~~~
+MultiLineTree, SelectOneTree, and MultiLineTree
+    These widgets all work in a very similar way to the non-Tree versions, except that they expect to contain an NPSTree in their .values attribute.  The other major difference is that their .value attribute does not contain the index of the selected value(s), but the selected value(s) itself/themselves.
+
+
 Other Controls
 **************
 

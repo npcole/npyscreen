@@ -68,6 +68,7 @@ display different kinds of objects."""
 		self._last_values = copy.copy(values)
 		self._last_value = copy.copy(value)
 		self._last_filter = None
+		self._filtered_values_cache = []
 
 		#override - it looks nicer.
 		if self.scroll_exit: self.slow_scroll=True
@@ -199,23 +200,30 @@ Should accept one argument (the object to be represented), and return a string."
 			
 
 	def get_filtered_indexes(self):
-		if self._filter == None or '':
-			return self.values
+		if self._filter == None or self._filter == '':
+			return []
 		list_of_indexes = []
 		for indexer in range(len(self.values)):
 			if self.filter_value(indexer):
 				list_of_indexes.append(indexer)
 		return list_of_indexes
 	
+	def get_filtered_values(self):
+		fvls = []
+		for vli in self.get_filtered_indexes():
+			fvls.append(self.values[vli])
+		return fvls
+	
 	def _remake_filter_cache(self):
 		self._filtered_values_cache = self.get_filtered_indexes()
 		
 
 	def filter_value(self, index):
-		if self._filter in self.values[index]:
+		if self._filter in self.display_value(self.values[index]):
 			return True
 		else:
 			return False
+			
 	def jump_to_first_filtered(self, ):
 		self.h_cursor_beginning(None)
 		self.move_next_filtered(include_this_line=True)
@@ -277,6 +285,7 @@ Should accept one argument (the object to be represented), and return a string."
 					ord('n'):		self.move_next_filtered,
 					ord('N'):		self.move_previous_filtered,
 					ord('p'):		self.move_previous_filtered,
+					"^L":		 self.h_set_filtered_to_selected,
 					curses.ascii.SP:	self.h_select,
 					curses.ascii.ESC:	self.h_exit,
 				} )
@@ -367,6 +376,13 @@ Should accept one argument (the object to be represented), and return a string."
 	def h_exit(self, ch):
 		self.editing = False
 		self.how_exited = True
+	
+	def h_set_filtered_to_selected(self, ch):
+		if len(self._filtered_values_cache) < 2:
+			self.value = self._filtered_values_cache
+		else:
+			# There is an error - trying to select too many things.
+			curses.beep()
 	
 	def h_select(self, ch):
 		self.value = self.cursor_line
