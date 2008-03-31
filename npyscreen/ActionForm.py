@@ -61,9 +61,9 @@ class ActionForm(Form.Form):
 				self.editing = False
 		
 		if self.ok_button.value:
-			self.on_ok()
+			self.edit_return_value = self.on_ok()
 		elif self.c_button.value:
-			self.on_cancel()
+			self.edit_return_value = self.on_cancel()
 		
 		self.ok_button.destroy()
 		self.c_button.destroy()
@@ -74,6 +74,7 @@ class ActionForm(Form.Form):
 		self.nextrely, self.nextrelx = tmp_rely, tmp_relx
 		self.display()
 		self.editing = False
+		return self.edit_return_value
 
 	def on_cancel(self):
 		pass

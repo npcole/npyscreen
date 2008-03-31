@@ -7,11 +7,9 @@ import weakref
 import pmfuncs
 #import Menu
 import GlobalOptions
+import form_edit_loop
 
-
-
-
-class Form(screen_area.ScreenArea, widget.InputHandler):
+class Form(screen_area.ScreenArea, widget.InputHandler, form_edit_loop.FormDefaultEditLoop):
 	OK_BUTTON_BR_OFFSET = (2,6)
 	OKBUTTON_TYPE = button.MiniButton
 	DEFAULT_X_OFFSET = 2
@@ -135,52 +133,6 @@ class Form(screen_area.ScreenArea, widget.InputHandler):
 ## REMOVING OLD MENU CODE  	self.add_handlers({key: mu.edit})
 ## REMOVING OLD MENU CODE  	return weakref.proxy(mu)
 
-	def edit(self):
-		"""Edit the fields until the user selects the ok button added in the lower right corner. Button will
-		be removed when editing finishes"""
-		self.editing=True
-		if self.editw < 0: self.editw=0
-		if self.editw > len(self._widgets__)-1:
-			self.editw = len(self._widgets__)-1
-	
-		if not self._widgets__[self.editw].editable: self.find_next_editable()
-		# Add ok button. Will remove later
-		tmp_rely, tmp_relx = self.nextrely, self.nextrelx
-		my, mx = self.curses_pad.getmaxyx()
-		ok_button_text = "OK"
-		my -= self.__class__.OK_BUTTON_BR_OFFSET[0]
-		mx -= len(ok_button_text)+self.__class__.OK_BUTTON_BR_OFFSET[1]
-		self.ok_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=ok_button_text, rely=my, relx=mx)
-		ok_button_postion = len(self._widgets__)-1
-		self.ok_button.update()
-
-		self.display()
-
-		while not self._widgets__[self.editw].editable:
-			self.editw += 1
-			if self.editw > len(self._widgets__)-1: 
-				self.editing = False
-				return False
-		
-		while self.editing:
-			if not self.ALL_SHOWN: self.on_screen()
-			self.while_editing(weakref.proxy(self._widgets__[self.editw]))
-			self._widgets__[self.editw].edit()
-			self._widgets__[self.editw].display()
-			
-			self.handle_exiting_widgets(self._widgets__[self.editw].how_exited)
-			
-			if self.editw > len(self._widgets__)-1: self.editw = len(self._widgets__)-1
-			if self.ok_button.value:
-				self.editing = False
-		
-		self.ok_button.destroy()
-		del self._widgets__[ok_button_postion]
-		del self.ok_button
-		self.nextrely, self.nextrelx = tmp_rely, tmp_relx
-		self.display()
-
-		self.editing = False
 			
 	def h_display_help(self, input):
 		if self.help == None: return

@@ -1,9 +1,11 @@
+#!/usr/bin/env pyton
+
 import checkbox
 import weakref
 
 class FormControlCheckbox(checkbox.Checkbox):
 	def __init__(self, *args, **keywords):
-		super(formControlCheckbox, self).__init__(*args, **keywords)
+		super(FormControlCheckbox, self).__init__(*args, **keywords)
 		self._visibleWhenSelected    = []
 		self._notVisibleWhenSelected = []
 
@@ -49,7 +51,7 @@ class FormControlCheckbox(checkbox.Checkbox):
 		self.parent.display()
 
 	def h_toggle(self, *args):
-		super(formControlCheckbox, self).h_toggle(*args)
+		super(FormControlCheckbox, self).h_toggle(*args)
 		self.updateDependents()
 		
 

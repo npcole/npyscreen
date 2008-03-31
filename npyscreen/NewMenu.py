@@ -29,9 +29,10 @@ class NewMenu(object):
 
 class MenuItem(object):
     """docstring for MenuItem"""
-    def __init__(self, text='', onSelect=None):
+    def __init__(self, text='', onSelect=None, document=None):
         self.setText(text)
         self.setOnSelect(onSelect)
+        self.setDocumentation(document)
         
     def setText(self, text):
         self._text = text
@@ -42,6 +43,15 @@ class MenuItem(object):
     def setOnSelect(self, onSelect):
         self.onSelectFunction = onSelect
         
+    def setDocumentation(self, document):
+        self._help = document
+    
+    def getDocumentation(self):
+        return self._help
+    
+    def getHelp(self):
+        return self._help
+    
     def do(self):
         return self.onSelectFunction()
     
