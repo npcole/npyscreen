@@ -436,6 +436,13 @@ class Pager(MultiLine):
 			# call update to avoid needless refreshes
 			w.update(clear=True)
 			
+			
+	def get_selected_objects(self):
+		if self.value == None:
+			return None
+		else:
+			return self.values[self.value]
+			
 	def edit(self):
 		# Make sure a value never gets set.
 		value = self.value
@@ -486,6 +493,9 @@ class Pager(MultiLine):
 
 class TitleMultiLine(titlefield.TitleText):
 	_entry_type = MultiLine
+
+	def get_selected_objects(self):
+		return self.entry_widget.get_selected_objects()
 
 	def get_values(self):
 		try:

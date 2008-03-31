@@ -34,6 +34,12 @@ class MultiSelect(selectone.SelectOne):
 		if self.return_exit:
 			self.editing = False
 			self.how_exited=True
+			
+	def get_selected_objects(self):
+		if self.value == [] or self.value == None:
+			return None
+		else:
+			return [self.values[x] for x in self.value]
 		
 class MultiSelectFixed(MultiSelect):
 	# This does not allow the user to change Values, but does allow the user to move around.
@@ -70,7 +76,7 @@ def simpletest(screen):
 	w.update()
 	SA.refresh()
 	curses.napms(2000)
-	return w.value
+	return w.get_selected_objects()
 	
 
 if __name__ == "__main__":
