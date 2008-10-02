@@ -2,6 +2,12 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+
+2.0pre27
+	Added MiniButtonPress class.
+	
+	CheckBox and Button classes now have the whenToggled method.
+
 2.0pre26
 	Include documentation in Tarball.
 

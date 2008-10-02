@@ -80,6 +80,10 @@ class Checkbox(Widget):
 			self.value = True
 		else: 
 			self.value = False
+		self.whenToggled()
+	
+	def whenToggled(self):
+		pass
 	
 	def h_select_exit(self, ch):
 		self.value = True

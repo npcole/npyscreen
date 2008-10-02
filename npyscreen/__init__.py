@@ -12,7 +12,9 @@ from ActionForm import ActionForm
 from FormWithMenus import FormWithMenus, ActionFormWithMenus
 
 from button import MiniButton
+from button import MiniButtonPress
 from button import MiniButton as Button
+from button import MiniButtonPress as ButtonPress
 
 from textbox import Textfield, FixedText
 from titlefield import TitleText, TitleFixedText
