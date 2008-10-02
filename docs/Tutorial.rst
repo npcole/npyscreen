@@ -6,7 +6,6 @@ This tutorial is a work-in-progress.
 
 .. contents::
 
-
 Part I: Forms, Widgets and Applications
 ***************************************
 
@@ -130,7 +129,7 @@ We can use our wrapper code from before to use it::
 Offering Choice
 ===============
 
-Actally, we probably don't want just any old department name typed in - we want to offer a list of choices.  Let's use the TitleSelectOne widget.  It's a multi-line widget, so we need to take care that it takes up only a few lines of the screen::
+Actually, we probably don't want just any old department name typed in - we want to offer a list of choices.  Let's use the TitleSelectOne widget.  It's a multi-line widget, so we need to take care that it takes up only a few lines of the screen::
 
     self.myDepartment = self.add(npyscreen.TitleSelectOne, max_height=3, 
                                     name='Department', 

@@ -66,13 +66,13 @@ class Slider(widget.Widget):
 		for n in xrange(blocks_on_screen):
 			xoffset = self.relx
 			if self.do_colors():
-				self.parent.curses_pad.addch(self.rely,n+xoffset, BACKGROUND_CHAR, curses.A_NORMAL | self.parent.theme_manager.findPair(self, 'CONTROL'))
+				self.parent.curses_pad.addch(self.rely,n+xoffset, BACKGROUND_CHAR, curses.A_NORMAL | self.parent.theme_manager.findPair(self))
 			else:
 				self.parent.curses_pad.addch(self.rely,n+xoffset, BACKGROUND_CHAR, curses.A_NORMAL)
 	
 		for n in xrange(int(blocks_to_fill)):
 			if self.do_colors():
-				self.parent.curses_pad.addstr(self.rely,n+xoffset, ' ', curses.A_STANDOUT | self.parent.theme_manager.findPair(self, 'CONTROL'))
+				self.parent.curses_pad.addstr(self.rely,n+xoffset, ' ', curses.A_STANDOUT | self.parent.theme_manager.findPair(self))
 			else:
 				self.parent.curses_pad.addstr(self.rely,n+xoffset, ' ', curses.A_STANDOUT) #curses.ACS_BLOCK)
 
@@ -112,16 +112,16 @@ class Slider(widget.Widget):
 	def h_decrease(self, ch):
 		if (self.value - self.step >= self.lowest): self.value -= self.step
 
-	def create_subwindows(self):
-		maximum_possible = self.space_available()[1]
-		
-		if self.request_width:
-			if self.request_width > maximum_possible: ask_for = maximum_possible
-			else: ask_for = self.request_width
-		else:
-			ask_for = maximum_possible
-			
-		self.textfield = self.parent.curses_pad.derwin(1, ask_for, self.rely, self.relx)
+#	def create_subwindows(self):
+#		maximum_possible = self.space_available()[1]
+#		
+#		if self.request_width:
+#			if self.request_width > maximum_possible: ask_for = maximum_possible
+#			else: ask_for = self.request_width
+#		else:
+#			ask_for = maximum_possible
+#			
+#		self.textfield = self.parent.curses_pad.derwin(1, ask_for, self.rely, self.relx)
 
 class TitleSlider(titlefield.TitleText):
 	_entry_type = Slider

@@ -32,6 +32,9 @@ class ThemeManager(object):
         'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'YELLOW_BLACK',
         'IMPORTANT'   : 'GREEN_BLACK',
+        'SAFE'        : 'GREEN_BLACK',
+        'WARNING'     : 'YELLOW_BLACK',
+        'DANGER'      : 'RED_BLACK'
     }
     def __init__(self):
         self._max_pairs = curses.COLOR_PAIRS - 1
@@ -45,11 +48,8 @@ class ThemeManager(object):
         if not curses.has_colors() or GlobalOptions.DISABLE_ALL_COLORS:
             return False
 
-        try:
-            if request=='DEFAULT':
-                request = caller.color
-        except:
-	        pass                
+        if request=='DEFAULT':
+            request = caller.color
         # Locate the requested colour pair.  Default to default if not found.
         try:
             pair = self._defined_pairs[self._names[request]]
