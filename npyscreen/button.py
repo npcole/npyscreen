@@ -40,6 +40,18 @@ class MiniButton(checkbox.Checkbox):
 			self.parent.curses_pad.addnstr(self.rely, self.relx+1, str, self.label_width, button_state) 
 		
 
+class MiniButtonPress(MiniButton):
+	def h_tottle(self):
+		self.value = True
+		self.display()
+		self.whenPressed()
+		self.value = False
+		self.display()
+	
+	def whenPressed(self):
+		pass
+
+
 def testme(sa):
 	import screen_area
 	SA = screen_area.ScreenArea()

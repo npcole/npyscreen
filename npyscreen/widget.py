@@ -251,15 +251,25 @@ big a given widget is ... use .height and .width instead"""
 	def edit(self):
 		"""Allow the user to edit the widget: ie. start handling keypresses."""
 		self.editing = 1
+		self._pre_edit()
+		self._edit_loop()
+		return self._post_edit()
+
+	def _pre_edit(self):
 		self.highlight = 1
 		old_value = self.value
 		self.how_exited = False
-		
+
+	def _edit_loop(self):
 		while self.editing:
 			self.display()
 			self.get_and_use_key_press()
+
+	def _post_edit(self):
 		self.highlight = 0
 		self.update()
+		
+
 
 	def try_adjust_widgets(self):
 		if hasattr(self.parent, "adjust_widgets"):

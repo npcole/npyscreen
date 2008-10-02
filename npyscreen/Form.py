@@ -9,7 +9,7 @@ import pmfuncs
 import GlobalOptions
 import form_edit_loop
 
-class Form(screen_area.ScreenArea, widget.InputHandler, form_edit_loop.FormDefaultEditLoop):
+class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.InputHandler, ):
 	OK_BUTTON_BR_OFFSET = (2,6)
 	OKBUTTON_TYPE = button.MiniButton
 	DEFAULT_X_OFFSET = 2

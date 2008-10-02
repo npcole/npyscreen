@@ -18,9 +18,9 @@ class TestApp(npyscreen.NPSApp):
 		ms= F.add(npyscreen.TitleSelectOne, max_height=4, value = [1,], name="Pick One", 
 				values = ["Option1","Option2","Option3"], scroll_exit=True)
 		ms2= F.add(npyscreen.MultiSelect, max_height=4, value = [1,], 
-				values = ["Option1","Option2","Option3"], scroll_exit=True)
+				values = ["Option1","Option2","Option3"], scroll_exit=True, )
 
-		bn = F.add(npyscreen.MiniButton, name = "Button")
+		bn = F.add(npyscreen.MiniButton, name = "Button",)
 		
 		# This lets the user play with the Form.
 		F.edit()
