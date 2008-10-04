@@ -399,6 +399,8 @@ Other Controls
 
 Checkbox, RoundCheckBox
    These offer a single option - the label is generated from the attribute *name*, as for titled widgets.  The attribute *value* is either true or false.
+   
+   The function whenToggled(self) is called when the user toggles the state of the checkbox.  You can overload it.
 
 
 Button
