@@ -6,7 +6,6 @@ import os
 import Form
 import ActionForm
 import curses
-import multiline
 
 class Popup(Form.Form):
     def __init__(self, lines = 12, columns=60,
@@ -24,6 +23,7 @@ class ActionPopup(ActionForm.ActionForm, Popup):
         
 class MessagePopup(Popup):
     def __init__(self, *args, **keywords):
+        import multiline 
         super(MessagePopup, self).__init__(*args, **keywords)
         self.TextWidget = self.add(multiline.Pager, scroll_exit=True, max_height=self.widget_useable_space()[0]-2)
         
