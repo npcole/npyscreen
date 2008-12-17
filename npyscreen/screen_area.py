@@ -5,7 +5,7 @@ import curses.panel
 import curses.wrapper
 import pmfuncs
 import os
-import ThemeManager
+import ThemeManagers
 
 
 # For more complex method of getting the size of screen
@@ -57,7 +57,7 @@ class ScreenArea(object):
 		
 		global APPLICATION_THEME_MANAGER
 		if APPLICATION_THEME_MANAGER is None:
-			self.theme_manager = ThemeManager.ThemeManager()
+			self.theme_manager = ThemeManagers.ThemeManager()
 		else:
 		    self.theme_manager = APPLICATION_THEME_MANAGER
 		

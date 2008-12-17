@@ -1,6 +1,6 @@
-import ThemeManager
+import ThemeManagers
 
-class DefaultTheme(ThemeManager.ThemeManager):
+class DefaultTheme(ThemeManagers.ThemeManager):
     default_colors = {
         'DEFAULT'     : 'WHITE_BLACK',
         'FORMDEFAULT' : 'YELLOW_BLACK',
@@ -11,7 +11,7 @@ class DefaultTheme(ThemeManager.ThemeManager):
         'CONTROL'     : 'GREEN_BLACK',
     }
 
-class ColorfulTheme(ThemeManager.ThemeManager):
+class ColorfulTheme(ThemeManagers.ThemeManager):
     default_colors = {
         'DEFAULT'     : 'RED_BLACK',
         'FORMDEFAULT' : 'YELLOW_BLACK',
