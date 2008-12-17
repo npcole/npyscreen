@@ -5,7 +5,6 @@ import curses
 import curses.ascii
 import curses.wrapper
 import weakref
-import ThemeManager
 import GlobalOptions
 
 

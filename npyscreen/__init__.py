@@ -2,7 +2,7 @@
 
 import curses.wrapper as wrapper
 
-from ThemeManager import ThemeManager, disableColor, enableColor
+from ThemeManagers import ThemeManager, disableColor, enableColor
 import Themes
 from NPSApp import NPSApp
 from NPSAppManaged import NPSAppManaged
