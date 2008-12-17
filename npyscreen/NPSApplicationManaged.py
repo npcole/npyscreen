@@ -3,11 +3,11 @@
 """
 NPSAppManaged.py
 """
-import NPSApp
+import NPSApplication
 import Form
 import weakref
 
-class NPSAppManaged(NPSApp.NPSApp):
+class NPSAppManaged(NPSApplication.NPSApp):
     """This class is intended to make it easier to program applications with many screens:
     
     1. The programmer should not now select which 'Form' to display himself.  Instead, he should set the NEXT_ACTIVE_FORM class variable.  
