@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+#
 import curses.wrapper as wrapper
 
 from ThemeManagers import ThemeManager, disableColor, enableColor
