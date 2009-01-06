@@ -48,6 +48,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         self.exit_left       = exit_left
         self.exit_right      = exit_right
         super(MultiLine, self).__init__(screen, **keywords)
+        self.make_contained_widgets()
 
         self.value = value
         
@@ -73,10 +74,12 @@ the same effect can be achieved by altering the __str__() method of displayed ob
 
         #override - it looks nicer.
         if self.scroll_exit: self.slow_scroll=True
-        
+    
+    
+    def make_contained_widgets(self, ):
         self._my_widgets = []
         for h in range(self.height):
-            self._my_widgets.append(self._contained_widgets(screen, rely=h+self.rely, relx = self.relx, max_width=self.width))
+            self._my_widgets.append(self._contained_widgets(self.parent, rely=h+self.rely, relx = self.relx, max_width=self.width))
             
 
     def display_value(self, vl):
