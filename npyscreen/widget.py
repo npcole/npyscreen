@@ -138,7 +138,10 @@ class Widget(InputHandler):
 		"""
 		
 		self.hidden = hidden
-		self.parent = weakref.proxy(screen)
+		try:
+		    self.parent = weakref.proxy(screen)
+		except TypeError:
+		    self.parent = screen
 		self.relx = relx
 		self.rely = rely
 		
@@ -208,16 +211,22 @@ big a given widget is ... use .height and .width instead"""
 		else: self.height = (self.request_height or my)
 
 
-		if nx > 0:
-			if mx >= nx: self.width = nx
-			else: self.width = -1
-		elif self.max_width:
-			if self.max_width < mx: self.width = self.max_width
-		else: self.width = self.request_width or mx
+		if nx > 0:              # if a minimum space is specified....
+			if mx >= nx:           # if max width is greater than needed space 
+			    self.width = nx    # width is needed space
+			else: 
+			    self.width = -1    # else raise an error
+		elif self.max_width:       # otherwise if a max width is speciied
+			if self.max_width <= mx: 
+			    self.width = self.max_width
+			else: 
+			    self.width = -1
+		else: 
+		    self.width = self.request_width or mx
 
 		if self.height == -1 or self.width == -1:
 			# Not enough space for widget
-			raise Exception("Not enough space") # unsafe. Need to add error here.
+			raise Exception("Not enough space: max y and x = %s %s" % (my, mx) ) # unsafe. Need to add error here.
 	def update(self):
 		"""How should object display itself on the screen. Define here, but do not actually refresh the curses
 		display, since this should be done as little as possible.  This base widget puts nothing on screen."""
