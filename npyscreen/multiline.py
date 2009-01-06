@@ -76,7 +76,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         
         self._my_widgets = []
         for h in range(self.height):
-            self._my_widgets.append(self._contained_widgets(screen, rely=h+self.rely, relx = self.relx, width=self.width))
+            self._my_widgets.append(self._contained_widgets(screen, rely=h+self.rely, relx = self.relx, max_width=self.width))
             
 
     def display_value(self, vl):
