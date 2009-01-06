@@ -76,7 +76,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         
         self._my_widgets = []
         for h in range(self.height):
-            self._my_widgets.append(self._contained_widgets(screen, rely=h+self.rely, relx = self.relx))
+            self._my_widgets.append(self._contained_widgets(screen, rely=h+self.rely, relx = self.relx, width=self.width))
             
 
     def display_value(self, vl):
@@ -527,7 +527,8 @@ def testme(sa):
     SA = Form.Form()
     w = MultiLine(SA, 
         #relx=5, 
-        #rely=2, 
+        #rely=2,
+        width=5,
         values=['test1','test2','test3', 'test4','test5','test6'], 
         #max_height=5, 
         slow_scroll=True, scroll_exit=True)
