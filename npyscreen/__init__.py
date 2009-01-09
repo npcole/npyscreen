@@ -33,7 +33,10 @@ from Popup import Popup, MessagePopup, ActionPopup
 from Menu import Menu
 from selectone import SelectOne, TitleSelectOne
 from datecombo import DateCombo, TitleDateCombo
+
 from monthbox import MonthBox
+from grid     import SimpleGrid
+
 
 from NewMenu import NewMenu, MenuItem
 from NMenuDisplay import MenuDisplay

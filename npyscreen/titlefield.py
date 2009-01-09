@@ -41,19 +41,30 @@ class TitleText(widget.Widget):
 		if self.use_two_lines: tmp_y = 1
 		else: tmp_y = 0
 		passon = keywords.copy()
-		for dangerous in ('relx', 'rely','value','width','max_width'):
+		for dangerous in ('relx', 'rely','value',):# 'width','max_width'):
 			try:
 				passon.pop(dangerous)
 			except:
 				pass
+		try:
+			if self.field_width_request:
+				passon['width'] = self.field_width_request
+			else:
+				try:
+					if passon['max_width']:
+						passon['max_width'] -= self.text_field_begin_at+1
+				except:
+					pass
+				try:
+					if passon['width']:
+						passon['width'] -= self.text_field_begin_at+1
+				except:
+					pass
+		except:
+			pass
+				
 		self.entry_widget = self.__class__._entry_type(screen, relx=(self.relx + self.text_field_begin_at), 
 								rely=(self.rely+tmp_y), value = value,
-								width = ( 0 or
-								        self.field_width_request or
-								        #These next two are broken
-								        #(self.max_width - self.text_field_begin_at) or 
-								        #(self.request_width - self.text_field_begin_at) or 
-								        None), 
 								**passon)
 		self.recalculate_size()
 	

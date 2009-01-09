@@ -388,8 +388,10 @@ NPSTreeData
 
     *newChild(content=...)* creates a new child node.
     
-Widgets
-~~~~~~~
+
+Trees
+*****
+
 MultiLineTree, SelectOneTree, and MultiLineTree
     These widgets all work in a very similar way to the non-Tree versions, except that they expect to contain an NPSTree in their .values attribute.  The other major difference is that their .value attribute does not contain the index of the selected value(s), but the selected value(s) itself/themselves.
 
@@ -424,6 +426,12 @@ FormControlCheckbox
    addInvisibleWhenSelected(*wg*)
       Widgets registered in this way are visible only when the FormControlCheckbox is not selected.
       
+Grids
+*****
+SimpleGrid
+    This offers a spreadsheet-like display.  The default is only intended to display information (in a grid of text-fields).  However, it is designed to be flexible and easy to customize to display a variety of different data.  Future versions may include new types of grids.  Note that you can control the look of the grid by specifying either *columns* or *column_width* at the time the widget is created.  It may be that in the future the other multi-line classes will be derived from this class.
+    
+    *values* should be specified as a two-dimensional array.
 
 
 
