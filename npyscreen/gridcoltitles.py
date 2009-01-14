@@ -18,7 +18,7 @@ class GridColTitles(grid.SimpleGrid):
         super(GridColTitles, self).make_contained_widgets()
         self._my_col_titles = []
         for title_cell in range(self.columns):
-            x_offset = title_cell * self._column_width
+            x_offset = title_cell * (self._column_width+self.col_margin)
             self._my_col_titles.append(self._col_widgets(self.parent, rely=self.rely, relx = self.relx + x_offset, width=self._column_width, height=1))
             
             
