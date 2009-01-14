@@ -433,7 +433,8 @@ SimpleGrid
     
     *values* should be specified as a two-dimensional array.
 
-
+GridColTitles
+    Like the simple grid, but uses the first two lines of the display to display the column titles.  These can be provided as a *col_titles* argument at the time of construction, or by setting the *col_titles* attribute at any time.  In either case, provide a list of strings.
 
     
 All about Key Bindings

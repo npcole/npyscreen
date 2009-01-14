@@ -8,6 +8,8 @@ import textbox
 class SimpleGrid(widget.Widget):
     _contained_widgets    = textbox.Textfield
     default_column_number = 4
+    additional_y_offset   = 0
+    additional_x_offset   = 0
     def __init__(self, screen, columns = None, column_width = None, row_height = 1, values = None,
             **keywords):
         super(SimpleGrid, self).__init__(screen, **keywords)
@@ -29,20 +31,21 @@ class SimpleGrid(widget.Widget):
 
     def make_contained_widgets(self):
         if self.column_width_requested:
-            self.columns = self.width // self.column_width_requested
+            self.columns = (self.width - self.additional_x_offset) // self.column_width_requested
         elif self.columns_requested:
             self.columns = self.columns_requested
         else:
             self.columns = self.default_column_number
         self._my_widgets = []
-        column_width = self.width // self.columns
+        column_width = (self.width - self.additional_x_offset) // self.columns
+        self._column_width = column_width
         if column_width < 1: raise Exception("Too many columns for space available")
-        for h in range( self.height // self.row_height ):
+        for h in range( (self.height - self.additional_y_offset) // self.row_height ):
             h_coord = h * self.row_height
             row = []
             for cell in range(self.columns):
                 x_offset = cell * column_width 
-                row.append(self._contained_widgets(self.parent, rely=h_coord+self.rely, relx = self.relx + x_offset, width=column_width, height=self.row_height))
+                row.append(self._contained_widgets(self.parent, rely=h_coord+self.rely + self.additional_y_offset, relx = self.relx + x_offset + self.additional_x_offset, width=column_width, height=self.row_height))
             self._my_widgets.append(row)
     
     def display_value(self, vl):

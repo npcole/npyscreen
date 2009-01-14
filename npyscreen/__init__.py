@@ -36,6 +36,7 @@ from datecombo import DateCombo, TitleDateCombo
 
 from monthbox import MonthBox
 from grid     import SimpleGrid
+from gridcoltitles import GridColTitles
 
 
 from NewMenu import NewMenu, MenuItem
