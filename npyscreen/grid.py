@@ -10,13 +10,15 @@ class SimpleGrid(widget.Widget):
     default_column_number = 4
     additional_y_offset   = 0
     additional_x_offset   = 0
-    def __init__(self, screen, columns = None, column_width = None, row_height = 1, values = None,
+    def __init__(self, screen, columns = None, column_width = None, col_margin=1, row_height = 1, values = None,
             **keywords):
         super(SimpleGrid, self).__init__(screen, **keywords)
+        self.col_margin = col_margin
         self.columns_requested = columns
         self.column_width_requested = column_width
         self.row_height = row_height
         self.make_contained_widgets()
+        
 
         self.begin_row_display_at = 0
         self.begin_col_display_at = 0
@@ -31,20 +33,22 @@ class SimpleGrid(widget.Widget):
 
     def make_contained_widgets(self):
         if self.column_width_requested:
-            self.columns = (self.width - self.additional_x_offset) // self.column_width_requested
+            # don't need a margin for the final column
+            self.columns = (self.width + self.col_margin) // (self.column_width_requested + self.col_margin)
         elif self.columns_requested:
             self.columns = self.columns_requested
         else:
             self.columns = self.default_column_number
         self._my_widgets = []
-        column_width = (self.width - self.additional_x_offset) // self.columns
+        column_width = (self.width + self.col_margin - self.additional_x_offset) // self.columns
+        column_width -= self.col_margin
         self._column_width = column_width
         if column_width < 1: raise Exception("Too many columns for space available")
         for h in range( (self.height - self.additional_y_offset) // self.row_height ):
             h_coord = h * self.row_height
             row = []
             for cell in range(self.columns):
-                x_offset = cell * column_width 
+                x_offset = cell * (self._column_width + self.col_margin)
                 row.append(self._contained_widgets(self.parent, rely=h_coord+self.rely + self.additional_y_offset, relx = self.relx + x_offset + self.additional_x_offset, width=column_width, height=self.row_height))
             self._my_widgets.append(row)
     

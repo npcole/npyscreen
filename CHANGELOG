@@ -2,6 +2,11 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+2.0pre29
+	Added a second grid class.
+
+2.0pre28
+	Numerous bug fixes.  Added a SimpleGrid class.
 
 2.0pre27
 	Added MiniButtonPress class.
