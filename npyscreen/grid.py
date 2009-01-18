@@ -106,6 +106,8 @@ Should accept one argument (the object to be represented), and return a string."
                 self._cell_show_cursor(cell, True)
             else:
                 self._cell_show_cursor(cell, False)
+        else:
+            self._cell_show_cursor(cell, False)
         
         cell.update() # <-------------------- WILL NEED TO OPTIMIZE THIS
         
