@@ -20,11 +20,15 @@ class MultiLineEdit(widget.Widget):
 		self.autowrap = autowrap
 		self.wrapon = re.compile("\s+|-+")
 
-	def get_value_as_list(self, upto=None, keepends=False):
-		if upto:
-			text = self.value[:upto]
+	def get_value_as_list(self, upto=None, keepends=False, useEncoding=True):
+		if useEncoding:
+			text_to_print = self.safe_string(self.value)
 		else:
-			text = self.value
+			text_to_print = self.value
+		if upto:
+			text = text_to_print[:upto]
+		else:
+			text = text_to_print
 		if upto:
 			lines = text.splitlines(keepends)
 		else:
@@ -37,7 +41,7 @@ class MultiLineEdit(widget.Widget):
 		position = y
 		if position == 0: 
 			return 0,0
-		text_to_cursor = self.get_value_as_list(upto=position, keepends=True)
+		text_to_cursor = self.get_value_as_list(upto=position, keepends=True, useEncoding=False)
 		y = (len(text_to_cursor))-1
 		x = len(text_to_cursor[-1])
 		if text_to_cursor[-1][-1] == '\n': 
@@ -99,11 +103,20 @@ class MultiLineEdit(widget.Widget):
 			#self.parent_screen.move(self.rely, self.cursor_position - self.begin_at)
 			# let's have a fake cursor
 			_cur_y, _cur_x = self.translate_cursor(self.cursor_position)
-			_cur_y += self.rely - self.start_display_at
-			assert _cur_y >= 0
-			_cur_x += self.relx - xdisplay_offset
-			char_under_cur = self.parent.curses_pad.inch(_cur_y, _cur_x)
-			self.parent.curses_pad.addch(_cur_y, _cur_x, char_under_cur, curses.A_STANDOUT)
+			#_cur_y += self.rely - self.start_display_at
+			#assert _cur_y >= 0
+			#_cur_x += self.relx - xdisplay_offset
+			#char_under_cur = self.parent.curses_pad.inch(_cur_y, _cur_x)
+			#self.parent.curses_pad.addch(_cur_y, _cur_x, char_under_cur, curses.A_STANDOUT)
+			try:
+				char_under_cur = self.safe_string(self.value[self.cursor_position])
+				if char_under_cur == '\n':
+					char_under_cur = ' '
+			except:
+				char_under_cur = ' '
+			
+			self.parent.curses_pad.addstr(self.rely + _cur_y - self.start_display_at, _cur_x - xdisplay_offset + self.relx, char_under_cur, curses.A_STANDOUT)
+			
 
 	def reformat_preserve_nl(self, *ignorethese):
 		# Adapted from a script found at:
@@ -201,7 +214,7 @@ class MultiLineEdit(widget.Widget):
 			if end_last_line - start_last_line <= self.cursorx:
 				self.cursor_position = end_last_line
 			else: 
-				self.cursor_position = start_last_line + self.cursorx
+				self.cursor_position = start_last_line + self.cursorx 
 				if self.value[self.cursor_position] == "\n":
 					self.cursor_position += 1 
 	# Bug somewhere here when dealing with empty lines.
@@ -258,7 +271,7 @@ def testme(sa):
 	import screen_area
 	import textbox
 	SA = screen_area.ScreenArea()
-	w = MultiLineEdit(SA, relx=5, rely=3, value="This\nis something of a test\nThis is line2", 
+	w = MultiLineEdit(SA, relx=5, rely=3, value=u"\u00c5 \u00c5 This\nis something of a test\nThis is line2 ", 
 		max_height=5, max_width=70, slow_scroll=True, scroll_exit=False)
 
 	w.value += "my height is %s" % w.height
@@ -268,5 +281,6 @@ def testme(sa):
 	w.display()
 
 if __name__ == '__main__':
-	curses.wrapper(testme)
+	import safewrapper
+	safewrapper.wrapper(testme)
 	print "Your powers are weak, old man"

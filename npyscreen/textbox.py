@@ -87,12 +87,20 @@ class Textfield(widget.Widget):
 		
 		if self.editing and cursor:
 			# Cursors do not seem to work on pads.
-			#self.parent_screen.move(self.rely, self.cursor_position - self.begin_at)
+			#self.parent.curses_pad.move(self.rely, self.cursor_position - self.begin_at)
 			# let's have a fake cursor
 			_cur_loc_x = self.cursor_position - self.begin_at + self.relx
-			char_under_cur = self.parent.curses_pad.inch(self.rely, _cur_loc_x)
-			self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
-
+			# The following two lines work fine for ascii, but not for unicode
+			#char_under_cur = self.parent.curses_pad.inch(self.rely, _cur_loc_x)
+			#self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
+			#The following appears to work for unicode as well.
+			try:
+				char_under_cur = self.safe_string(self.value[self.cursor_position])
+			except:
+				char_under_cur = ' '
+			
+			self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
+			
 	def _print(self):
 		string_to_print = self.safe_string(self.value)
 		if self.value == None: return
@@ -299,8 +307,19 @@ def simpletest(screen):
 	w2.clear(usechar='x')
 	SA.refresh()
 	curses.napms(2000)
+
+def unicodetest(screen):
+	import screen_area
+	SA = screen_area.ScreenArea()
+	w = Textfield(SA,rely=2, relx=2)
+	w.value = u'\u00c5 even this'
+	#w.value = 'even this'
+	w.edit()
 	
 
 if __name__ == "__main__":
-	curses.wrapper(simpletest)
+	import locale
+	import safewrapper
+	safewrapper.wrapper(unicodetest)
+	print locale.getlocale()[1]
 	print "The circle is now complete"
