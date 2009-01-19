@@ -6,6 +6,7 @@ import curses.ascii
 import curses.wrapper
 import weakref
 import GlobalOptions
+import locale
 
 
 EXITED_DOWN  =  1
@@ -312,28 +313,41 @@ big a given widget is ... use .height and .width instead"""
 			self.try_adjust_widgets()
 
 
-	def safe_string(self, string):
+	def safe_string(self, this_string):
 		"""Check that what you are trying to display contains only
 		printable chars.  (Try to catch dodgy input).  Give it a string,
 		and it will return a string safe to print - without touching
 		the original"""
-		if string == None: return ""
+		if not GlobalOptions.ASCII_ONLY:
+			try:
+				rtn_value = this_string.encode(locale.getlocale()[1])
+				return rtn_value
+			except IndexError:
+				pass
+		if this_string == None: 
+			return ""
 		else:
-			rtn = filter(self.safe_filter, string)
+			rtn = self.safe_filter(this_string)
 			return rtn
 	
-	def safe_filter(self, char):
-		if curses.ascii.isprint(char) is True:
-			return char
-		else: return None
-
+	def safe_filter(self, string):
+		s = ''
+		for cha in string:
+			try:
+				s += cha.encode('ascii')
+			except:
+				s += '?'
+		return s
 
 def simpletest(scr):
 	import screen_area as sa
 	a = sa.ScreenArea()
 	b = Widget(a)
+	return b.safe_string(u'Q \u00c5 \u00c5 This\nis something of a test\nThis is line2')
 
 
 if __name__ == "__main__":
-	curses.wrapper(simpletest)
+	import safewrapper
+	print safewrapper.wrapper(simpletest)
+	print locale.getlocale()[1]
 	print "The circle is now complete"

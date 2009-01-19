@@ -536,3 +536,7 @@ Individual widgets often have *color* attribute of their own (which may be set b
 
 Title... versions of widgets also define the attribute *labelColor*, which can be used to change the colour of their label colour.
 
+Unicode
+*******
+At time of writing there is very limited support for unicode text, and this feature should be considered experimental.  It is currently limited to the text fields (including most labels), including the multi-line edit box.  
+
