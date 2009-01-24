@@ -103,7 +103,7 @@ class Textfield(widget.Widget):
 			
 	def _print(self):
 		string_to_print = self.safe_string(self.value)
-		if self.value == None: return
+		if string_to_print == None: return
 		if self.do_colors():
 			coltofind = 'DEFAULT'
 			if self.show_bold and self.color == 'DEFAULT':
