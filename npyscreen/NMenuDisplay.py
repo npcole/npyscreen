@@ -9,8 +9,8 @@ import curses
 
 class MenuDisplay(object):
     def __init__(self):
-        self._DisplayArea = MenuDisplayScreen(lines=15, columns=26, show_atx=5, show_aty=2)
-        self.setMenu(None)
+        self._DisplayArea = MenuDisplayScreen(lines=15, columns=26, show_atx=5, show_aty=2, menu=None)
+        self.setMenu(menu)
         self._menuStack = []
         self._editing = False
 

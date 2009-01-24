@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import curses
-import wrapper
+import safewrapper
 import locale
 import _curses
 
@@ -24,11 +24,11 @@ class NPSApp(object):
             if isendwin(): raise AlreadyOver
             return self.main()
         except AlreadyOver:
-            return wrapper.wrapper(self.__remove_argument_call_main)
+            return safewrapper.wrapper(self.__remove_argument_call_main)
         #except NameError:
         #   return curses.wrapper(self.__remove_argument_call_main)
         except _curses.error:
-            return wrapper.wrapper(self.__remove_argument_call_main)
+            return safewrapper.wrapper(self.__remove_argument_call_main)
 
 
 if __name__ == '__main__':

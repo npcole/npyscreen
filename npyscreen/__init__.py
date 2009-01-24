@@ -40,7 +40,7 @@ from gridcoltitles import GridColTitles
 
 
 from NewMenu import NewMenu, MenuItem
-from NMenuDisplay import MenuDisplay
+from NMenuDisplay import MenuDisplay, MenuDisplayScreen
 
 from pmfuncs import CallSubShell
 

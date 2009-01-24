@@ -55,7 +55,7 @@ There are two methods for registering a Form object with an NPSAppManaged instan
 	*id* should be a string that uniquely identifies the form.  *fm* should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - in contrast to the .addForm version.
 	
 .addForm(*id*, *FormClass* ...)
-	This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  *id* should be a string that uniquely identifies the Form.  *FormClass* should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.
+	This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  *id* should be a string that uniquely identifies the Form.  *FormClass* should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.  In most cases, you should use the *registerForm* method and not this one.
 
 All Forms registered with an NPSAppManaged instance can access the controlling application as *self.parentApp*.
 
@@ -395,6 +395,16 @@ Trees
 MultiLineTree, SelectOneTree, and MultiLineTree
     These widgets all work in a very similar way to the non-Tree versions, except that they expect to contain an NPSTree in their .values attribute.  The other major difference is that their .value attribute does not contain the index of the selected value(s), but the selected value(s) itself/themselves.
 
+Grids
+*****
+SimpleGrid
+    This offers a spreadsheet-like display.  The default is only intended to display information (in a grid of text-fields).  However, it is designed to be flexible and easy to customize to display a variety of different data.  Future versions may include new types of grids.  Note that you can control the look of the grid by specifying either *columns* or *column_width* at the time the widget is created.  It may be that in the future the other multi-line classes will be derived from this class.
+
+    *values* should be specified as a two-dimensional array.
+
+GridColTitles
+    Like the simple grid, but uses the first two lines of the display to display the column titles.  These can be provided as a *col_titles* argument at the time of construction, or by setting the *col_titles* attribute at any time.  In either case, provide a list of strings.
+
 
 Other Controls
 **************
@@ -426,22 +436,13 @@ FormControlCheckbox
    addInvisibleWhenSelected(*wg*)
       Widgets registered in this way are visible only when the FormControlCheckbox is not selected.
       
-Grids
-*****
-SimpleGrid
-    This offers a spreadsheet-like display.  The default is only intended to display information (in a grid of text-fields).  However, it is designed to be flexible and easy to customize to display a variety of different data.  Future versions may include new types of grids.  Note that you can control the look of the grid by specifying either *columns* or *column_width* at the time the widget is created.  It may be that in the future the other multi-line classes will be derived from this class.
-    
-    *values* should be specified as a two-dimensional array.
-
-GridColTitles
-    Like the simple grid, but uses the first two lines of the display to display the column titles.  These can be provided as a *col_titles* argument at the time of construction, or by setting the *col_titles* attribute at any time.  In either case, provide a list of strings.
 
     
 All about Key Bindings
 ======================
 
-What's going on
-***************
+What is going on
+****************
 
 Many objects can take actions based on user key presses.  All such objects inherit from the internal class InputHandler.  That class defines a dictionary called *handlers* and a list called *complex_handlers*.  Both of these are set up by a method called set_up_handlers called during the Constructor.
 
@@ -489,7 +490,7 @@ Support for Colour
 Setting up colour
 *****************
 
-All of the standard widgets are entirely usable on a monochrome terminal.  However, it's a colourful world these days, and npyscreen lets you display your widgets in, well, if not Technicolor(TM) then as close a curses will allow.
+All of the standard widgets are entirely usable on a monochrome terminal.  However, it's a colourful world these days, and npyscreen lets you display your widgets in, well, if not Technicolor(TM) then as close as curses will allow.
 
 Colour is handled by the ThemeManager class.  Generally, your application should stick to using one ThemeManager, which you should set using the *setTheme(ThemeManager)* function.  So for example::
 
