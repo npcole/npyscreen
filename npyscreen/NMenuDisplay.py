@@ -85,7 +85,8 @@ class MenuDisplay(object):
     
 
 class MenuDisplayScreen(Form.Form):
-    def create(self):
+    def __init__(self, *args, **keywords):
+        super(MenuDisplayScreen, self).__init__(*args, **keywords)
         self._menuListWidget = self.add(multiline.MultiLine, return_exit=True)
 
 class HasMenus(object):
