@@ -318,14 +318,16 @@ big a given widget is ... use .height and .width instead"""
 		printable chars.  (Try to catch dodgy input).  Give it a string,
 		and it will return a string safe to print - without touching
 		the original"""
+		if this_string == None: 
+			return ""
 		if not GlobalOptions.ASCII_ONLY:
 			try:
 				rtn_value = this_string.encode(locale.getlocale()[1])
 				return rtn_value
 			except IndexError:
 				pass
-		if this_string == None: 
-			return ""
+			except TypeError:
+				pass
 		else:
 			rtn = self.safe_filter(this_string)
 			return rtn
