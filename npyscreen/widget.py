@@ -320,7 +320,7 @@ big a given widget is ... use .height and .width instead"""
 		the original"""
 		if this_string == None: 
 			return ""
-		if not GlobalOptions.ASCII_ONLY:
+		elif not GlobalOptions.ASCII_ONLY:
 			try:
 				rtn_value = this_string.encode(locale.getlocale()[1])
 				return rtn_value
@@ -328,13 +328,12 @@ big a given widget is ... use .height and .width instead"""
 				pass
 			except TypeError:
 				pass
-		else:
-			rtn = self.safe_filter(this_string)
-			return rtn
+		rtn = self.safe_filter(this_string)
+		return rtn
 	
-	def safe_filter(self, string):
+	def safe_filter(self, this_string):
 		s = ''
-		for cha in string:
+		for cha in this_string:
 			try:
 				s += cha.encode('ascii')
 			except:

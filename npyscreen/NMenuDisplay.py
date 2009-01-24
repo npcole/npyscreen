@@ -8,11 +8,19 @@ import curses
 
 
 class MenuDisplay(object):
-    def __init__(self, menu=None):
-        self._DisplayArea = MenuDisplayScreen(lines=15, columns=26, show_atx=5, show_aty=2, )
+    def __init__(self, menu=None, standard_menu=True, *args, **keywords):
+        if standard_menu:
+            self._DisplayArea = MenuDisplayScreen(lines=15, columns=26, show_atx=5, show_aty=2, )
+        else:
+            self._DisplayArea = MenuDisplayScreen(*args, **keywords)
         self.setMenu(menu)
+        self.create()
         self._menuStack = []
         self._editing = False
+        
+    
+    def create(self):
+        pass
 
     def setMenu(self, mnu):
         self._menuStack = []
