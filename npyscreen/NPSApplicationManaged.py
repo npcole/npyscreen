@@ -43,21 +43,21 @@ class NPSAppManaged(NPSApplication.NPSApp):
         self._LAST_NEXT_ACTIVE_FORM = None
         self._Forms = {}
     
-    def addForm(self, id, FormClass, *args, **keywords):
-        """Create a form of the given class. id should be a string which will uniquely identify the form. *args will be passed to the Form constructor.
+    def addForm(self, f_id, FormClass, *args, **keywords):
+        """Create a form of the given class. f_id should be a string which will uniquely identify the form. *args will be passed to the Form constructor.
         Forms created in this way are handled entirely by the NPSAppManaged class."""
         fm = FormClass(*args, **keywords)
-        self.registerForm(id, fm)
+        self.registerForm(f_id, fm)
         return weakref.proxy(fm)
         
-    def registerForm(self, id, fm):
-        """id should be a string which should uniquely identify the form.  fm should be a Form."""
+    def registerForm(self, f_id, fm):
+        """f_id should be a string which should uniquely identify the form.  fm should be a Form."""
         fm.parentApp = weakref.proxy(self)
-        self._Forms[id] = fm
+        self._Forms[f_id] = fm
         
-    def removeForm(self, id):
-        del self._Forms[id].parentApp
-        del self._Forms[id]
+    def removeForm(self, f_id):
+        del self._Forms[f_id].parentApp
+        del self._Forms[f_id]
 
     def main(self):
         """Call this function to start your application.  You should not override this function, but override the onInMainLoop, onStart and

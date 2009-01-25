@@ -144,14 +144,15 @@ class MonthBox(DateEntryBase):
 		else:
 			year  = self.value.year
 			month = self.value.month
+			monthname = self.value.strftime('%B')
 			day   = self.value.day
 		
 			# Print the Title Line
 			if self.do_colors():
-				self.parent.curses_pad.addstr(self.rely, self.relx, ("%s - %s" % (year, month)), 
+				self.parent.curses_pad.addstr(self.rely, self.relx, ("%s, %s" % (monthname, year)), 
 													self.parent.theme_manager.findPair(self))
 			else:
-				self.parent.curses_pad.addstr(self.rely, self.relx, ("%s - %s" % (year, month)))
+				self.parent.curses_pad.addstr(self.rely, self.relx, ("%s, %s" % (monthname, year)))
 		
 			# Print the day names
 			# weekheader puts an extra space at the end of each name
