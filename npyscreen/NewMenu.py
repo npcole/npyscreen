@@ -8,7 +8,14 @@ class NewMenu(object):
     def __init__(self, name=None):
         self.name      = name
         self._menuList = []
-        
+    
+    def addItemsFromList(self, item_list):
+        for l in item_list:
+            if isinstance(l, MenuItem):
+                self.addNewSubmenu(l)
+            else:
+                self.addItem(*l)
+
     def addItem(self, *args, **keywords):
         _itm = MenuItem(*args, **keywords)
         self._menuList.append(_itm)

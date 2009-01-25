@@ -7,7 +7,7 @@ import weakref
 import curses
 
 class MenuViewerController(object):
-    def __init__(self):
+    def __init__(self, menu=None):
         self.setMenu(menu)
         self.create()
         self._menuStack = []
@@ -25,21 +25,29 @@ class MenuViewerController(object):
     def _setMenuWithoutResettingStack(self, mnu):
         self._menu = mnu
         self._DisplayArea._menuListWidget.value = None
-        if mnu is not None:
-            self._DisplayArea.name = self._menu.name
         
     def _goToSubmenu(self, mnu):
-        self._menuStack.append(mnu)
+        self._menuStack.append(self._menu)
         self._menu = mnu
+
+    def _returnToPrevious(self):
+        self._menu = self._menuStack.pop()
+
+
     def _executeSelection(self, sel):
         self._editing = False
         return sel()
         
     def edit(self):
-        if self._menu is None:
-            raise ValueError, "No Menu Set"
+        try:
+            if self._menu is None:
+                pass #raise ValueError("No Menu Set")
+        except AttributeError:
+            pass #raise ValueError("No Menu Set")
         self._editing = True
         while self._editing:
+            if self._menu is not None:
+                self._DisplayArea.name = self._menu.name
             self._DisplayArea.display()
             self._DisplayArea._menuListWidget.value = None
             self._DisplayArea._menuListWidget.cursor_line = 0
@@ -82,16 +90,18 @@ class MenuViewerController(object):
         
         return _return_value
             
-            
-    def _returnToPrevious(self):
-        self._menu = self._menuStack.pop()
-    
 
 
 class MenuDisplay(MenuViewerController):
-    def __init__(self, menu=None, *args, **keywords):
-        super(MenuViewerController, self).__init__(*args, **keywords)
+    def __init__(self, *args, **keywords):
         self._DisplayArea = MenuDisplayScreen(lines=15, columns=26, show_atx=5, show_aty=2, )
+        super(MenuDisplay, self).__init__(*args, **keywords)
+
+class MenuDisplayFullScreen(MenuViewerController):
+    def __init__(self, *args, **keywords):
+        self._DisplayArea = MenuDisplayScreen()
+        super(MenuDisplayFullScreen, self).__init__(*args, **keywords)
+
 
 class MenuDisplayScreen(Form.Form):
     def __init__(self, *args, **keywords):
@@ -140,6 +150,17 @@ def main(*args):
     M1.addItem('Beep', beep)
     M1.addItem('Nothing', doNothing)
     M1.addSubmenu(M1)
+    
+    M2 = NewMenu.NewMenu(name='Menu2')
+    M2.addItemsFromList(
+        (
+            ('Beep', beep),
+            ('Nothing', doNothing),
+            ('Beep Again', beep),
+            M1,)
+    )
+    
+    M1.addSubmenu(M2)
     
     MenuDisplay1 = MenuDisplay()
     MenuDisplay1.setMenu(M1)
