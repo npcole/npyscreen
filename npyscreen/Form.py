@@ -13,17 +13,13 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 	OK_BUTTON_BR_OFFSET = (2,6)
 	OKBUTTON_TYPE = button.MiniButton
 	DEFAULT_X_OFFSET = 2
-	def __init__(self, name=None, framed=True, help=None, color='FORMDEFAULT', *args, **keywords):
+	def __init__(self, name=None, framed=True, help=None, color='FORMDEFAULT', widget_list=None, *args, **keywords):
 		super(Form, self).__init__(*args, **keywords)
 		self.framed = framed
 		self.name=name
 		self.editing = False
-		self._widgets__= []
 		## OLD MENU CODE REMOVED self.__menus  = []
-
-		self.nextrely = 2
-		self.nextrelx = self.__class__.DEFAULT_X_OFFSET
-		self.editw = 0 # Index of widget to edit.
+		self._clear_all_widgets()
 
 		self.help = help
 		
@@ -32,8 +28,28 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 
 		self.set_up_handlers()
 		self.set_up_exit_condition_handlers()
-
+		if hasattr(self, 'initialWidgets'):
+			self.create_widgets_from_list(self.__class__.initialWidgets)
+		if widget_list:
+			self.create_widgets_from_list(widget_list)
 		self.create()
+
+	def _clear_all_widgets(self, ):
+		self._widgets__     = []
+		self._widgets_by_id = {}
+		self._next_w_id = 0
+		self.nextrely = 2
+		self.nextrelx = self.__class__.DEFAULT_X_OFFSET
+		self.editw = 0 # Index of widget to edit.
+
+	def create_widgets_from_list(self, widget_list):
+		# This code is currently experimental, and the API may change in future releases
+		# (npyscreen.TextBox, {'rely': 2, 'relx': 7, 'editable': False})
+		for line in widget_list:
+			w_type   = line[0]
+			keywords = line[1]
+			self.add_widget(w_type, **keywords)
+
 
 	def adjust_widgets(self):
 		"""This method can be overloaded by derived classes. It is called when editing any widget, as opposed to
@@ -208,7 +224,7 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 				except:
 					pass
 
-	def add_widget(self, widgetClass, max_height=None, rely=None, relx=None, *args, **keywords):
+	def add_widget(self, widgetClass, w_id=None, max_height=None, rely=None, relx=None, *args, **keywords):
 		"""Add a widget to the form.  The form will do its best to decide on placing, unless you override it.
 		The form of this function is add_widget(WidgetClass, ....) with any arguments or keywords supplied to
 		the widget. The wigdet will be added to self._widgets__
@@ -232,9 +248,17 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 		
 		self.nextrely = _w.height + _w.rely 
 		self._widgets__.append(_w)
-
-		return weakref.proxy(_w)
+		w_proxy = weakref.proxy(_w)
+		if not w_id:
+			w_id = self._next_w_id
+			self._next_w_id += 1
+		self._widgets_by_id[w_id] = w_proxy
+			
+		return w_proxy
 	
+	def get_widget(self, w_id):
+		return self._widgets_by_id[w_id]
+		
 	def useable_space(self, rely=0, relx=0):
 		"""Reports space left on physical screen. Widgets should use widget_useable_space instead."""
 		mxy, mxx = curses.newwin(0,0).getmaxyx()

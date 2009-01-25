@@ -6,22 +6,18 @@ import multiline
 import weakref
 import curses
 
-
-class MenuDisplay(object):
-    def __init__(self, menu=None, standard_menu=True, *args, **keywords):
-        if standard_menu:
-            self._DisplayArea = MenuDisplayScreen(lines=15, columns=26, show_atx=5, show_aty=2, )
-        else:
-            self._DisplayArea = MenuDisplayScreen(*args, **keywords)
+class MenuViewerController(object):
+    def __init__(self):
         self.setMenu(menu)
         self.create()
         self._menuStack = []
         self._editing = False
-        
-    
+
+
     def create(self):
         pass
-
+    
+    
     def setMenu(self, mnu):
         self._menuStack = []
         self._setMenuWithoutResettingStack(mnu)
@@ -89,8 +85,13 @@ class MenuDisplay(object):
             
     def _returnToPrevious(self):
         self._menu = self._menuStack.pop()
-        
     
+
+
+class MenuDisplay(MenuViewerController):
+    def __init__(self, menu=None, *args, **keywords):
+        super(MenuViewerController, self).__init__(*args, **keywords)
+        self._DisplayArea = MenuDisplayScreen(lines=15, columns=26, show_atx=5, show_aty=2, )
 
 class MenuDisplayScreen(Form.Form):
     def __init__(self, *args, **keywords):
