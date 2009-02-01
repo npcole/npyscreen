@@ -46,7 +46,7 @@ class NPSAppManaged(NPSApplication.NPSApp):
     def addForm(self, f_id, FormClass, *args, **keywords):
         """Create a form of the given class. f_id should be a string which will uniquely identify the form. *args will be passed to the Form constructor.
         Forms created in this way are handled entirely by the NPSAppManaged class."""
-        fm = FormClass(*args, **keywords)
+        fm = FormClass( parentApp=self, *args, **keywords)
         self.registerForm(f_id, fm)
         return weakref.proxy(fm)
         
