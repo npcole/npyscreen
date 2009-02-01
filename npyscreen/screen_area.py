@@ -136,7 +136,10 @@ class ScreenArea(object):
 
 		else:
 			self.ALL_SHOWN = False
-		
+	
+	def erase(self):
+		self.curses_pad.erase()
+		self.refresh()
 
 def test_loop(screen):
 	A = ScreenArea()

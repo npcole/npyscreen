@@ -58,6 +58,7 @@ class FormDefaultEditLoop(object):
         self.display()
 
         self.editing = False
+        self.erase()
 
 
 

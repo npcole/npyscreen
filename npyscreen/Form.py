@@ -13,8 +13,13 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 	OK_BUTTON_BR_OFFSET = (2,6)
 	OKBUTTON_TYPE = button.MiniButton
 	DEFAULT_X_OFFSET = 2
-	def __init__(self, name=None, framed=True, help=None, color='FORMDEFAULT', widget_list=None, *args, **keywords):
+	def __init__(self, name=None, parentApp=None, framed=True, help=None, color='FORMDEFAULT', widget_list=None, *args, **keywords):
 		super(Form, self).__init__(*args, **keywords)
+		if parentApp:
+			try:
+				self.parentApp = weakref.proxy(parentApp)
+			except:
+				self.parentApp = parentApp
 		self.framed = framed
 		self.name=name
 		self.editing = False
@@ -190,6 +195,19 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 		#Slightly misreports space available.
 		mxy, mxx = self.lines-1, self.columns-1
 		return (mxy-1-rely, mxx-1-relx)
+
+	def center_on_display(self):
+		my, mx = self._max_physical()
+		if self.lines < my:
+			self.show_aty = (my - self.lines) // 2
+		else:
+			self.show_aty = 0
+		
+		if self.columns < mx:
+			self.show_atx = (mx - self.columns) // 2
+		else:
+			self.show_atx = 0
+	
 
 	def display(self):
 		#APPLICATION_THEME_MANAGER.setTheme(self)
