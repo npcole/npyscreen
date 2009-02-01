@@ -19,7 +19,8 @@ class FormDefaultEditLoop(object):
         if self.editw < 0: self.editw=0
         if self.editw > len(self._widgets__)-1:
             self.editw = len(self._widgets__)-1
-
+        if not self.preserve_selected_widget:
+            self.editw = 0
         if not self._widgets__[self.editw].editable: self.find_next_editable()
         # Add ok button. Will remove later
         tmp_rely, tmp_relx = self.nextrely, self.nextrelx

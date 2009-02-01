@@ -13,8 +13,10 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 	OK_BUTTON_BR_OFFSET = (2,6)
 	OKBUTTON_TYPE = button.MiniButton
 	DEFAULT_X_OFFSET = 2
+	PRESERVE_SELECTED_WIDGET_DEFAULT = False # Preserve cursor location between displays?
 	def __init__(self, name=None, parentApp=None, framed=True, help=None, color='FORMDEFAULT', widget_list=None, *args, **keywords):
 		super(Form, self).__init__(*args, **keywords)
+		self.preserve_selected_widget = self.__class__.PRESERVE_SELECTED_WIDGET_DEFAULT
 		if parentApp:
 			try:
 				self.parentApp = weakref.proxy(parentApp)
