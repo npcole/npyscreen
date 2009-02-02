@@ -58,6 +58,13 @@ class NPSAppManaged(NPSApplication.NPSApp):
     def removeForm(self, f_id):
         del self._Forms[f_id].parentApp
         del self._Forms[f_id]
+    
+    def getForm(self, name):
+        f = self._Forms[name]
+        try:
+            return weakref.proxy(f)
+        except:
+            return f
 
     def main(self):
         """Call this function to start your application.  You should not override this function, but override the onInMainLoop, onStart and
