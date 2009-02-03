@@ -95,6 +95,10 @@ Should accept one argument (the object to be represented), and return a string."
         if self.hidden:
             self.clear()
             return False
+            
+        if self.values == None:
+            self.values = []
+            
         # clear = None is a good value for this widget
         display_length = len(self._my_widgets)
         self._remake_filter_cache()
@@ -120,57 +124,65 @@ Should accept one argument (the object to be represented), and return a string."
                     if self.start_display_at < 0: self.start_display_at=0
         
         # What this next bit does is to not bother updating the screen if nothing has changed.
-        if ( self._last_value is self.value) and \
-            (self.values == self._last_values) and \
-            (self.start_display_at == self._last_start_display_at) and \
-            (clear != True) and \
-            (self._last_cursor_line == self.cursor_line) and \
-            (self._last_filter == self._filter) and \
-            self.editing:
-                pass
-            
-        else:
-            if clear is True: 
-                self.clear()
-
-            if (self._last_start_display_at != self.start_display_at) \
-                    and clear is None:
-                self.clear()
+        no_change = False
+        try:            
+            if ( self._last_value is self.value) and \
+                (self.values == self._last_values) and \
+                (self.start_display_at == self._last_start_display_at) and \
+                (clear != True) and \
+                (self._last_cursor_line == self.cursor_line) and \
+                (self._last_filter == self._filter) and \
+                self.editing:
+                no_change = True
+       
             else:
-                pass
-
-            self._last_start_display_at = self.start_display_at
-                
-
-            indexer = 0 + self.start_display_at
-            for line in self._my_widgets[:-1]:
-                self._print_line(line, indexer)
-                line.task = "PRINTLINE"
-                line.update(clear=False)
-                indexer += 1
+                no_change = False
+        except:
+            pass
             
-            # Now do the final line
-            line = self._my_widgets[-1]
-                
-            if len(self.values) <= indexer+1:
-                self._print_line(line, indexer)
-                line.task="PRINTLINE"
-                line.update(clear=False)
-            else:
-                line.value = MORE_LABEL
-                line.name = MORE_LABEL
-                line.task = MORE_LABEL
-                #line.highlight = False
-                #line.show_bold = False
-                line.clear()
-                if self.do_colors():
-                    self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL, self.parent.theme_manager.findPair(self, 'CONTROL'))
+        finally:
+            if not no_change:
+                if clear is True: 
+                    self.clear()
+
+                if (self._last_start_display_at != self.start_display_at) \
+                        and clear is None:
+                    self.clear()
                 else:
-                    self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
+                    pass
+
+                self._last_start_display_at = self.start_display_at
+                
+
+                indexer = 0 + self.start_display_at
+                for line in self._my_widgets[:-1]:
+                    self._print_line(line, indexer)
+                    line.task = "PRINTLINE"
+                    line.update(clear=False)
+                    indexer += 1
             
-            if self.editing: 
-                self._my_widgets[(self.cursor_line-self.start_display_at)].highlight=True
-                self._my_widgets[(self.cursor_line-self.start_display_at)].update(clear=True)
+                # Now do the final line
+                line = self._my_widgets[-1]
+                
+                if len(self.values) <= indexer+1:
+                    self._print_line(line, indexer)
+                    line.task="PRINTLINE"
+                    line.update(clear=False)
+                else:
+                    line.value = MORE_LABEL
+                    line.name = MORE_LABEL
+                    line.task = MORE_LABEL
+                    #line.highlight = False
+                    #line.show_bold = False
+                    line.clear()
+                    if self.do_colors():
+                        self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL, self.parent.theme_manager.findPair(self, 'CONTROL'))
+                    else:
+                        self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
+            
+                if self.editing: 
+                    self._my_widgets[(self.cursor_line-self.start_display_at)].highlight=True
+                    self._my_widgets[(self.cursor_line-self.start_display_at)].update(clear=True)
 
 
         self._last_start_display_at = self.start_display_at
@@ -189,6 +201,13 @@ Should accept one argument (the object to be represented), and return a string."
                 line.show_bold=False
                 line.name = None
                 line.hide = True
+            except TypeError:
+                line.value = None
+                line.show_bold=False
+                line.name = None
+                line.hide = True
+                
+                
             
             if value_indexer in self._filtered_values_cache:
                 line.important = True
@@ -234,6 +253,8 @@ Should accept one argument (the object to be represented), and return a string."
 
     def clear_filter(self):
         self._filter = None
+        self.cursor_line = 0
+        self.start_display_at = 0
 
     def move_next_filtered(self, include_this_line=False, *args):
         if self._filter == None:
