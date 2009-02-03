@@ -138,51 +138,50 @@ Should accept one argument (the object to be represented), and return a string."
             else:
                 no_change = False
         except:
-            pass
+                no_change = False
             
-        finally:
-            if not no_change:
-                if clear is True: 
-                    self.clear()
+        if not no_change:
+            if clear is True: 
+                self.clear()
 
-                if (self._last_start_display_at != self.start_display_at) \
-                        and clear is None:
-                    self.clear()
+            if (self._last_start_display_at != self.start_display_at) \
+                    and clear is None:
+                self.clear()
+            else:
+                pass
+
+            self._last_start_display_at = self.start_display_at
+            
+
+            indexer = 0 + self.start_display_at
+            for line in self._my_widgets[:-1]:
+                self._print_line(line, indexer)
+                line.task = "PRINTLINE"
+                line.update(clear=False)
+                indexer += 1
+        
+            # Now do the final line
+            line = self._my_widgets[-1]
+            
+            if len(self.values) <= indexer+1:
+                self._print_line(line, indexer)
+                line.task="PRINTLINE"
+                line.update(clear=False)
+            else:
+                line.value = MORE_LABEL
+                line.name = MORE_LABEL
+                line.task = MORE_LABEL
+                #line.highlight = False
+                #line.show_bold = False
+                line.clear()
+                if self.do_colors():
+                    self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL, self.parent.theme_manager.findPair(self, 'CONTROL'))
                 else:
-                    pass
-
-                self._last_start_display_at = self.start_display_at
-                
-
-                indexer = 0 + self.start_display_at
-                for line in self._my_widgets[:-1]:
-                    self._print_line(line, indexer)
-                    line.task = "PRINTLINE"
-                    line.update(clear=False)
-                    indexer += 1
-            
-                # Now do the final line
-                line = self._my_widgets[-1]
-                
-                if len(self.values) <= indexer+1:
-                    self._print_line(line, indexer)
-                    line.task="PRINTLINE"
-                    line.update(clear=False)
-                else:
-                    line.value = MORE_LABEL
-                    line.name = MORE_LABEL
-                    line.task = MORE_LABEL
-                    #line.highlight = False
-                    #line.show_bold = False
-                    line.clear()
-                    if self.do_colors():
-                        self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL, self.parent.theme_manager.findPair(self, 'CONTROL'))
-                    else:
-                        self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
-            
-                if self.editing: 
-                    self._my_widgets[(self.cursor_line-self.start_display_at)].highlight=True
-                    self._my_widgets[(self.cursor_line-self.start_display_at)].update(clear=True)
+                    self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
+        
+            if self.editing: 
+                self._my_widgets[(self.cursor_line-self.start_display_at)].highlight=True
+                self._my_widgets[(self.cursor_line-self.start_display_at)].update(clear=True)
 
 
         self._last_start_display_at = self.start_display_at
