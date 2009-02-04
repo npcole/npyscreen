@@ -89,6 +89,7 @@ class NPSAppManaged(NPSApplication.NPSApp):
         self.onStart()
         while self.NEXT_ACTIVE_FORM != "" and self.NEXT_ACTIVE_FORM != None:
             self._LAST_NEXT_ACTIVE_FORM = self._Forms[self.NEXT_ACTIVE_FORM]
+            self.LAST_ACTIVE_FORM_NAME = self.NEXT_ACTIVE_FORM
             _THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]
             if hasattr(_THISFORM, "activate"):
                 _THISFORM.activate()

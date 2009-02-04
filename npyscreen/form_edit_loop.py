@@ -43,6 +43,8 @@ class FormDefaultEditLoop(object):
         while self.editing:
             if not self.ALL_SHOWN: self.on_screen()
             self.while_editing(weakref.proxy(self._widgets__[self.editw]))
+            if not self.editing:
+                break
             self._widgets__[self.editw].edit()
             self._widgets__[self.editw].display()
 
