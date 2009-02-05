@@ -82,6 +82,8 @@ class NPSAppManaged(NPSApplication.NPSApp):
         NPSAppManaged aware and have the normal non-NPSAppManaged edit loop.
         
         After a Form has been edited, if it has an .afterEditing method, this will be called, unless it was invoked with the activate() method.
+        A similar .beforeEditing method will be called if it exists before editing the form.  Again, the presence of a .activate method
+        will override this behaviour.
         
         Note that NEXT_ACTIVE_FORM is a string that is the name of the form that was specified when .registerForm was called.
         """
@@ -90,10 +92,12 @@ class NPSAppManaged(NPSApplication.NPSApp):
         while self.NEXT_ACTIVE_FORM != "" and self.NEXT_ACTIVE_FORM != None:
             self._LAST_NEXT_ACTIVE_FORM = self._Forms[self.NEXT_ACTIVE_FORM]
             self.LAST_ACTIVE_FORM_NAME = self.NEXT_ACTIVE_FORM
-            _THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]
+            _THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]    
             if hasattr(_THISFORM, "activate"):
                 _THISFORM.activate()
             else:
+                if hasattr(_THISFORM, "beforeEditing"):
+                    _THISFORM.beforeEditing()
                 _THISFORM.edit()
                 if hasattr(_THISFORM, "afterEditing"):
                     _THISFORM.afterEditing()
