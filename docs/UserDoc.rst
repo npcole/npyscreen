@@ -95,6 +95,17 @@ onStart
         
 onCleanExit
     Override this method to perform any cleanup when application is exiting without error.
+    
+Forms called by NPSAppManaged can be given the methods
+
+beforeEditing
+    called before the edit loop of the form is called
+
+afterEditing
+    called when the form is exited
+
+activate
+    The presence of this method entirely overrides the existing .beforeEditing .edit  and afterEditing methods.
 
 NPSApp
 ------
