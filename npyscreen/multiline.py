@@ -370,12 +370,17 @@ Should accept one argument (the object to be represented), and return a string."
 
     def h_cursor_page_down(self, ch):
         self.cursor_line += (len(self._my_widgets)-1) # -1 because of the -more-
-        self.start_display_at += (len(self._my_widgets)-1)
-        if self.start_display_at > len(self.values) - (len(self._my_widgets)-1):
-            self.start_display_at = len(self.values) - (len(self._my_widgets)-1)
+        if self.cursor_line >= len(self.values)-1:
+            self.cursor_line = len(self.values) -1
+        if not (self.start_display_at + len(self._my_widgets) -1 ) > len(self.values):
+            self.start_display_at += (len(self._my_widgets)-1)
+            if self.start_display_at > len(self.values) - (len(self._my_widgets)-1):
+                self.start_display_at = len(self.values) - (len(self._my_widgets)-1)
     
     def h_cursor_page_up(self, ch):
         self.cursor_line -= (len(self._my_widgets)-1)
+        if self.cursor_line < 0:
+            self.cursor_line = 0
         self.start_display_at -= (len(self._my_widgets)-1)
         if self.start_display_at < 0: self.start_display_at = 0
                     
