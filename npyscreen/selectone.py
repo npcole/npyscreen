@@ -20,19 +20,18 @@ class SelectOne(multiline.MultiLine):
 	def h_select(self, ch):
 		self.value = [self.cursor_line,]
 
-
-
 	def _print_line(self, line, value_indexer):
 		try:
-			line.value = self.values[value_indexer]
+			display_this = self.display_value(self.values[value_indexer])
+			line.value = display_this
 			line.hide = False
 			if (value_indexer in self.value and (self.value is not None)):
 				line.show_bold = True
-				line.name = self.values[value_indexer]
+				line.name = display_this
 				line.value = True
 			else:
 				line.show_bold = False
-				line.name = self.values[value_indexer]
+				line.name = display_this
 				line.value = False
 			if value_indexer in self._filtered_values_cache:
 				line.important = True
