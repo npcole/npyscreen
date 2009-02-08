@@ -90,7 +90,12 @@ Should accept one argument (the object to be represented), and return a string."
     def calculate_area_needed(self):
         return 0,0
         
-
+    
+    def reset_cursor(self):
+        self.start_display_at = 0
+        self.cursor_line      = 0
+    
+    
     def update(self, clear=True):
         if self.hidden:
             self.clear()
@@ -376,9 +381,12 @@ Should accept one argument (the object to be represented), and return a string."
                     
     def h_cursor_line_up(self, ch):
         self.cursor_line -= 1
-        if self.cursor_line < 0 and self.scroll_exit:
-            self.cursor_line = 0
-            self.h_exit_up(ch)
+        if self.cursor_line < 0: 
+            if self.scroll_exit:
+                self.cursor_line = 0
+                self.h_exit_up(ch)
+            else: 
+                self.cursor_line = 0
 
     def h_cursor_line_down(self, ch):
         self.cursor_line += 1
