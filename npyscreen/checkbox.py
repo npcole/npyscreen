@@ -5,7 +5,34 @@ from widget import Widget
 import widget
 import curses
 
-class Checkbox(Widget):
+class _ToggleControl(Widget):
+	def set_up_handlers(self):
+		super(_ToggleControl, self).set_up_handlers()
+		
+		self.handlers.update({
+				curses.ascii.SP: self.h_toggle,
+				ord('x'):	 self.h_toggle,
+				curses.ascii.NL: self.h_select_exit,
+			})
+	
+	def h_toggle(self, ch):
+		if self.value is False or self.value is None or self.value == 0: 
+			self.value = True
+		else: 
+			self.value = False
+		self.whenToggled()
+	
+	def whenToggled(self):
+		pass
+	
+	def h_select_exit(self, ch):
+		self.value = True
+		self.editing = False
+		self.how_exited = widget.EXITED_DOWN
+
+
+
+class Checkbox(_ToggleControl):
 
 	False_box = '[ ]'
 	True_box  = '[X]'
@@ -66,29 +93,6 @@ class Checkbox(Widget):
 	def calculate_area_needed(self):
 		return 1,0
 
-	def set_up_handlers(self):
-		super(Checkbox, self).set_up_handlers()
-		
-		self.handlers.update({
-				curses.ascii.SP: self.h_toggle,
-				ord('x'):	 self.h_toggle,
-				curses.ascii.NL: self.h_select_exit,
-			})
-	
-	def h_toggle(self, ch):
-		if self.value is False or self.value is None or self.value == 0: 
-			self.value = True
-		else: 
-			self.value = False
-		self.whenToggled()
-	
-	def whenToggled(self):
-		pass
-	
-	def h_select_exit(self, ch):
-		self.value = True
-		self.editing = False
-		self.how_exited = widget.EXITED_DOWN
 		
 class RoundCheckBox(Checkbox):
 	False_box = '( )'

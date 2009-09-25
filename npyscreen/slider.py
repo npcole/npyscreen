@@ -52,15 +52,17 @@ class Slider(widget.Widget):
 	
 		if self.editing:
 			self.parent.curses_pad.attron(curses.A_BOLD)
-			self.parent.curses_pad.bkgdset(curses.ACS_HLINE)
+			#self.parent.curses_pad.bkgdset(curses.ACS_HLINE)
 			#self.parent.curses_pad.bkgdset(">")
 			#self.parent.curses_pad.bkgdset(curses.A_NORMAL)
 			BACKGROUND_CHAR = ">"
+			BARCHAR         = curses.ACS_HLINE
 		else:
 			self.parent.curses_pad.attroff(curses.A_BOLD)
 			self.parent.curses_pad.bkgdset(curses.A_NORMAL)
 			#self.parent.curses_pad.bkgdset(curses.ACS_HLINE)
 			BACKGROUND_CHAR = curses.ACS_HLINE
+			BARCHAR         = ' '
 		
 	
 		for n in xrange(blocks_on_screen):
@@ -72,9 +74,9 @@ class Slider(widget.Widget):
 	
 		for n in xrange(int(blocks_to_fill)):
 			if self.do_colors():
-				self.parent.curses_pad.addstr(self.rely,n+xoffset, ' ', curses.A_STANDOUT | self.parent.theme_manager.findPair(self))
+				self.parent.curses_pad.addch(self.rely,n+xoffset, BARCHAR, curses.A_STANDOUT | self.parent.theme_manager.findPair(self))
 			else:
-				self.parent.curses_pad.addstr(self.rely,n+xoffset, ' ', curses.A_STANDOUT) #curses.ACS_BLOCK)
+				self.parent.curses_pad.addch(self.rely,n+xoffset, BARCHAR, curses.A_STANDOUT) #curses.ACS_BLOCK)
 
 		self.parent.curses_pad.attroff(curses.A_BOLD)
 		self.parent.curses_pad.bkgdset(curses.A_NORMAL)

@@ -23,21 +23,24 @@ class MultiLineTree(multiline.MultiLine):
 	
 	values = property(_getApparentValues, _setMyValues, _delMyValues)
 	
-	def display_value(self, vl):
+	def get_tree_display(self, vl):
 		dp = vl.findDepth()
 		dp -= 1
 		if dp > 0:
-			control_chars = "|  " * (dp) + "|--"
+			control_chars = "| " * (dp) + "|-"
 		else:
-			control_chars = "|  " * (dp) + "|--"
+			control_chars = "| " * (dp) + "|-"
 		if vl.hasChildren():
 			if vl.expanded:
 				control_chars = control_chars + "+"
 			else:	
 				control_chars = control_chars + ">"
 		else:
-			control_chars = control_chars + " "
-		return control_chars + "  " + str(vl.getContentForDisplay()) + "  "
+			control_chars = control_chars + ""
+		return control_chars
+	
+	def display_value(self, vl):
+		return self.get_tree_display(vl) + "  " + str(vl.getContentForDisplay()) + "  "
 	
 class SelectOneTree(MultiLineTree):
 	_contained_widgets = checkbox.RoundCheckBox

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import curses
 import curses.ascii
+import locale
 
 def mainloop(scr):
 	while 1:
@@ -16,7 +17,9 @@ def mainloop(scr):
 		except:
 			pass
 		#return ch
+		scr.addstr(2,2, unicode(ch, 'utf-8'))
 		scr.refresh()
 	
 if __name__ == "__main__":
+	locale.setlocale(locale.LC_ALL, '')
 	print curses.wrapper(mainloop)

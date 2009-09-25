@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from safewrapper import wrapper
+from safewrapper import wrapper, wrapper_basic
 
 from ThemeManagers import ThemeManager, disableColor, enableColor
 import Themes

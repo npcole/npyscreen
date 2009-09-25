@@ -91,7 +91,7 @@ onInMainLoop
     Called between each screen while the application is running. Not called before the first screen. 
 
 onStart
-    Override this method to perform any initialisation.  If you wished, you could set up your application's Forms here.
+    Override this method to perform any initialisation.  If you wish, you can set up your application's Forms here.
         
 onCleanExit
     Override this method to perform any cleanup when application is exiting without error.
@@ -334,6 +334,8 @@ MultiLine
 
    One of the most important features of MultiLine and widgets derived from it is that it can be adapted easily to allow the user to choose different types of objects.  To do so, override the method *display_value(self, vl)*.  The argument *vl* will be the object being displayed, and the function should return a string that can be displayed on the screen.
    
+In other words you can pass in a list of objects of arbitrary types. By default, they will be displayed using *str()*, but by overriding *display_value* you can present them however you see fit.
+   
    MultiLine also allows the user to 'filter' entries.  (bound to keys l, L, n, p by default for filter, clear filter, next and previous). The current implementation highlights lines that match on the screen.  Future implementations may hide the other lines or offer a choice.  You can control how the filter operates by overriding the filter_value method.  This should accept an index as an argument (which looks up a line in the list .values) and should return True on a match and False otherwise.
 
 TitleMultiLine
@@ -550,5 +552,5 @@ Title... versions of widgets also define the attribute *labelColor*, which can b
 
 Unicode
 *******
-At time of writing there is very limited support for unicode text, and this feature should be considered experimental.  It is currently limited to the text fields (including most labels), including the multi-line edit box.  
+At time of writing there is very limited support for unicode text, and this feature should be considered experimental.  It is currently limited to the text fields (including most labels), including the multi-line edit box.  Because of a limitation in the python curses bindings, user input is currently limited to ascii characters.  However, unicode strings supplied for display should be presented correctly.  Please report any problems.
 
