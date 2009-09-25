@@ -142,8 +142,9 @@ class ScreenArea(object):
 		self.refresh()
 
 def test_loop(screen):
-	A = ScreenArea()
-	A.refresh()
+	while 1:
+		A = ScreenArea()
+		A.refresh()
 	
 	
 

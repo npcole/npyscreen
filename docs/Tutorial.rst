@@ -12,7 +12,7 @@ Part I: Forms, Widgets and Applications
 Using a wrapper
 ===============
 
-Switiching into and out of a curses environment is a very boring task.  The python curses module provides a wrapper to do this, and this is exposed by npyscreen.  The basic framework for a very simple application looks like this::
+Switiching into and out of a curses environment is a very boring task.  The python curses module provides a wrapper to do this, and this is exposed by npyscreen as wrapper_basic.  The basic framework for a very simple application looks like this::
 
     import npyscreen
     
@@ -20,10 +20,12 @@ Switiching into and out of a curses environment is a very boring task.  The pyth
         pass
     
     if __name__ == '__main__':
-        npyscreen.wrapper(myFunction)
+        npyscreen.wrapper_basic(myFunction)
         print "Blink and you missed it!"
         
 Which doesn't do anything clever.  The curses environment starts and exits without actually doing anything.  But it's a start.
+
+Note that npyscreen also provides other wrappers that do slightly different things.
 
 
 Using a Form
@@ -41,7 +43,7 @@ should do the trick.  Let's put that into our wrapper::
         F = npyscreen.Form(name='My Test Application')
     
     if __name__ == '__main__':
-        npyscreen.wrapper(myFunction)
+        npyscreen.wrapper_basic(myFunction)
         print "Blink and you missed it!"
 
 Which still seems to do nothing -- because we haven't actually displayed the Form.  *F.display()* would put it on the screen, but we actually want to let the user play with it, so let's do F.edit() instead::
@@ -53,7 +55,7 @@ Which still seems to do nothing -- because we haven't actually displayed the For
         F.edit()
     
     if __name__ == '__main__':
-        npyscreen.wrapper(myFunction)
+        npyscreen.wrapper_basic(myFunction)
         print "Blink and you missed it!"
         
 Which won't run, because when we try to edit the Form npyscreen discovers there's no widget to edit.  Let's put that right.
@@ -75,7 +77,7 @@ The full code is::
         F.edit()
     
     if __name__ == '__main__':
-        npyscreen.wrapper(myFunction)
+        npyscreen.wrapper_basic(myFunction)
         print "Blink and you missed it!"
         
 Much better! That gives us something looking like an application.  With just a three small changes we can change closing the message displayed to whatever the user typed::
@@ -89,7 +91,7 @@ Much better! That gives us something looking like an application.  With just a t
         return myFW.value   # <------- Change 2
     
     if __name__ == '__main__':
-        print npyscreen.wrapper(myFunction)  # <---- and change 3
+        print npyscreen.wrapper_basic(myFunction)  # <---- and change 3
 
 Let's be a little more object-oriented
 ======================================
@@ -122,14 +124,14 @@ We can use our wrapper code from before to use it::
         return "Created record for " + F.myName.value
     
     if __name__ == '__main__':
-        print npyscreen.wrapper(myFunction)
+        print npyscreen.wrapper_basic(myFunction)
     
 
 
 Offering Choice
 ===============
 
-Actually, we probably don't want just any old department name typed in - we want to offer a list of choices.  Let's use the TitleSelectOne widget.  It's a multi-line widget, so we need to take care that it takes up only a few lines of the screen::
+Actually, we probably don't want just any old department name typed in - we want to offer a list of choices.  Let's use the TitleSelectOne widget.  It's a multi-line widget, so we need to take care that it takes up only a few lines of the screen (left to itself it would take up all the remaining space on the screen)::
 
     self.myDepartment = self.add(npyscreen.TitleSelectOne, max_height=3, 
                                     name='Department', 
@@ -154,7 +156,7 @@ Putting that in context::
             return "Created record for " + F.myName.value
 
         if __name__ == '__main__':
-            print npyscreen.wrapper(myFunction)
+            print npyscreen.wrapper_basic(myFunction)
             
             
 

@@ -17,20 +17,17 @@ class NPSApp(object):
         del screen
         return self.main()
 
-    def run(self):
+    def run(self, fork=None):
         """Run application.  Calls Mainloop wrapped properly."""
-        try:
-            curses.longname() # Test if curses is already running.
-            if isendwin(): raise AlreadyOver
-            return self.main()
-        except AlreadyOver:
+        if fork is None:
             return safewrapper.wrapper(self.__remove_argument_call_main)
-        #except NameError:
-        #   return curses.wrapper(self.__remove_argument_call_main)
-        except _curses.error:
-            return safewrapper.wrapper(self.__remove_argument_call_main)
+        else:
+            return safewrapper.wrapper(self.__remove_argument_call_main, fork=fork)
 
 
 if __name__ == '__main__':
-    App = NPSApp(); App.run()
+    while 1:
+     App = NPSApp(); App.run()
+     App = NPSApp(); App.run()
+
     print "A Jedi, who was a pupil of mine..."

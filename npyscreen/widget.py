@@ -7,6 +7,7 @@ import curses.wrapper
 import weakref
 import GlobalOptions
 import locale
+import warnings
 
 
 EXITED_DOWN  =  1
@@ -16,33 +17,36 @@ EXITED_RIGHT =  2
 EXITED_ESCAPE= 127
 EXITED_MOUSE = 130
 
+SETMAX       = 'SETMAX'
+RAISEERROR   = 'RAISEERROR'
+
 class InputHandler(object):
 	"An object that can handle user input"
 
-	def handle_input(self, input):
+	def handle_input(self, _input):
 		"""Returns True if input has been dealt with, and no further action needs taking.
 		First attempts to look up a method in self.input_handers (which is a dictionary), then
 		runs the methods in self.complex_handlers (if any), which is an array of form (test_func, dispatch_func).
 		If test_func(input) returns true, then dispatch_func(input) is called. Check to see if parent can handle.
 		No further action taken after that point."""
 		
-		if self.handlers.has_key(input):
-			self.handlers[input](input)
+		if self.handlers.has_key(_input):
+			self.handlers[_input](_input)
 			return True
 
-		elif self.handlers.has_key(curses.ascii.unctrl(input)):
-			self.handlers[curses.ascii.unctrl(input)](input)
+		elif self.handlers.has_key(curses.ascii.unctrl(_input)):
+			self.handlers[curses.ascii.unctrl(_input)](_input)
 			return True
 
 
 		else:
 			if not hasattr(self, 'complex_handlers'): return False
 			for test, handler in self.complex_handlers:
-				if test(input): 
-					handler(input)
+				if test(_input): 
+					handler(_input)
 					return True
 		if hasattr(self, 'parent') and hasattr(self.parent, 'handle_input'):
-			if self.parent.handle_input(input):
+			if self.parent.handle_input(_input):
 				return True
 
 		else:
@@ -85,29 +89,29 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
 ###########################################################################################
 # Handler Methods here - npc convention - prefix with h_
 
-	def h_exit_down(self, input):
+	def h_exit_down(self, _input):
 		"""Called when user leaves the widget to the next widget"""
 		self.editing = False
 		self.how_exited = EXITED_DOWN
 		
-	def h_exit_right(self, input):
+	def h_exit_right(self, _input):
 		self.editing = False
 		self.how_exited = EXITED_RIGHT
 
-	def h_exit_up(self, input):
+	def h_exit_up(self, _input):
 		"""Called when the user leaves the widget to the previous widget"""
 		self.editing = False
 		self.how_exited = EXITED_UP
 		
-	def h_exit_left(self, input):
+	def h_exit_left(self, _input):
 		self.editing = False
 		self.how_exited = EXITED_LEFT
 		
-	def h_exit_escape(self, input):
+	def h_exit_escape(self, _input):
 		self.editing = False
 		self.how_exited = EXITED_ESCAPE
 
-	def h_exit_mouse(self, input):
+	def h_exit_mouse(self, _input):
 		self.editing = False
 		self.how_exited = MOUSE_EVENT
 	
@@ -202,30 +206,46 @@ big a given widget is ... use .height and .width instead"""
 		my = my+1
 		ny, nx = self.calculate_area_needed()
 		
+		max_height = self.max_height
+		max_width  = self.max_width
+		if max_height < 0 and max_height not in (None, False):
+		    max_height = my + max_height
+		if max_width < 0 and max_width not in (None, False):
+		    max_width = mx + max_width
+		
+		#if self.max_height < 0 and self.max_height not in (None, False):
+		#    my += self.max_height
+		
+		#if self.max_width < 0 and self.max_width not in (None, False):
+		#    mx += self.max_width
+		
 		if ny > 0:
 			if my >= ny: self.height = ny
-			else: self.height = -1
-		elif self.max_height:
-			if self.max_height < my: self.height = self.max_height
+			else: self.height = RAISEERROR
+		elif max_height:
+			if max_height < my: self.height = max_height
 			else: 
 				self.height = self.request_height
 		else: self.height = (self.request_height or my)
+		
+		#if mx <= 0 or my <= 0:
+		#    raise Exception("Not enough space for widget")
 
 
-		if nx > 0:              # if a minimum space is specified....
+		if nx > 0:                 # if a minimum space is specified....
 			if mx >= nx:           # if max width is greater than needed space 
 			    self.width = nx    # width is needed space
 			else: 
-			    self.width = -1    # else raise an error
+			    self.width = RAISEERROR    # else raise an error
 		elif self.max_width:       # otherwise if a max width is speciied
-			if self.max_width <= mx: 
-			    self.width = self.max_width
+			if max_width <= mx: 
+			    self.width = max_width
 			else: 
-			    self.width = -1
+			    self.width = RAISEERROR
 		else: 
 		    self.width = self.request_width or mx
 
-		if self.height == -1 or self.width == -1:
+		if self.height == RAISEERROR or self.width == RAISEERROR:
 			# Not enough space for widget
 			raise Exception("Not enough space: max y and x = %s , %s. Height and Width = %s , %s " % (my, mx, self.height, self.width) ) # unsafe. Need to add error here.
 	def update(self):
@@ -322,12 +342,17 @@ big a given widget is ... use .height and .width instead"""
 			return ""
 		elif not GlobalOptions.ASCII_ONLY:
 			try:
-				rtn_value = this_string.encode(locale.getlocale()[1])
+				rtn_value = this_string.encode(locale.getpreferredencoding())
 				return rtn_value
 			except IndexError:
 				pass
 			except TypeError:
 				pass
+			except UnicodeDecodeError:
+				warnings.warn("Unicode Error")
+				raise
+			except UnicodeEncodeError:
+			    pass
 		rtn = self.safe_filter(this_string)
 		return rtn
 	
