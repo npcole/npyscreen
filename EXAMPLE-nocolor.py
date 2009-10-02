@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 import npyscreen
-#npyscreen.disableColor()
+npyscreen.disableColor()
 class TestApp(npyscreen.NPSApp):
 	def main(self):
 		# These lines create the form and populate it with widgets.

@@ -119,7 +119,16 @@ class Textfield(widget.Widget):
 				self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
 												self.parent.theme_manager.findPair(self))
 		else:
-			self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])
+			if self.important:
+				self.parent.curses_pad.addstr(self.rely,self.relx, 
+						string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], curses.A_BOLD)
+			elif self.show_bold:
+				self.parent.curses_pad.addstr(self.rely,self.relx, 
+						string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], curses.A_BOLD)
+				
+			else:
+				self.parent.curses_pad.addstr(self.rely,self.relx, 
+					string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])
 		    
 
 ##use addch to let us write to last corner

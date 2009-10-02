@@ -203,15 +203,19 @@ big a given widget is ... use .height and .width instead"""
 	def set_size(self):
 		"""Set the size of the object, reconciling the user's request with the space available"""
 		my, mx = self.space_available()
-		my = my+1
+		my = my+1 # Probably want to remove this.
 		ny, nx = self.calculate_area_needed()
 		
 		max_height = self.max_height
 		max_width  = self.max_width
 		if max_height < 0 and max_height not in (None, False):
-		    max_height = my + max_height
+			max_height = my + max_height
 		if max_width < 0 and max_width not in (None, False):
-		    max_width = mx + max_width
+			max_width = mx + max_width
+		if max_height <= 0 and max_height not in (None, False):
+			raise Exception("Not enough space for requested size")	
+		if max_width <= 0 and max_width not in (None, False):
+			raise Exception("Not enough space for requested size")
 		
 		#if self.max_height < 0 and self.max_height not in (None, False):
 		#    my += self.max_height
@@ -332,6 +336,9 @@ big a given widget is ... use .height and .width instead"""
 			self.handle_input(ch)
 			self.try_adjust_widgets()
 
+	#def when_parent_changes_value(self):
+		# Can be called by forms when they chage their value.
+		#pass
 
 	def safe_string(self, this_string):
 		"""Check that what you are trying to display contains only

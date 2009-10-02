@@ -8,6 +8,10 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+
+2.0pre30
+	Added the FormMutt class. Added code to allow max_height to specify negative numbers. Numerous bug fixes.
+
 2.0pre29
 	Added a second grid class.
 

@@ -37,6 +37,7 @@ class MultiLine(widget.Widget):
     """Display a list of items to the user.  By overloading the display_value method, this widget can be made to 
 display different kinds of objects.  Given the standard definition, 
 the same effect can be achieved by altering the __str__() method of displayed objects"""
+    _MINIMUM_HEIGHT = 2 # Raise an error if not given this.
     _contained_widgets = textbox.Textfield
     def __init__(self, screen, values = None, value = None,
             slow_scroll=False, scroll_exit=False, 
@@ -48,6 +49,8 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         self.exit_left       = exit_left
         self.exit_right      = exit_right
         super(MultiLine, self).__init__(screen, **keywords)
+        if self.height < self.__class__._MINIMUM_HEIGHT:
+            raise Exception("Not enough space allowed for %s" % str(self))
         self.make_contained_widgets()
 
         self.value = value
@@ -80,7 +83,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         self._my_widgets = []
         for h in range(self.height):
             self._my_widgets.append(self._contained_widgets(self.parent, rely=h+self.rely, relx = self.relx, max_width=self.width, max_height=1))
-            
+
 
     def display_value(self, vl):
         """Overload this function to change how values are displayed.  
@@ -425,7 +428,7 @@ Should accept one argument (the object to be represented), and return a string."
         self.value = self.cursor_line
 
     def h_select_exit(self, ch):
-        self.value = self.cursor_line
+        self.h_select(ch)
         if self.return_exit:
             self.editing = False
             self.how_exited=True
@@ -519,7 +522,8 @@ class Pager(MultiLine):
                     curses.KEY_HOME:    self.h_show_beginning,
                     curses.KEY_END:     self.h_show_end,
                     curses.ascii.NL:    self.h_exit,
-                    curses.ascii.SP:    self.h_exit,
+                    curses.ascii.SP:    self.h_scroll_page_down,
+                    curses.ascii.TAB:   self.h_exit,
                     ord('x'):       self.h_exit,
                     ord('q'):       self.h_exit,
                     curses.ascii.ESC:   self.h_exit,

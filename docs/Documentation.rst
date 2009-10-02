@@ -39,12 +39,40 @@ Programming with npyscreen
 Application Objects
 *******************
 
+Example Code::
+
+    import npyscreen
+
+    class MyTestApp(npyscreen.NPSAppManaged):
+        def onStart(self):
+            self.registerForm("MAIN", MainForm())
+    
+    class MainForm(npyscreen.Form):
+        def create(self):
+            self.add(npyscreen.TitleText, name = "Text:", value= "Press Escape to quit application" )
+            self.how_exited_handers[npyscreen.widget.EXITED_ESCAPE]  = self.exit_application    
+
+        def exit_application(self):
+            self.parentApp.NEXT_ACTIVE_FORM = None
+            self.editing = False
+
+    def main():
+        TA = MyTestApp()
+        TA.run()
+
+
+    if __name__ == '__main__':
+        main()
+
+
 NPSAppManaged
 -------------
 
-Unless you have exceptionally good reasons to do otherwise, this is almost certainly the best way to manage your application.  
+NPSAppManaged provides a framework to start and end your application and to manage the display of the various Forms that you have created, in a way that should not create recursion depth problems.
 
-Unlike the plain NPSApp class, you do not need to write your own main loop - NPSApp managed will manage the display of each Form of your application.  Set up your form objects and simply call the *.run()* method of your NPSAppManaged instance.
+Unless you have exceptionally good reasons to do otherwise, *NPSAppManaged* is almost certainly the best way to manage your application.  
+
+Unlike the plain NPSApp class, you do not need to write your own main loop - *NPSAppManaged* will manage the display of each Form of your application.  Set up your form objects and simply call the *.run()* method of your NPSAppManaged instance.
 
 Letting NPSAppManaged manage your Forms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -167,9 +195,12 @@ Other Standard Form Features
 *while_waiting(), keypress_timeout*
    If you wish to perform actions while waiting for the user to press a key, you may define a *while_waiting* method.  You should also set the attribute *keypress_timeout*, which is a value in ms.  Whenever waiting for input, if more than the time given in *keypress_timeout* passes, while_waiting will be called.  Note that npyscreen takes no steps to ensure that *while_waiting()* is called at exactly regular intervals, and in fact it may never be called at all if the user continually presses keys.
    
-   A *keypress_timeout* value of 10 ensures that the *while_waiting* method is called about every second.
+   A *keypress_timeout* value of 10 suggests that the *while_waiting* method is called about every second, assuming the user takes no other action.
    
    See the included example TIMEOUT-EXAMPLE.py for a fully worked example.
+   
+*set_value(value)*
+    Store *value* in the *.value* attribute of the *Form* and then call the *whenParentChangeValue* method of every widget that has it.
 
 Displaying and Editing Forms
 ****************************
@@ -201,10 +232,28 @@ FormWithMenus, ActionFormWithMenus
    
    To add a new menu to the Form use the method *new_menu(name='')*.  This will create the menu and return a proxy to it.  For more details see the section on Menus below.
    
+FormBaseNew, FormBaseNewWithMenus
+    This form does not have an *ok* or *cancel* button by default.  The additional methods *pre_edit_loop* and *post_edit_loop* are called before and after the Form is edited.  The default versions do nothing.  This class is intended as a base for more complex user interfaces.
+    
+FormMutt
+    Inspired by the user interfaces of programs like *mutt* or *irssi*, this form defines four default widgets:
+    
+    *wStatus1*
+        This is at the top of the screen.  You can change the type of widget used by changing the *STATUS_WIDGET_CLASS* class attribute (note this is used for both status lines).
+    *wStatus2*
+        This occupies the second to last line of the screen. You can change the type of widget used by changing the *STATUS_WIDGET_CLASS* class attribute (note this is used for both status lines).
+    *wMain*
+        This occupies the area between wStatus1 and wStatus2, and is a MultiLine widget.  You can alter the type of widget that appears here by subclassing *FormMutt* and changing the *MAIN_WIDGET_CLASS* class attribute.
+    *wCommand*
+        This Field occupies the last line of the screen. You can change the type of widget used by altering the *COMMAND_WIDGET_CLASS* class attribute.
+   
+    By default, wStatus1 and wStatus2 have *editable* set to False.
+    
+    
 Menus
 =====
 
-Some Form classes support the use of popup menus.  Indeed, menus could in theory be used as widgets on their own.  Popup menus (inspired, in fact, by the menu system in RiscOS) were selected instead of drop-down menus as being more suitable for a keyboard environment, making better use of available screen space and being easier to deploy on terminals of varied sizes.
+Some Form classes support the use of popup menus.  Menus could in theory be used as widgets on their own.  Popup menus (inspired, in fact, by the menu system in RiscOS) were selected instead of drop-down menus as being more suitable for a keyboard environment, making better use of available screen space and being easier to deploy on terminals of varied sizes.
 
 Menus are usually created by calling a (supporting) Form's *new_menu* method.  Thereafter, the following methods are useful:
 
@@ -287,9 +336,7 @@ Many widgets exist in two forms, one with a label, one without.  For example Tex
 *begin_entry_at=16*
    At what column should the entry part of the widget begin?
 
-Internally titled widgets are actually a textbox (for the label) and whatever other kind of widget is required.  You can access the separate widgets (if you ever need to - you shouldn't) through the *label_widget* *entry_widget* attributes.
-
-However, you may never need to, since the *value* and *values* attributes of the combined widget should work as expected.
+Internally titled widgets are actually a textbox (for the label) and whatever other kind of widget is required.  You can access the separate widgets (if you ever need to - you shouldn't) through the *label_widget* and *entry_widget* attributes. However, you may never need to, since the *value* and *values* attributes of the combined widget should work as expected.
 
 Widget Types
 ============
@@ -334,7 +381,7 @@ MultiLine
 
    One of the most important features of MultiLine and widgets derived from it is that it can be adapted easily to allow the user to choose different types of objects.  To do so, override the method *display_value(self, vl)*.  The argument *vl* will be the object being displayed, and the function should return a string that can be displayed on the screen.
    
-In other words you can pass in a list of objects of arbitrary types. By default, they will be displayed using *str()*, but by overriding *display_value* you can present them however you see fit.
+   In other words you can pass in a list of objects of arbitrary types. By default, they will be displayed using *str()*, but by overriding *display_value* you can present them however you see fit.
    
    MultiLine also allows the user to 'filter' entries.  (bound to keys l, L, n, p by default for filter, clear filter, next and previous). The current implementation highlights lines that match on the screen.  Future implementations may hide the other lines or offer a choice.  You can control how the filter operates by overriding the filter_value method.  This should accept an index as an argument (which looks up a line in the list .values) and should return True on a match and False otherwise.
 
@@ -475,7 +522,7 @@ Many objects can take actions based on user key presses.  All such objects inher
          curses.KEY_MOUSE:	self.h_exit_mouse,
          }
 
-    If a key is pressed (note support for notations like "^N" for "Control-N" and "!a" for "Alt N") that exists as a key in this dictionary, the function associated with it is called.  No further action is taken.  By convention functions that handle user input are prefixed with h\_.
+If a key is pressed (note support for notations like "^N" for "Control-N" and "!a" for "Alt N") that exists as a key in this dictionary, the function associated with it is called.  No further action is taken.  By convention functions that handle user input are prefixed with h\_.
 
 *complex_handlers*
     This list should contain list or tuple pairs like this (test_func, dispatch_func).  

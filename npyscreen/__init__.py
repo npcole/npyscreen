@@ -7,9 +7,10 @@ import Themes
 from NPSApplication import NPSApp
 from NPSApplicationManaged import NPSAppManaged
 from screen_area import setTheme
-from Form import Form, TitleForm, TitleFooterForm, SplitForm
+from Form import FormBaseNew, Form, TitleForm, TitleFooterForm, SplitForm
 from ActionForm import ActionForm
-from FormWithMenus import FormWithMenus, ActionFormWithMenus
+from FormWithMenus import FormWithMenus, ActionFormWithMenus, FormBaseNewWithMenus
+from FormMutt import FormMutt
 
 from button import MiniButton
 from button import MiniButtonPress

@@ -5,7 +5,21 @@ import Form
 import ActionForm
 import NMenuDisplay
 
-
+class FormBaseNewWithMenus(Form.FormBaseNew, NMenuDisplay.HasMenus):
+    """The FormBaseNew class, but with a handling system for menus as well.  See the HasMenus class for details."""
+    def __init__(self, *args, **keywords):
+        super(FormBaseNewWithMenus, self).__init__(*args, **keywords)
+        self.initialize_menus()
+    
+    def display_menu_advert_at(self):
+        return self.lines-1, 1
+    
+    def draw_form(self):
+        super(FormBaseNewWithMenus, self).draw_form()
+        menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
+        y, x = self.display_menu_advert_at()
+        self.curses_pad.addnstr(y, x, menu_advert, self.columns - x - 1)
+    
 
 class FormWithMenus(Form.Form, NMenuDisplay.HasMenus):
     """The Form class, but with a handling system for menus as well.  See the HasMenus class for details."""
@@ -50,7 +64,7 @@ class SplitFormWithMenus(FormWithMenus):
 
 
 def main(arg):
-    F = SplitFormWithMenus()
+    F = FormBaseNewWithMenus()
 
     def beep():
         curses.beep()
