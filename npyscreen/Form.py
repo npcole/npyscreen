@@ -9,13 +9,15 @@ import pmfuncs
 import GlobalOptions
 import form_edit_loop
 
-class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.InputHandler, ):
+class _FormBase(screen_area.ScreenArea, widget.InputHandler,):
 	OK_BUTTON_BR_OFFSET = (2,6)
 	OKBUTTON_TYPE = button.MiniButton
 	DEFAULT_X_OFFSET = 2
 	PRESERVE_SELECTED_WIDGET_DEFAULT = False # Preserve cursor location between displays?
-	def __init__(self, name=None, parentApp=None, framed=True, help=None, color='FORMDEFAULT', widget_list=None, *args, **keywords):
-		super(Form, self).__init__(*args, **keywords)
+	FRAMED = True
+	def __init__(self, name=None, parentApp=None, framed=FRAMED, help=None, color='FORMDEFAULT', 
+					widget_list=None, cycle_widgets=False, *args, **keywords):
+		super(_FormBase, self).__init__(*args, **keywords)
 		self.preserve_selected_widget = self.__class__.PRESERVE_SELECTED_WIDGET_DEFAULT
 		if parentApp:
 			try:
@@ -29,9 +31,10 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 		self._clear_all_widgets()
 
 		self.help = help
-		
+
 		self.color = color
 		
+		self.cycle_widgets = cycle_widgets
 
 		self.set_up_handlers()
 		self.set_up_exit_condition_handlers()
@@ -57,16 +60,17 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 			keywords = line[1]
 			self.add_widget(w_type, **keywords)
 
+	def set_value(self, value):
+		self.value = value
+		for _w in self._widgets__:
+			if hasattr(_w, 'when_parent_changes_value'):
+				_w.when_parent_changes_value()
 
-	def adjust_widgets(self):
-		"""This method can be overloaded by derived classes. It is called when editing any widget, as opposed to
-		the while_editing() method, which may only be called when moving between widgets.  Since it is called for
-		every keypress, and perhaps more, be careful when selecting what should be done here."""
 
 	def create(self):
 		"""Programmers should over-ride this in derived classes, creating widgets here"""
 		pass
-	
+
 	def set_up_handlers(self):
 		self.complex_handlers = []
 		self.handlers = { 
@@ -81,7 +85,7 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 		# What happens when widgets exit?
 		# each widget will set it's how_exited value: this should
 		# be used to look up the following table.
-		
+
 		self.how_exited_handers = {
 			widget.EXITED_DOWN:    self.find_next_editable,
 			widget.EXITED_RIGHT:   self.find_next_editable,
@@ -94,9 +98,18 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 
 	def handle_exiting_widgets(self, condition):
 		self.how_exited_handers[condition]()
-		
+
 	def do_nothing(self, *args, **keywords):
 		pass
+	
+	def exit_editing(self, *args, **keywords):
+		self.editing = False
+	
+	def adjust_widgets(self):
+		"""This method can be overloaded by derived classes. It is called when editing any widget, as opposed to
+		the while_editing() method, which may only be called when moving between widgets.  Since it is called for
+		every keypress, and perhaps more, be careful when selecting what should be done here."""
+
 
 	def while_editing(self, *args, **keywords):
 		"""This function gets called during the edit loop, on each iteration
@@ -107,30 +120,30 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 	def on_screen(self):
 		# is the widget in editw on sreen at the moment?
 		# if not, alter screen so that it is.
-		
+
 		w = weakref.proxy(self._widgets__[self.editw])
-		
+
 		max_y, max_x = self._max_physical()
 
 		w_my, w_mx = w.calculate_area_needed()
-		
+
 		# always try to show the top of the screen.
 		self.show_from_y = 0
 		self.show_from_x = 0
-		
+
 		while w.rely + w_my -1 > self.show_from_y + max_y:
 			self.show_from_y += 1
 
 		while w.rely < self.show_from_y:
 			self.show_from_y -= 1
-			
+
 
 		while w.relx + w_mx -1 > self.show_from_x + max_x:
 			self.show_from_x += 1
 
 		while w.relx < self.show_from_x:
 			self.show_from_x -= 1
-		
+
 ## REMOVING OLD MENU CODE  def menuOfMenus(self, *args, **keywords):
 ## REMOVING OLD MENU CODE  	"""DEPRICATED"""
 ## REMOVING OLD MENU CODE  	tmpmnu = Menu.Menu(name = "All Menus", show_aty=2, show_atx=2)
@@ -156,7 +169,7 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 ## REMOVING OLD MENU CODE  	self.add_handlers({key: mu.edit})
 ## REMOVING OLD MENU CODE  	return weakref.proxy(mu)
 
-			
+
 	def h_display_help(self, input):
 		if self.help == None: return
 		if self.name:
@@ -170,19 +183,23 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 	def h_display(self, input):
 		self.curses_pad.redrawwin()
 		self.display()
-		
+
 	def get_and_use_mouse_event(self):
 		curses.beep()
-	
-			
+
+
 	def find_next_editable(self, *args):
-		if not self.editw == len(self._widgets__):		
-			for n in xrange(self.editw+1, len(self._widgets__)):
+		if not self.editw == len(self._widgets__):
+			if not self.cycle_widgets:
+				r = range(self.editw+1, len(self._widgets__))
+			else:
+				r = range(self.editw+1, len(self._widgets__)) + range(0, self.editw)
+			for n in r:
 				if self._widgets__[n].editable and not self._widgets__[n].hidden: 
 					self.editw = n
 					break
 		self.display()
-		
+
 
 	def find_previous_editable(self, *args):
 		if not self.editw == 0:		
@@ -204,12 +221,12 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 			self.show_aty = (my - self.lines) // 2
 		else:
 			self.show_aty = 0
-		
+
 		if self.columns < mx:
 			self.show_atx = (mx - self.columns) // 2
 		else:
 			self.show_atx = 0
-	
+
 
 	def display(self):
 		#APPLICATION_THEME_MANAGER.setTheme(self)
@@ -221,13 +238,13 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 		self.draw_form()
 		for w in self._widgets__: 
 			w.update(clear=False)
-	
+
 		self.refresh()
 
 	def draw_form(self):
 		if self.framed:
 			self.curses_pad.border()
-			
+
 			try:
 				if self.name:
 					_title = self.name[:(self.columns-4)]
@@ -248,7 +265,7 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 		"""Add a widget to the form.  The form will do its best to decide on placing, unless you override it.
 		The form of this function is add_widget(WidgetClass, ....) with any arguments or keywords supplied to
 		the widget. The wigdet will be added to self._widgets__
-		
+
 		It is safe to use the return value of this function to keep hold of the widget, since that is a weak
 		reference proxy, but it is not safe to keep hold of self._widgets__"""
 
@@ -265,7 +282,7 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 				relx=relx, 
 				max_height=max_height, 
 				*args, **keywords)
-		
+
 		self.nextrely = _w.height + _w.rely 
 		self._widgets__.append(_w)
 		w_proxy = weakref.proxy(_w)
@@ -273,18 +290,26 @@ class Form(form_edit_loop.FormDefaultEditLoop, screen_area.ScreenArea, widget.In
 			w_id = self._next_w_id
 			self._next_w_id += 1
 		self._widgets_by_id[w_id] = w_proxy
-			
+
 		return w_proxy
-	
+
 	def get_widget(self, w_id):
 		return self._widgets_by_id[w_id]
-		
+
 	def useable_space(self, rely=0, relx=0):
 		"""Reports space left on physical screen. Widgets should use widget_useable_space instead."""
 		mxy, mxx = curses.newwin(0,0).getmaxyx()
 		return ((mxy-rely)-1, (mxx-relx)-2)
-	
+
 	add = add_widget
+
+class FormBaseNew(form_edit_loop.FormNewEditLoop, _FormBase):
+    # use the new-style edit loop.
+    pass
+
+class Form(form_edit_loop.FormDefaultEditLoop, _FormBase, ):
+    #use the old-style edit loop
+    pass
 	
 class TitleForm(Form):
 	"""A form without a box, just a title line"""

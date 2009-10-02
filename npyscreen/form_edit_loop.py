@@ -11,6 +11,42 @@ import sys
 import os
 import weakref
 
+class FormNewEditLoop(object):
+    "Edit Fields .editing = False"
+    def pre_edit_loop(self):
+        pass
+    def post_edit_loop(self):
+        pass
+    def _during_edit_loop(self):
+        pass
+    
+    def edit_loop(self):
+        self.editing = True
+        self.display()
+        while not self._widgets__[self.editw].editable:
+            self.editw += 1
+            if self.editw > len(self._widgets__)-1: 
+                self.editing = False
+                return False
+        
+        while self.editing:
+            if not self.ALL_SHOWN: self.on_screen()
+            self.while_editing(weakref.proxy(self._widgets__[self.editw]))
+            self._during_edit_loop()
+            if not self.editing:
+                break
+            self._widgets__[self.editw].edit()
+            self._widgets__[self.editw].display()
+
+            self.handle_exiting_widgets(self._widgets__[self.editw].how_exited)
+
+            if self.editw > len(self._widgets__)-1: self.editw = len(self._widgets__)-1
+    
+    def edit(self):
+        self.pre_edit_loop()
+        self.edit_loop()
+        self.post_edit_loop()
+
 class FormDefaultEditLoop(object):
     def edit(self):
         """Edit the fields until the user selects the ok button added in the lower right corner. Button will

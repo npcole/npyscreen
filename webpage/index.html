@@ -41,7 +41,7 @@ This is a curses library and application framework for python that provides a re
 <p><code>python setup.py install</code>
 </p>
 
-<p>You might also like to read <a href="tutorial.html">this tutorial</a> (a work in progress) and <a href="documentation.html">this documentation</a>.
+<p>You might also like to read the tutorial and documentation included with the distribution.
 
 <h3>Strengths</h3>
 
@@ -52,11 +52,11 @@ This is a curses library and application framework for python that provides a re
 
 <h3>Limitations</h3>
 
-<p>This library does not currently support the mouse, mostly because I have not had the need for mouse support, but that feature may well be added in the future.  
+<p>This library does not currently support the mouse, mostly because I have not had the need for mouse support, but that feature may well be added in the future, and the core of it is already built into the library.
 
-<p>There is very limited support for unicode/utf-8 (the python curses bindings are currently incomplete, but a patch seems to be in the works) I shall be making the unicode support more robust in the future.  For the moment, unicode strings in text fields (and all the many things that are derived from them) should display properly (if you run into problems, all widgets have a <code>safe_string(str)</code> method which will return a string that will not crash your application).
+<p>There is very limited support for unicode/utf-8 (the python curses bindings are currently incomplete, but a patch seems to be in the works). I shall be making the unicode support more robust in the future.  For the moment, unicode strings in text fields (and all the many things that are derived from them) should display properly (if you run into problems, all widgets have a <code>safe_string(str)</code> method which will return a string that will not crash your application).
 
-<p>I am working on a new mechanism for creating Forms which will make resizing forms automatic when the terminal resizes.  However, in the meantime, the library will create forms based on a fixed size (determined when the Form is created).  On the plus side, this library does make sure that a resized terminal will not cause your application to crash...  I
+<p>I am working on a new mechanism for creating Forms which will make resizing forms automatic when the terminal resizes.  However, in the meantime, the library will create forms based on a fixed size (determined when the Form is created).  On the plus side, this library does make sure that a resized terminal will not cause your application to crash.  (In fact, this library was first inspired by the desire to be able to write applications that would not crash merely because a terminal window had changed shape.  Things rapidly got more complicated.)
 
 </body>
 </html>
