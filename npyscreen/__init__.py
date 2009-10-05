@@ -1,49 +1,49 @@
 #!/usr/bin/python
 
-from safewrapper import wrapper, wrapper_basic
+from npyssafewrapper import wrapper, wrapper_basic
 
-from ThemeManagers import ThemeManager, disableColor, enableColor
-import Themes
-from NPSApplication import NPSApp
-from NPSApplicationManaged import NPSAppManaged
-from screen_area import setTheme
-from Form import FormBaseNew, Form, TitleForm, TitleFooterForm, SplitForm
-from ActionForm import ActionForm
-from FormWithMenus import FormWithMenus, ActionFormWithMenus, FormBaseNewWithMenus
-from FormMutt import FormMutt
+from   npysThemeManagers       import ThemeManager, disableColor, enableColor
+import npysThemes              as Themes
+from   apNPSApplication        import NPSApp
+from   apNPSApplicationManaged import NPSAppManaged
+from   proto_fm_screen_area    import setTheme
+from   fmForm                  import FormBaseNew, Form, TitleForm, TitleFooterForm, SplitForm
+from   fmActionForm            import ActionForm
+from   fmFormWithMenus         import FormWithMenus, ActionFormWithMenus, FormBaseNewWithMenus
+from   fmFormMutt              import FormMutt
 
-from button import MiniButton
-from button import MiniButtonPress
-from button import MiniButton as Button
-from button import MiniButtonPress as ButtonPress
+from wgbutton import MiniButton
+from wgbutton import MiniButtonPress
+from wgbutton import MiniButton      as Button
+from wgbutton import MiniButtonPress as ButtonPress
 
-from textbox import Textfield, FixedText
-from titlefield import TitleText, TitleFixedText
-from password import PasswordEntry, TitlePassword
+from wgtextbox    import Textfield, FixedText
+from wgtitlefield import TitleText, TitleFixedText
+from wgpassword   import PasswordEntry, TitlePassword
 
-from slider import Slider, TitleSlider
+from wgslider     import Slider, TitleSlider
 
-from multiline import MultiLine, Pager, TitleMultiLine
-from multiselect import MultiSelect, TitleMultiSelect, MultiSelectFixed, TitleMultiSelectFixed
-from editmultiline import MultiLineEdit
-from combobox import ComboBox, TitleCombo
-from checkbox import Checkbox, RoundCheckBox
-from formControlCheckbox import FormControlCheckbox
-from autocomplete import TitleFilename, Filename, Autocomplete
-from Popup import Popup, MessagePopup, ActionPopup
-from Menu import Menu
-from selectone import SelectOne, TitleSelectOne
-from datecombo import DateCombo, TitleDateCombo
+from wgmultiline    import MultiLine, Pager, TitleMultiLine
+from wgmultiselect  import MultiSelect, TitleMultiSelect, MultiSelectFixed, TitleMultiSelectFixed
+from wgeditmultiline  import MultiLineEdit
+from wgcombobox import ComboBox, TitleCombo
+from wgcheckbox import Checkbox, RoundCheckBox
+from wgFormControlCheckbox import FormControlCheckbox
+from wgautocomplete import TitleFilename, Filename, Autocomplete
+from fmPopup import Popup, MessagePopup, ActionPopup
+from muMenu import Menu
+from wgselectone import SelectOne, TitleSelectOne
+from wgdatecombo import DateCombo, TitleDateCombo
 
-from monthbox import MonthBox
-from grid     import SimpleGrid
-from gridcoltitles import GridColTitles
+from wgmonthbox import MonthBox
+from wggrid     import SimpleGrid
+from wggridcoltitles import GridColTitles
 
 
-from NewMenu import NewMenu, MenuItem
-from NMenuDisplay import MenuDisplay, MenuDisplayScreen
+from muNewMenu import NewMenu, MenuItem
+from wgNMenuDisplay import MenuDisplay, MenuDisplayScreen
 
-from pmfuncs import CallSubShell
+from npyspmfuncs import CallSubShell
 
 
 

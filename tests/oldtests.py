@@ -625,3 +625,17 @@ if __name__ == '__main__':
     print "The circle is now complete"
 
 
+## widget
+
+def simpletest(scr):
+    import screen_area as sa
+    a = sa.ScreenArea()
+    b = Widget(a)
+    return b.safe_string(u'Q \u00c5 \u00c5 This\nis something of a test\nThis is line2')
+
+
+if __name__ == "__main__":
+    import safewrapper
+    print safewrapper.wrapper(simpletest)
+    print locale.getlocale()[1]
+    print "The circle is now complete"
