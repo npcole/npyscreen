@@ -202,15 +202,3 @@ class MonthBox(DateEntryBase):
                               "^T":               self.h_find_today,
                             })
 
-def quicktest(scr):
-    import screen_area
-    SA = screen_area.ScreenArea()
-    c = MonthBox(SA, allowTodaysDate=False, allowPastDate=True, rely=2, relx=6)
-    c.value = datetime.date.today()
-    c.edit()
-
-if __name__ == "__main__":
-    import curses
-    import curses.wrapper
-    curses.wrapper(quicktest)
-    print "The circle is now complete"

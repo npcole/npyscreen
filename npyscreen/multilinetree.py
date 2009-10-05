@@ -112,35 +112,3 @@ class SelectOneTree(MultiLineTree):
 
 
 
-if __name__ == '__main__':
-    
-    def testme(sa):
-        import screen_area
-        import Form
-        #SA = screen_area.ScreenArea()
-        
-        Tree = NPSTree.NPSTreeData(content = "Test",)
-        n1   = Tree.newChild(content = "TestChild")
-        gc1  = n1.newChild(content = "GrandChild1")
-        gc2  = n1.newChild(content = "GrandChild2")
-        gc3  = n1.newChild(content = "GrandChild3")
-        ggc1 = gc1.newChild(content = "Great Grand Child1")
-        ggc2 = gc1.newChild(content = "Great Grand Child2")
-        ggc3 = gc1.newChild(content = "Great Grand Child3")
-        n2   = Tree.newChild(content = "newChild2")
-        
-        
-        
-        SA = Form.Form()
-        w = SelectOneTree(SA, 
-            #relx=5, 
-            #rely=2, 
-            values=Tree, 
-            #max_height=5, 
-            slow_scroll=True, scroll_exit=False)
-        SA.display()
-        w.edit()
-    
-    import curses.wrapper
-    print curses.wrapper(testme)
-    print "No, I'll never join you"

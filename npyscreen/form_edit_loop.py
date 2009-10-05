@@ -98,14 +98,3 @@ class FormDefaultEditLoop(object):
 
         self.editing = False
         self.erase()
-
-
-
-
-def main():
-    pass
-
-
-if __name__ == '__main__':
-    main()
-

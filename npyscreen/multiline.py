@@ -560,29 +560,3 @@ class TitleMultiLine(titlefield.TitleText):
     values = property(get_values, set_values, del_values)
 
 
-def testme(sa):
-    import screen_area
-    import Form
-    #SA = screen_area.ScreenArea()
-    SA = Form.Form()
-    w = MultiLine(SA, 
-        #relx=5, 
-        #rely=2,
-        #width=5,
-        values=['test1','test2','test3', 'test4','test5','test6'], 
-        #max_height=5, 
-        slow_scroll=True, scroll_exit=True)
-    SA.display()
-    w.edit()
-    w.display()
-    curses.napms(2000)
-    w.clear(usechar='*')
-    SA.refresh()
-    curses.beep()
-    curses.napms(2000)
-    return "%s %s" % (str(w.height),  str(w.width))
-
-if __name__ == '__main__':
-    import curses.wrapper
-    print curses.wrapper(testme)
-    print "No, I'll never join you"

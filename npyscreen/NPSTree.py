@@ -66,14 +66,3 @@ class NPSTreeData(object):
             _a.append(weakref.proxy(node))
         return _a
 
-if __name__ == '__main__':
-    def Test1():
-        Tree = NPSTreeData(content = "Test",)
-        n1   = Tree.newChild(content = "TestChild")
-        gc1  = n1.newChild(content = "GrandChild1")
-        n2   = Tree.newChild(content = "newChild2")
-        for item in Tree.walkTree():
-            print '->' * item.findDepth(), item.getContent()
-        print Tree.getTreeAsList()
-    
-    Test1()

@@ -55,19 +55,4 @@ class FormControlCheckbox(checkbox.Checkbox):
         self.updateDependents()
         
 
-if __name__ == "__main__":
-    def testform(*args):
-        F = Form.Form()
-        wtest = F.add(FormControlCheckbox, name="Test Me")
-        w2    = F.add(checkbox.Checkbox, name="Just a Test")
-        w3    = F.add(checkbox.Checkbox, name="Another Test")
-        wtest.addVisibleWhenSelected(w2)
-        wtest.addInvisibleWhenSelected(w3)
-        F.edit()
-    
-    
-    import Form
-    import curses
-    curses.wrapper(testform)
-    
         

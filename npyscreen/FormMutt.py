@@ -40,17 +40,4 @@ class FormMutt(Form.FormBaseNew):
         self.wStatus2.important = True
         self.nextrely = 2
 
-def testme(w):
-    import curses
-    F = FormMutt()
-    F.wStatus1.value = "Status Line "
-    F.wStatus2.value = "Second Status Line "
-    F.wMain.values   = [str(x) for x in range(500)]
-    F.edit()
-
-if __name__ == '__main__':
-    import curses
-    curses.wrapper(testme)
-    print "No Luke, I am your father"
-
 

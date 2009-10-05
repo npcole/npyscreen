@@ -27,28 +27,4 @@ class MessagePopup(Popup):
         super(MessagePopup, self).__init__(*args, **keywords)
         self.TextWidget = self.add(multiline.Pager, scroll_exit=True, max_height=self.widget_useable_space()[0]-2)
         
-def main(*args):
-    import titlefield
-    import textbox
-    import slider
-    import multiline
-    
-
-    F = Popup(name="Testing")
-    w = F.add_widget(titlefield.TitleText)
-    str = "useable space = %s, %s; my height and width is: %s, %s" % (F.widget_useable_space()[0], F.widget_useable_space()[1], w.height, w.width)
-    w.value = str
-    F.nextrely += 1
-    s = F.add_widget(slider.Slider, out_of=10)
-    F.edit()
-
-def MessageTest(*args):
-    F = MessagePopup()
-    F.TextWidget.values = ["This is a ", "very quick test", "of a very useful", "widget", "One","Two","Three","Four","Five"]
-    F.edit()
-
-if __name__ == '__main__':
-    import curses.wrapper
-    from Form import *
-    curses.wrapper(MessageTest)
 
