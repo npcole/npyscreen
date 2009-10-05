@@ -211,6 +211,7 @@ class MultiLineEdit(widget.Widget):
         else:
             start_last_line = self.value.rfind("\n", 0, end_last_line)
             if start_last_line == -1: start_last_line = 0
+            else: start_last_line += 1
             if end_last_line - start_last_line <= self.cursorx:
                 self.cursor_position = end_last_line
             else: 

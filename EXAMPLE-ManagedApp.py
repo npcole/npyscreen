@@ -15,7 +15,7 @@ class MyTestApp(npyscreen.NPSAppManaged):
 class MainForm(npyscreen.Form):
     def create(self):
         self.add(npyscreen.TitleText, name = "Text:", value= "Press Escape to quit application" )
-        self.how_exited_handers[npyscreen.widget.EXITED_ESCAPE]  = self.exit_application    
+        self.how_exited_handers[npyscreen.wgwidget.EXITED_ESCAPE]  = self.exit_application    
 
     def exit_application(self):
         curses.beep()
