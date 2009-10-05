@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import curses
-import wgtextbox  as textbox
-import wgwidget   as widget
+from . import wgtextbox  as textbox
+from . import wgwidget   as widget
 
 class TitleText(widget.Widget):
     

@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # encoding: utf-8
 
-import fmForm
-import fmActionForm
+from . import fmForm
+from . import fmActionForm
 import curses
 
 class Popup(fmForm.Form):

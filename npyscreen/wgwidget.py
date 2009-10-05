@@ -1,11 +1,11 @@
 #!/usr/bin/python
 
-
+import sys
 import curses
 import curses.ascii
 import curses.wrapper
 import weakref
-import npysGlobalOptions as GlobalOptions
+from . import npysGlobalOptions as GlobalOptions
 import locale
 import warnings
 
@@ -30,11 +30,11 @@ class InputHandler(object):
         If test_func(input) returns true, then dispatch_func(input) is called. Check to see if parent can handle.
         No further action taken after that point."""
         
-        if self.handlers.has_key(_input):
+        if _input in self.handlers:
             self.handlers[_input](_input)
             return True
 
-        elif self.handlers.has_key(curses.ascii.unctrl(_input)):
+        elif curses.ascii.unctrl(_input) in self.handlers:
             self.handlers[curses.ascii.unctrl(_input)](_input)
             return True
 
@@ -208,20 +208,14 @@ big a given widget is ... use .height and .width instead"""
         
         max_height = self.max_height
         max_width  = self.max_width
-        if max_height < 0 and max_height not in (None, False):
+        if max_height not in (None, False) and max_height < 0:
             max_height = my + max_height
-        if max_width < 0 and max_width not in (None, False):
+        if max_width not in (None, False) and max_width < 0:
             max_width = mx + max_width
-        if max_height <= 0 and max_height not in (None, False):
+        if max_height not in (None, False) and max_height <= 0:
             raise Exception("Not enough space for requested size")  
-        if max_width <= 0 and max_width not in (None, False):
+        if max_width not in (None, False) and max_width <= 0:
             raise Exception("Not enough space for requested size")
-        
-        #if self.max_height < 0 and self.max_height not in (None, False):
-        #    my += self.max_height
-        
-        #if self.max_width < 0 and self.max_width not in (None, False):
-        #    mx += self.max_width
         
         if ny > 0:
             if my >= ny: self.height = ny
@@ -344,7 +338,10 @@ big a given widget is ... use .height and .width instead"""
         """Check that what you are trying to display contains only
         printable chars.  (Try to catch dodgy input).  Give it a string,
         and it will return a string safe to print - without touching
-        the original"""
+        the original.  In Python 3 this function is not needed"""
+        # In python 3
+        if sys.version_info[0] >= 3:
+            return this_string
         if this_string == None: 
             return ""
         elif not GlobalOptions.ASCII_ONLY:

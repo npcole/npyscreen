@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-import wgtextbox     as textbox
-import wgtitlefield  as titlefield
-import wgmonthbox    as monthbox
-import fmPopup       as Popup
-import fmForm        as Form
+from . import wgtextbox     as textbox
+from . import wgtitlefield  as titlefield
+from . import wgmonthbox    as monthbox
+from . import fmPopup       as Popup
+from . import fmForm        as Form
 import datetime
 import curses
 

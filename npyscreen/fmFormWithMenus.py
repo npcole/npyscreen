@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import fmForm
-import fmActionForm
-import wgNMenuDisplay
+from . import fmForm
+from . import fmActionForm
+from . import wgNMenuDisplay
 
 class FormBaseNewWithMenus(fmForm.FormBaseNew, wgNMenuDisplay.HasMenus):
     """The FormBaseNew class, but with a handling system for menus as well.  See the HasMenus class for details."""

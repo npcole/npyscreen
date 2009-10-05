@@ -3,7 +3,7 @@ import curses
 import locale
 import _curses
 
-import npyssafewrapper
+from . import npyssafewrapper
 
 
 class AlreadyOver(Exception):

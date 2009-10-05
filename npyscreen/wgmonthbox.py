@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import wgwidget   as widget
+from . import wgwidget   as widget
 import calendar
 import datetime
 import curses

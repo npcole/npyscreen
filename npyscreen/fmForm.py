@@ -1,13 +1,13 @@
 #!/usr/bin/python
-import proto_fm_screen_area
-import wgwidget  as widget
-import wgbutton  as button
+from . import proto_fm_screen_area
+from . import wgwidget  as widget
+from . import wgbutton  as button
 import weakref
-import npyspmfuncs as pmfuncs
+from . import npyspmfuncs as pmfuncs
 #import Menu
 import curses
-import npysGlobalOptions
-import fm_form_edit_loop   as form_edit_loop
+from . import npysGlobalOptions
+from . import fm_form_edit_loop   as form_edit_loop
 
 class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
     OK_BUTTON_BR_OFFSET = (2,6)
@@ -191,9 +191,9 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
     def find_next_editable(self, *args):
         if not self.editw == len(self._widgets__):
             if not self.cycle_widgets:
-                r = range(self.editw+1, len(self._widgets__))
+                r = list(range(self.editw+1, len(self._widgets__)))
             else:
-                r = range(self.editw+1, len(self._widgets__)) + range(0, self.editw)
+                r = list(range(self.editw+1, len(self._widgets__))) + list(range(0, self.editw))
             for n in r:
                 if self._widgets__[n].editable and not self._widgets__[n].hidden: 
                     self.editw = n
@@ -205,7 +205,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
         if not self.editw == 0:     
             # remember that xrange does not return the 'last' value,
             # so go to -1, not 0! (fence post error in reverse)
-            for n in xrange(self.editw-1, -1, -1 ):
+            for n in range(self.editw-1, -1, -1 ):
                 if self._widgets__[n].editable and not self._widgets__[n].hidden: 
                     self.editw = n
                     break

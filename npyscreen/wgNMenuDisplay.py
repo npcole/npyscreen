@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
-import muNewMenu    as NewMenu
-import fmForm       as Form
-import wgmultiline  as multiline
+from . import muNewMenu    as NewMenu
+from . import fmForm       as Form
+from . import wgmultiline  as multiline
 import weakref
 import curses
 
@@ -67,7 +67,7 @@ class MenuViewerController(object):
                     _menulines.append('%s -->' % itm.name)
                     _actionsToTake.append((self._goToSubmenu, itm))
                 else:
-                    raise ValueError, "menu %s contains objects I don't know how to handle." % self._menu.name
+                    raise ValueError("menu %s contains objects I don't know how to handle." % self._menu.name)
             
             self._DisplayArea._menuListWidget.values = _menulines
             self._DisplayArea.display()

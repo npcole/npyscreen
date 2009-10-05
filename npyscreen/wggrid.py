@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import curses
-import wgwidget   as widget
-import wgtextbox  as textbox
+from . import wgwidget   as widget
+from . import wgtextbox  as textbox
 
 
 class SimpleGrid(widget.Widget):

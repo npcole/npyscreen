@@ -1,5 +1,5 @@
-import wgmultilinetree as multilinetree
-import wgcheckbox      as checkbox
+from . import wgmultilinetree as multilinetree
+from . import wgcheckbox      as checkbox
 import weakref
 
 

@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
-from wgtextbox import Textfield
-from wgwidget import Widget
-import wgwidget as widget
+from .wgtextbox import Textfield
+from .wgwidget import Widget
+from . import wgwidget as widget
 import curses
 
 class _ToggleControl(Widget):

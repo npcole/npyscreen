@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import curses
-import wgtextbox    as textbox
-import wgmultiline  as multiline
-import wgtitlefield as titlefield
+from . import wgtextbox    as textbox
+from . import wgmultiline  as multiline
+from . import wgtitlefield as titlefield
 import os
-import fmForm as Form
-import fmPopup as Popup
+from . import fmForm as Form
+from . import fmPopup as Popup
 
 class Autocomplete(textbox.Textfield):
     """This class is fairly useless, but override auto_complete to change that.  See filename class for example"""
@@ -38,7 +38,7 @@ class Filename(Autocomplete):
         # expand ~
         self.value = os.path.expanduser(self.value)
         
-        for i in xrange(1):
+        for i in range(1):
             dir, fname = os.path.split(self.value)
             # Let's have absolute paths.
             dir = os.path.abspath(dir)
@@ -53,10 +53,10 @@ class Filename(Autocomplete):
                 self.show_brief_message("Can't read directory!")
                 break
 
-            flist = map(lambda x: os.path.join(dir, x), flist)
-            possibilities = filter(
+            flist = [os.path.join(dir, x) for x in flist]
+            possibilities = list(filter(
                 (lambda x: os.path.split(x)[1].startswith(fname)), flist
-                )
+                ))
 
             if len(possibilities) is 0:
                 # can't complete
@@ -76,16 +76,16 @@ class Filename(Autocomplete):
             else:
                 filelist = flist #os.listdir(os.path.dirname(self.value))
             
-            filelist = map((lambda x: os.path.normpath(os.path.join(self.value, x))), filelist)
+            filelist = list(map((lambda x: os.path.normpath(os.path.join(self.value, x))), filelist))
             files_only = []
             dirs_only = []
 
             if fname.startswith('.'):
-                filelist = filter((lambda x: os.path.basename(x).startswith('.')), filelist)
+                filelist = list(filter((lambda x: os.path.basename(x).startswith('.')), filelist))
             else:
-                filelist = filter((lambda x: not os.path.basename(x).startswith('.')), filelist)
+                filelist = list(filter((lambda x: not os.path.basename(x).startswith('.')), filelist))
 
-            for index1 in xrange(len(filelist)):
+            for index1 in range(len(filelist)):
                 if os.path.isdir(filelist[index1]) and not filelist[index1].endswith(os.sep):
                     filelist[index1] = filelist[index1] + os.sep
 

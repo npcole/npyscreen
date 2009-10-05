@@ -1,9 +1,9 @@
 #/usr/bin/env python
 import curses
-import fmForm
-import fmFormWithMenus
-import wgtextbox
-import wgmultiline
+from . import fmForm
+from . import fmFormWithMenus
+from . import wgtextbox
+from . import wgmultiline
 #import grid
 #import editmultiline
 

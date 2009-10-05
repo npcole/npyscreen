@@ -1,5 +1,5 @@
-import wgmultiline  as multiline
-import wgcheckbox   as checkbox
+from . import wgmultiline  as multiline
+from . import wgcheckbox   as checkbox
 
 class SelectOne(multiline.MultiLine):
     _contained_widgets = checkbox.RoundCheckBox

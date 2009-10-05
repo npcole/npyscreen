@@ -3,8 +3,8 @@
 
 import sys
 import os
-import wgmultiline
-import fmForm
+from . import wgmultiline
+from . import fmForm
 import weakref
 
 

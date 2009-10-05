@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import curses
-import wgwidget    as widget
-import wgcheckbox  as checkbox
+from . import wgwidget    as widget
+from . import wgcheckbox  as checkbox
 
 class MiniButton(checkbox._ToggleControl):
     def __init__(self, screen, name='Button', *args, **keywords):

@@ -3,7 +3,7 @@
 """IMPORTANT - COLOUR SUPPORT IS CURRENTLY EXTREMELY EXPERIMENTAL.  THE API MAY CHANGE, AND NO DEFAULT
 WIDGETS CURRENTLY TAKE ADVANTAGE OF THEME SUPPORT AT ALL."""
 import curses
-import npysGlobalOptions
+from . import npysGlobalOptions
 
 def disableColor():
     npysGlobalOptions.DISABLE_ALL_COLORS = True
@@ -74,10 +74,10 @@ class ThemeManager(object):
     
     def initalize_pair(self, name, fg, bg):
         # Initialize a color_pair for the required colour and return the number. Raise an exception if this is not possible.
-        if (len(self._defined_pairs.keys())+1) == self._max_pairs:
-            raise Exception, "Too many colours"
+        if (len(list(self._defined_pairs.keys()))+1) == self._max_pairs:
+            raise Exception("Too many colours")
         
-        _this_pair_number = len(self._defined_pairs.keys()) + 1
+        _this_pair_number = len(list(self._defined_pairs.keys())) + 1
         
         curses.init_pair(_this_pair_number, fg, bg)
         
