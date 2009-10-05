@@ -1,5 +1,5 @@
 import curses
-import wgtextbox as textbox
+from . import wgtextbox as textbox
 
 class TextfieldCtrlChars(textbox.Textfield):
     "Implements a textfield, but which can be prefixed with special curses graphics.  Currently unfinished. Not for use."

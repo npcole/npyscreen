@@ -3,9 +3,9 @@
 import curses
 import curses.panel
 import curses.wrapper
-import pmfuncs
+from . import npyspmfuncs as pmfuncs
 import os
-import npysThemeManagers as ThemeManagers
+from . import npysThemeManagers as ThemeManagers
 
 
 # For more complex method of getting the size of screen

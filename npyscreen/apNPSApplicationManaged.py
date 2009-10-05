@@ -3,8 +3,8 @@
 """
 NPSAppManaged.py
 """
-import apNPSApplication
-import fmForm
+from . import apNPSApplication
+from . import fmForm
 import weakref
 
 class NPSAppManaged(apNPSApplication.NPSApp):

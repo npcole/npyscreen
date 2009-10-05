@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import curses
-import wggrid    as grid
-import wgtextbox as textbox
+from . import wggrid    as grid
+from . import wgtextbox as textbox
 
 class GridColTitles(grid.SimpleGrid):
     additional_y_offset   = 2

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import curses
-from wgtextbox import Textfield
-import wgtitlefield as titlefield
+from .wgtextbox import Textfield
+from . import wgtitlefield as titlefield
 
 
 class PasswordEntry(Textfield):

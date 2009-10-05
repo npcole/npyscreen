@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import curses
-import wgwidget     as widget
-import wgtitlefield as titlefield
+from . import wgwidget     as widget
+from . import wgtitlefield as titlefield
 
 class Slider(widget.Widget):
     def __init__(self, screen, value=0, out_of=100, step=1, lowest=0, label=True, **keywords):
@@ -65,14 +65,14 @@ class Slider(widget.Widget):
             BARCHAR         = ' '
         
     
-        for n in xrange(blocks_on_screen):
+        for n in range(blocks_on_screen):
             xoffset = self.relx
             if self.do_colors():
                 self.parent.curses_pad.addch(self.rely,n+xoffset, BACKGROUND_CHAR, curses.A_NORMAL | self.parent.theme_manager.findPair(self))
             else:
                 self.parent.curses_pad.addch(self.rely,n+xoffset, BACKGROUND_CHAR, curses.A_NORMAL)
     
-        for n in xrange(int(blocks_to_fill)):
+        for n in range(int(blocks_to_fill)):
             if self.do_colors():
                 self.parent.curses_pad.addch(self.rely,n+xoffset, BARCHAR, curses.A_STANDOUT | self.parent.theme_manager.findPair(self))
             else:

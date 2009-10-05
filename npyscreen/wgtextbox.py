@@ -2,7 +2,7 @@
 import curses
 import curses.ascii
 import curses.wrapper
-import wgwidget as widget
+from . import wgwidget as widget
 
 class Textfield(widget.Widget):
     def __init__(self, screen, value=None, **keywords):

@@ -1,6 +1,6 @@
 #!/usr/bin/python
-import fmForm
-import widget
+from . import fmForm
+from . import wgwidget as widget
 class ActionForm(fmForm.Form):
     """A form with OK and Cancel buttons.  Users should override the on_ok and on_cancel methods."""
     CANCEL_BUTTON_BR_OFFSET = (2, 12)

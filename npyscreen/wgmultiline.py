@@ -1,10 +1,10 @@
 #!/usr/bin/python
 import copy
-import wgwidget       as widget
-import wgtextbox      as textbox
+from . import wgwidget       as widget
+from . import wgtextbox      as textbox
 import curses
-import wgtitlefield   as titlefield
-import fmPopup        as Popup
+from . import wgtitlefield   as titlefield
+from . import fmPopup        as Popup
 import weakref
 
 MORE_LABEL = "- more -" # string to tell user there are more options
@@ -341,7 +341,7 @@ Should accept one argument (the object to be represented), and return a string."
         # searchingfor = curses.keyname(input).upper()
         # do this instead:
         searchingfor = chr(input).upper()
-        for counter in xrange(len(self.values)):
+        for counter in range(len(self.values)):
             try:
                 if self.values[counter].find(searchingfor) is not -1:
                     self.cursor_line = counter

@@ -1,4 +1,4 @@
-import npysThemeManagers as ThemeManagers
+from . import npysThemeManagers as ThemeManagers
 
 class DefaultTheme(ThemeManagers.ThemeManager):
     default_colors = {

@@ -1,6 +1,6 @@
 #!/usr/bin/env pyton
 
-import wgcheckbox
+from . import wgcheckbox
 import weakref
 
 class FormControlCheckbox(wgcheckbox.Checkbox):

@@ -1,7 +1,7 @@
 #!/usr/bin/python
-import wgmultiline    as multiline
-import wgselectone    as selectone
-import wgcheckbox     as checkbox
+from . import wgmultiline    as multiline
+from . import wgselectone    as selectone
+from . import wgcheckbox     as checkbox
 import curses
 
 class MultiSelect(selectone.SelectOne):

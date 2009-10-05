@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import curses
 
-import wgtextbox     as textbox
-import wgmultiline   as multiline
-import fmForm        as Form
-import fmPopup       as Popup
-import wgtitlefield  as titlefield
+from . import wgtextbox     as textbox
+from . import wgmultiline   as multiline
+from . import fmForm        as Form
+from . import fmPopup       as Popup
+from . import wgtitlefield  as titlefield
 
 class ComboBox(textbox.Textfield):
     def __init__(self, screen, value = None, values=None,**keywords):

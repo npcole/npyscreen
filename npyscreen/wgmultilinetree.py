@@ -1,14 +1,14 @@
 #!/usr/bin/python
-import wgmultiline    as multiline
-import wgcheckbox     as checkbox
-import wgselectone    as selectone
-import npysNPSTree    as NPSTree
+from . import wgmultiline    as multiline
+from . import wgcheckbox     as checkbox
+from . import wgselectone    as selectone
+from . import npysNPSTree    as NPSTree
 import weakref
 
 class MultiLineTree(multiline.MultiLine):
     def _setMyValues(self, tree):
         if not isinstance(tree, NPSTree.NPSTreeData):
-            raise TypeError, "MultiLineTree widget can only contain a NPSTreeData object in its values attribute"
+            raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
         else:
             self._myFullValues = tree
     
