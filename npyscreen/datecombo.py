@@ -84,18 +84,4 @@ class TitleDateCombo(titlefield.TitleText):
 
 
         
-def testing(src):
-    import Form
-    F = Form.Form()
-    w = F.add(TitleDateCombo, name = "This is a Date")
-    F.edit()
-    return w.value
-
-
-
-if __name__ == '__main__':
-    import curses
-    r = curses.wrapper(testing)
-    print r
-    print "Your faith in your friends is yours"
 

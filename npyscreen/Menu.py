@@ -68,21 +68,3 @@ class Menu(object):
             self.before_item_select()
             self.__menu_items[l.value][1]()
 
-def main(*args):
-    mnu = Menu(name="Menu")
-    mnu.add_item("Do Nothing", tstDoNothing)
-    mnu.add_item("Do Nothing 2", tstDoNothing)
-    mnu.add_item("Do Nothing 3", tstDoNothing)
-    for x in range(10):
-        mnu.add_item("Do Nothing x", tstDoNothing)
-    mnu.edit()
-
-def tstDoNothing():
-    curses.beep()
-    
-
-
-if __name__ == '__main__':
-    import curses.wrapper
-    import curses
-    curses.wrapper(main)

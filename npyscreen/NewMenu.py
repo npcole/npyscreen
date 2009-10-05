@@ -61,15 +61,3 @@ class MenuItem(object):
     
     def do(self):
         return self.onSelectFunction()
-    
-    
-        
-
-
-def main():
-    print "When I left you I was but the learner."
-
-
-if __name__ == '__main__':
-    main()
-

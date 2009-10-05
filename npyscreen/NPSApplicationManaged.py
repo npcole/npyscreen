@@ -116,36 +116,3 @@ class NPSAppManaged(NPSApplication.NPSApp):
         """Override this method to perform any cleanup when application is exiting without error."""
 
 
-def testmanaged(*args):
-     import ActionForm
-     import textbox
-
-     class TestForm(ActionForm.ActionForm):
-         def afterEditing(self):
-             self.parentApp.NEXT_ACTIVE_FORM = None
-
-     T = NPSAppManaged()
-     a = T.addForm('MAIN', TestForm, name='Test')
-     a.add(textbox.Textfield, name='Test')
-     T.main()
-     
-def main(*args):
-    import ActionForm
-    import textbox
-    
-    class TestForm(ActionForm.ActionForm):
-        def activate(self):
-            self.edit()
-            self.parentApp.NEXT_ACTIVE_FORM = None
-    
-    T = NPSAppManaged()
-    a = T.addForm(TestForm, name='Test')
-    a.add(textbox.Textfield, name='Test')
-    T.registerForm('MAIN', a)
-    T.main()
-
-
-if __name__ == '__main__':
-    import curses
-    curses.wrapper(testmanaged)
-

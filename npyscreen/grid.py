@@ -232,27 +232,4 @@ Should accept one argument (the object to be represented), and return a string."
 
     
     
-def testme(sa):
-    import screen_area
-    import Form
-    SA = Form.Form()
-    w = SA.add(SimpleGrid, column_width=4)
-    vls = []
-    start = 0
-    for x in range(36):
-        row = []
-        for y in range(x, x+36):
-            row.append(y)
-        vls.append(row)
-    w.values = vls
-    w.value = (1,1)
-    w.display()
-    SA.edit()
-        
-
-
-if __name__ == '__main__':
-    import curses.wrapper
-    print curses.wrapper(testme)
-    print "No, I'll never join you"
     

@@ -129,16 +129,3 @@ class TitleSlider(titlefield.TitleText):
     _entry_type = Slider
 
 
-def testme(sa):
-    import screen_area
-    SA = screen_area.ScreenArea()
-    w = TitleSlider(SA, rely = 10, relx=5)
-    w.edit()
-    w.display()
-    curses.napms(1500)
-
-
-if __name__ == '__main__':
-    import curses.wrapper
-    curses.wrapper(testme)
-    print "Only now...do you see the truth"

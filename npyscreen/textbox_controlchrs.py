@@ -26,17 +26,3 @@ class TextfieldCtrlChars(textbox.Textfield):
     maximum_string_length = property(_get_maximum_string_length, _set_maxiumum_string_length, _del_maxiumum_string_length)
     
     
-def simpletest(screen):
-    import screen_area
-    SA = screen_area.ScreenArea()
-    w = TextfieldCtrlChars(SA, rely=23, relx=66)
-    w.value = "height: %s, width %s" % (w.height, w.width)
-    w.edit()
-    w.update()
-    SA.refresh()
-    curses.napms(2000)
-
-
-if __name__ == "__main__":
-    curses.wrapper(simpletest)
-    print "The circle is now complete"

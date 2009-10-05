@@ -67,19 +67,3 @@ class TitleMultiSelectFixed(multiline.TitleMultiLine):
     _entry_type = MultiSelectFixed
     
     
-def simpletest(screen):
-    import screen_area
-    SA = screen_area.ScreenArea()
-    w = TitleMultiSelect(SA, name="Title Multi", values = ["line 1", "line 2", "line 3", "line 4", "line 5"], max_height=4)
-    w.value = [1, 2]
-    w.edit()
-    w.update()
-    SA.refresh()
-    curses.napms(2000)
-    return w.get_selected_objects()
-    
-
-if __name__ == "__main__":
-    import curses.wrapper
-    print curses.wrapper(simpletest)
-    print "The circle is now complete"

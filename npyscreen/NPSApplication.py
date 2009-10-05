@@ -23,11 +23,3 @@ class NPSApp(object):
             return safewrapper.wrapper(self.__remove_argument_call_main)
         else:
             return safewrapper.wrapper(self.__remove_argument_call_main, fork=fork)
-
-
-if __name__ == '__main__':
-    while 1:
-     App = NPSApp(); App.run()
-     App = NPSApp(); App.run()
-
-    print "A Jedi, who was a pupil of mine..."

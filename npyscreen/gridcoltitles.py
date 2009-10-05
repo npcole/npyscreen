@@ -43,26 +43,3 @@ class GridColTitles(grid.SimpleGrid):
     
     
 
-def testme(sa):
-    import screen_area
-    import Form
-    SA = Form.Form()
-    w = SA.add(GridColTitles, column_width=6, col_titles=["One", "Two", "Three"])
-    vls = []
-    start = 0
-    for x in range(36):
-        row = []
-        for y in range(x, x+36):
-            row.append(y)
-        vls.append(row)
-    w.values = vls
-    w.value = (1,1)
-    w.display()
-    SA.edit()
-
-
-
-if __name__ == '__main__':
-    import curses.wrapper
-    print curses.wrapper(testme)
-    print "No, I'll never join you"

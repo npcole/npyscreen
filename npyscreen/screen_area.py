@@ -141,14 +141,3 @@ class ScreenArea(object):
         self.curses_pad.erase()
         self.refresh()
 
-def test_loop(screen):
-    while 1:
-        A = ScreenArea()
-        A.refresh()
-    
-    
-
-
-if __name__ == '__main__':
-    curses.wrapper(test_loop)
-    print "The circle is now complete"

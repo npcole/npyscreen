@@ -267,20 +267,3 @@ class DocWrapper(textwrap.TextWrapper):
         return wrapped_lines
 
         
-def testme(sa):
-    import screen_area
-    import textbox
-    SA = screen_area.ScreenArea()
-    w = MultiLineEdit(SA, relx=5, rely=3, value=u"\u00c5 \u00c5 This\nis something of a test\nThis is line2 ", 
-        max_height=5, max_width=70, slow_scroll=True, scroll_exit=False)
-
-    w.value += "my height is %s" % w.height
-    w.slow_scroll=False
-    w.autowrap = True
-    w.edit()
-    w.display()
-
-if __name__ == '__main__':
-    import safewrapper
-    safewrapper.wrapper(testme)
-    print "Your powers are weak, old man"

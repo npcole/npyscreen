@@ -43,34 +43,3 @@ class MultiSelectTree(multilinetree.SelectOneTree):
         if self.return_exit:
             self.editing = False
             self.how_exited=True
-
-
-
-if __name__ == '__main__':
-
-    def testme(sa):
-        import screen_area
-        import Form
-        #SA = screen_area.ScreenArea()
-
-        Tree = NPSTree.NPSTreeData(content = "Test",)
-        n1   = Tree.newChild(content = "TestChild")
-        gc1  = n1.newChild(content = "GrandChild1")
-        ggc1 = gc1.newChild(content = "Great Grand Child1")
-        n2   = Tree.newChild(content = "newChild2")
-
-
-
-        SA = Form.Form()
-        w = MultiSelectTree(SA, 
-            #relx=5, 
-            #rely=2, 
-            values=Tree, 
-            #max_height=5, 
-            slow_scroll=True, scroll_exit=False)
-        SA.display()
-        w.edit()
-
-    import curses.wrapper
-    print curses.wrapper(testme)
-    print "No, I'll never join you"

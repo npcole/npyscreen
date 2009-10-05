@@ -86,17 +86,3 @@ class TitleCombo(titlefield.TitleText):
 
     values = property(get_values, set_values, del_values)
 
-def testing(src):
-    import Form
-    F = Form.Form()
-    w = F.add(TitleCombo, values = ("value1", "value2", "value3"), value = None, name = "This is a box")
-    F.edit()
-    return w.value
-    
-    
-    
-if __name__ == '__main__':
-    import curses
-    r = curses.wrapper(testing)
-    print r
-    print "Your faith in your friends is yours"

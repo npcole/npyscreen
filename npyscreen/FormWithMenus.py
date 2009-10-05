@@ -63,28 +63,4 @@ class SplitFormWithMenus(FormWithMenus):
 
 
 
-def main(arg):
-    F = FormBaseNewWithMenus()
-
-    def beep():
-        curses.beep()
-    def doNothing():
-        pass
-
-    q = None   
-    
-    M1 = F.new_menu(name='Menu1')
-    M1.addItem('Beep', beep)
-    M1.addItem('Nothing', doNothing)
-    M1.addSubmenu(M1)
-
-    F.add(titlefield.TitleText, name='Test')
-    F.edit()
-    print "I have you now"
-
-
-if __name__ == '__main__':
-    import curses
-    import titlefield
-    curses.wrapper(main)
 

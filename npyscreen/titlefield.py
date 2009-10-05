@@ -119,30 +119,3 @@ class TitleText(widget.Widget):
 class TitleFixedText(TitleText):
     _entry_type = textbox.FixedText
 
-def testloop(sa):
-    import screen_area
-    SA = screen_area.ScreenArea()
-    w = TitleText(SA, use_two_lines=True, rely = 23, value="testing")
-    w.value = 'this is a new test'
-    w.edit()
-    curses.napms(2500)
-
-def cleartest(screen):
-    import screen_area
-    SA = screen_area.ScreenArea()
-    w  = TitleText(SA, name="Test", rely=1, relx=3)
-    w.value = "This is some text! height: %s, width %s" % (w.height, w.width)
-    w.display()
-    curses.napms(1000)
-    curses.beep()
-    w.clear()
-    SA.refresh()
-    curses.napms(2000)
-
-
-
-
-if __name__ == '__main__':
-    import curses.wrapper
-    curses.wrapper(cleartest)
-    print "The circle is now complete"

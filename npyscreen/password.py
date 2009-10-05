@@ -22,14 +22,3 @@ class PasswordEntry(Textfield):
 class TitlePassword(titlefield.TitleText):
     _entry_type = PasswordEntry
 
-def testloop(sa):
-    SA = screen_area.ScreenArea()
-    w = TitlePassword(SA)
-    w.edit()
-
-
-if __name__ == "__main__":
-    import curses.wrapper
-    import screen_area
-    curses.wrapper(testloop)
-    print "When I wrote you, I had much to learn"
