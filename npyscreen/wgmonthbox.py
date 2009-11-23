@@ -6,12 +6,13 @@ import datetime
 import curses
 
 class DateEntryBase(widget.Widget):
-    def __init__(self, screen, allowPastDate=True, allowTodaysDate=True, **keywords):
+    def __init__(self, screen, allowPastDate=True, allowTodaysDate=True, firstWeekDay=6, **keywords):
         super(DateEntryBase, self).__init__(screen, **keywords)
         self.allow_date_in_past = allowPastDate
         self.allow_todays_date  = allowTodaysDate
         self._max = datetime.date.max
         self._min = datetime.date.min
+        self.firstWeekDay = firstWeekDay
         
 
     def _check_date(self):
@@ -135,6 +136,7 @@ class MonthBox(DateEntryBase):
         return 10, self.__class__.DAY_FIELD_WIDTH * 7
     
     def update(self, clear=True):
+        calendar.setfirstweekday(self.firstWeekDay)
         if clear: self.clear()
         if self.hidden:
             self.clear()

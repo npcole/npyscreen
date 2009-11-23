@@ -1,6 +1,5 @@
 KNOWN BUGS:
     - Only part of the UI can handle Unicode.
-    - The cursor movement on the editmultiline text field is buggy.
     
 
 
@@ -8,6 +7,10 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+2.0pre31
+	First version to support Python 3.
+	File structure rearranged (no change to documented api)
+	Editmultiline cursor movement bug fixed.
 
 2.0pre30
 	Added the FormMutt class. Added code to allow max_height to specify negative numbers. Numerous bug fixes.
