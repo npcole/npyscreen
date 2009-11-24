@@ -57,7 +57,6 @@ class FormDefaultEditLoop(object):
             self.editw = len(self._widgets__)-1
         if not self.preserve_selected_widget:
             self.editw = 0
-        if not self._widgets__[self.editw].editable: self.find_next_editable()
         # Add ok button. Will remove later
         tmp_rely, tmp_relx = self.nextrely, self.nextrelx
         my, mx = self.curses_pad.getmaxyx()
@@ -67,6 +66,7 @@ class FormDefaultEditLoop(object):
         self.ok_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=ok_button_text, rely=my, relx=mx)
         ok_button_postion = len(self._widgets__)-1
         self.ok_button.update()
+        if not self._widgets__[self.editw].editable: self.find_next_editable()
 
         self.display()
 

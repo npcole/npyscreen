@@ -116,6 +116,8 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
         self.how_exited = MOUSE_EVENT
     
 
+
+
 class Widget(InputHandler):
     "A base class for widgets. Do not use directly"
 
@@ -368,4 +370,26 @@ big a given widget is ... use .height and .width instead"""
             except:
                 s += '?'
         return s
+        
+class DummyWidget(Widget):
+    "This widget is invisible and does nothing.  Which is sometimes important."
+    def __init__(self, screen, *args, **keywords):
+        super(DummyWidget, self).__init__(screen, *args, **keywords)
+        self.height = 0
+        self.widget = 0
+        self.parent = screen
+    def display(self):
+        pass
+    def update(self, clear=False):
+        pass
+    def set_editable(self, value):
+        if value: self._is_editable = True
+        else: self._is_editable = False
+    def get_editable(self):
+        return(self._is_editable)
+    def clear(self, usechar=' '):
+        pass
+    def calculate_area_needed(self):
+        return 0,0
+
 
