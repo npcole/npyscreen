@@ -4,14 +4,14 @@ import curses.ascii
 import curses.wrapper
 from . import wgwidget as widget
 
-class Textfield(widget.Widget):
+class TextfieldBase(widget.Widget):
     def __init__(self, screen, value=None, **keywords):
         try:
             self.value
         except:
             self.value = value or ""
         
-        super(Textfield, self).__init__(screen, **keywords)
+        super(TextfieldBase, self).__init__(screen, **keywords)
 
         self.cursor_position = None
         
@@ -27,19 +27,17 @@ class Textfield(widget.Widget):
             self.maximum_string_length = self.width
 
         self.update()
-        
-
+    
     def calculate_area_needed(self):
         "Need one line of screen, and any width going"
         return 1,0
 
-    
     def update(self, clear=True, cursor=True):
         """Update the contents of the textbox, without calling the final refresh to the screen"""
         # cursor not working. See later for a fake cursor
         #if self.editing: pmfuncs.show_cursor()
         #else: pmfuncs.hide_cursor()
-        
+
         # Not needed here -- gets called too much!
         #pmfuncs.hide_cursor()
 
@@ -65,8 +63,8 @@ class Textfield(widget.Widget):
                     self.begin_at += 1
             else:
                 self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
-    
-        
+
+
 
 
         if self.highlight:
@@ -76,15 +74,15 @@ class Textfield(widget.Widget):
             self.parent.curses_pad.attron(curses.A_BOLD)
         if self.important and not self.do_colors():
             self.parent.curses_pad.attron(curses.A_UNDERLINE)
-        
-        
+
+
         self._print()
 
         # reset everything to normal
         self.parent.curses_pad.attroff(curses.A_BOLD)
         self.parent.curses_pad.attroff(curses.A_UNDERLINE)
         self.parent.curses_pad.bkgdset(' ',curses.A_NORMAL)
-        
+
         if self.editing and cursor:
             # Cursors do not seem to work on pads.
             #self.parent.curses_pad.move(self.rely, self.cursor_position - self.begin_at)
@@ -98,9 +96,9 @@ class Textfield(widget.Widget):
                 char_under_cur = self.safe_string(self.value[self.cursor_position])
             except:
                 char_under_cur = ' '
-            
+
             self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
-            
+
     def _print(self):
         string_to_print = self.safe_string(self.value)
         if string_to_print == None: return
@@ -125,23 +123,15 @@ class Textfield(widget.Widget):
             elif self.show_bold:
                 self.parent.curses_pad.addstr(self.rely,self.relx, 
                         string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], curses.A_BOLD)
-                
+
             else:
                 self.parent.curses_pad.addstr(self.rely,self.relx, 
                     string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])
-            
-
-##use addch to let us write to last corner
-# This doesn't work.
-#           tmpx = self.relx
-#           self.parent.curses_pad.scrollok(False)
-#           for c in self.value:
-#               self.parent.curses_pad.addch(self.rely,tmpx, c)
-#               tmpx +=1
-                
+    
+    
 
 
-
+class Textfield(TextfieldBase):
     def show_brief_message(self, message):
         curses.beep()
         keep_for_a_moment = self.value
@@ -250,17 +240,14 @@ class Textfield(widget.Widget):
             self.cursor_postition = len(self.value)
             self.begin_at = 0
     
-class FixedText(Textfield):
-    def h_delete_right(self, *args):
-        pass
-    def h_erase_right(self, *args):
-        pass
-    def h_delete_left(self, *args):
-        pass
-    def h_erase_left(self, *args):
-        pass
-    def h_addch(self,*args):
-        pass
+class FixedText(TextfieldBase):
+    def set_up_handlers(self):
+        super(FixedText, self).set_up_handlers()
+        self.handlers.update({curses.KEY_LEFT:    self.h_cursor_left,
+                           curses.KEY_RIGHT:   self.h_cursor_right,
+                           })
+    
+    
     def h_cursor_left(self, input):
         if self.begin_at > 0:
             self.begin_at -= 1

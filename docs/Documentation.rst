@@ -134,6 +134,9 @@ afterEditing
 
 activate
     The presence of this method entirely overrides the existing .beforeEditing .edit  and afterEditing methods.
+    
+switchForm(formid)
+    Immediately stop editing the current form and switch to the specified form.
 
 NPSApp
 ------

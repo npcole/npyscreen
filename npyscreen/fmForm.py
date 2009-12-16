@@ -94,6 +94,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
             widget.EXITED_ESCAPE:  self.do_nothing,
             True:                  self.find_next_editable, # A default value
             widget.EXITED_MOUSE:   self.get_and_use_mouse_event,
+            False:                  self.do_nothing,
             }
 
     def handle_exiting_widgets(self, condition):

@@ -66,6 +66,16 @@ class NPSAppManaged(apNPSApplication.NPSApp):
         except:
             return f
 
+    def switchForm(self, fmid):
+        self._THISFORM.editing = False
+        self.NEXT_ACTIVE_FORM  = fmid
+        try:
+            self._THISFORM._widgets__[self._THISFORM.editw].editing = False
+        except:
+            pass
+            
+
+
     def main(self):
         """Call this function to start your application.  You should not override this function, but override the onInMainLoop, onStart and
         onCleanExit methods instead, if you need to modify the application's behaviour. 
@@ -92,15 +102,15 @@ class NPSAppManaged(apNPSApplication.NPSApp):
         while self.NEXT_ACTIVE_FORM != "" and self.NEXT_ACTIVE_FORM != None:
             self._LAST_NEXT_ACTIVE_FORM = self._Forms[self.NEXT_ACTIVE_FORM]
             self.LAST_ACTIVE_FORM_NAME = self.NEXT_ACTIVE_FORM
-            _THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]    
-            if hasattr(_THISFORM, "activate"):
-                _THISFORM.activate()
+            self._THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]    
+            if hasattr(self._THISFORM, "activate"):
+                self._THISFORM.activate()
             else:
-                if hasattr(_THISFORM, "beforeEditing"):
-                    _THISFORM.beforeEditing()
-                _THISFORM.edit()
-                if hasattr(_THISFORM, "afterEditing"):
-                    _THISFORM.afterEditing()
+                if hasattr(self._THISFORM, "beforeEditing"):
+                    self._THISFORM.beforeEditing()
+                self._THISFORM.edit()
+                if hasattr(self._THISFORM, "afterEditing"):
+                    self._THISFORM.afterEditing()
             
             self.onInMainLoop()
         self.onCleanExit()
