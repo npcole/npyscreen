@@ -26,6 +26,8 @@ def getTheme():
 class ScreenArea(object):
     BLANK_LINES_BASE   =0
     BLANK_COLUMNS_RIGHT=0
+    DEFAULT_NEXTRELY=2
+    
     """A screen area that can be safely resized.  But this is a low-level class,
     object you are looking for."""
 
