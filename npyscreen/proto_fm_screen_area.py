@@ -24,6 +24,8 @@ def getTheme():
 
 
 class ScreenArea(object):
+    BLANK_LINES_BASE   =0
+    BLANK_COLUMNS_RIGHT=0
     """A screen area that can be safely resized.  But this is a low-level class,
     object you are looking for."""
 
@@ -105,14 +107,14 @@ class ScreenArea(object):
         # return safe values, i.e. slightly smaller.
         return (mxy-1, mxx-1)
 
-    #def useable_space(self, rely=0, relx=0):
-    #   mxy, mxx = curses.newwin(0,0).getmaxyx()
-    #   return (mxy-1-rely, mxx-1-relx)
+    def useable_space(self, rely=0, relx=0):
+       mxy, mxx = curses.newwin(0,0).getmaxyx()
+       return (mxy-1-rely, mxx-1-relx)
 
     def widget_useable_space(self, rely=0, relx=0):
         #Slightly misreports space available.
         mxy, mxx = self.lines, self.columns-1
-        return (mxy-1-rely, mxx-1-relx)
+        return (mxy-self.BLANK_LINES_BASE-rely, mxx-relx-self.BLANK_COLUMNS_RIGHT)
     
     def refresh(self):
         pmfuncs.hide_cursor()

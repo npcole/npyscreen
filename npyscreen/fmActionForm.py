@@ -28,7 +28,7 @@ class ActionForm(fmForm.Form):
         cmy, cmx = self.curses_pad.getmaxyx()
         cmy -= self.__class__.CANCEL_BUTTON_BR_OFFSET[0]
         cmx -= len(c_button_text)+self.__class__.CANCEL_BUTTON_BR_OFFSET[1]
-        self.c_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=c_button_text, rely=cmy, relx=cmx)
+        self.c_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=c_button_text, rely=cmy, relx=cmx, use_max_physical=True)
         c_button_postion = len(self._widgets__)-1
         self.c_button.update()
         
@@ -36,7 +36,7 @@ class ActionForm(fmForm.Form):
         ok_button_text = "OK"
         my -= self.__class__.OK_BUTTON_BR_OFFSET[0]
         mx -= len(ok_button_text)+self.__class__.OK_BUTTON_BR_OFFSET[1]
-        self.ok_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=ok_button_text, rely=my, relx=mx)
+        self.ok_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=ok_button_text, rely=my, relx=mx, use_max_physical=True)
         ok_button_postion = len(self._widgets__)-1
         self.ok_button.update()
 

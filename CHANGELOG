@@ -7,6 +7,13 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+2.0pre32
+	Widgets can now explicitly request the maximum physical screen area.
+Users should not usually have to use this, it is used for drawing things
+like 'ok' buttons'.  The way the available space is calculated has been
+cleaned up.
+
+
 2.0pre31
 	First version to support Python 3.
 	File structure rearranged (no change to documented api)

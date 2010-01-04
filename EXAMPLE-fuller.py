@@ -5,7 +5,7 @@ class TestApp(npyscreen.NPSApp):
     def main(self):
         # These lines create the form and populate it with widgets.
         # A fairly complex screen in only 8 or so lines of code - a line for each control.
-        F = npyscreen.Form(name = "Welcome to Npyscreen",)
+        F = npyscreen.ActionForm(name = "Welcome to Npyscreen",)
         f = F.add(npyscreen.TitleFixedText, name = "Fixed Text:" , value="This is fixed text")
         t = F.add(npyscreen.TitleText, name = "Text:", )
         p = F.add(npyscreen.TitlePassword, name = "Password:")
@@ -23,7 +23,7 @@ class TestApp(npyscreen.NPSApp):
 
         bn = F.add(npyscreen.MiniButton, name = "Button",)
         
-        gd = F.add(npyscreen.SimpleGrid, relx = 44, rely=15, width=20)
+        gd = F.add(npyscreen.SimpleGrid, relx = 42, rely=15, width=20)
         gd.values = []
         for x in range(36):
             row = []
