@@ -50,8 +50,8 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
         self._widgets__     = []
         self._widgets_by_id = {}
         self._next_w_id = 0
-        self.nextrely = 2
-        self.nextrelx = self.__class__.DEFAULT_X_OFFSET
+        self.nextrely = self.DEFAULT_NEXTRELY
+        self.nextrelx = self.DEFAULT_X_OFFSET
         self.editw = 0 # Index of widget to edit.
 
     def create_widgets_from_list(self, widget_list):
@@ -317,7 +317,8 @@ class Form(form_edit_loop.FormDefaultEditLoop, _FormBase, ):
 class TitleForm(Form):
     """A form without a box, just a title line"""
     BLANK_LINES_BASE    = 1
-    DEFAULT_X_OFFSET    = 0
+    DEFAULT_X_OFFSET    = 1
+    DEFAULT_NEXTRELY    = 1
     BLANK_COLUMNS_RIGHT = 0
     OK_BUTTON_BR_OFFSET = (1,6)
     #OKBUTTON_TYPE = button.MiniButton
