@@ -340,6 +340,7 @@ class TitleForm(Form):
                 pass
 
 class TitleFooterForm(TitleForm):
+    BLANK_LINES_BASE=1
     def draw_form(self):
         MAXY, MAXX = self.curses_pad.getmaxyx()
 
