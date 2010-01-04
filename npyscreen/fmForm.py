@@ -10,6 +10,8 @@ from . import npysGlobalOptions
 from . import fm_form_edit_loop   as form_edit_loop
 
 class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
+    BLANK_COLUMNS_RIGHT= 2
+    BLANK_LINES_BASE   = 2
     OK_BUTTON_BR_OFFSET = (2,6)
     OKBUTTON_TYPE = button.MiniButton
     DEFAULT_X_OFFSET = 2
@@ -211,10 +213,10 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
                     self.editw = n
                     break
 
-    def widget_useable_space(self, rely=0, relx=0):
-        #Slightly misreports space available.
-        mxy, mxx = self.lines-1, self.columns-1
-        return (mxy-1-rely, mxx-1-relx)
+    #def widget_useable_space(self, rely=0, relx=0):
+    #    #Slightly misreports space available.
+    #    mxy, mxx = self.lines-1, self.columns-1
+    #    return (mxy-1-rely, mxx-1-relx)
 
     def center_on_display(self):
         my, mx = self._max_physical()
@@ -314,9 +316,11 @@ class Form(form_edit_loop.FormDefaultEditLoop, _FormBase, ):
     
 class TitleForm(Form):
     """A form without a box, just a title line"""
+    BLANK_LINES_BASE    = 1
+    BLANK_COLUMNS_RIGHT = 0
     OK_BUTTON_BR_OFFSET = (1,6)
-    OKBUTTON_TYPE = button.MiniButton
-    DEFAULT_X_OFFSET = 1
+    #OKBUTTON_TYPE = button.MiniButton
+    #DEFAULT_X_OFFSET = 1
     def draw_form(self):
         MAXY, MAXX = self.curses_pad.getmaxyx()
         self.curses_pad.hline(0, 0, curses.ACS_HLINE, MAXX) 
