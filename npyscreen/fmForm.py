@@ -317,6 +317,7 @@ class Form(form_edit_loop.FormDefaultEditLoop, _FormBase, ):
 class TitleForm(Form):
     """A form without a box, just a title line"""
     BLANK_LINES_BASE    = 1
+    DEFAULT_X_OFFSET    = 0
     BLANK_COLUMNS_RIGHT = 0
     OK_BUTTON_BR_OFFSET = (1,6)
     #OKBUTTON_TYPE = button.MiniButton
