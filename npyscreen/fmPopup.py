@@ -5,13 +5,16 @@ from . import fmForm
 from . import fmActionForm
 import curses
 
+
 class Popup(fmForm.Form):
-    def __init__(self, lines = 12, columns=60,
+    def __init__(self,
+        lines = 12, 
+        columns=60,
         minimum_lines=None,
         minimum_columns=None,
         *args, **keywords):
         super(Popup, self).__init__(lines = lines, columns=columns, 
-                                        minimum_columns=40, minimum_lines=8, *args, **keywords)
+        *args, **keywords)
         self.show_atx = 10
         self.show_aty = 2
         

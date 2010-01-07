@@ -19,6 +19,9 @@ class TextfieldBase(widget.Widget):
         self.highlight = False
         self.important = False
         
+        self.syntax_highlighting = False
+        self._highlightingdata   = None
+        
         self.begin_at = 0   # Where does the display string begin?
         
         if self.on_last_line:
@@ -102,7 +105,12 @@ class TextfieldBase(widget.Widget):
     def _print(self):
         string_to_print = self.safe_string(self.value)
         if string_to_print == None: return
-        if self.do_colors():
+        
+        if self.syntax_highlighting:
+            self.update_highlighting(start=self.begin_at, end=self.maximum_string_length+self.begin_at)
+            
+        
+        elif self.do_colors():
             coltofind = 'DEFAULT'
             if self.show_bold and self.color == 'DEFAULT':
                 coltofind = 'BOLD'
@@ -128,7 +136,11 @@ class TextfieldBase(widget.Widget):
                 self.parent.curses_pad.addstr(self.rely,self.relx, 
                     string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])
     
-    
+    def update_highlighting(self, start=None, end=None, clear=False):
+        if clear or (self._highlightingdata == None):
+            self._highlightingdata = []
+        
+        string_to_print = self.safe_string(self.value)
 
 
 class Textfield(TextfieldBase):
