@@ -25,9 +25,9 @@ class TextfieldBase(widget.Widget):
         self.begin_at = 0   # Where does the display string begin?
         
         if self.on_last_line:
-            self.maximum_string_length = self.width - 1
+            self.maximum_string_length = self.width - 2  # Leave room for the cursor
         else:   
-            self.maximum_string_length = self.width
+            self.maximum_string_length = self.width - 1  # Leave room for the cursor at the end of the string.
 
         self.update()
     
@@ -107,8 +107,16 @@ class TextfieldBase(widget.Widget):
         if string_to_print == None: return
         
         if self.syntax_highlighting:
+            try:
+                highlight = self._highlightingdata[self.begin_at+i]
+            except:
+                highlight = curses.A_NORMAL
             self.update_highlighting(start=self.begin_at, end=self.maximum_string_length+self.begin_at)
-            
+            for i in range(len(string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])):
+                self.parent.curses_pad.addstr(self.rely,self.relx+i, 
+                    string_to_print[self.begin_at+i], 
+                    highlight 
+                    )
         
         elif self.do_colors():
             coltofind = 'DEFAULT'

@@ -12,7 +12,7 @@ class MultiLineEdit(widget.Widget):
         self.cursor_position = 0
         self.start_display_at = 0 #Line number
 
-        self.maximum_display_width  = self.width
+        self.maximum_display_width  = self.width - 1 # Leave room for cursor
         self.maximum_display_height = self.height
         self.slow_scroll = slow_scroll
         self.scroll_exit = scroll_exit
@@ -54,8 +54,8 @@ class MultiLineEdit(widget.Widget):
 
     def update(self, clear=True):
         if clear: self.clear()
-        display_length = self.height
-        display_width = self.width
+        display_length = self.maximum_display_height
+        display_width = self.maximum_display_width
         xdisplay_offset = 0
         text_to_display = self.get_value_as_list()
         if self.cursor_position < 0: self.cursor_position = 0
@@ -121,7 +121,7 @@ class MultiLineEdit(widget.Widget):
     def reformat_preserve_nl(self, *ignorethese):
         # Adapted from a script found at:
         #http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/148061
-        width=self.width
+        width=self.maximum_display_width
         text = self.value
         self.value = reduce(lambda line, word, width=width: '%s%s%s' %
                   (line,
@@ -133,7 +133,7 @@ class MultiLineEdit(widget.Widget):
                  )
 
     def full_reformat(self, *args):
-        w = DocWrapper(width=self.width)
+        w = DocWrapper(width=self.maximum_display_width)
         self.value = w.fill(self.value)
         
     ######################################################################
