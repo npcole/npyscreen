@@ -299,11 +299,6 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
     def get_widget(self, w_id):
         return self._widgets_by_id[w_id]
 
-    def useable_space(self, rely=0, relx=0):
-        """Reports space left on physical screen. Widgets should use widget_useable_space instead."""
-        mxy, mxx = curses.newwin(0,0).getmaxyx()
-        return ((mxy-rely)-1, (mxx-relx)-2)
-
     add = add_widget
 
 class FormBaseNew(form_edit_loop.FormNewEditLoop, _FormBase):

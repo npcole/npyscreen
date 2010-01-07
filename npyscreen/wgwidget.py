@@ -209,7 +209,7 @@ big a given widget is ... use .height and .width instead"""
     def set_size(self):
         """Set the size of the object, reconciling the user's request with the space available"""
         my, mx = self.space_available()
-        my = my+1 # Probably want to remove this.
+        #my = my+1 # Probably want to remove this.
         ny, nx = self.calculate_area_needed()
         
         max_height = self.max_height
@@ -279,7 +279,7 @@ big a given widget is ... use .height and .width instead"""
 #                   self.parent.curses_pad.addch(self.rely+y, self.relx + x, usechar)
 #               except: pass
 #Use this instead
-            self.parent.curses_pad.addstr(self.rely+y, self.relx, usechar * (self.width+1))
+            self.parent.curses_pad.addstr(self.rely+y, self.relx, usechar * (self.width))  # used to be width + 1
 
     def edit(self):
         """Allow the user to edit the widget: ie. start handling keypresses."""

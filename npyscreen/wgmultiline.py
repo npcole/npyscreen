@@ -82,7 +82,9 @@ the same effect can be achieved by altering the __str__() method of displayed ob
     def make_contained_widgets(self, ):
         self._my_widgets = []
         for h in range(self.height):
-            self._my_widgets.append(self._contained_widgets(self.parent, rely=h+self.rely, relx = self.relx, max_width=self.width, max_height=1))
+            self._my_widgets.append(self._contained_widgets(self.parent, 
+             rely=h+self.rely, relx = self.relx, 
+             max_width=self.width, max_height=1))
 
 
     def display_value(self, vl):
