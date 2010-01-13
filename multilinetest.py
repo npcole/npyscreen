@@ -2,13 +2,14 @@ import npyscreen
 
 class MyTestApp(npyscreen.NPSAppManaged):
     def onStart(self):
-        self.registerForm("MAIN", MainForm())
+        self.registerForm("MAIN", MainForm(lines=47))
 
 class MainForm(npyscreen.Form):
     def create(self):
-        self.add(npyscreen.Textfield, color='CRITICAL', value='Testing Testing')
-        self.color = "CRITICAL"
-        pass
+        vl = []
+        for x in range(100):
+            vl.append("Value %s" % x)
+        self.add(npyscreen.MultiSelect, values=vl)
 
 def main():
     TA = MyTestApp()
