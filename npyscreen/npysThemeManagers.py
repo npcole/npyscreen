@@ -20,6 +20,7 @@ class ThemeManager(object):
      ('MAGENTA_BLACK',    curses.COLOR_MAGENTA,    curses.COLOR_BLACK),
      ('RED_BLACK',        curses.COLOR_RED,        curses.COLOR_BLACK),
      ('YELLOW_BLACK',     curses.COLOR_YELLOW,     curses.COLOR_BLACK),
+     ('BLACK_RED',        curses.COLOR_BLACK,      curses.COLOR_RED),
     )
     
     default_colors = {
@@ -33,7 +34,8 @@ class ThemeManager(object):
         'IMPORTANT'   : 'GREEN_BLACK',
         'SAFE'        : 'GREEN_BLACK',
         'WARNING'     : 'YELLOW_BLACK',
-        'DANGER'      : 'RED_BLACK'
+        'DANGER'      : 'RED_BLACK',
+        'CRITICAL'    : 'BLACK_RED',
     }
     def __init__(self):
         self._max_pairs = curses.COLOR_PAIRS - 1

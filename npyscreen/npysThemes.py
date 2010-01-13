@@ -9,6 +9,8 @@ class DefaultTheme(ThemeManagers.ThemeManager):
         'LABEL'       : 'BLUE_BLACK',
         'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'GREEN_BLACK',
+        'WARNING'     : 'RED_BLACK',
+        'CRITICAL'    : 'BLACK_RED',
     }
 
 class ColorfulTheme(ThemeManagers.ThemeManager):
