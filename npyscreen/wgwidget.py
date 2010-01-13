@@ -133,7 +133,7 @@ class Widget(InputHandler):
             editable=True,
             hidden=False,
             color='DEFAULT',
-            use_max_physical=False,
+            use_max_space=False,
             **keywords):
         """The following named arguments may be supplied:
         name= set the name of the widget.
@@ -152,7 +152,7 @@ class Widget(InputHandler):
             self.parent = screen
         self.relx = relx
         self.rely = rely
-        self.use_max_physical = use_max_physical
+        self.use_max_space = use_max_space
         self.color = color
         
         self.set_up_handlers()
@@ -193,7 +193,7 @@ class Widget(InputHandler):
         
     def space_available(self):
         """The space available left on the screen, returned as rows, columns"""
-        if self.use_max_physical:
+        if self.use_max_space:
             y, x = self.parent.useable_space(self.rely, self.relx)
         else:
             y, x = self.parent.widget_useable_space(self.rely, self.relx)
