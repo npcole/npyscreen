@@ -63,7 +63,7 @@ class FormDefaultEditLoop(object):
         ok_button_text = "OK"
         my -= self.__class__.OK_BUTTON_BR_OFFSET[0]
         mx -= len(ok_button_text)+self.__class__.OK_BUTTON_BR_OFFSET[1]
-        self.ok_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=ok_button_text, rely=my, relx=mx, use_max_physical=True)
+        self.ok_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=ok_button_text, rely=my, relx=mx, use_max_space=True)
         ok_button_postion = len(self._widgets__)-1
         self.ok_button.update()
         if not self._widgets__[self.editw].editable: self.find_next_editable()

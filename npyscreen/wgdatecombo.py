@@ -52,6 +52,7 @@ class DateCombo(textbox.Textfield, monthbox.DateEntryBase):
         m = F.add(monthbox.MonthBox,
                     allowPastDate   = self.allow_date_in_past,
                     allowTodaysDate = self.allow_todays_date,
+                    use_max_space    = True
         )
         try:
             # Is it a date, do we think?
