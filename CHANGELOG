@@ -7,6 +7,10 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+2.0pre33
+
+Numerous bug fixes and small improvements.
+
 2.0pre32
 	Widgets can now explicitly request the maximum physical screen area.
 Users should not usually have to use this, it is used for drawing things

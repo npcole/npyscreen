@@ -231,7 +231,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
             self.show_atx = 0
 
 
-    def display(self):
+    def display(self, clear=False):
         #APPLICATION_THEME_MANAGER.setTheme(self)
         if curses.has_colors() and not npysGlobalOptions.DISABLE_ALL_COLORS:
             color_attribute = self.theme_manager.findPair(self)
@@ -239,8 +239,11 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
             self.curses_pad.attron(color_attribute)
         self.curses_pad.erase()
         self.draw_form()
-        for w in self._widgets__: 
-            w.update(clear=False)
+        for w in self._widgets__:
+            if w.hidden:
+                w.clear()
+            else:
+                w.update(clear=clear)
 
         self.refresh()
 
