@@ -255,7 +255,9 @@ big a given widget is ... use .height and .width instead"""
     def update(self):
         """How should object display itself on the screen. Define here, but do not actually refresh the curses
         display, since this should be done as little as possible.  This base widget puts nothing on screen."""
-        pass
+        if self.hidden:
+            self.clear()
+            return True
 
     def display(self):
         """Do an update of the object AND refresh the screen"""

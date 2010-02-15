@@ -65,6 +65,9 @@ class NPSAppManaged(apNPSApplication.NPSApp):
             return weakref.proxy(f)
         except:
             return f
+    
+    def setNextForm(self, fmid):
+        self.NEXT_ACTIVE_FORM = fmid
 
     def switchForm(self, fmid):
         self._THISFORM.editing = False

@@ -111,7 +111,7 @@ class ScreenArea(object):
 
     def useable_space(self, rely=0, relx=0):
        mxy, mxx = self.lines, self.columns
-       return (mxy-1-rely, mxx-1-relx)
+       return (mxy-rely, mxx-1-relx) # x - 1 because can't use last line bottom right.
 
     def widget_useable_space(self, rely=0, relx=0):
         #Slightly misreports space available.
