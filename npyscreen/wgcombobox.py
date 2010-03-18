@@ -32,7 +32,7 @@ Should accept one argument (the object to be represented), and return a string."
             except IndexError:
                 printme = '-error-'
         if self.do_colors():
-            self.parent.curses_pad.addnstr(self.rely, self.relx, printme, self.width, self.parent.theme_manager.findPairs(self))
+            self.parent.curses_pad.addnstr(self.rely, self.relx, printme, self.width, self.parent.theme_manager.findPair(self))
         else:
             self.parent.curses_pad.addnstr(self.rely, self.relx, printme, self.width)
 
