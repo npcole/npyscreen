@@ -85,6 +85,9 @@ There are two methods for registering a Form object with an NPSAppManaged instan
 .addForm(*id*, *FormClass* ...)
 	This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  *id* should be a string that uniquely identifies the Form.  *FormClass* should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.  In most cases, you should use the *registerForm* method and not this one.
 
+.addFormClass(*id*, *FormClass* ...):
+    This version registers a class of form rather than an instance.  A new instance will be created every time it is edited.
+
 All Forms registered with an NPSAppManaged instance can access the controlling application as *self.parentApp*.
 
 If for any reason you need to remove a Form, you can do with the .removeForm(*id*) method. 

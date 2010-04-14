@@ -14,7 +14,7 @@ class NPSAppManaged(apNPSApplication.NPSApp):
        See the registerForm method for details.
        
        Doing this will avoid accidentally exceeding the maximum recursion depth.  Forms themselves should be placed under the management
-       of the class using the 'addFrom' method.
+       of the class using the 'addForm' or 'addFormClass' method.
        
     2. Forms that are managed by this class can access a proxy to the parent application through their ".parentApp" attribute, which is
        created by this class.
@@ -43,6 +43,9 @@ class NPSAppManaged(apNPSApplication.NPSApp):
         self._LAST_NEXT_ACTIVE_FORM = None
         self._Forms = {}
     
+    def addFormClass(self, f_id, FormClass, *args, **keywords):
+        self._Forms[f_id] = [FormClass, args, keywords]
+    
     def addForm(self, f_id, FormClass, *args, **keywords):
         """Create a form of the given class. f_id should be a string which will uniquely identify the form. *args will be passed to the Form constructor.
         Forms created in this way are handled entirely by the NPSAppManaged class."""
@@ -67,9 +70,11 @@ class NPSAppManaged(apNPSApplication.NPSApp):
             return f
     
     def setNextForm(self, fmid):
+        """Set the form that will be selected when the current one exits."""
         self.NEXT_ACTIVE_FORM = fmid
 
     def switchForm(self, fmid):
+        """Immediately switch to the form specified by fmid."""
         self._THISFORM.editing = False
         self.NEXT_ACTIVE_FORM  = fmid
         try:
@@ -98,14 +103,18 @@ class NPSAppManaged(apNPSApplication.NPSApp):
         A similar .beforeEditing method will be called if it exists before editing the form.  Again, the presence of a .activate method
         will override this behaviour.
         
-        Note that NEXT_ACTIVE_FORM is a string that is the name of the form that was specified when .registerForm was called.
+        Note that NEXT_ACTIVE_FORM is a string that is the name of the form that was specified when .addForm or .registerForm was called.
         """
         
         self.onStart()
         while self.NEXT_ACTIVE_FORM != "" and self.NEXT_ACTIVE_FORM != None:
             self._LAST_NEXT_ACTIVE_FORM = self._Forms[self.NEXT_ACTIVE_FORM]
             self.LAST_ACTIVE_FORM_NAME = self.NEXT_ACTIVE_FORM
-            self._THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]    
+            try:
+                Fm, a, k = self._Forms[self.NEXT_ACTIVE_FORM]
+                self._THISFORM = Fm( parentApp = self, *a, **k )
+            except TypeError:    
+                self._THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]    
             if hasattr(self._THISFORM, "activate"):
                 self._THISFORM.activate()
             else:
