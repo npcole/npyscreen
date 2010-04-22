@@ -39,6 +39,7 @@ class NPSAppManaged(apNPSApplication.NPSApp):
 
     def __init__(self):
         super(NPSAppManaged, self).__init__()    
+        self._FORM_VISIT_LIST = []
         self.NEXT_ACTIVE_FORM = self.__class__.STARTING_FORM
         self._LAST_NEXT_ACTIVE_FORM = None
         self._Forms = {}
@@ -76,11 +77,42 @@ class NPSAppManaged(apNPSApplication.NPSApp):
     def switchForm(self, fmid):
         """Immediately switch to the form specified by fmid."""
         self._THISFORM.editing = False
-        self.NEXT_ACTIVE_FORM  = fmid
+        self.setNextForm(fmid)
+        self.switchFormNow()
+        
+    def switchFormNow(self):
+        self._THISFORM.editing = False
         try:
             self._THISFORM._widgets__[self._THISFORM.editw].editing = False
         except:
             pass
+        # Following is necessary to stop two keypresses being needed for titlefields
+        try:
+            self._THISFORM._widgets__[self._THISFORM.editw].entry_widget.editing = False
+        except:
+            pass
+
+    def removeLastFormFromHistory(self):
+        self._FORM_VISIT_LIST.pop()
+        self._FORM_VISIT_LIST.pop()
+            
+    def switchFormPrevious(self, backup=STARTING_FORM):
+        self.setNextFormPrevious()
+        self.switchFormNow()
+        
+    def setNextFormPrevious(self, backup=STARTING_FORM):
+        try:
+            if self._THISFORM.FORM_NAME == self._FORM_VISIT_LIST[-1]:
+                self._FORM_VISIT_LIST.pop() # Remove the current form. if it is at the end of the list
+            if self._THISFORM.FORM_NAME == self.NEXT_ACTIVE_FORM:
+                #take no action if it looks as if someone has already set the next form.
+                self.setNextForm(self._FORM_VISIT_LIST.pop()) # Switch to the previous form if one exists
+        except IndexError:
+            self.setNextForm(backup)
+        
+    
+    def resetHistory(self):
+        self._FORM_VISIT_LIST = []
             
 
 
@@ -114,7 +146,10 @@ class NPSAppManaged(apNPSApplication.NPSApp):
                 Fm, a, k = self._Forms[self.NEXT_ACTIVE_FORM]
                 self._THISFORM = Fm( parentApp = self, *a, **k )
             except TypeError:    
-                self._THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]    
+                self._THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]
+            self._THISFORM.FORM_NAME = self.NEXT_ACTIVE_FORM
+            self.ACTIVE_FORM_NAME = self.NEXT_ACTIVE_FORM
+            self._FORM_VISIT_LIST.append(self.NEXT_ACTIVE_FORM)    
             if hasattr(self._THISFORM, "activate"):
                 self._THISFORM.activate()
             else:

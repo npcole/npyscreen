@@ -51,16 +51,8 @@ class ActionFormWithMenus(fmActionForm.ActionForm, wgNMenuDisplay.HasMenus):
         y, x = self.display_menu_advert_at()
         self.curses_pad.addnstr(y, x, menu_advert, self.columns - x - 1)
         
-class SplitFormWithMenus(FormWithMenus):
+class SplitFormWithMenus(fmForm.SplitForm, FormWithMenus):
     """Just the same as the Title Form, but with a horizontal line"""
     def draw_form(self):
-        MAXY, MAXX = self.curses_pad.getmaxyx()
         super(SplitFormWithMenus, self).draw_form()
-        self.curses_pad.hline(MAXY//2-1, 1, curses.ACS_HLINE, MAXX-2)
-
-    def get_half_way(self):
-        return self.curses_pad.getmaxyx()[0] // 2
-
-
-
 

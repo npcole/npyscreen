@@ -45,7 +45,10 @@ class InputHandler(object):
                 if test(_input): 
                     handler(_input)
                     return True
-        if hasattr(self, 'parent') and hasattr(self.parent, 'handle_input'):
+        if hasattr(self, 'parent_widget') and hasattr(self.parent_widget, 'handle_input'):
+            if self.parent_widget.handle_input(_input):
+                return True
+        elif hasattr(self, 'parent') and hasattr(self.parent, 'handle_input'):
             if self.parent.handle_input(_input):
                 return True
 
@@ -59,13 +62,14 @@ class InputHandler(object):
         """This function should be called somewhere during object initialisation (which all library-defined widgets do). You might like to override this in your own definition,
 but in most cases the add_handers or add_complex_handlers methods are what you want."""
         #called in __init__
-        self.handlers = {curses.ascii.NL:  self.h_exit_down,
-                           curses.ascii.CR:  self.h_exit_down,
-                   curses.ascii.TAB: self.h_exit_down,
-                   curses.KEY_DOWN:  self.h_exit_down,
-                   curses.KEY_UP:    self.h_exit_up,
-                   curses.KEY_LEFT:  self.h_exit_left,
-                   curses.KEY_RIGHT: self.h_exit_right,
+        self.handlers = {
+                   curses.ascii.NL:     self.h_exit_down,
+                   curses.ascii.CR:     self.h_exit_down,
+                   curses.ascii.TAB:    self.h_exit_down,
+                   curses.KEY_DOWN:     self.h_exit_down,
+                   curses.KEY_UP:       self.h_exit_up,
+                   curses.KEY_LEFT:     self.h_exit_left,
+                   curses.KEY_RIGHT:    self.h_exit_right,
                    "^P":                self.h_exit_up,
                    "^N":                self.h_exit_down,
                    curses.ascii.ESC:    self.h_exit_escape,
@@ -354,7 +358,7 @@ big a given widget is ... use .height and .width instead"""
             return ""
         elif not GlobalOptions.ASCII_ONLY:
             try:
-                rtn_value = this_string.encode(locale.getpreferredencoding())
+                rtn_value = str(this_string).encode(locale.getpreferredencoding())
                 return rtn_value
             except IndexError:
                 pass

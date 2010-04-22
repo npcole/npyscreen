@@ -74,6 +74,13 @@ class ActionForm(fmForm.Form):
         self.nextrely, self.nextrelx = tmp_rely, tmp_relx
         self.display()
         self.editing = False
+        
+        #try:
+        #    self.parentApp._FORM_VISIT_LIST.pop()
+        #except:
+        #    pass
+        
+        
         return self.edit_return_value
 
     def on_cancel(self):

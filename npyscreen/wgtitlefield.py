@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import curses
+import weakref
 from . import wgtextbox  as textbox
 from . import wgwidget   as widget
 
@@ -66,6 +67,7 @@ class TitleText(widget.Widget):
         self.entry_widget = self.__class__._entry_type(screen, relx=(self.relx + self.text_field_begin_at), 
                                 rely=(self.rely+tmp_y), value = value,
                                 **passon)
+        self.entry_widget.parent_widget = weakref.proxy(self)
         self.recalculate_size()
     
     def recalculate_size(self):

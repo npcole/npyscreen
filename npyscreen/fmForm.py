@@ -355,11 +355,19 @@ class TitleFooterForm(TitleForm):
 
 class SplitForm(Form):
     """Just the same as the Title Form, but with a horizontal line"""
-    def draw_form(self):
+    def __init__(self, draw_line_at=None, *args, **keywords):
+        super(SplitForm, self).__init__(*args, **keywords)
+        if not hasattr(self, 'draw_line_at'):
+            if draw_line_at != None:
+                self.draw_line_at = draw_line_at
+            else:
+                self.draw_line_at = self.get_half_way()
+                
+    def draw_form(self,):
         MAXY, MAXX = self.curses_pad.getmaxyx()
         super(SplitForm, self).draw_form()
-        self.curses_pad.hline(MAXY//2-1, 1, curses.ACS_HLINE, MAXX-2)
-        
+        self.curses_pad.hline(self.draw_line_at, 1, curses.ACS_HLINE, MAXX-2)
+
     def get_half_way(self):
         return self.curses_pad.getmaxyx()[0] // 2
 
