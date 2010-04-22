@@ -9,7 +9,7 @@ from   .apNPSApplicationManaged import NPSAppManaged
 from   .proto_fm_screen_area    import setTheme
 from   .fmForm                  import FormBaseNew, Form, TitleForm, TitleFooterForm, SplitForm
 from   .fmActionForm            import ActionForm
-from   .fmFormWithMenus         import FormWithMenus, ActionFormWithMenus, FormBaseNewWithMenus
+from   .fmFormWithMenus         import FormWithMenus, ActionFormWithMenus, FormBaseNewWithMenus, SplitFormWithMenus
 from   .fmPopup                 import Popup, MessagePopup, ActionPopup
 from   .fmFormMutt              import FormMutt
 
@@ -46,6 +46,8 @@ from .muNewMenu import NewMenu, MenuItem
 from .wgNMenuDisplay import MenuDisplay, MenuDisplayScreen
 
 from .npyspmfuncs import CallSubShell
+
+from utilNotify import notify, notify_confirm, notify_wait
 
 
 

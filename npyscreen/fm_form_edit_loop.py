@@ -42,6 +42,11 @@ class FormNewEditLoop(object):
 
             if self.editw > len(self._widgets__)-1: self.editw = len(self._widgets__)-1
     
+        #try:
+        #    self.parentApp._FORM_VISIT_LIST.pop()
+        #except:
+        #    pass
+    
     def edit(self):
         self.pre_edit_loop()
         self.edit_loop()
@@ -95,6 +100,12 @@ class FormDefaultEditLoop(object):
         del self.ok_button
         self.nextrely, self.nextrelx = tmp_rely, tmp_relx
         self.display()
+        
+        #try:
+        #    self.parentApp._FORM_VISIT_LIST.pop()
+        #except:
+        #    pass
+        
 
         self.editing = False
         self.erase()

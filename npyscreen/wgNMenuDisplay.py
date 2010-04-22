@@ -112,26 +112,36 @@ class HasMenus(object):
     MENU_KEY = "^X"
     def initialize_menus(self):
         self._NMDisplay = MenuDisplay()
-        self._NMenuList = []
+        if not hasattr(self, '_NMenuList'):
+            self._NMenuList = []
         self._MainMenu  = NewMenu.NewMenu
         self.add_handlers({self.__class__.MENU_KEY: self.root_menu})
         
         
     def new_menu(self, name=None):
+        if not hasattr(self, '_NMenuList'):
+            self._NMenuList = []
         _mnu = NewMenu.NewMenu(name=name)
         self._NMenuList.append(_mnu)
         return weakref.proxy(_mnu)
+    
+    def add_menu(self, *args, **keywords):
+        return self.new_menu(*args, **keywords)
         
     def root_menu(self, *args):
-        _root_menu = NewMenu.NewMenu(name="Menus")
-        for mnu in self._NMenuList:
-            _root_menu.addSubmenu(mnu)            
-        self._NMDisplay.setMenu(_root_menu)
-        self._NMDisplay.edit()
+        if len(self._NMenuList) == 1:
+            self._NMDisplay.setMenu(self._NMenuList[0])
+            self._NMDisplay.edit()
+        else:    
+            _root_menu = NewMenu.NewMenu(name="Menus")
+            for mnu in self._NMenuList:
+                _root_menu.addSubmenu(mnu)            
+            self._NMDisplay.setMenu(_root_menu)
+            self._NMDisplay.edit()
         
     def popup_menu(self, menu):
-        self.setMenu(menu)
-        self.edit()
+        self._NMDisplay.setMenu(menu)
+        self._NMDisplay.edit()
 
 
 

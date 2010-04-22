@@ -90,7 +90,10 @@ the same effect can be achieved by altering the __str__() method of displayed ob
     def display_value(self, vl):
         """Overload this function to change how values are displayed.  
 Should accept one argument (the object to be represented), and return a string."""
-        return str(vl)
+        try:
+            return str(vl)
+        except weakref.ReferenceError:
+            return "**REFERENCE ERROR**"
 
     def calculate_area_needed(self):
         return 0,0
@@ -276,13 +279,17 @@ Should accept one argument (the object to be represented), and return a string."
                 self.cursor_line = possible
                 self.update()
                 break
-        if self.cursor_line-self.start_display_at > len(self._my_widgets) or \
-        self._my_widgets[self.cursor_line-self.start_display_at].task == MORE_LABEL: 
-            if self.slow_scroll:
-                self.start_display_at += 1
-            else:
-                self.start_display_at = self.cursor_line
-        
+        try:
+            if self.cursor_line-self.start_display_at > len(self._my_widgets) or \
+            self._my_widgets[self.cursor_line-self.start_display_at].task == MORE_LABEL: 
+                if self.slow_scroll:
+                    self.start_display_at += 1
+                else:
+                    self.start_display_at = self.cursor_line
+        except IndexError:
+            self.cursor_line = 0
+            self.start_display_at = 0
+            
     def move_previous_filtered(self, *args):
         if self._filter == None:
             return False
@@ -526,6 +533,8 @@ class Pager(MultiLine):
                     curses.ascii.NL:    self.h_exit,
                     curses.ascii.SP:    self.h_scroll_page_down,
                     curses.ascii.TAB:   self.h_exit,
+                    ord('j'):           self.h_scroll_line_down,
+                    ord('k'):           self.h_scroll_line_up,
                     ord('x'):       self.h_exit,
                     ord('q'):       self.h_exit,
                     curses.ascii.ESC:   self.h_exit,
