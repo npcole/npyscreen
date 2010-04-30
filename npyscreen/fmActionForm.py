@@ -60,10 +60,12 @@ class ActionForm(fmForm.Form):
             if self.ok_button.value or self.c_button.value:
                 self.editing = False
         
-        if self.ok_button.value:
-            self.edit_return_value = self.on_ok()
-        elif self.c_button.value:
-            self.edit_return_value = self.on_cancel()
+            if self.ok_button.value:
+                self.ok_button.value = False
+                self.edit_return_value = self.on_ok()
+            elif self.c_button.value:
+                self.c_button.value = False
+                self.edit_return_value = self.on_cancel()
         
         self.ok_button.destroy()
         self.c_button.destroy()
@@ -74,12 +76,6 @@ class ActionForm(fmForm.Form):
         self.nextrely, self.nextrelx = tmp_rely, tmp_relx
         self.display()
         self.editing = False
-        
-        #try:
-        #    self.parentApp._FORM_VISIT_LIST.pop()
-        #except:
-        #    pass
-        
         
         return self.edit_return_value
 

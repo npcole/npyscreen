@@ -8,6 +8,10 @@ from . import npyspmfuncs as pmfuncs
 import curses
 from . import npysGlobalOptions
 from . import fm_form_edit_loop   as form_edit_loop
+from . import util_viewhelp
+
+
+
 
 class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
     BLANK_COLUMNS_RIGHT= 2
@@ -78,7 +82,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
         self.handlers = { 
                     curses.KEY_F1: self.h_display_help,
                     "KEY_F(1)": self.h_display_help,
-                    "!h":       self.h_display_help,
+                    "^U":       self.h_display_help,
                     "^L":       self.h_display,
                     #curses.KEY_RESIZE: self.h_display,
                     }
@@ -108,6 +112,14 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
     
     def exit_editing(self, *args, **keywords):
         self.editing = False
+        try:
+            self._widgets__[self.editw].entry_widget.editing = False
+        except:
+            pass
+        try:
+            self._widgets__[self.editw].editing = False
+        except:
+            pass
     
     def adjust_widgets(self):
         """This method can be overloaded by derived classes. It is called when editing any widget, as opposed to
@@ -180,16 +192,27 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
             help_name="%s Help" %(self.name)
         else: help_name=None
         curses.flushinp()
-        select.ViewText(self.help, name=help_name)
+        util_viewhelp.view_help(self.help, title=help_name)
+        #select.ViewText(self.help, name=help_name)
         self.display()
         return True
 
     def h_display(self, input):
         self.curses_pad.redrawwin()
-        self.display()
+        self.draw_form()
+        self.display(clear=True)
+        self.display(clear=False)
+        #self.display()
+        #self.adjust_widgets()
 
     def get_and_use_mouse_event(self):
         curses.beep()
+        
+    def set_editing(self, wdg):
+        try:
+            self.editw = self._widgets__.index(wdg)
+        except ValueError:
+            pass
 
 
     def find_next_editable(self, *args):
@@ -235,7 +258,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
     def display(self, clear=False):
         #APPLICATION_THEME_MANAGER.setTheme(self)
         if curses.has_colors() and not npysGlobalOptions.DISABLE_ALL_COLORS:
-            color_attribute = self.theme_manager.findPair(self)
+            color_attribute = self.theme_manager.findPair(self, self.color)
             self.curses_pad.bkgdset(' ', color_attribute)
             self.curses_pad.attron(color_attribute)
         self.curses_pad.erase()
@@ -261,7 +284,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
 
             if self.help and self.editing:
                 try:
-                    help_advert = " Help: F1 or M-h "
+                    help_advert = " Help: F1 or ^U "
                     self.curses_pad.addstr(
                      0, self.curses_pad.getmaxyx()[1]-len(help_advert)-2, help_advert 
                      )
@@ -370,6 +393,9 @@ class SplitForm(Form):
 
     def get_half_way(self):
         return self.curses_pad.getmaxyx()[0] // 2
+        
+    
+
 
 
 

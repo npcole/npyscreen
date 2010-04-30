@@ -38,3 +38,7 @@ class FormMutt(fmForm.FormBaseNew):
         self.nextrely = 2
 
 
+class FormMuttWithMenus(FormMutt, fmFormWithMenus.FormBaseNewWithMenus):
+    def __init__(self, *args, **keywords):
+        super(FormMuttWithMenus, self).__init__(*args, **keywords)
+        self.initialize_menus()

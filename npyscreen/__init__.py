@@ -11,7 +11,8 @@ from   .fmForm                  import FormBaseNew, Form, TitleForm, TitleFooter
 from   .fmActionForm            import ActionForm
 from   .fmFormWithMenus         import FormWithMenus, ActionFormWithMenus, FormBaseNewWithMenus, SplitFormWithMenus
 from   .fmPopup                 import Popup, MessagePopup, ActionPopup
-from   .fmFormMutt              import FormMutt
+from   .fmFormMutt              import FormMutt, FormMuttWithMenus
+from   .fmFileSelector          import FileSelector
 
 from .wgbutton import MiniButton
 from .wgbutton import MiniButtonPress

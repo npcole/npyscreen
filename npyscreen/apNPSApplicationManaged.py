@@ -109,6 +109,9 @@ class NPSAppManaged(apNPSApplication.NPSApp):
                 self.setNextForm(self._FORM_VISIT_LIST.pop()) # Switch to the previous form if one exists
         except IndexError:
             self.setNextForm(backup)
+            
+    def getHistory(self):
+        return self._FORM_VISIT_LIST
         
     
     def resetHistory(self):
@@ -149,7 +152,11 @@ class NPSAppManaged(apNPSApplication.NPSApp):
                 self._THISFORM = self._Forms[self.NEXT_ACTIVE_FORM]
             self._THISFORM.FORM_NAME = self.NEXT_ACTIVE_FORM
             self.ACTIVE_FORM_NAME = self.NEXT_ACTIVE_FORM
-            self._FORM_VISIT_LIST.append(self.NEXT_ACTIVE_FORM)    
+            if len(self._FORM_VISIT_LIST) > 0:
+                if self._FORM_VISIT_LIST[-1] != self.NEXT_ACTIVE_FORM:
+                    self._FORM_VISIT_LIST.append(self.NEXT_ACTIVE_FORM)
+            else:
+                self._FORM_VISIT_LIST.append(self.NEXT_ACTIVE_FORM)
             if hasattr(self._THISFORM, "activate"):
                 self._THISFORM.activate()
             else:
