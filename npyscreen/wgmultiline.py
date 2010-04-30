@@ -153,7 +153,7 @@ Should accept one argument (the object to be represented), and return a string."
         except:
                 no_change = False
             
-        if not no_change:
+        if not no_change or clear:
             if clear is True: 
                 self.clear()
 
@@ -326,7 +326,7 @@ Should accept one argument (the object to be represented), and return a string."
                     ord('n'):       self.move_next_filtered,
                     ord('N'):       self.move_previous_filtered,
                     ord('p'):       self.move_previous_filtered,
-                    "^L":        self.h_set_filtered_to_selected,
+                    # "^L":        self.h_set_filtered_to_selected,
                     curses.ascii.SP:    self.h_select,
                     curses.ascii.ESC:   self.h_exit,
                 } )
@@ -427,6 +427,7 @@ Should accept one argument (the object to be represented), and return a string."
         self.how_exited = True
     
     def h_set_filtered_to_selected(self, ch):
+        # This is broken on multiline
         if len(self._filtered_values_cache) < 2:
             self.value = self._filtered_values_cache
         else:

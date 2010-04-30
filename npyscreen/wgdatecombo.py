@@ -60,7 +60,7 @@ class DateCombo(textbox.Textfield, monthbox.DateEntryBase):
             m.value = self.value
         except:
             # if not, we could do worse than today
-            m.value = datetime.date.today()
+            m.value = self.date_or_datetime().today()
             # But make sure that that is acceptable
             m._check_today_validity()
         F.display()

@@ -93,8 +93,12 @@ class MenuViewerController(object):
 
 
 class MenuDisplay(MenuViewerController):
-    def __init__(self, lines=15, columns=26, show_atx=5, show_aty=2, *args, **keywords):
-        self._DisplayArea = MenuDisplayScreen(lines=lines, columns=columns, show_atx=show_atx, show_aty=show_aty, )
+    def __init__(self, color='CONTROL', lines=15, columns=36, show_atx=5, show_aty=2, *args, **keywords):
+        self._DisplayArea = MenuDisplayScreen(lines=lines, 
+                                    columns=columns, 
+                                    show_atx=show_atx, 
+                                    show_aty=show_aty, 
+                                    color=color)
         super(MenuDisplay, self).__init__(*args, **keywords)
 
 class MenuDisplayFullScreen(MenuViewerController):

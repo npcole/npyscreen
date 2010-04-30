@@ -6,22 +6,29 @@ import datetime
 import curses
 
 class DateEntryBase(widget.Widget):
-    def __init__(self, screen, allowPastDate=True, allowTodaysDate=True, firstWeekDay=6, **keywords):
+    def __init__(self, screen, allowPastDate=True, allowTodaysDate=True, firstWeekDay=6, 
+            use_datetime = False, **keywords):
         super(DateEntryBase, self).__init__(screen, **keywords)
         self.allow_date_in_past = allowPastDate
         self.allow_todays_date  = allowTodaysDate
+        self.use_datetime = use_datetime
         self._max = datetime.date.max
         self._min = datetime.date.min
         self.firstWeekDay = firstWeekDay
         
-
+    def date_or_datetime(self):
+        if self.use_datetime:
+            return datetime.datetime
+        else:
+            return datetime.date
+            
     def _check_date(self):
         if not self.allow_date_in_past:
-            if self.value < datetime.date.today():
+            if self.value < self.date_or_datetime().today():
                 if self.allow_todays_date:
-                    self.value = datetime.date.today()
+                    self.value = self.date_or_datetime().today()
                 else:
-                    self.value = datetime.date.today() + datetime.timedelta(1)      
+                    self.value = self.date_or_datetime().today() + datetime.timedelta(1)      
         
     def _check_today_validity(self, onErrorHigher=True):
         """If not allowed to select today's date, and today is selected, move either higher or lower
@@ -31,7 +38,7 @@ depending on the value of onErrorHigher"""
         if self.allow_todays_date:
             return True
         else:
-            if self.value == datetime.date.today():
+            if self.value == self.date_or_datetime().today():
                 if onErrorHigher:
                     self.value += datetime.timedelta(1)
                 else:
@@ -120,7 +127,7 @@ depending on the value of onErrorHigher"""
             self.value = old_value
             
     def h_find_today(self, *args):
-        self.value = datetime.date.today()  
+        self.value = self.date_or_datetime().today()  
         self._check_date()
         self._check_today_validity(onErrorHigher=True)
 

@@ -37,16 +37,16 @@ class Filename(Autocomplete):
     def auto_complete(self, input):
         # expand ~
         self.value = os.path.expanduser(self.value)
-        
+
         for i in range(1):
             dir, fname = os.path.split(self.value)
             # Let's have absolute paths.
             dir = os.path.abspath(dir)
-            
+    
             if self.value == '': 
                 self.value=dir
                 break
-            
+    
             try: 
                 flist = os.listdir(dir)
             except:
@@ -66,16 +66,19 @@ class Filename(Autocomplete):
             if len(possibilities) is 1:
                 if self.value != possibilities[0]:
                     self.value = possibilities[0]
-                    if os.path.isdir(self.value) \
-                        and not self.value.endswith(os.sep):
-                        self.value = self.value + os.sep
+                if os.path.isdir(self.value) \
+                    and not self.value.endswith(os.sep):
+                    self.value = self.value + os.sep
+                else:
+                    if not os.path.isdir(self.value):
+                        self.h_exit_down(None)
                     break
 
             if len(possibilities) > 1:
                 filelist = possibilities
             else:
                 filelist = flist #os.listdir(os.path.dirname(self.value))
-            
+    
             filelist = list(map((lambda x: os.path.normpath(os.path.join(self.value, x))), filelist))
             files_only = []
             dirs_only = []
@@ -91,10 +94,10 @@ class Filename(Autocomplete):
 
                 if os.path.isdir(filelist[index1]):
                     dirs_only.append(filelist[index1])
-                    
+            
                 else:
                     files_only.append(filelist[index1])
-            
+    
             dirs_only.sort()
             files_only.sort()
             combined_list = dirs_only + files_only
@@ -104,7 +107,6 @@ class Filename(Autocomplete):
 
             # Can't complete
             curses.beep()
-    
         #os.path.normpath(self.value)
         os.path.normcase(self.value)
         self.cursor_position=len(self.value)
