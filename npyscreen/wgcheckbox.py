@@ -26,7 +26,8 @@ class _ToggleControl(Widget):
         pass
     
     def h_select_exit(self, ch):
-        self.value = True
+        if not self.value:
+            self.h_toggle(ch)
         self.editing = False
         self.how_exited = widget.EXITED_DOWN
 
