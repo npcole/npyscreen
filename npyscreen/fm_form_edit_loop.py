@@ -41,12 +41,7 @@ class FormNewEditLoop(object):
             self.handle_exiting_widgets(self._widgets__[self.editw].how_exited)
 
             if self.editw > len(self._widgets__)-1: self.editw = len(self._widgets__)-1
-    
-        #try:
-        #    self.parentApp._FORM_VISIT_LIST.pop()
-        #except:
-        #    pass
-    
+        
     def edit(self):
         self.pre_edit_loop()
         self.edit_loop()

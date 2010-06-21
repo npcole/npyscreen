@@ -28,4 +28,18 @@ class MessagePopup(Popup):
         super(MessagePopup, self).__init__(*args, **keywords)
         self.TextWidget = self.add(multiline.Pager, scroll_exit=True, max_height=self.widget_useable_space()[0]-2)
         
-
+class PopupWide(Popup):
+    def __init__(self,
+        lines = 14, 
+        columns=None,
+        minimum_lines=None,
+        minimum_columns=None,
+        *args, **keywords):
+        super(PopupWide, self).__init__(lines = lines, columns=columns, 
+        *args, **keywords)
+        self.show_atx = 0
+        self.show_aty = 0
+        
+class ActionPopupWide(fmActionForm.ActionForm, PopupWide):
+    def __init__(self, *args, **keywords):
+        PopupWide.__init__(self, *args, **keywords)
