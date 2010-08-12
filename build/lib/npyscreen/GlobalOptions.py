@@ -1,0 +1,2 @@
+DISABLE_ALL_COLORS = False
+ASCII_ONLY         = False

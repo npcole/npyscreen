@@ -14,10 +14,12 @@ setup.py
 docs/.DS_Store
 docs/Documentation.rst
 docs/Tutorial.rst
+docs/api.rst
 npyscreen/__init__.py
 npyscreen/apNPSApplication.py
 npyscreen/apNPSApplicationManaged.py
 npyscreen/fmActionForm.py
+npyscreen/fmFileSelector.py
 npyscreen/fmForm.py
 npyscreen/fmFormMutt.py
 npyscreen/fmFormWithMenus.py
@@ -32,8 +34,11 @@ npyscreen/npysThemes.py
 npyscreen/npyspmfuncs.py
 npyscreen/npyssafewrapper.py
 npyscreen/proto_fm_screen_area.py
+npyscreen/utilNotify.py
+npyscreen/util_viewhelp.py
 npyscreen/wgFormControlCheckbox.py
 npyscreen/wgNMenuDisplay.py
+npyscreen/wgannotatetextbox.py
 npyscreen/wgautocomplete.py
 npyscreen/wgbutton.py
 npyscreen/wgcheckbox.py
