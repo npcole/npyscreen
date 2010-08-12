@@ -89,7 +89,8 @@ the same effect can be achieved by altering the __str__() method of displayed ob
 
     def display_value(self, vl):
         """Overload this function to change how values are displayed.  
-Should accept one argument (the object to be represented), and return a string."""
+Should accept one argument (the object to be represented), and return a string or the 
+object to be passed to the contained widget."""
         try:
             return str(vl)
         except weakref.ReferenceError:
@@ -103,10 +104,15 @@ Should accept one argument (the object to be represented), and return a string."
         self.start_display_at = 0
         self.cursor_line      = 0
     
+    def reset_display_cache(self):
+        self._last_values = False
+        self._last_value  = False
     
     def update(self, clear=True):
-        if self.hidden:
+        if self.hidden and clear:
             self.clear()
+            return False
+        elif self.hidden:
             return False
             
         if self.values == None:
@@ -152,7 +158,8 @@ Should accept one argument (the object to be represented), and return a string."
                 no_change = False
         except:
                 no_change = False
-            
+        if clear:
+            no_change = False
         if not no_change or clear:
             if clear is True: 
                 self.clear()
@@ -170,7 +177,7 @@ Should accept one argument (the object to be represented), and return a string."
             for line in self._my_widgets[:-1]:
                 self._print_line(line, indexer)
                 line.task = "PRINTLINE"
-                line.update(clear=False)
+                line.update(clear=True)
                 indexer += 1
         
             # Now do the final line
@@ -195,7 +202,11 @@ Should accept one argument (the object to be represented), and return a string."
             if self.editing: 
                 self._my_widgets[(self.cursor_line-self.start_display_at)].highlight=True
                 self._my_widgets[(self.cursor_line-self.start_display_at)].update(clear=True)
-
+            else:
+                # There is a bug somewhere that affects the first line.  This cures it.
+                # Without this line, the first line inherits the color of the form when not editing. Not clear why.
+                self._my_widgets[0].update()
+                
 
         self._last_start_display_at = self.start_display_at
         self._last_cursor_line = self.cursor_line
@@ -205,33 +216,39 @@ Should accept one argument (the object to be represented), and return a string."
 
 
     def _print_line(self, line, value_indexer):
-            try:
-                line.value = self.display_value(self.values[value_indexer])
-                line.hide = False
-            except IndexError:
-                line.value = None
-                line.show_bold=False
-                line.name = None
-                line.hide = True
-            except TypeError:
-                line.value = None
-                line.show_bold=False
-                line.name = None
-                line.hide = True
-                
-                
-            
-            if value_indexer in self._filtered_values_cache:
-                line.important = True
-            else:
-                line.important = False
-            
-            if (value_indexer == self.value) and \
-                (self.value is not None):
-                line.show_bold=True
-            else: line.show_bold=False
+        self._set_line_values(line, value_indexer)
+        self._set_line_highlighting(line, value_indexer)
+
+
+    def _set_line_values(self, line, value_indexer):
+        try:
+            line.value = self.display_value(self.values[value_indexer])
+            line.hide = False
+        except IndexError:
+            self._set_line_blank(line)
+        except TypeError:
+            self._set_line_blank(line)
+
+    def _set_line_blank(self, line):
+        line.value = None
+        line.show_bold=False
+        line.name = None
+        line.hide = True
         
-            line.highlight=False
+                
+    def _set_line_highlighting(self, line, value_indexer):
+        if value_indexer in self._filtered_values_cache:
+            line.important = True
+        else:
+            line.important = False
+        
+        if (value_indexer == self.value) and \
+            (self.value is not None):
+            line.show_bold=True
+        else: 
+            line.show_bold=False
+    
+        line.highlight=False
             
 
     def get_filtered_indexes(self):
@@ -302,6 +319,11 @@ Should accept one argument (the object to be represented), and return a string."
                 return True
                 break
 
+    def get_selected_objects(self):
+        if self.value == None:
+            return None
+        else:
+            return self.values[self.value]
 
     def set_up_handlers(self):
         super(MultiLine, self).set_up_handlers()
@@ -485,13 +507,11 @@ class Pager(MultiLine):
         for w in self._my_widgets: 
             # call update to avoid needless refreshes
             w.update(clear=True)
+        # There is a bug somewhere that affects the first line.  This cures it.
+        # Without this line, the first line inherits the color of the form when not editing. Not clear why.
+        self._my_widgets[0].update()
             
             
-    def get_selected_objects(self):
-        if self.value == None:
-            return None
-        else:
-            return self.values[self.value]
             
     def edit(self):
         # Make sure a value never gets set.
@@ -501,9 +521,15 @@ class Pager(MultiLine):
     
     def h_scroll_line_up(self, input):
         self.start_display_at -= 1
+        if self.scroll_exit and self.start_display_at < 0:
+            self.editing = False
+            self.how_exited = widget.EXITED_UP
 
     def h_scroll_line_down(self, input):
-        self.start_display_at += 1  
+        self.start_display_at += 1
+        if self.scroll_exit and self.start_display_at >= len(self.values)-self.start_display_at+1:
+            self.editing = False
+            self.how_exited = widget.EXITED_DOWN
 
     def h_scroll_page_down(self, input):
         self.start_display_at += len(self._my_widgets)

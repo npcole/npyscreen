@@ -7,7 +7,9 @@ import weakref
 
 class MultiLineTree(multiline.MultiLine):
     def _setMyValues(self, tree):
-        if not isinstance(tree, NPSTree.NPSTreeData):
+        if tree == [] or tree == None:
+            self._myFullValues = NPSTree.NPSTreeData()
+        elif not isinstance(tree, NPSTree.NPSTreeData):
             raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
         else:
             self._myFullValues = tree
@@ -25,11 +27,10 @@ class MultiLineTree(multiline.MultiLine):
     
     def get_tree_display(self, vl):
         dp = vl.findDepth()
-        dp -= 1
         if dp > 0:
-            control_chars = "| " * (dp) + "|-"
+            control_chars = "| " * (dp-1) + "|-"
         else:
-            control_chars = "| " * (dp) + "|-"
+            control_chars = ""
         if vl.hasChildren():
             if vl.expanded:
                 control_chars = control_chars + "+"
@@ -39,8 +40,17 @@ class MultiLineTree(multiline.MultiLine):
             control_chars = control_chars + ""
         return control_chars
     
+    def _set_line_values(self, line, value_indexer):
+        try:
+            line.value = self.get_tree_display(self.values[value_indexer]) + "  " + self.display_value(self.values[value_indexer]) + "  "
+            line.hide = False
+        except IndexError:
+            self._set_line_blank(line)
+        except TypeError:
+            self._set_line_blank(line)
+    
     def display_value(self, vl):
-        return self.get_tree_display(vl) + "  " + str(vl.getContentForDisplay()) + "  "
+        return str(vl.getContentForDisplay()) 
     
 class SelectOneTree(MultiLineTree):
     _contained_widgets = checkbox.RoundCheckBox
@@ -67,8 +77,10 @@ class SelectOneTree(MultiLineTree):
         line.highlight= False
     
     def update(self, clear=True):
-        if self.hidden:
+        if self.hidden and clear:
             self.clear()
+            return False
+        elif clear:
             return False
         # Make sure that self.value is a list
         if not hasattr(self.value, "append"):

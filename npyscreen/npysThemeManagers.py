@@ -21,6 +21,8 @@ class ThemeManager(object):
      ('RED_BLACK',        curses.COLOR_RED,        curses.COLOR_BLACK),
      ('YELLOW_BLACK',     curses.COLOR_YELLOW,     curses.COLOR_BLACK),
      ('BLACK_RED',        curses.COLOR_BLACK,      curses.COLOR_RED),
+     ('BLACK_GREEN',      curses.COLOR_BLACK,      curses.COLOR_GREEN),
+     ('BLACK_YELLOW',     curses.COLOR_BLACK,      curses.COLOR_YELLOW),
     )
     
     default_colors = {
@@ -36,6 +38,11 @@ class ThemeManager(object):
         'WARNING'     : 'YELLOW_BLACK',
         'DANGER'      : 'RED_BLACK',
         'CRITICAL'    : 'BLACK_RED',
+        'GOOD'        : 'GREEN_BLACK',
+        'GOODHL'      : 'GREEN_BLACK',
+        'VERYGOOD'    : 'BLACK_GREEN',
+        'CAUTION'     : 'YELLOW_BLACK',
+        'CAUTIONHL'   : 'BLACK_YELLOW',
     }
     def __init__(self):
         self._max_pairs = curses.COLOR_PAIRS - 1
