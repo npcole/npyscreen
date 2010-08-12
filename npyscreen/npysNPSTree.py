@@ -2,13 +2,14 @@
 import weakref
 
 class NPSTreeData(object):
-    def __init__(self, content=None, parent=None, selected=False, hilight=False, expanded=True):
+    def __init__(self, content=None, parent=None, selected=False, hilight=False, expanded=True, ignoreRoot=True):
         self.setParent(parent)
         self.setContent(content)
         self.selected = selected
         self.hilight  = hilight
         self.expanded = expanded
         self._children = []
+        self.ignoreRoot = ignoreRoot
     
     def getContent(self):
         return self.content
@@ -60,9 +61,9 @@ class NPSTreeData(object):
                 for node in child.walkTree(onlyExpanded=onlyExpanded, ignoreRoot=False):
                     yield node
     
-    def getTreeAsList(self, onlyExpanded=True):
+    def getTreeAsList(self, onlyExpanded=True,):
         _a = []
-        for node in self.walkTree(onlyExpanded=onlyExpanded):
+        for node in self.walkTree(onlyExpanded=onlyExpanded, ignoreRoot=self.ignoreRoot):
             _a.append(weakref.proxy(node))
         return _a
 

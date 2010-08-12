@@ -30,6 +30,11 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
                 self.parentApp = weakref.proxy(parentApp)
             except:
                 self.parentApp = parentApp
+        try:
+            self.keypress_timeout = self.parentApp.keypress_timeout_default
+        except:
+            pass
+        
         self.framed = framed
         self.name=name
         self.editing = False
@@ -197,14 +202,23 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
         self.display()
         return True
 
-    def h_display(self, input):
+    def DISPLAY(self):
         self.curses_pad.redrawwin()
+        self.erase()
+        self.display()
+        for w in self._widgets__:
+            if not w.hidden:
+                try:
+                    w.display(clear=True)
+                except:
+                    w.display()
         self.draw_form()
-        self.display(clear=True)
         self.display(clear=False)
-        #self.display()
-        #self.adjust_widgets()
 
+
+    def h_display(self, input):
+        self.DISPLAY()
+        
     def get_and_use_mouse_event(self):
         curses.beep()
         
@@ -263,10 +277,9 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
             self.curses_pad.attron(color_attribute)
         self.curses_pad.erase()
         self.draw_form()
-        for w in self._widgets__:
-            if w.hidden:
+        for w in [wg for wg in self._widgets__ if wg.hidden]:
                 w.clear()
-            else:
+        for w in [wg for wg in self._widgets__ if not wg.hidden]:
                 w.update(clear=clear)
 
         self.refresh()

@@ -11,6 +11,11 @@ class DefaultTheme(ThemeManagers.ThemeManager):
         'CONTROL'     : 'GREEN_BLACK',
         'WARNING'     : 'RED_BLACK',
         'CRITICAL'    : 'BLACK_RED',
+        'GOOD'        : 'GREEN_BLACK',
+        'GOODHL'      : 'GREEN_BLACK',
+        'VERYGOOD'    : 'BLACK_GREEN',
+        'CAUTION'     : 'YELLOW_BLACK',
+        'CAUTIONHL'   : 'BLACK_YELLOW',
     }
 
 class ColorfulTheme(ThemeManagers.ThemeManager):
@@ -22,4 +27,12 @@ class ColorfulTheme(ThemeManagers.ThemeManager):
         'LABEL'       : 'BLUE_BLACK',
         'LABELBOLD'   : 'YELLOW_BLACK',
         'CONTROL'     : 'GREEN_BLACK',
+        'WARNING'     : 'RED_BLACK',
+        'CRITICAL'    : 'BLACK_RED',
+        'GOOD'        : 'GREEN_BLACK',
+        'GOODHL'      : 'GREEN_BLACK',
+        'VERYGOOD'    : 'BLACK_GREEN',
+        'CAUTION'     : 'YELLOW_BLACK',
+        'CAUTIONHL'   : 'BLACK_YELLOW',
+        
     }

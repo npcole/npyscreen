@@ -7,6 +7,26 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+
+2.0pre36
+The notify_* functions have all recieved some polish and now accept a
+wide=True param.
+
+forms now have a method .DISPLAY() that will do a full clear/redraw of the
+screen that is certain(?) to get rid of any unexpected corruption caused by
+any other processes that have been writing to the terminal.
+
+Numerous bug-fixes and small improvements.
+
+2.0pre35
+Added the following extremely convenient functions:
+
+notify_confirm(message, title="Message", form_color="STANDOUT", wrap=True)
+notify_wait(message, title="Message", form_color="STANDOUT", wrap=True)
+notify_ok_cancel(message, title="Message", form_color="STANDOUT", wrap=True )
+notify_yes_no(message, title="Message", form_color="STANDOUT", wrap=True )
+
+
 2.0pre33
 
 Numerous bug fixes and small improvements.
