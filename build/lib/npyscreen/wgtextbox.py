@@ -107,12 +107,12 @@ class TextfieldBase(widget.Widget):
         if string_to_print == None: return
         
         if self.syntax_highlighting:
-            try:
-                highlight = self._highlightingdata[self.begin_at+i]
-            except:
-                highlight = curses.A_NORMAL
             self.update_highlighting(start=self.begin_at, end=self.maximum_string_length+self.begin_at)
             for i in range(len(string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])):
+                try:
+                    highlight = self._highlightingdata[self.begin_at+i]
+                except:
+                    highlight = curses.A_NORMAL
                 self.parent.curses_pad.addstr(self.rely,self.relx+i, 
                     string_to_print[self.begin_at+i], 
                     highlight 
