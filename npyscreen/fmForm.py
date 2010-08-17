@@ -206,13 +206,6 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
         self.curses_pad.redrawwin()
         self.erase()
         self.display()
-        for w in self._widgets__:
-            if not w.hidden:
-                try:
-                    w.display(clear=True)
-                except:
-                    w.display()
-        self.draw_form()
         self.display(clear=False)
 
 
@@ -278,9 +271,9 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
         self.curses_pad.erase()
         self.draw_form()
         for w in [wg for wg in self._widgets__ if wg.hidden]:
-                w.clear()
+            w.clear()
         for w in [wg for wg in self._widgets__ if not wg.hidden]:
-                w.update(clear=clear)
+            w.update(clear=clear)
 
         self.refresh()
 
