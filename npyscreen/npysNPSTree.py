@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import weakref
+import collections
 
 class NPSTreeData(object):
     def __init__(self, content=None, parent=None, selected=False, hilight=False, expanded=True, ignoreRoot=True):
@@ -63,13 +64,13 @@ class NPSTreeData(object):
         #Iterate over Tree
         if not ignoreRoot:
             yield self
-        nodes_to_yield = []
+        nodes_to_yield = collections.deque() # better memory management than a list for pop(0)
         if self.expanded:
             nodes_to_yield.extend(self.getChildren())
             while nodes_to_yield:
-                child = nodes_to_yield.pop(0)
+                child = nodes_to_yield.popleft()
                 if child.expanded:
-                    nodes_to_yield.extend(child.getChildren())
+                    nodes_to_yield.extendleft(child.getChildren())
                 yield child
                 
         # This is an old, recursive version
