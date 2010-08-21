@@ -33,10 +33,17 @@ class NPSTreeData(object):
             self.parent = weakref.proxy(parent)
     
     def findDepth(self, d=0):
-        if self.parent == None:
-            return d
-        else:
-            return(self.parent.findDepth(d+1))
+        depth = d
+        parent = self.parent
+        while parent:
+            d += 1
+            parent = parent.parent
+        return d
+        # Recursive
+        #if self.parent == None:
+        #    return d
+        #else:
+        #    return(self.parent.findDepth(d+1))
     
     def hasChildren(self):
         if len(self._children) > 0:
@@ -56,10 +63,20 @@ class NPSTreeData(object):
         #Iterate over Tree
         if not ignoreRoot:
             yield self
-        if (not onlyExpanded) or (self.expanded):
-            for child in self.getChildren():
-                for node in child.walkTree(onlyExpanded=onlyExpanded, ignoreRoot=False):
-                    yield node
+        nodes_to_yield = []
+        if self.expanded:
+            nodes_to_yield.extend(self.getChildren())
+            while nodes_to_yield:
+                child = nodes_to_yield.pop(0)
+                if child.expanded:
+                    nodes_to_yield.extend(child.getChildren())
+                yield child
+                
+        # This is an old, recursive version
+        #if (not onlyExpanded) or (self.expanded):
+        #    for child in self.getChildren():
+        #        for node in child.walkTree(onlyExpanded=onlyExpanded, ignoreRoot=False):
+        #            yield node
     
     def getTreeAsList(self, onlyExpanded=True,):
         _a = []
