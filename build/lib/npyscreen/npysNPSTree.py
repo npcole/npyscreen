@@ -29,22 +29,25 @@ class NPSTreeData(object):
     
     def setParent(self, parent):
         if parent == None:
-            self.parent = None
+            self._parent = None
         else:
-            self.parent = weakref.proxy(parent)
+            self._parent = weakref.proxy(parent)
+    
+    def getParent(self):
+        return self._parent
     
     def findDepth(self, d=0):
         depth = d
-        parent = self.parent
+        parent = self.getParent()
         while parent:
             d += 1
             parent = parent.parent
         return d
         # Recursive
-        #if self.parent == None:
+        #if self._parent == None:
         #    return d
         #else:
-        #    return(self.parent.findDepth(d+1))
+        #    return(self._parent.findDepth(d+1))
     
     def hasChildren(self):
         if len(self._children) > 0:
