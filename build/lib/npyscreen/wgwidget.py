@@ -353,7 +353,7 @@ big a given widget is ... use .height and .width instead"""
         the original.  In Python 3 this function is not needed"""
         # In python 3
         if sys.version_info[0] >= 3:
-            return this_string
+            return this_string.replace('\n', ' ')
         if this_string == None: 
             return ""
         elif not GlobalOptions.ASCII_ONLY:
