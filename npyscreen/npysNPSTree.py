@@ -3,6 +3,7 @@ import weakref
 import collections
 
 class NPSTreeData(object):
+    CHILDCLASS = None
     def __init__(self, content=None, parent=None, selected=False, hilight=False, expanded=True, ignoreRoot=True):
         self.setParent(parent)
         self.setContent(content)
@@ -41,7 +42,7 @@ class NPSTreeData(object):
         parent = self.getParent()
         while parent:
             d += 1
-            parent = parent.parent
+            parent = parent.getParent()
         return d
         # Recursive
         #if self._parent == None:
@@ -56,35 +57,82 @@ class NPSTreeData(object):
             return False
     
     def getChildren(self):
+        for c in self._children:
+            try:
+                yield weakref.proxy(c)
+            except:
+                yield c
+                
+    def getChildrenObjects(self):
+        return self._children[:]
+    
+    def _getChildrenList(self):
         return self._children
     
     def newChild(self, *args, **keywords):
-        c = NPSTreeData(parent=self, *args, **keywords)
+        if self.CHILDCLASS:
+            cld = self.CHILDCLASS
+        else:
+            cld = type(self)
+        c = cld(parent=self, *args, **keywords)
         self._children.append(c)
         return weakref.proxy(c)
+        
+    def removeChild(self, child):
+        new_children = []
+        for ch in self._children:
+            # do it this way because of weakref equality bug.
+            if not ch.getContent() == child.getContent():
+                new_children.append(ch)
+            else:
+                ch.setParent(None)
+        self._children = new_children
     
-    def walkTree(self, onlyExpanded=True, ignoreRoot=True):
+        
+
+    def walkTree(self, onlyExpanded=True, ignoreRoot=True, sort=None, key=None):
         #Iterate over Tree
         if not ignoreRoot:
             yield self
         nodes_to_yield = collections.deque() # better memory management than a list for pop(0)
         if self.expanded:
-            nodes_to_yield.extend(self.getChildren())
+            if sort:
+                # This and the similar block below could be combined into a nested function
+                if key:
+                    nodes_to_yield.extend(sorted(self.getChildren(), key=key))
+                else:
+                    nodes_to_yield.extend(sorted(self.getChildren()))
+            else:
+                nodes_to_yield.extend(self.getChildren())
             while nodes_to_yield:
                 child = nodes_to_yield.popleft()
                 if child.expanded:
-                    nodes_to_yield.extendleft(child.getChildren())
+                    # This and the similar block above could be combined into a nested function
+                    if sort:
+                        if key:
+                            nodes_to_yield.extendleft(sorted(child.getChildren(), key=key))
+                        else:
+                            nodes_to_yield.extendleft(sorted(child.getChildren()))
+                    else:
+                        #for node in child.getChildren():
+                        #    if node not in nodes_to_yield:
+                        #        nodes_to_yield.appendleft(node)
+                        nodes_to_yield.extendleft(child.getChildren())
                 yield child
-                
-        # This is an old, recursive version
-        #if (not onlyExpanded) or (self.expanded):
-        #    for child in self.getChildren():
-        #        for node in child.walkTree(onlyExpanded=onlyExpanded, ignoreRoot=False):
-        #            yield node
     
-    def getTreeAsList(self, onlyExpanded=True,):
+    def _walkTreeRecursive(self,onlyExpanded=True, ignoreRoot=True,):
+        #This is an old, recursive version
+        if (not onlyExpanded) or (self.expanded):
+            for child in self.getChildren():
+                for node in child.walkTree(onlyExpanded=onlyExpanded, ignoreRoot=False):
+                    yield node
+        
+    def getTreeAsList(self, onlyExpanded=True, sort=None, key=None):
         _a = []
-        for node in self.walkTree(onlyExpanded=onlyExpanded, ignoreRoot=self.ignoreRoot):
-            _a.append(weakref.proxy(node))
+        for node in self.walkTree(onlyExpanded=onlyExpanded, ignoreRoot=self.ignoreRoot, sort=sort, key=key):
+            try:
+                _a.append(weakref.proxy(node))
+            except:
+                _a.append(node)
         return _a
 

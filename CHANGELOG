@@ -7,6 +7,13 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+2.0pre38
+display_value method added to the textbox class.  This should make it 
+easier to customize. 
+
+2.0pre37
+Numberous improvements and fixes.  The NPSTree class now no longer
+relies on any recursive functions.
 
 2.0pre36
 The notify_* functions have all recieved some polish and now accept a
