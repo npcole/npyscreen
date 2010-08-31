@@ -1,5 +1,8 @@
 #!/usr/bin/python
 from . import wgwidget    as widget
+from . import npysGlobalOptions as GlobalOptions
+import locale
+import sys
 import curses
 import textwrap
 import re
@@ -19,6 +22,45 @@ class MultiLineEdit(widget.Widget):
 
         self.autowrap = autowrap
         self.wrapon = re.compile("\s+|-+")
+
+    def safe_string(self, this_string):
+        """Check that what you are trying to display contains only
+        printable chars.  (Try to catch dodgy input).  Give it a string,
+        and it will return a string safe to print - without touching
+        the original.  In Python 3 this function is not needed"""
+        # In python 3
+        if sys.version_info[0] >= 3:
+            return this_string
+        if this_string == None: 
+            return ""
+        elif not GlobalOptions.ASCII_ONLY:
+            try:
+                rtn_value = str(this_string).encode(locale.getpreferredencoding())
+                #rtn_value = rtn_value.replace('\n', ' ')  Not for this widget
+                return rtn_value
+            except IndexError:
+                pass
+            except TypeError:
+                pass
+            except UnicodeDecodeError:
+                warnings.warn("Unicode Error")
+                raise
+            except UnicodeEncodeError:
+                pass
+        rtn = self.safe_filter(this_string)
+        return rtn
+
+    def safe_filter(self, this_string):
+        s = ''
+        for cha in this_string:   #.replace('\n', ''): Not of this widget
+            try:
+                s += cha.encode('ascii')
+            except:
+                s += '?'
+        return s
+
+
+
 
     def get_value_as_list(self, upto=None, keepends=False, useEncoding=True):
         if useEncoding:
