@@ -359,6 +359,7 @@ big a given widget is ... use .height and .width instead"""
         elif not GlobalOptions.ASCII_ONLY:
             try:
                 rtn_value = str(this_string).encode(locale.getpreferredencoding())
+                rtn_value = rtn_value.replace('\n', ' ')
                 return rtn_value
             except IndexError:
                 pass
@@ -374,7 +375,7 @@ big a given widget is ... use .height and .width instead"""
     
     def safe_filter(self, this_string):
         s = ''
-        for cha in this_string:
+        for cha in this_string.replace('\n', ''):
             try:
                 s += cha.encode('ascii')
             except:

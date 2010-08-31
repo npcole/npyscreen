@@ -12,6 +12,8 @@ class AnnotateTextboxBase(wgwidget.Widget):
         
         self.text_area = Textfield(screen, rely=self.rely, relx=self.relx+self.ANNOTATE_WIDTH, 
                       width=self.width-self.ANNOTATE_WIDTH, value=self.name)
+        if hasattr(self, 'display_value'):
+            self.text_area.display_value = self.display_value
         self.show_bold = False
         self.highlight = False
         self.important = False
