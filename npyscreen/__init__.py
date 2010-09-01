@@ -29,8 +29,8 @@ from .wgslider                  import Slider, TitleSlider
 
 from .wgwidget                  import DummyWidget
 
-from .wgmultiline               import MultiLine, Pager, TitleMultiLine
-from .wgmultiselect             import MultiSelect, TitleMultiSelect, MultiSelectFixed, TitleMultiSelectFixed
+from .wgmultiline               import MultiLine, Pager, TitleMultiLine, MultiLineAction
+from .wgmultiselect             import MultiSelect, TitleMultiSelect, MultiSelectFixed, TitleMultiSelectFixed, MultiSelectAction
 from .wgeditmultiline           import MultiLineEdit
 from .wgcombobox                import ComboBox, TitleCombo
 from .wgcheckbox                import Checkbox, RoundCheckBox
