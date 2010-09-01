@@ -40,6 +40,36 @@ class MultiSelect(selectone.SelectOne):
             return None
         else:
             return [self.values[x] for x in self.value]
+            
+class MultiSelectAction(MultiSelect):
+    always_act_on_many = False
+    def actionHighlighted(self, act_on_this, key_press):
+        "Override this Method"
+        pass
+    
+    def actionSelected(self, act_on_these, keypress):
+        "Override this Method"
+        pass
+    
+    def set_up_handlers(self):
+        super(MultiSelectAction, self).set_up_handlers()
+        self.handlers.update ( {
+                    curses.ascii.NL:    self.h_act_on_highlighted,
+                    ord(';'):           self.h_act_on_selected,
+                    # "^L":        self.h_set_filtered_to_selected,
+                    curses.ascii.SP:    self.h_act_on_highlighted,
+                } )
+
+    def h_act_on_highlighted(self, ch):
+        if self.always_act_on_many:
+            return self.h_act_on_selected(ch)
+        else:
+            return self.actionHighlighted(self.values[self.cursor_line], ch)
+    
+    def h_act_on_selected(self, ch):
+        if self.vale:
+            return self.actionSelected(self.get_selected_objects(), ch)
+    
         
 class MultiSelectFixed(MultiSelect):
     # This does not allow the user to change Values, but does allow the user to move around.

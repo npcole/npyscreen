@@ -79,10 +79,12 @@ class TreeLine(textbox.TextfieldBase):
 class TreeLineAnnotated(TreeLine):
     ##### EXPERIMENTAL
     def annotationColor(self, real_x):
+        # Must return the "Margin" needed before the entry begins
         self.parent.curses_pad.addstr(self.rely, real_x, 'xxx', self.parent.theme_manager.findPair(self, 'CONTROL'))
         return 3
         
     def annotationNoColor(self, real_x):
+        # Must return the "Margin" needed before the entry begins
         self.parent.curses_pad.addstr(self.rely, real_x, 'xxx')
         return 3
     

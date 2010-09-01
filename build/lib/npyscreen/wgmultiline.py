@@ -480,6 +480,35 @@ object to be passed to the contained widget."""
 ##          curses.napms(10)
 ##          curses.flushinp()
 
+class MultiLineAction(MultiLine):
+    def __init__(self, *args, **keywords):
+        self.allow_multi_action = False    
+    
+    def actionHighlighted(self, act_on_this, key_press):
+        "Override this Method"
+        pass
+    
+    def h_act_on_highlighted(self, ch):
+        return self.actionHighlighted(self.values[self.cursor_line], ch)
+
+    def set_up_handlers(self):
+        super(MultiLineAction, self).set_up_handlers()
+        self.handlers.update ( {
+                    curses.ascii.NL:    self.h_act_on_highlighted,
+                    ord('x'):           self.h_act_on_highlighted,
+                    curses.ascii.SP:    self.h_act_on_highlighted,
+                    } )
+
+    
+    
+    
+        
+
+
+
+
+
+
 class Pager(MultiLine):
     def update(self, clear=True):
         #we look this up a lot. Let's have it here.
