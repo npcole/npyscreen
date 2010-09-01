@@ -73,7 +73,7 @@ class TextfieldBase(widget.Widget):
 
 
 
-
+        # Do this twice so that the _print method can ignore it if needed.
         if self.highlight:
             self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
 
@@ -84,6 +84,9 @@ class TextfieldBase(widget.Widget):
 
 
         self._print()
+        
+        
+        
 
         # reset everything to normal
         self.parent.curses_pad.attroff(curses.A_BOLD)
