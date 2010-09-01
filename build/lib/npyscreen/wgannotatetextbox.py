@@ -22,7 +22,7 @@ class AnnotateTextboxBase(wgwidget.Widget):
     def annotationColor(self):
         self.parent.curses_pad.addstr(self.rely, self.relx, 'xxx', self.parent.theme_manager.findPair(self, 'CONTROL'))
 
-    def annotationNoColor():
+    def annotationNoColor(self):
         self.parent.curses_pad.addstr(self.rely, self.relx, 'xxx')
 
     def update(self, clear=True):

@@ -21,6 +21,7 @@ class TextfieldBase(widget.Widget):
         
         self.syntax_highlighting = False
         self._highlightingdata   = None
+        self.left_margin = 0
         
         self.begin_at = 0   # Where does the display string begin?
         
@@ -47,7 +48,10 @@ class TextfieldBase(widget.Widget):
         if clear: self.clear()
 
         if self.begin_at < 0: self.begin_at = 0
-
+        
+        if self.left_margin >= self.maximum_string_length:
+            raise ValueError
+        
         if self.editing:
             if cursor:
                 if self.cursor_position is False:
@@ -62,14 +66,14 @@ class TextfieldBase(widget.Widget):
                 if self.cursor_position < self.begin_at:
                     self.begin_at = self.cursor_position
 
-                while self.cursor_position > self.begin_at + self.maximum_string_length: # -1:
+                while self.cursor_position > self.begin_at + self.maximum_string_length - self.left_margin: # -1:
                     self.begin_at += 1
             else:
                 self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
 
 
 
-
+        # Do this twice so that the _print method can ignore it if needed.
         if self.highlight:
             self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
 
@@ -80,6 +84,9 @@ class TextfieldBase(widget.Widget):
 
 
         self._print()
+        
+        
+        
 
         # reset everything to normal
         self.parent.curses_pad.attroff(curses.A_BOLD)
@@ -90,7 +97,7 @@ class TextfieldBase(widget.Widget):
             # Cursors do not seem to work on pads.
             #self.parent.curses_pad.move(self.rely, self.cursor_position - self.begin_at)
             # let's have a fake cursor
-            _cur_loc_x = self.cursor_position - self.begin_at + self.relx
+            _cur_loc_x = self.cursor_position - self.begin_at + self.relx + self.left_margin
             # The following two lines work fine for ascii, but not for unicode
             #char_under_cur = self.parent.curses_pad.inch(self.rely, _cur_loc_x)
             #self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
@@ -100,7 +107,7 @@ class TextfieldBase(widget.Widget):
             except:
                 char_under_cur = ' '
 
-            self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
+            self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, curses.A_STANDOUT)
 
     def display_value(self, value):
         return self.safe_string(self.value)
@@ -110,13 +117,13 @@ class TextfieldBase(widget.Widget):
         if string_to_print == None: return
         
         if self.syntax_highlighting:
-            self.update_highlighting(start=self.begin_at, end=self.maximum_string_length+self.begin_at)
-            for i in range(len(string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])):
+            self.update_highlighting(start=self.begin_at, end=self.maximum_string_length+self.begin_at-self.left_margin)
+            for i in range(len(string_to_print[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin])):
                 try:
                     highlight = self._highlightingdata[self.begin_at+i]
                 except:
                     highlight = curses.A_NORMAL
-                self.parent.curses_pad.addstr(self.rely,self.relx+i, 
+                self.parent.curses_pad.addstr(self.rely,self.relx+i+self.left_margin, 
                     string_to_print[self.begin_at+i], 
                     highlight 
                     )
@@ -126,26 +133,26 @@ class TextfieldBase(widget.Widget):
             if self.show_bold and self.color == 'DEFAULT':
                 coltofind = 'BOLD'
             if self.show_bold:
-                self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
+                self.parent.curses_pad.addstr(self.rely,self.relx+self.left_margin, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin], 
                                                     self.parent.theme_manager.findPair(self, coltofind) | curses.A_BOLD)
             elif self.important:
                 coltofind = 'IMPORTANT'
-                self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
+                self.parent.curses_pad.addstr(self.rely,self.relx+self.left_margin, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin], 
                                                     self.parent.theme_manager.findPair(self, coltofind) | curses.A_BOLD)
             else:
-                self.parent.curses_pad.addstr(self.rely,self.relx, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], 
+                self.parent.curses_pad.addstr(self.rely,self.relx+self.left_margin, string_to_print[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin], 
                                                 self.parent.theme_manager.findPair(self))
         else:
             if self.important:
-                self.parent.curses_pad.addstr(self.rely,self.relx, 
-                        string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], curses.A_BOLD)
+                self.parent.curses_pad.addstr(self.rely,self.relx+self.left_margin, 
+                        string_to_print[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin], curses.A_BOLD)
             elif self.show_bold:
-                self.parent.curses_pad.addstr(self.rely,self.relx, 
-                        string_to_print[self.begin_at:self.maximum_string_length+self.begin_at], curses.A_BOLD)
+                self.parent.curses_pad.addstr(self.rely,self.relx+self.left_margin, 
+                        string_to_print[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin], curses.A_BOLD)
 
             else:
-                self.parent.curses_pad.addstr(self.rely,self.relx, 
-                    string_to_print[self.begin_at:self.maximum_string_length+self.begin_at])
+                self.parent.curses_pad.addstr(self.rely,self.relx+self.left_margin, 
+                    string_to_print[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin])
     
     def update_highlighting(self, start=None, end=None, clear=False):
         if clear or (self._highlightingdata == None):
