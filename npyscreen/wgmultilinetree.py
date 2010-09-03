@@ -11,11 +11,14 @@ import weakref
 class TreeLine(textbox.TextfieldBase):
     def __init__(self, *args, **keywords):
         self._tree_real_value   = None
+        self._tree_ignore_root  = None
         self._tree_depth        = False
         self._tree_sibling_next = False
         self._tree_has_children = False
         self._tree_expanded     = True
         self._tree_last_line    = False
+        self._tree_depth_next   = False
+        self.safe_depth_display = False
         super(TreeLine, self).__init__(*args, **keywords)
         
     #EXPERIMENTAL
@@ -30,23 +33,42 @@ class TreeLine(textbox.TextfieldBase):
     def _print_tree(self, real_x):
         if hasattr(self._tree_real_value, 'findDepth'):
             control_chars_added = 0
+            this_safe_depth_display = self.safe_depth_display or ((self.width // 2) + 1)
+            if self._tree_depth_next:
+                _tree_depth_next = self._tree_depth_next
+            else:
+                _tree_depth_next = 0
             dp = self._tree_depth
+            if self._tree_ignore_root:
+                dp -= 1
             if dp: # > 0:
-                for i in range(dp-1):
-                    if not self._tree_last_line:
-                        self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_VLINE, curses.A_NORMAL)
+                if dp < this_safe_depth_display:                    
+                    for i in range(dp-1):
+                        if (i < _tree_depth_next) and (not self._tree_last_line) and not (_tree_depth_next==1):
+                            self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_VLINE, curses.A_NORMAL)
+                        else:
+                            self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_BTEE, curses.A_NORMAL)
+                        real_x +=1
+                        self.parent.curses_pad.addch(self.rely, real_x, ord(' '), curses.A_NORMAL)
+                        real_x +=1
+                    
+                    
+                    
+                    if self._tree_sibling_next:
+                        self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_LTEE, curses.A_NORMAL)
                     else:
-                        self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_BTEE, curses.A_NORMAL)
-                    real_x +=1
-                    self.parent.curses_pad.addch(self.rely, real_x, ord(' '), curses.A_NORMAL)
-                    real_x +=1
-                if self._tree_sibling_next:
-                    self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_LTEE, curses.A_NORMAL)
+                        self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_LLCORNER, curses.A_NORMAL)
+                    real_x += 1
+                    self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_HLINE, curses.A_NORMAL)
+                    real_x += 1
                 else:
-                    self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_LLCORNER, curses.A_NORMAL)
-                real_x += 1
-                self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_HLINE, curses.A_NORMAL)
-                real_x += 1
+                    self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_HLINE, curses.A_NORMAL)
+                    real_x += 1
+                    self.parent.curses_pad.addstr(self.rely, real_x, "[ %s ]" % (str(dp)), curses.A_NORMAL)
+                    real_x += len(str(dp)) + 4
+                    self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_RTEE, curses.A_NORMAL)
+                    real_x += 1
+                    
             if self._tree_has_children:
                 if self._tree_expanded:
                     self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_TTEE, curses.A_NORMAL)
@@ -73,17 +95,25 @@ class TreeLine(textbox.TextfieldBase):
 
 class TreeLineAnnotated(TreeLine):
     ##### EXPERIMENTAL
+    _annotate = "   ?   "
+    _annotatecolor = 'CONTROL'
+    def setAnnotateString(self):
+        self._annotate = "   ?   "
+        self._annotatecolor = 'CONTROL'
+    
     def annotationColor(self, real_x):
         # Must return the "Margin" needed before the entry begins
-        #self.parent.curses_pad.addstr(self.rely, real_x, 'xxx', self.parent.theme_manager.findPair(self, 'CONTROL'))
-        #return 3
-        return 0
+        self.setAnnotateString()
+        self.parent.curses_pad.addstr(self.rely, real_x, self._annotate, self.parent.theme_manager.findPair(self, self._annotatecolor))
+        return len(self._annotate)
         
     def annotationNoColor(self, real_x):
         # Must return the "Margin" needed before the entry begins
         #self.parent.curses_pad.addstr(self.rely, real_x, 'xxx')
         #return 3
-        return 0
+        self.setAnnotateString()
+        self.parent.curses_pad.addstr(self.rely, real_x, self._annotate)
+        return len(self._annotate)
     
     def _print(self):
         self.left_margin = 0
@@ -142,9 +172,12 @@ class MultiLineTreeNew(multiline.MultiLine):
         line._tree_has_children = False
         line._tree_expanded     = False
         line._tree_last_line    = False
+        line._tree_depth_next   = False
+        line._tree_ignore_root  = None
         try:
             line.value = self.display_value(self.values[value_indexer])
             line._tree_real_value = self.values[value_indexer]
+            line._tree_ignore_root = self._myFullValues.ignoreRoot
             try:
                 line._tree_depth        = self.values[value_indexer].findDepth()
                 line._tree_has_children = self.values[value_indexer].hasChildren()
@@ -161,6 +194,10 @@ class MultiLineTreeNew(multiline.MultiLine):
             except:
                 line._sibling_next = False
                 line._tree_last_line = True
+            try:
+                line._tree_depth_next = self.values[value_indexer+1].findDepth()
+            except:
+                line._tree_depth_next = False
             line.hide = False
         except IndexError:
             self._set_line_blank(line)
@@ -207,9 +244,13 @@ class MultiLineTreeNewAction(multiline.MultiLineAction):
         line._tree_has_children = False
         line._tree_expanded     = False
         line._tree_last_line    = False
+        line._tree_depth_next   = False
+        
         try:
             line.value = self.display_value(self.values[value_indexer])
             line._tree_real_value = self.values[value_indexer]
+            line._tree_ignore_root = self._myFullValues.ignoreRoot
+            
             try:
                 line._tree_depth        = self.values[value_indexer].findDepth()
                 line._tree_has_children = self.values[value_indexer].hasChildren()
@@ -226,6 +267,11 @@ class MultiLineTreeNewAction(multiline.MultiLineAction):
             except:
                 line._sibling_next = False
                 line._tree_last_line = True
+            try:
+                line._tree_depth_next = self.values[value_indexer+1].findDepth()
+            except:
+                line._tree_depth_next = False
+        
             line.hide = False
         except IndexError:
             self._set_line_blank(line)
