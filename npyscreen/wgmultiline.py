@@ -34,6 +34,7 @@ class FilterPopupHelper(Popup.Popup):
         self.statusline.display()
 
 class MultiLine(widget.Widget):
+    _safe_to_display_cache = True
     """Display a list of items to the user.  By overloading the display_value method, this widget can be made to 
 display different kinds of objects.  Given the standard definition, 
 the same effect can be achieved by altering the __str__() method of displayed objects"""
@@ -145,7 +146,8 @@ object to be passed to the contained widget."""
         # What this next bit does is to not bother updating the screen if nothing has changed.
         no_change = False
         try:            
-            if ( self._last_value is self.value) and \
+            if (self._safe_to_display_cache and \
+                self._last_value is self.value) and \
                 (self.values == self._last_values) and \
                 (self.start_display_at == self._last_start_display_at) and \
                 (clear != True) and \

@@ -36,6 +36,7 @@ class NPSTreeData(object):
     
     def getParent(self):
         return self._parent
+        
     
     def findDepth(self, d=0):
         depth = d
@@ -43,14 +44,7 @@ class NPSTreeData(object):
         while parent:
             d += 1
             parent = parent.getParent()
-        if self.ignoreRoot == True:
-            d -= 1
-            if d < 0:
-                raise ValueError
-            else:
-                return d
-        else:
-            return d
+        return d
         # Recursive
         #if self._parent == None:
         #    return d
