@@ -482,7 +482,8 @@ object to be passed to the contained widget."""
 
 class MultiLineAction(MultiLine):
     def __init__(self, *args, **keywords):
-        self.allow_multi_action = False    
+        self.allow_multi_action = False  
+        super(MultiLineAction, self).__init__(*args, **keywords)  
     
     def actionHighlighted(self, act_on_this, key_press):
         "Override this Method"
