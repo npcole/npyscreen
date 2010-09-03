@@ -43,7 +43,14 @@ class NPSTreeData(object):
         while parent:
             d += 1
             parent = parent.getParent()
-        return d
+        if self.ignoreRoot == True:
+            d -= 1
+            if d < 0:
+                raise ValueError
+            else:
+                return d
+        else:
+            return d
         # Recursive
         #if self._parent == None:
         #    return d
