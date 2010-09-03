@@ -40,7 +40,7 @@ from .muMenu                    import Menu
 from .wgselectone               import SelectOne, TitleSelectOne
 from .wgdatecombo               import DateCombo, TitleDateCombo
 from .wgmultilinetree           import MultiLineTree, SelectOneTree
-from .wgmultilinetree           import MultiLineTreeNew, TreeLine, TreeLineAnnotated # Experimental
+from .wgmultilinetree           import MultiLineTreeNew, MultiLineTreeNewAction, TreeLine, TreeLineAnnotated # Experimental
 
 
 from .wgmonthbox                import MonthBox
