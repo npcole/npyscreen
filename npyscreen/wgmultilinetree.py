@@ -94,7 +94,7 @@ class TreeLine(textbox.TextfieldBase):
     
 
 class TreeLineAnnotated(TreeLine):
-    ##### EXPERIMENTAL
+    ## Experimental.
     _annotate = "   ?   "
     _annotatecolor = 'CONTROL'
     def setAnnotateString(self):
@@ -134,7 +134,7 @@ class TreeLineAnnotated(TreeLine):
 
 
 class MultiLineTreeNew(multiline.MultiLine):
-    ##### EXPERIMENTAL
+    # Experimental
     _contained_widgets = TreeLineAnnotated
     def _setMyValues(self, tree):
         if tree == [] or tree == None:
@@ -146,11 +146,13 @@ class MultiLineTreeNew(multiline.MultiLine):
     
     def _getApparentValues(self):
         try:
-            if self._cached_tree == weakref.proxy(self._myFullValues):
+            if self._cached_tree is weakref.proxy(self._myFullValues) and \
+            (self._cached_sort == (self._myFullValues.sort, self._myFullValues.sort_function)):
                 return self._cached_tree_as_list
         except:
             pass
         self._cached_tree = weakref.proxy(self._myFullValues)
+        self._cached_sort = (self._myFullValues.sort, self._myFullValues.sort_function)
         self._cached_tree_as_list = self._myFullValues.getTreeAsList()
         return self._cached_tree_as_list
     
@@ -161,6 +163,16 @@ class MultiLineTreeNew(multiline.MultiLine):
         self._myFullValues = None
     
     values = property(_getApparentValues, _setMyValues, _delMyValues)
+    
+    def filter_value(self, index):
+        if self._filter in self.display_value(self.values[index].getContent()):
+            return True
+        else:
+            return False
+    
+    
+    
+    
     
     #def display_value(self, vl):
     #    return vl
@@ -205,79 +217,80 @@ class MultiLineTreeNew(multiline.MultiLine):
             self._set_line_blank(line)
 
 
-class MultiLineTreeNewAction(multiline.MultiLineAction):
-    # Copied from the above.  
-    _contained_widgets = TreeLineAnnotated
-    def _setMyValues(self, tree):
-        if tree == [] or tree == None:
-            self._myFullValues = NPSTree.NPSTreeData()
-        elif not isinstance(tree, NPSTree.NPSTreeData):
-            raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
-        else:
-            self._myFullValues = tree
-    
-    def _getApparentValues(self):
-        try:
-            if self._cached_tree == weakref.proxy(self._myFullValues):
-                return self._cached_tree_as_list
-        except:
-            pass
-        self._cached_tree = weakref.proxy(self._myFullValues)
-        self._cached_tree_as_list = self._myFullValues.getTreeAsList()
-        return self._cached_tree_as_list
-    
-    def _walkMyValues(self):
-        return self._myFullValues.walkTree()
-    
-    def _delMyValues(self):
-        self._myFullValues = None
-    
-    values = property(_getApparentValues, _setMyValues, _delMyValues)
-    
-    #def display_value(self, vl):
-    #    return vl
-    
-    def _set_line_values(self, line, value_indexer):
-        line._tree_real_value   = None
-        line._tree_depth        = False
-        line._tree_sibling_next = False
-        line._tree_has_children = False
-        line._tree_expanded     = False
-        line._tree_last_line    = False
-        line._tree_depth_next   = False
-        
-        try:
-            line.value = self.display_value(self.values[value_indexer])
-            line._tree_real_value = self.values[value_indexer]
-            line._tree_ignore_root = self._myFullValues.ignoreRoot
-            
-            try:
-                line._tree_depth        = self.values[value_indexer].findDepth()
-                line._tree_has_children = self.values[value_indexer].hasChildren()
-                line._tree_expanded     = self.values[value_indexer].expanded
-            except:
-                line._tree_depth        = False
-                line._tree_has_children = False
-                line._tree_expanded     = False
-            try:
-                if line._tree_depth == self.values[value_indexer+1].findDepth():
-                    line._tree_sibling_next = True
-                else:
-                    line._tree_sibling_next = False
-            except:
-                line._sibling_next = False
-                line._tree_last_line = True
-            try:
-                line._tree_depth_next = self.values[value_indexer+1].findDepth()
-            except:
-                line._tree_depth_next = False
-        
-            line.hide = False
-        except IndexError:
-            self._set_line_blank(line)
-        except TypeError:
-            self._set_line_blank(line)
-    
+class MultiLineTreeNewAction(MultiLineTreeNew, multiline.MultiLineAction):
+    pass
+#    # Copied from the above.  
+#    _contained_widgets = TreeLineAnnotated
+#    def _setMyValues(self, tree):
+#        if tree == [] or tree == None:
+#            self._myFullValues = NPSTree.NPSTreeData()
+#        elif not isinstance(tree, NPSTree.NPSTreeData):
+#            raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
+#        else:
+#            self._myFullValues = tree
+#    
+#    def _getApparentValues(self):
+#        try:
+#            if self._cached_tree == weakref.proxy(self._myFullValues):
+#                return self._cached_tree_as_list
+#        except:
+#            pass
+#        self._cached_tree = weakref.proxy(self._myFullValues)
+#        self._cached_tree_as_list = self._myFullValues.getTreeAsList()
+#        return self._cached_tree_as_list
+#    
+#    def _walkMyValues(self):
+#        return self._myFullValues.walkTree()
+#    
+#    def _delMyValues(self):
+#        self._myFullValues = None
+#    
+#    values = property(_getApparentValues, _setMyValues, _delMyValues)
+#    
+#    #def display_value(self, vl):
+#    #    return vl
+#    
+#    def _set_line_values(self, line, value_indexer):
+#        line._tree_real_value   = None
+#        line._tree_depth        = False
+#        line._tree_sibling_next = False
+#        line._tree_has_children = False
+#        line._tree_expanded     = False
+#        line._tree_last_line    = False
+#        line._tree_depth_next   = False
+#        
+#        try:
+#            line.value = self.display_value(self.values[value_indexer])
+#            line._tree_real_value = self.values[value_indexer]
+#            line._tree_ignore_root = self._myFullValues.ignoreRoot
+#            
+#            try:
+#                line._tree_depth        = self.values[value_indexer].findDepth()
+#                line._tree_has_children = self.values[value_indexer].hasChildren()
+#                line._tree_expanded     = self.values[value_indexer].expanded
+#            except:
+#                line._tree_depth        = False
+#                line._tree_has_children = False
+#                line._tree_expanded     = False
+#            try:
+#                if line._tree_depth == self.values[value_indexer+1].findDepth():
+#                    line._tree_sibling_next = True
+#                else:
+#                    line._tree_sibling_next = False
+#            except:
+#                line._sibling_next = False
+#                line._tree_last_line = True
+#            try:
+#                line._tree_depth_next = self.values[value_indexer+1].findDepth()
+#            except:
+#                line._tree_depth_next = False
+#        
+#            line.hide = False
+#        except IndexError:
+#            self._set_line_blank(line)
+#        except TypeError:
+#            self._set_line_blank(line)
+#    
 
 
 

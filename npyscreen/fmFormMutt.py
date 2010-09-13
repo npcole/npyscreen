@@ -38,7 +38,7 @@ class FormMutt(fmForm.FormBaseNew):
         self.nextrely = 2
 
     def h_display(self, input):
-        super(FormMutt, self).h_display()
+        super(FormMutt, self).h_display(input)
         self.wMain.display(clear=True)
 
 class FormMuttWithMenus(FormMutt, fmFormWithMenus.FormBaseNewWithMenus):

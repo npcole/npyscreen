@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 import weakref
 import collections
+import operator
 
 class NPSTreeData(object):
     CHILDCLASS = None
-    def __init__(self, content=None, parent=None, selected=False, hilight=False, expanded=True, ignoreRoot=True):
+    def __init__(self, content=None, parent=None, selected=False, 
+                    hilight=False, expanded=True, ignoreRoot=True, sort_function=None):
         self.setParent(parent)
         self.setContent(content)
         self.selected = selected
@@ -12,6 +14,10 @@ class NPSTreeData(object):
         self.expanded = expanded
         self._children = []
         self.ignoreRoot = ignoreRoot
+        self.sort     = False
+        self.sort_function = sort_function
+        self.sort_function_wrapper = True
+        
     
     def getContent(self):
         return self.content
@@ -91,8 +97,41 @@ class NPSTreeData(object):
     
         
 
-    def walkTree(self, onlyExpanded=True, ignoreRoot=True, sort=None, key=None):
-        #Iterate over Tree
+    def walkTree(self, onlyExpanded=True, ignoreRoot=True, sort=None, sort_function=None):
+        #Iterate over Tree        
+        if sort is None:
+            sort = self.sort
+        
+        if sort_function is None:
+            sort_function = self.sort_function
+        
+        # example sort function # sort = True
+        # example sort function # def sort_function(the_item):
+        # example sort function #     import email.utils
+        # example sort function #     if the_item:
+        # example sort function #         if the_item.getContent():
+        # example sort function #             frm = the_item.getContent().get('from')
+        # example sort function #             try:
+        # example sort function #                 frm = email.utils.parseaddr(frm)[0]
+        # example sort function #             except:
+        # example sort function #                 pass
+        # example sort function #             return frm
+        # example sort function #     else:
+        # example sort function #         return the_item
+        #key = operator.methodcaller('getContent',)
+                    
+        if self.sort_function_wrapper and sort_function:
+            def wrapped_sort_function(the_item):
+                if the_item:
+                    the_real_item = the_item.getContent()
+                    return sort_function(the_real_item)
+                else:
+                    return the_item        
+            _this_sort_function = wrapped_sort_function
+        else:
+            _this_sort_function = sort_function
+        
+        key = _this_sort_function
         if not ignoreRoot:
             yield self
         nodes_to_yield = collections.deque() # better memory management than a list for pop(0)
@@ -130,7 +169,7 @@ class NPSTreeData(object):
         
     def getTreeAsList(self, onlyExpanded=True, sort=None, key=None):
         _a = []
-        for node in self.walkTree(onlyExpanded=onlyExpanded, ignoreRoot=self.ignoreRoot, sort=sort, key=key):
+        for node in self.walkTree(onlyExpanded=onlyExpanded, ignoreRoot=self.ignoreRoot, sort=sort):
             try:
                 _a.append(weakref.proxy(node))
             except:
