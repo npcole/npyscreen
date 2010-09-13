@@ -136,7 +136,7 @@ object to be passed to the contained widget."""
                     self.start_display_at = self.cursor_line
             
             else:
-                if self.cursor_line > self.start_display_at+(display_length-1):
+                if self.cursor_line > self.start_display_at+(display_length-2):
                     self.start_display_at = self.cursor_line
 
                 if self.cursor_line < self.start_display_at:
