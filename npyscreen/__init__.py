@@ -58,6 +58,9 @@ from utilNotify                 import notify, notify_confirm, notify_wait, noti
 # Base classes for overriding:
 from .wgannotatetextbox         import AnnotateTextboxBase
 
+# Standard Forms:
+from . import stdfmemail
+
 
 
 
