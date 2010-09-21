@@ -2,6 +2,7 @@
 import copy
 from . import wgwidget       as widget
 from . import wgtextbox      as textbox
+import textwrap
 import curses
 from . import wgtitlefield   as titlefield
 from . import fmPopup        as Popup
@@ -513,6 +514,24 @@ class MultiLineAction(MultiLine):
 
 
 class Pager(MultiLine):
+    
+    def _wrap_message_lines(self, message_lines, line_length):
+        lines = []
+        for line in message_lines:
+            this_line_set = textwrap.wrap(line.rstrip(), line_length)
+            if this_line_set:
+                lines.extend(this_line_set)
+            else:
+                lines.append('')
+        return lines
+    
+    def setValuesWrap(self, lines):
+        try:
+            lines = lines.split('\n')
+        except AttributeError:
+            pass
+        self.values = self._wrap_message_lines(lines, self.width-1)
+    
     def update(self, clear=True):
         #we look this up a lot. Let's have it here.
         display_length = len(self._my_widgets)

@@ -367,7 +367,7 @@ big a given widget is ... use .height and .width instead"""
                 pass
             except UnicodeDecodeError:
                 warnings.warn("Unicode Error")
-                raise
+                pass
             except UnicodeEncodeError:
                 pass
         rtn = self.safe_filter(this_string)
