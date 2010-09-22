@@ -158,7 +158,7 @@ class TextfieldBase(widget.Widget):
         if clear or (self._highlightingdata == None):
             self._highlightingdata = []
         
-        string_to_print = self.safe_string(self.value)
+        string_to_print = self.display_value(self.value)
 
 
 class Textfield(TextfieldBase):

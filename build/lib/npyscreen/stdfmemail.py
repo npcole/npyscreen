@@ -83,6 +83,7 @@ class EmailViewFm(npyscreen.SplitFormWithMenus):
         self.wEmailBody.values   = []
         self.wStatusLine.value   = ""
         self.wEmailBody.hidden   = True
+        self.wEmailBody.start_display_at = 0
         self.wMessageTree.hidden = False
         self.wMessageTree.cursor_line = 0
                 
@@ -159,7 +160,8 @@ class EmailViewFm(npyscreen.SplitFormWithMenus):
     
     def when_select_part(self, vl):
         self.wEmailBody.hidden = False
-        self.wEmailBody.setValuesWrap(vl[0].getContent().get_payload(decode=True).split("\n"))       
+        self.wEmailBody.setValuesWrap(vl[0].getContent().get_payload(decode=True).split("\n"))
+        self.wEmailBody.start_display_at = 0       
         self.wMessageTree.hidden = True
 
     def when_show_tree(self, vl):

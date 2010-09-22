@@ -77,7 +77,7 @@ class FileGrid(wggrid.SimpleGrid):
         try:
              select_file = os.path.join(self.parent.value, self.values[self.edit_cell[0]][self.edit_cell[1]])
              select_file = os.path.abspath(select_file)
-        except TypeError, IndexError:
+        except (TypeError, IndexError):
             self.edit_cell = [0, 0]
             return False
         
