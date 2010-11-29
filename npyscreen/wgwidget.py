@@ -138,6 +138,7 @@ class Widget(InputHandler):
             hidden=False,
             color='DEFAULT',
             use_max_space=False,
+            check_value_change=True,
             **keywords):
         """The following named arguments may be supplied:
         name= set the name of the widget.
@@ -147,8 +148,9 @@ class Widget(InputHandler):
         max_width=  let the widget choose a width up to this maximum.
         editable=True/False the user may change the value of the widget.
         hidden=True/False The widget is hidden.
+        check_value_change=True - perform a check on every keypress and run when_value_edit if the value is different.
         """
-        
+        self.check_value_change=check_value_change
         self.hidden = hidden
         try:
             self.parent = weakref.proxy(screen)
@@ -340,19 +342,40 @@ big a given widget is ... use .height and .width instead"""
                 #curses.flushinp()
             
             self.handle_input(ch)
+            if self.check_value_change:
+                self.when_check_value_changed()
+                
             self.try_adjust_widgets()
+            
 
     #def when_parent_changes_value(self):
         # Can be called by forms when they chage their value.
         #pass
+
+    def when_check_value_changed(self):
+        "Check whether the widget's value has changed and call when_valued_edited if so."
+        try:
+            if self.value == self._old_value:
+                return False
+        except AttributeError:
+            pass
+        # Value must have changed:
+        self._old_value = self.value
+        self.when_value_edited()
+    
+    def when_value_edited(self):
+        """Called when the user edits the value of the widget.  Will usually also be called the first time
+        that the user edits the widget."""
+        pass
 
     def safe_string(self, this_string):
         """Check that what you are trying to display contains only
         printable chars.  (Try to catch dodgy input).  Give it a string,
         and it will return a string safe to print - without touching
         the original.  In Python 3 this function is not needed"""
-        if this_string == None: 
+        if not this_string: 
             return ""
+        this_string = str(this_string)
         # In python 3
         if sys.version_info[0] >= 3:
             return this_string.replace('\n', ' ')
