@@ -48,6 +48,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
             exit_right = False,
              **keywords):
         
+        self.never_cache     = False
         self.exit_left       = exit_left
         self.exit_right      = exit_right
         super(MultiLine, self).__init__(screen, **keywords)
@@ -163,7 +164,7 @@ object to be passed to the contained widget."""
                 no_change = False
         if clear:
             no_change = False
-        if not no_change or clear:
+        if not no_change or clear or self.never_cache:
             if clear is True: 
                 self.clear()
 

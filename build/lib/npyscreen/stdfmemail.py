@@ -71,6 +71,7 @@ class EmailPager(npyscreen.Pager):
 
 
 class EmailViewFm(npyscreen.SplitFormWithMenus):
+    BLANK_COLUMNS_RIGHT= 1
     SHORT_HEADER_LIST = ('from', 'to', 'cc', 'bcc' 'date', 'subject', 'reply-to')
     DOWNLOAD_DIR = os.path.expanduser("~/Downloads")
     
