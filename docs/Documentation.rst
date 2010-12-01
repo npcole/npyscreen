@@ -203,7 +203,7 @@ Other Standard Form Features
    
    A *keypress_timeout* value of 10 suggests that the *while_waiting* method is called about every second, assuming the user takes no other action.
    
-   See the included example TIMEOUT-EXAMPLE.py for a fully worked example.
+   See the included example Example-waiting.py for a fully worked example.
    
 *set_value(value)*
     Store *value* in the *.value* attribute of the *Form* and then call the *whenParentChangeValue* method of every widget that has it.
@@ -224,6 +224,8 @@ Form, Popup
    The basic Form class.  When editing the form, the user can exit by selecting the OK button in the bottom right corner.
    
    By default, a Form will fill the Terminal.  Popup is simply a Form with a smaller default size.
+   
+   All form classes can have the method *set_value(value)*.  This sets the value of the attribute *value* and calls the method *when_parent_changes_value* of every contained widget on the form.
    
 ActionForm, ActionPopup
    The ActionForm creates OK and Cancel buttons.  Selecting either exits the form.  The method *on_ok* or *on_cancel* is called when the Form exits.  Subclasses may therefore usefully override one or both of these methods, which by default do nothing.
@@ -254,6 +256,9 @@ FormMutt
         This Field occupies the last line of the screen. You can change the type of widget used by altering the *COMMAND_WIDGET_CLASS* class attribute.
    
     By default, wStatus1 and wStatus2 have *editable* set to False.
+    
+FormMuttActive
+    This class is intended to make the creation of more complicated applications easier.  It uses the additional classes *NPSFilteredDataBase* and *ActionControllerSimple* 
     
     
 Menus
@@ -327,6 +332,12 @@ All widgets have the following methods:
 
 *edit()*
    Allow the user to interact with the widget.  The method returns when the user leaves the widget.
+   
+*when_parent_changes_value()*
+    Called whenever the parent's *set_value(value)* method is called.
+    
+*when_value_edited()
+    Called when, during editing of the widget, its value changes.  I.e. after keypresses.
 
 Titled Widgets
 **************

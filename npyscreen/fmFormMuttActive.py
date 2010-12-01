@@ -55,7 +55,7 @@ class FormMuttActive(fmFormMutt.FormMutt):
     COMMAND_WIDGET_CLASS = TextCommandBox
     def __init__(self, *args, **keywords):
         super(FormMuttActive, self).__init__(*args, **keywords)
-        self.value = self.DATA_CONTROLER()
+        self.set_value(self.DATA_CONTROLER())
         self.action_controller = self.ACTION_CONTROLER(parent=self)
         
     
