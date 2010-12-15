@@ -417,6 +417,12 @@ SelectOne, TitleSelectOne
 
 MultiSelectFixed, TitleMultiSelectFixed
     These special versions of MultiSelect are intended to display data, but like Textfixed do not allow the user to actually edit it.
+    
+MultiLineAction
+    A common use case for this sort of widget is to perform an action on the currently highlighted item when the user pushes Return, Space etc.  Override the method *actionHighlighted(self, act_on_this, key_press)* of this class to provide this sort of widget.  That method will be called when the user 'selects' an item (though in this case .value will not actually be set) and will be passed the item highlighted and the key the user actually pressed.
+    
+MultiSelectAction
+    This is similar to the MultiLineAction widget above, except that it also provides the method *actionSelected(self, act_on_these, keypress)*.  This can be overridden, and will be called if the user pressed ';'.  The method will be passed a list of the objects selected and the keypress.  You probably want to adjust the default keybindings to make this widget useful. 
 
 Dates, Sliders and Combination Widgets
 **************************************

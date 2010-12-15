@@ -6,7 +6,7 @@ import curses
 class ActionControllerSearch(npyscreen.ActionControllerSimple):
     def __init__(self, *args, **keywords):
         super(ActionControllerSearch, self).__init__(*args, **keywords)
-        self.add_action('^/.*', self.set_search, False)
+        self.add_action('^/.*', self.set_search, True)
     
     def set_search(self, command_line, widget_proxy, live):
         self.parent.value.set_filter(command_line[1:])
