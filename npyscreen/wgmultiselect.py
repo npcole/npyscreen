@@ -42,7 +42,10 @@ class MultiSelect(selectone.SelectOne):
             return [self.values[x] for x in self.value]
             
 class MultiSelectAction(MultiSelect):
-    always_act_on_many = False
+    def __init__(self, *args, **keywords):
+        self.always_act_on_many = False
+        super(MultiSelectAction, self).__init__(*args, **keywords)
+        
     def actionHighlighted(self, act_on_this, key_press):
         "Override this Method"
         pass
