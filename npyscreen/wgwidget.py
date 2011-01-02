@@ -319,6 +319,11 @@ big a given widget is ... use .height and .width instead"""
     def try_while_waiting(self):
         if hasattr(self.parent, "while_waiting"):
             self.parent.while_waiting()
+        if hasattr(self.parent, "parentApp"):
+            if hasattr(self.parent.parentApp, "_internal_while_waiting"):
+                self.parent.parentApp._internal_while_waiting()
+            if hasattr(self.parent.parentApp, "while_waiting"):
+                self.parent.parentApp.while_waiting()
 
     def get_and_use_key_press(self):
             curses.meta(1)
