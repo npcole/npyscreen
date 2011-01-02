@@ -118,28 +118,33 @@ Additional Services offered by NPSAppManaged
 
 The following methods may be usefully overridden by subclassing NPSAppManaged.  By default they do nothing.
 
-onInMainLoop
+onInMainLoop()
     Called between each screen while the application is running. Not called before the first screen. 
 
-onStart
+onStart()
     Override this method to perform any initialisation.  If you wish, you can set up your application's Forms here.
         
-onCleanExit
+onCleanExit()
     Override this method to perform any cleanup when application is exiting without error.
     
 Forms called by NPSAppManaged can be given the methods
 
-beforeEditing
+beforeEditing()
     called before the edit loop of the form is called
 
-afterEditing
+afterEditing()
     called when the form is exited
 
-activate
+activate()
     The presence of this method entirely overrides the existing .beforeEditing .edit  and afterEditing methods.
     
 switchForm(formid)
     Immediately stop editing the current form and switch to the specified form.
+
+The following attribute affects new Forms:
+
+keypress_timeout_default
+    If this is set, new forms will be created with keypress_timeout set to this, provided they know what application they belong to - i.e. they have been passed *parentApp=* at creation time. If you are using NPSAppManaged, this will happen automatically.
 
 NPSApp
 ------
