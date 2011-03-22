@@ -30,10 +30,10 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
                 self.parentApp = weakref.proxy(parentApp)
             except:
                 self.parentApp = parentApp
-        try:
-            self.keypress_timeout = self.parentApp.keypress_timeout_default
-        except:
-            pass
+            try:
+                self.keypress_timeout = self.parentApp.keypress_timeout_default
+            except AttributeError:
+                pass
         
         self.framed = framed
         self.name=name

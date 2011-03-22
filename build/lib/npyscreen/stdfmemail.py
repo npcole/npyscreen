@@ -17,6 +17,7 @@ class EmailTree(npyscreen.MultiLineTreeNew):
     _contained_widgets = EmailTreeLine
     def display_value(self, vl):
         return vl.getContent().get_content_type()
+        #return vl.get_content_type()
     
     def h_select(self, ch):
         if self.values[self.cursor_line].hasChildren():
@@ -218,7 +219,7 @@ class EmailViewFm(npyscreen.SplitFormWithMenus):
     
     def viewAllHeaders(self,):
         s_header_list = []
-        for headers in self.this_email.keys():
+        for headers in list(self.this_email.keys()):
             these_headers = self.this_email.get_all(headers)
             if these_headers:
                 for h in these_headers:

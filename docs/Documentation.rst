@@ -146,6 +146,9 @@ The following attribute affects new Forms:
 keypress_timeout_default
     If this is set, new forms will be created with keypress_timeout set to this, provided they know what application they belong to - i.e. they have been passed *parentApp=* at creation time. If you are using NPSAppManaged, this will happen automatically.
 
+*while_waiting()*, *_internal_while_waiting()*
+    Applications can also have a while_waiting method.  You can define and override this at will, and it will be called while the application is waiting for user input (see the while_waiting method on forms).  The *_internal_while_waiting()* method is for internal use.
+
 NPSApp
 ------
 
