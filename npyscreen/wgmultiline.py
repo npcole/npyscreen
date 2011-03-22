@@ -123,7 +123,7 @@ object to be passed to the contained widget."""
             
         # clear = None is a good value for this widget
         display_length = len(self._my_widgets)
-        self._remake_filter_cache()
+        #self._remake_filter_cache()
         self._filtered_values_cache = self.get_filtered_indexes()
 
         if self.editing:
@@ -255,7 +255,12 @@ object to be passed to the contained widget."""
         line.highlight=False
             
 
-    def get_filtered_indexes(self):
+    def get_filtered_indexes(self, force_remake_cache=False):
+        if not force_remake_cache and self._last_filter == self._filter and self._last_values == self.values:
+            return self._filtered_values_cache
+        else:
+            self._last_filter = self._filter
+            self._last_values = copy.copy(self.values)
         if self._filter == None or self._filter == '':
             return []
         list_of_indexes = []
@@ -271,7 +276,7 @@ object to be passed to the contained widget."""
         return fvls
     
     def _remake_filter_cache(self):
-        self._filtered_values_cache = self.get_filtered_indexes()
+        self._filtered_values_cache = self.get_filtered_indexes(force_remake_cache=True)
         
 
     def filter_value(self, index):

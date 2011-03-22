@@ -24,7 +24,7 @@ class ActionPopup(fmActionForm.ActionForm, Popup):
         
 class MessagePopup(Popup):
     def __init__(self, *args, **keywords):
-        import multiline 
+        from . import multiline 
         super(MessagePopup, self).__init__(*args, **keywords)
         self.TextWidget = self.add(multiline.Pager, scroll_exit=True, max_height=self.widget_useable_space()[0]-2)
         
