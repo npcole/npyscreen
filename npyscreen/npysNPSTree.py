@@ -145,7 +145,7 @@ class NPSTreeData(object):
         if not ignoreRoot:
             yield self
         nodes_to_yield = collections.deque() # better memory management than a list for pop(0)
-        if self.expanded:
+        if self.expanded or not onlyExpanded:
             if sort:
                 # This and the similar block below could be combined into a nested function
                 if key:
@@ -156,7 +156,7 @@ class NPSTreeData(object):
                 nodes_to_yield.extend(self.getChildren())
             while nodes_to_yield:
                 child = nodes_to_yield.popleft()
-                if child.expanded:
+                if child.expanded or not onlyExpanded:
                     # This and the similar block above could be combined into a nested function
                     if sort:
                         if key:
