@@ -180,7 +180,18 @@ class MultiLineTreeNew(multiline.MultiLine):
             return False
     
     
-    
+    def set_up_handlers(self):
+        super(MultiLineTreeNew, self).set_up_handlers()
+        self.handlers.update({
+                ord('<'): self.h_collapse_tree,
+                ord('>'): self.h_expand_tree,
+                ord('['): self.h_collapse_tree,
+                ord(']'): self.h_expand_tree,
+                ord('{'): self.h_collapse_all,
+                ord('}'): self.h_expand_all,
+                
+        })
+
     
     
     #def display_value(self, vl):
@@ -224,6 +235,31 @@ class MultiLineTreeNew(multiline.MultiLine):
             self._set_line_blank(line)
         except TypeError:
             self._set_line_blank(line)
+            
+    def h_collapse_tree(self, ch):
+        self.values[self.cursor_line].expanded = False
+        self._cached_tree = None
+        self.display()
+
+    def h_expand_tree(self, ch):
+        self.values[self.cursor_line].expanded = True
+        self._cached_tree = None
+        self.display()
+    
+    def h_collapse_all(self, ch):
+        for v in self._myFullValues.walkTree(onlyExpanded=True):
+            v.expanded = False
+        self._cached_tree = None
+        self.cursor_line = 0
+        self.display()
+    
+    def h_expand_all(self, ch):
+        for v in self._myFullValues.walkTree(onlyExpanded=False):
+            v.expanded    = True
+        self._cached_tree = None
+        self.cursor_line  = 0
+        self.display()
+
 
 
 class MultiLineTreeNewAction(MultiLineTreeNew, multiline.MultiLineAction):
