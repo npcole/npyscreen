@@ -256,11 +256,16 @@ object to be passed to the contained widget."""
             
 
     def get_filtered_indexes(self, force_remake_cache=False):
-        if not force_remake_cache and self._last_filter == self._filter and self._last_values == self.values:
-            return self._filtered_values_cache
-        else:
-            self._last_filter = self._filter
-            self._last_values = copy.copy(self.values)
+        if not force_remake_cache:
+            try:
+                if self._last_filter == self._filter and self._last_values == self.values:
+                    return self._filtered_values_cache
+            except ReferenceError:
+                # Can happen if self.values was a list of weak references
+                pass
+        
+        self._last_filter = self._filter
+        self._last_values = copy.copy(self.values)
         if self._filter == None or self._filter == '':
             return []
         list_of_indexes = []

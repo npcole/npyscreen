@@ -96,6 +96,15 @@ class NPSTreeData(object):
         self._children = new_children
     
         
+    def create_wrapped_sort_function(self, this_function):
+        def new_function(the_item):
+            if the_item:
+                the_real_item = the_item.getContent()
+                return this_function(the_real_item)
+            else:
+                return the_item        
+        return new_function
+
 
     def walkTree(self, onlyExpanded=True, ignoreRoot=True, sort=None, sort_function=None):
         #Iterate over Tree        
@@ -121,13 +130,14 @@ class NPSTreeData(object):
         #key = operator.methodcaller('getContent',)
                     
         if self.sort_function_wrapper and sort_function:
-            def wrapped_sort_function(the_item):
-                if the_item:
-                    the_real_item = the_item.getContent()
-                    return sort_function(the_real_item)
-                else:
-                    return the_item        
-            _this_sort_function = wrapped_sort_function
+           # def wrapped_sort_function(the_item):
+           #     if the_item:
+           #         the_real_item = the_item.getContent()
+           #         return sort_function(the_real_item)
+           #     else:
+           #         return the_item        
+           # _this_sort_function = wrapped_sort_function
+           _this_sort_function = self.create_wrapped_sort_function(sort_function)
         else:
             _this_sort_function = sort_function
         
@@ -139,7 +149,7 @@ class NPSTreeData(object):
             if sort:
                 # This and the similar block below could be combined into a nested function
                 if key:
-                    nodes_to_yield.extend(sorted(self.getChildren(), key=key))
+                    nodes_to_yield.extend(sorted(self.getChildren(), key=key,))
                 else:
                     nodes_to_yield.extend(sorted(self.getChildren()))
             else:
@@ -150,9 +160,10 @@ class NPSTreeData(object):
                     # This and the similar block above could be combined into a nested function
                     if sort:
                         if key:
-                            nodes_to_yield.extendleft(sorted(child.getChildren(), key=key))
+                            nodes_to_yield.extendleft(sorted(child.getChildren(), key=key, reverse=True)) 
+                            # must be reverse because about to use extendleft() below.
                         else:
-                            nodes_to_yield.extendleft(sorted(child.getChildren()))
+                            nodes_to_yield.extendleft(sorted(child.getChildren(), reverse=True))
                     else:
                         #for node in child.getChildren():
                         #    if node not in nodes_to_yield:

@@ -19,6 +19,7 @@ class TreeLine(textbox.TextfieldBase):
         self._tree_last_line    = False
         self._tree_depth_next   = False
         self.safe_depth_display = False
+        self.show_v_lines       = False
         super(TreeLine, self).__init__(*args, **keywords)
         
     #EXPERIMENTAL
@@ -45,9 +46,17 @@ class TreeLine(textbox.TextfieldBase):
                 if dp < this_safe_depth_display:                    
                     for i in range(dp-1):
                         if (i < _tree_depth_next) and (not self._tree_last_line) and not (_tree_depth_next==1):
-                            self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_VLINE, curses.A_NORMAL)
+                            if self.show_v_lines:
+                                self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_VLINE, curses.A_NORMAL)
+                            else:
+                                self.parent.curses_pad.addch(self.rely, real_x, ' ', curses.A_NORMAL)
+                                
                         else:
-                            self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_BTEE, curses.A_NORMAL)
+                            if self.show_v_lines:
+                                self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_BTEE, curses.A_NORMAL)
+                            else:
+                                self.parent.curses_pad.addch(self.rely, real_x, ' ', curses.A_NORMAL)
+                                
                         real_x +=1
                         self.parent.curses_pad.addch(self.rely, real_x, ord(' '), curses.A_NORMAL)
                         real_x +=1
