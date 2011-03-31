@@ -207,6 +207,8 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
         self.erase()
         self.display()
         self.display(clear=False)
+        if self.editing and self.editw is not None:
+            self._widgets__[self.editw].display()
 
 
     def h_display(self, input):
