@@ -160,15 +160,18 @@ class NPSTreeData(object):
                     # This and the similar block above could be combined into a nested function
                     if sort:
                         if key:
-                            nodes_to_yield.extendleft(sorted(child.getChildren(), key=key, reverse=True)) 
                             # must be reverse because about to use extendleft() below.
+                            nodes_to_yield.extendleft(sorted(child.getChildren(), key=key, reverse=True)) 
                         else:
                             nodes_to_yield.extendleft(sorted(child.getChildren(), reverse=True))
                     else:
                         #for node in child.getChildren():
                         #    if node not in nodes_to_yield:
                         #        nodes_to_yield.appendleft(node)
-                        nodes_to_yield.extendleft(child.getChildren())
+                        yield_these = list(child.getChildren())
+                        yield_these.reverse()
+                        nodes_to_yield.extendleft(yield_these)
+                        del yield_these
                 yield child
     
     def _walkTreeRecursive(self,onlyExpanded=True, ignoreRoot=True,):

@@ -152,6 +152,11 @@ class MultiLineTreeNew(multiline.MultiLine):
             raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
         else:
             self._myFullValues = tree
+            
+    def clearDisplayCache(self):
+        self._cached_tree = None
+        self._cached_sort = None
+        self._cached_tree_as_list = None
     
     def _getApparentValues(self):
         try:
@@ -237,12 +242,27 @@ class MultiLineTreeNew(multiline.MultiLine):
             self._set_line_blank(line)
             
     def h_collapse_tree(self, ch):
-        self.values[self.cursor_line].expanded = False
+        if self.values[self.cursor_line].expanded:
+            self.values[self.cursor_line].expanded = False
+        else:
+            look_for_depth = self.values[self.cursor_line].findDepth() - 1
+            cursor_line = self.cursor_line - 1
+            while cursor_line >= 0:
+                if look_for_depth == self.values[cursor_line].findDepth():
+                    self.cursor_line = cursor_line
+                    self.values[cursor_line].expanded = False
+                    break
+                else:
+                    cursor_line -=1
         self._cached_tree = None
         self.display()
 
     def h_expand_tree(self, ch):
-        self.values[self.cursor_line].expanded = True
+        if not self.values[self.cursor_line].expanded:
+            self.values[self.cursor_line].expanded = True
+        else:
+            for v in self.values[self.cursor_line].walkTree(onlyExpanded=True):
+                v.expanded = True
         self._cached_tree = None
         self.display()
     
