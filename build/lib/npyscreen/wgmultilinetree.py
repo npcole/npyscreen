@@ -193,8 +193,7 @@ class MultiLineTreeNew(multiline.MultiLine):
                 ord('['): self.h_collapse_tree,
                 ord(']'): self.h_expand_tree,
                 ord('{'): self.h_collapse_all,
-                ord('}'): self.h_expand_all,
-                
+                ord('}'): self.h_expand_all,                
         })
 
     
@@ -242,7 +241,7 @@ class MultiLineTreeNew(multiline.MultiLine):
             self._set_line_blank(line)
             
     def h_collapse_tree(self, ch):
-        if self.values[self.cursor_line].expanded:
+        if self.values[self.cursor_line].expanded and self.values[self.cursor_line].hasChildren():
             self.values[self.cursor_line].expanded = False
         else:
             look_for_depth = self.values[self.cursor_line].findDepth() - 1
@@ -261,7 +260,7 @@ class MultiLineTreeNew(multiline.MultiLine):
         if not self.values[self.cursor_line].expanded:
             self.values[self.cursor_line].expanded = True
         else:
-            for v in self.values[self.cursor_line].walkTree(onlyExpanded=True):
+            for v in self.values[self.cursor_line].walkTree(onlyExpanded=False):
                 v.expanded = True
         self._cached_tree = None
         self.display()
@@ -279,7 +278,6 @@ class MultiLineTreeNew(multiline.MultiLine):
         self._cached_tree = None
         self.cursor_line  = 0
         self.display()
-
 
 
 class MultiLineTreeNewAction(MultiLineTreeNew, multiline.MultiLineAction):
