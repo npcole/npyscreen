@@ -137,11 +137,6 @@ class TreeLineAnnotated(TreeLine):
         super(TreeLine, self)._print()
 
 
-
-
-
-
-
 class MultiLineTreeNew(multiline.MultiLine):
     # Experimental
     _contained_widgets = TreeLineAnnotated
@@ -278,6 +273,7 @@ class MultiLineTreeNew(multiline.MultiLine):
         self._cached_tree = None
         self.cursor_line  = 0
         self.display()
+
 
 
 class MultiLineTreeNewAction(MultiLineTreeNew, multiline.MultiLineAction):
