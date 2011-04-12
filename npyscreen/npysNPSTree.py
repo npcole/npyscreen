@@ -173,7 +173,7 @@ class NPSTreeData(object):
                         nodes_to_yield.extendleft(yield_these)
                         del yield_these
                 yield child
-    
+
     def _walkTreeRecursive(self,onlyExpanded=True, ignoreRoot=True,):
         #This is an old, recursive version
         if (not onlyExpanded) or (self.expanded):
