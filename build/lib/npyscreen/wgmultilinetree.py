@@ -137,11 +137,6 @@ class TreeLineAnnotated(TreeLine):
         super(TreeLine, self)._print()
 
 
-
-
-
-
-
 class MultiLineTreeNew(multiline.MultiLine):
     # Experimental
     _contained_widgets = TreeLineAnnotated
@@ -149,10 +144,16 @@ class MultiLineTreeNew(multiline.MultiLine):
         if tree == [] or tree == None:
             self._myFullValues = NPSTree.NPSTreeData()
         elif not isinstance(tree, NPSTree.NPSTreeData):
-            raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
+            tree = self.convertToTree(tree)
+            if not isinstance(tree, NPSTree.NPSTreeData):
+                raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
         else:
             self._myFullValues = tree
-            
+    
+    def convertToTree(tree):
+        "Override this function to convert a set of values to a tree."
+        return None
+    
     def clearDisplayCache(self):
         self._cached_tree = None
         self._cached_sort = None
@@ -278,6 +279,7 @@ class MultiLineTreeNew(multiline.MultiLine):
         self._cached_tree = None
         self.cursor_line  = 0
         self.display()
+
 
 
 class MultiLineTreeNewAction(MultiLineTreeNew, multiline.MultiLineAction):

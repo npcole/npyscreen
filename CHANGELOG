@@ -7,6 +7,10 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+
+2.0pre39
+Numerous improvements to the tree classes. And other bug fixes.
+
 2.0pre38
 display_value method added to the textbox class.  This should make it 
 easier to customize. 
