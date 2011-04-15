@@ -6,11 +6,11 @@ import operator
 class NPSTreeData(object):
     CHILDCLASS = None
     def __init__(self, content=None, parent=None, selected=False, 
-                    hilight=False, expanded=True, ignoreRoot=True, sort_function=None):
+                    highlight=False, expanded=True, ignoreRoot=True, sort_function=None):
         self.setParent(parent)
         self.setContent(content)
         self.selected = selected
-        self.hilight  = hilight
+        self.highlight  = highlight
         self.expanded = expanded
         self._children = []
         self.ignoreRoot = ignoreRoot
@@ -32,7 +32,7 @@ class NPSTreeData(object):
         return self.selected
     
     def isHighlighted(self):
-        return self.hilight
+        return self.highlight
     
     def setParent(self, parent):
         if parent == None:
@@ -173,7 +173,7 @@ class NPSTreeData(object):
                         nodes_to_yield.extendleft(yield_these)
                         del yield_these
                 yield child
-    
+
     def _walkTreeRecursive(self,onlyExpanded=True, ignoreRoot=True,):
         #This is an old, recursive version
         if (not onlyExpanded) or (self.expanded):
