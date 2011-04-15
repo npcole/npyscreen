@@ -1,13 +1,15 @@
 from . import wgwidget
 from .wgtextbox import Textfield
 
+
 class AnnotateTextboxBase(wgwidget.Widget):
     """A base class intented for customization. Note in particular the annotationColor and annotationNoColor methods
     which you should override."""
     ANNOTATE_WIDTH = 5
     
-    def __init__(self, screen, value = False, **keywords):
+    def __init__(self, screen, value = False, annotation_color='CONTROL', **keywords):
         self.value = value
+        self.annotation_color = annotation_color
         super(AnnotateTextboxBase, self).__init__(screen, **keywords)
         
         self.text_area = Textfield(screen, rely=self.rely, relx=self.relx+self.ANNOTATE_WIDTH, 
@@ -19,11 +21,16 @@ class AnnotateTextboxBase(wgwidget.Widget):
         self.important = False
         self.hide      = False
     
+    def getAnnotationAndColor(self):
+        return ('xxx', 'CONTROL')
+    
     def annotationColor(self):
-        self.parent.curses_pad.addstr(self.rely, self.relx, 'xxx', self.parent.theme_manager.findPair(self, 'CONTROL'))
+        _annotation, _color = self.getAnnotationAndColor()
+        self.parent.curses_pad.addstr(self.rely, self.relx, _annotation, self.parent.theme_manager.findPair(self, _color))
 
     def annotationNoColor(self):
-        self.parent.curses_pad.addstr(self.rely, self.relx, 'xxx')
+        _annotation, _color = self.getAnnotationAndColor()
+        self.parent.curses_pad.addstr(self.rely, self.relx, _annotation)
 
     def update(self, clear=True):
         if clear: self.clear()
