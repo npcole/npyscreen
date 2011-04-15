@@ -4,6 +4,7 @@ EXAMPLE-ManagedApp.py
 EXAMPLE-WIDGETLIST.py
 EXAMPLE-basic-editor.py
 EXAMPLE-fuller.py
+EXAMPLE-mutt-like-annotated.py
 EXAMPLE-mutt-like.py
 EXAMPLE-muttactive.py
 EXAMPLE-nocolor.py
