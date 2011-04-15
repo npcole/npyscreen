@@ -484,7 +484,22 @@ Trees
 *****
 
 MultiLineTree, SelectOneTree, and MultiLineTree
-    These widgets all work in a very similar way to the non-Tree versions, except that they expect to contain an NPSTree in their .values attribute.  The other major difference is that their .value attribute does not contain the index of the selected value(s), but the selected value(s) itself/themselves.
+    These widgets all work in a very similar way to the non-Tree versions,
+except that they expect to contain an NPSTree in their .values attribute.
+The other major difference is that their .value attribute does not contain
+the index of the selected value(s), but the selected value(s)
+itself/themselves.  However, these classes will in a future version be DEPRECATED in favour of the
+much improved *MultiLineTreeNew* and *MultiLineTreeNewAction* classes.
+
+MultiLineTreeNew, MultiLineTreeNewAction
+	The *values* attribute of this class must store an NPSTree instance.
+However, if you wish you can override the method *convertToTree* of this
+class.  This method should return an NPSTree instance.  The function will be
+called automatically whenever *values* is assigned.
+
+	By default this class uses *TreeLineAnnotated* widgets to display each
+line of the tree.  You can change this by changing the class attribute
+*_contained_widgets*.
 
 Grids
 *****
@@ -527,7 +542,39 @@ FormControlCheckbox
    addInvisibleWhenSelected(*wg*)
       Widgets registered in this way are visible only when the FormControlCheckbox is not selected.
       
+AnnotateTextboxBase, TreeLineAnnotated
+	The AnnotateTextboxBase class is mainly intended for use by the
+multiline listing widgets, for situations where each item displayed needs an
+annotation supplied to the left of the entry itself.  The API for these
+classes is slightly ugly, because these classes were originally intended for
+internal use only.  It is likely that more user-friendly versions will be
+supplied in a later release.  Classes derived from AnnotateTextboxBase
+should define the following:
 
+	*ANNOTATE_WIDTH*
+		This class attribute defines how much margin to leave before the
+text entry widget itself.
+
+	*getAnnotationAndColor* 
+		This function should return a tuple consisting of the string to
+display as the annotation and the name of the colour to use when displaying
+it.  The colour will be ignored on B/W displays, but should be provided in
+all cases, and the string should not be longer than *ANNOTATE_WIDTH*,
+although by default the class does not check this.
+
+	*annotationColor*, *annotationNoColor*
+		These methods draw the annotation on the screen.  If using strings
+only, these should not need overriding.  If one is altered, the other should
+be too, since npyscreen will use one if the display is configured for colour
+and the other if configured for black and white.
+
+	The TreeLineAnnotated class works differently.  In this case, the
+important method to define is:
+
+	*setAnnotateString*
+		This method should set the attributes *self._annotate* which should
+be a string, and *self._annotatecolor* which should be the name of a colour.
+In this class the margin is dynamically calculated.  
     
 All about Key Bindings
 ======================
