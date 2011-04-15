@@ -29,7 +29,8 @@ class AnnotateTextboxBase(wgwidget.Widget):
         self.parent.curses_pad.addstr(self.rely, self.relx, _annotation, self.parent.theme_manager.findPair(self, _color))
 
     def annotationNoColor(self):
-        self.parent.curses_pad.addstr(self.rely, self.relx, 'xxx')
+        _annotation, _color = self.getAnnotationAndColor()
+        self.parent.curses_pad.addstr(self.rely, self.relx, _annotation)
 
     def update(self, clear=True):
         if clear: self.clear()
