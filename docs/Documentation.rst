@@ -553,7 +553,8 @@ should define the following:
 
 	*ANNOTATE_WIDTH*
 		This class attribute defines how much margin to leave before the
-text entry widget itself.
+text entry widget itself.  In the TreeLineAnnotated class the margin needed is calculated
+dynamically, and ANNOTATE_WIDTH is not needed.
 
 	*getAnnotationAndColor* 
 		This function should return a tuple consisting of the string to
@@ -568,14 +569,8 @@ only, these should not need overriding.  If one is altered, the other should
 be too, since npyscreen will use one if the display is configured for colour
 and the other if configured for black and white.
 
-	The TreeLineAnnotated class works differently.  In this case, the
-important method to define is:
 
-	*setAnnotateString*
-		This method should set the attributes *self._annotate* which should
-be a string, and *self._annotatecolor* which should be the name of a colour.
-In this class the margin is dynamically calculated.  
-    
+ 
 All about Key Bindings
 ======================
 

@@ -106,23 +106,31 @@ class TreeLineAnnotated(TreeLine):
     ## Experimental.
     _annotate = "   ?   "
     _annotatecolor = 'CONTROL'
+    
+    def getAnnotationAndColor(self):
+        # This is actually the api.  Override this function to return the correct string and colour name as a tuple.
+        self.setAnnotateString()
+        return (self._annotate, self._annotatecolor)
+    
     def setAnnotateString(self):
+        # This was an experimental function it was the original way to set the string and annotation.
         self._annotate = "   ?   "
         self._annotatecolor = 'CONTROL'
     
     def annotationColor(self, real_x):
         # Must return the "Margin" needed before the entry begins
-        self.setAnnotateString()
-        self.parent.curses_pad.addstr(self.rely, real_x, self._annotate, self.parent.theme_manager.findPair(self, self._annotatecolor))
+         # historical reasons.
+        _annotation, _color = self.getAnnotationAndColor()
+        self.parent.curses_pad.addstr(self.rely, real_x, _annotation, self.parent.theme_manager.findPair(self, _color))
         return len(self._annotate)
         
     def annotationNoColor(self, real_x):
         # Must return the "Margin" needed before the entry begins
         #self.parent.curses_pad.addstr(self.rely, real_x, 'xxx')
         #return 3
-        self.setAnnotateString()
-        self.parent.curses_pad.addstr(self.rely, real_x, self._annotate)
-        return len(self._annotate)
+        _annotation, _color = self.getAnnotationAndColor()
+        self.parent.curses_pad.addstr(self.rely, real_x, _annotation)
+        return len(_annotation)
     
     def _print(self):
         self.left_margin = 0
