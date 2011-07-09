@@ -365,6 +365,7 @@ object to be passed to the contained widget."""
                     # "^L":        self.h_set_filtered_to_selected,
                     curses.ascii.SP:    self.h_select,
                     curses.ascii.ESC:   self.h_exit,
+                    curses.ascii.CR:    self.h_select_exit,
                 } )
                 
         if self.exit_left:
