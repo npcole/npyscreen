@@ -232,9 +232,12 @@ class Textfield(TextfieldBase):
             #self.cursor_position += len(curses.keyname(input))
             
             # workaround for the metamode bug:
-            self.value = self.value[:self.cursor_position] + chr(input) \
+            
+            ch_adding = chr(input)
+            
+            self.value = self.value[:self.cursor_position] + ch_adding \
                 + self.value[self.cursor_position:]
-            self.cursor_position += len(chr(input))
+            self.cursor_position += len(ch_adding)
 
             # or avoid it entirely:
             #self.value = self.value[:self.cursor_position] + curses.ascii.unctrl(input) \

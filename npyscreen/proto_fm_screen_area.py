@@ -9,7 +9,11 @@ from . import npysThemeManagers as ThemeManagers
 
 
 # For more complex method of getting the size of screen
-import fcntl, termios, struct, sys
+try:
+    import fcntl, termios, struct, sys
+except:
+    # Win32 platforms do not have fcntl
+    pass
 
 
 APPLICATION_THEME_MANAGER = None
@@ -103,7 +107,7 @@ class ScreenArea(object):
         # and see the size curses makes it.  No good to keep, though
         try:
             mxy, mxx = struct.unpack('hh', fcntl.ioctl(sys.stderr.fileno(), termios.TIOCGWINSZ, 'xxxx'))
-        except ValueError:
+        except ValueError, NameError:
             mxy, mxx = curses.newwin(0,0).getmaxyx()
 
         # return safe values, i.e. slightly smaller.
