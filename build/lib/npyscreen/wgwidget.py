@@ -380,7 +380,7 @@ big a given widget is ... use .height and .width instead"""
         the original.  In Python 3 this function is not needed"""
         if not this_string: 
             return ""
-        this_string = str(this_string)
+        #this_string = str(this_string)
         # In python 3
         if sys.version_info[0] >= 3:
             return this_string.replace('\n', ' ')
@@ -401,6 +401,12 @@ big a given widget is ... use .height and .width instead"""
                 warnings.warn("Unicode Error")
                 rtn = self.safe_filter(this_string)
                 return rtn
+                
+            except UnicodeEncodeError:
+                warnings.warn("Unicode Error")
+                rtn = self.safe_filter(this_string)
+                return rtn
+            
 
         else:
             rtn = self.safe_filter(this_string)
@@ -414,9 +420,13 @@ big a given widget is ... use .height and .width instead"""
             pass
         s = []
         for cha in this_string.replace('\n', ' '):
-            if curses.ascii.isprint(cha):
-                s.append(cha)
-            else:
+            #if curses.ascii.isprint(cha):
+            #    s.append(cha)
+            #else:
+            #    s.append('?')
+            try:
+                s.append(str(cha))
+            except:
                 s.append('?')
         s = ''.join(s)
         

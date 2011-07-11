@@ -40,7 +40,7 @@ class MiniButton(checkbox._ToggleControl):
         
 
 class MiniButtonPress(MiniButton):
-    def h_tottle(self):
+    def h_toggle(self):
         self.value = True
         self.display()
         self.whenPressed()

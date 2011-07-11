@@ -8,6 +8,7 @@ EXAMPLE-mutt-like-annotated.py
 EXAMPLE-mutt-like.py
 EXAMPLE-muttactive.py
 EXAMPLE-nocolor.py
+EXAMPLE-unicode-py3.py
 EXAMPLE-unicode.py
 EXAMPLE-waiting.py
 EXAMPLE.py
@@ -19,6 +20,7 @@ docs/Tutorial.rst
 docs/api.rst
 npyscreen/__init__.py
 npyscreen/apNPSApplication.py
+npyscreen/apNPSApplicationAdvanced.py
 npyscreen/apNPSApplicationManaged.py
 npyscreen/fmActionForm.py
 npyscreen/fmFileSelector.py
