@@ -16,6 +16,8 @@ class NPSAppManaged(apNPSApplication.NPSApp):
        Doing this will avoid accidentally exceeding the maximum recursion depth.  Forms themselves should be placed under the management
        of the class using the 'addForm' or 'addFormClass' method.
        
+       NB.  * Applications should therefore use this mechanism in preference to calling the .edit() method of any form. *
+       
     2. Forms that are managed by this class can access a proxy to the parent application through their ".parentApp" attribute, which is
        created by this class.
        
@@ -120,7 +122,8 @@ class NPSAppManaged(apNPSApplication.NPSApp):
 
 
     def main(self):
-        """Call this function to start your application.  You should not override this function, but override the onInMainLoop, onStart and
+        """Call this function to start your application, usually called indirectly through the function .run().  
+        You should not override this function, but override the onInMainLoop, onStart and
         onCleanExit methods instead, if you need to modify the application's behaviour. 
 
         When this method is called, it will activate the form named by the class variable STARTING_FORM.  By default this Form will be called

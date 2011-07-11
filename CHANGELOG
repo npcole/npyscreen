@@ -7,6 +7,8 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+2.0pre40
+Bug fixes based on user reports - esp. win32.
 
 2.0pre39
 Numerous improvements to the tree classes. And other bug fixes.
