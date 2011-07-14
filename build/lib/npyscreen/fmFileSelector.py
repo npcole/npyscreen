@@ -108,6 +108,9 @@ class FileSelector(fmFormMutt.FormMutt):
         except:
             self.value = os.getcwd()
     
+    def beforeEditing(self,):
+        self.adjust_widgets()
+    
     def update_grid(self,):
         if self.value:
             self.value = os.path.expanduser(self.value)

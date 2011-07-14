@@ -103,14 +103,17 @@ class TextfieldBase(widget.Widget):
             #self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
             #The following appears to work for unicode as well.
             try:
-                char_under_cur = self.safe_string(self.value[self.cursor_position])
+                char_under_cur = self.display_value(self.value)[self.cursor_position]
             except:
                 char_under_cur = ' '
 
             self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, curses.A_STANDOUT)
 
     def display_value(self, value):
-        return self.safe_string(str(self.value))
+        if value == None:
+            return ''
+        else:
+            return self.safe_string(str(self.value))
 
     def _print(self):
         string_to_print = self.display_value(self.value)
