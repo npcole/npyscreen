@@ -25,13 +25,13 @@ Objects Overview
 ================
 
 Form Objects
-	Form objects (typically the size of a whole terminal, but sometimes larger or - for menus and the like - smaller) provide an area which can contain widget objects.  They may provide additional functions like a system for handling menus, or routines that will be run if a user selects an "ok" button.  They may also define operations carried out between key-presses, or as the user moves around the Form.
-	
+    Form objects (typically the size of a whole terminal, but sometimes larger or - for menus and the like - smaller) provide an area which can contain widget objects.  They may provide additional functions like a system for handling menus, or routines that will be run if a user selects an "ok" button.  They may also define operations carried out between key-presses, or as the user moves around the Form.
+    
 Widget Objects
-	These are the individual controls on a form - text boxes, labels, sliders, and so on.
-	
+    These are the individual controls on a form - text boxes, labels, sliders, and so on.
+    
 Application Objects
-	These objects provide a convenient way to manage the running of your application.  Although it is possible to program simple applications without using the Application objects, it is not advisable.  Application objects make the management of multiple screens much less error-prone (in the 'bugs that may at any time crash your application') sense.  In addition, making use of these objects will enable you to take advantage of additional features as npyscreen is developed.
+    These objects provide a convenient way to manage the running of your application.  Although it is possible to program simple applications without using the Application objects, it is not advisable.  Application objects make the management of multiple screens much less error-prone (in the 'bugs that may at any time crash your application') sense.  In addition, making use of these objects will enable you to take advantage of additional features as npyscreen is developed.
 
 Programming with npyscreen
 ==========================
@@ -80,10 +80,10 @@ Letting NPSAppManaged manage your Forms
 There are two methods for registering a Form object with an NPSAppManaged instance:
 
 .registerForm(*id*, *fm*)
-	*id* should be a string that uniquely identifies the form.  *fm* should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - in contrast to the .addForm version.
-	
+    *id* should be a string that uniquely identifies the form.  *fm* should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - in contrast to the .addForm version.
+    
 .addForm(*id*, *FormClass* ...)
-	This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  *id* should be a string that uniquely identifies the Form.  *FormClass* should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.  In most cases, you should use the *registerForm* method and not this one.
+    This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  *id* should be a string that uniquely identifies the Form.  *FormClass* should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.  In most cases, you should use the *registerForm* method and not this one.
 
 .addFormClass(*id*, *FormClass* ...):
     This version registers a class of form rather than an instance.  A new instance will be created every time it is edited.
@@ -344,7 +344,7 @@ All widgets have the following methods:
 *when_parent_changes_value()*
     Called whenever the parent's *set_value(value)* method is called.
     
-*when_value_edited()
+*when_value_edited()*
     Called when, during editing of the widget, its value changes.  I.e. after keypresses.
 
 Titled Widgets
@@ -436,7 +436,10 @@ Dates, Sliders and Combination Widgets
 **************************************
 
 DateCombo, TitleDateCombo
-    These widgets allow a user to select a date.  The actual selection of a date is done with the class MonthBox, which is displayed in a temporary window.
+    These widgets allow a user to select a date.  The actual selection of a date is done with the class MonthBox, which is displayed in a temporary window.  The constructor can be passed the following arguments:
+        allowPastDate=False
+        allowTodaysDate=False
+    both of which will affect what the user is allowed to select.
 
 ComboBox, TitleCombo
     This box looks like a Textbox, but the user can only select from a list of options.  Which are displayed in a temporary window if the user wants to change the value.  Like the MultiLine widget, the attribute *value* is the index of a selection in the list *values*.  The ComboBox widget can also be customised by overloading the *display_value(self, vl)* method. 
@@ -467,7 +470,6 @@ Trees and Tree displays
 (The tree objects are the newest part of the library, and are therefore not as mature as the rest of it. In particular, the exact way they are displayed may change in future versions.).
 
 
-
 NPSTreeData
     The NPSTreeData class is used to represent tree objects.  Each nod of the tree, including the root node, is an NPSTreeData instance.  Each node may have its own content, a parent or children.
 
@@ -485,21 +487,21 @@ Trees
 
 MultiLineTree, SelectOneTree, and MultiLineTree
     These widgets all work in a very similar way to the non-Tree versions,
-except that they expect to contain an NPSTree in their .values attribute.
-The other major difference is that their .value attribute does not contain
-the index of the selected value(s), but the selected value(s)
-itself/themselves.  However, these classes will in a future version be DEPRECATED in favour of the
-much improved *MultiLineTreeNew* and *MultiLineTreeNewAction* classes.
+    except that they expect to contain an NPSTree in their .values attribute.
+    The other major difference is that their .value attribute does not contain
+    the index of the selected value(s), but the selected value(s)
+    itself/themselves.  However, these classes will in a future version be DEPRECATED in favour of the
+    much improved *MultiLineTreeNew* and *MultiLineTreeNewAction* classes. 
 
 MultiLineTreeNew, MultiLineTreeNewAction
-	The *values* attribute of this class must store an NPSTree instance.
-However, if you wish you can override the method *convertToTree* of this
-class.  This method should return an NPSTree instance.  The function will be
-called automatically whenever *values* is assigned.
+    The *values* attribute of this class must store an NPSTree instance.
+    However, if you wish you can override the method *convertToTree* of this
+    class.  This method should return an NPSTree instance.  The function will be
+    called automatically whenever *values* is assigned.
 
-	By default this class uses *TreeLineAnnotated* widgets to display each
-line of the tree.  You can change this by changing the class attribute
-*_contained_widgets*.
+    By default this class uses *TreeLineAnnotated* widgets to display each
+    line of the tree.  You can change this by changing the class attribute
+    *_contained_widgets*.
 
 Grids
 *****
@@ -543,31 +545,31 @@ FormControlCheckbox
       Widgets registered in this way are visible only when the FormControlCheckbox is not selected.
       
 AnnotateTextboxBase, TreeLineAnnotated
-	The AnnotateTextboxBase class is mainly intended for use by the
-multiline listing widgets, for situations where each item displayed needs an
-annotation supplied to the left of the entry itself.  The API for these
-classes is slightly ugly, because these classes were originally intended for
-internal use only.  It is likely that more user-friendly versions will be
-supplied in a later release.  Classes derived from AnnotateTextboxBase
-should define the following:
+    The AnnotateTextboxBase class is mainly intended for use by the
+    multiline listing widgets, for situations where each item displayed needs an
+    annotation supplied to the left of the entry itself.  The API for these
+    classes is slightly ugly, because these classes were originally intended for
+    internal use only.  It is likely that more user-friendly versions will be
+    supplied in a later release.  Classes derived from AnnotateTextboxBase
+    should define the following:
 
-	*ANNOTATE_WIDTH*
-		This class attribute defines how much margin to leave before the
-text entry widget itself.  In the TreeLineAnnotated class the margin needed is calculated
-dynamically, and ANNOTATE_WIDTH is not needed.
+    *ANNOTATE_WIDTH*
+        This class attribute defines how much margin to leave before the
+        text entry widget itself.  In the TreeLineAnnotated class the margin needed is calculated
+        dynamically, and ANNOTATE_WIDTH is not needed.
 
-	*getAnnotationAndColor* 
-		This function should return a tuple consisting of the string to
-display as the annotation and the name of the colour to use when displaying
-it.  The colour will be ignored on B/W displays, but should be provided in
-all cases, and the string should not be longer than *ANNOTATE_WIDTH*,
-although by default the class does not check this.
+    *getAnnotationAndColor* 
+        This function should return a tuple consisting of the string to
+        display as the annotation and the name of the colour to use when displaying
+        it.  The colour will be ignored on B/W displays, but should be provided in
+        all cases, and the string should not be longer than *ANNOTATE_WIDTH*,
+        although by default the class does not check this.
 
-	*annotationColor*, *annotationNoColor*
-		These methods draw the annotation on the screen.  If using strings
-only, these should not need overriding.  If one is altered, the other should
-be too, since npyscreen will use one if the display is configured for colour
-and the other if configured for black and white.
+    *annotationColor*, *annotationNoColor*
+        These methods draw the annotation on the screen.  If using strings
+        only, these should not need overriding.  If one is altered, the other should
+        be too, since npyscreen will use one if the display is configured for colour
+        and the other if configured for black and white.
 
 
  
@@ -589,10 +591,10 @@ Many objects can take actions based on user key presses.  All such objects inher
          curses.KEY_UP:     self.h_exit_up,
          curses.KEY_LEFT:   self.h_exit_left,
          curses.KEY_RIGHT:  self.h_exit_right,
-         "^P":		        self.h_exit_up,
-         "^N":		        self.h_exit_down,
-         curses.ascii.ESC:	self.h_exit_escape,
-         curses.KEY_MOUSE:	self.h_exit_mouse,
+         "^P":              self.h_exit_up,
+         "^N":              self.h_exit_down,
+         curses.ascii.ESC:  self.h_exit_escape,
+         curses.KEY_MOUSE:  self.h_exit_mouse,
          }
 
 If a key is pressed (note support for notations like "^N" for "Control-N" and "!a" for "Alt N") that exists as a key in this dictionary, the function associated with it is called.  No further action is taken.  By convention functions that handle user input are prefixed with h\_.
