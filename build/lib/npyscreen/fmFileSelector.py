@@ -6,6 +6,7 @@ from . import wgautocomplete
 import curses
 import os
 import os.path
+import operator
 
 class FileCommand(wgautocomplete.Filename):
     def set_up_handlers(self):
@@ -125,9 +126,28 @@ class FileSelector(fmFormMutt.FormMutt):
             
         self.wStatus1.value = working_dir
         
-        file_list = ["..", ]
-        file_list.extend(os.listdir(working_dir))        
+        file_list = [".." ]
+        file_list.extend(os.listdir(working_dir))
+
+        # DOES NOT CURRENTLY WORK - EXCEPT FOR THE WORKING DIRECTORY.  REFACTOR.
+
+
+
+        new_file_list= []
+        for f in file_list:
+            f = os.path.normpath(f)
+            if os.path.isdir(f):
+                new_file_list.append(f + os.sep)
+            else:
+                new_file_list.append(f + "*")
+        file_list = new_file_list
+        del new_file_list
+
+        # sort Filelist
+        file_list.sort()
+        file_list.sort(key=os.path.isdir, reverse=True)
         
+                
         file_list_cols    = [ [], ]
         column_number_max = self.wMain.columns
         col_number        = 0

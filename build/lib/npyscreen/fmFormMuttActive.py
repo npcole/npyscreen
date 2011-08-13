@@ -51,12 +51,12 @@ class TextCommandBox(wgtextbox.Textfield):
 
 class FormMuttActive(fmFormMutt.FormMutt):
     DATA_CONTROLER    = npysNPSFilteredData.NPSFilteredDataList
-    ACTION_CONTROLER  = ActionControllerSimple
+    ACTION_CONTROLLER  = ActionControllerSimple
     COMMAND_WIDGET_CLASS = TextCommandBox
     def __init__(self, *args, **keywords):
         super(FormMuttActive, self).__init__(*args, **keywords)
         self.set_value(self.DATA_CONTROLER())
-        self.action_controller = self.ACTION_CONTROLER(parent=self)
+        self.action_controller = self.ACTION_CONTROLLER(parent=self)
         
     
 

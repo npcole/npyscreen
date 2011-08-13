@@ -110,10 +110,13 @@ class TextfieldBase(widget.Widget):
             self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, curses.A_STANDOUT)
 
     def display_value(self, value):
-        if value == None:
-            return ''
-        else:
-            return self.safe_string(str(self.value))
+        try:
+            if value == None:
+                return ''
+            else:
+                return self.safe_string(str(self.value))
+        except ReferenceError:
+            return "****REFERENCE ERROR****"
 
     def _print(self):
         string_to_print = self.display_value(self.value)

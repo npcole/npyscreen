@@ -16,7 +16,7 @@ class NPSFilteredDataBase(object):
         self._apply_filter()
 
     def filter_data(self):
-        # should return the filtered data
+        # should set self._filtered_values to the filtered values
         raise Exception("You need to define the way the filter operates")
     
     def get(self):

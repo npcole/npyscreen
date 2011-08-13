@@ -415,7 +415,9 @@ object to be passed to the contained widget."""
         self.cursor_line = 0
     
     def h_cursor_end(self, ch):
-        self.cursor_line= len(self.values)
+        self.cursor_line= len(self.values)-1
+        if self.cursor_line < 0:
+            self.cursor_line = 0
 
     def h_cursor_page_down(self, ch):
         self.cursor_line += (len(self._my_widgets)-1) # -1 because of the -more-
