@@ -33,11 +33,13 @@ class AnnotateTextboxBase(wgwidget.Widget):
         self.parent.curses_pad.addstr(self.rely, self.relx, _annotation)
 
     def update(self, clear=True):
-        if clear: self.clear()
+        if clear: 
+            self.clear()
         if self.hidden:
             self.clear()
             return False
-        if self.hide: return True
+        if self.hide: 
+            return True
 
         self.text_area.value = self.value
 

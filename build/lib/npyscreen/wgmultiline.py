@@ -217,6 +217,15 @@ object to be passed to the contained widget."""
         self._last_values = copy.copy(self.values)
         self._last_value  = copy.copy(self.value)
         
+        # This will prevent the program crashing if the user has changed values, and the cursor 
+        # is now on the bottom line.
+        if self._my_widgets[self.cursor_line-self.start_display_at].task == MORE_LABEL: 
+            if self.slow_scroll:
+                self.start_display_at += 1
+            else:
+                self.start_display_at = self.cursor_line
+            self.update(clear=clear)
+        
 
 
     def _print_line(self, line, value_indexer):
@@ -549,9 +558,10 @@ class Pager(MultiLine):
     def update(self, clear=True):
         #we look this up a lot. Let's have it here.
         display_length = len(self._my_widgets)
+        values_len = len(self.values)
     
-        if self.start_display_at > len(self.values) - display_length: 
-            self.start_display_at = len(self.values) - display_length
+        if self.start_display_at > values_len - display_length: 
+            self.start_display_at = values_len - display_length
         if self.start_display_at < 0: self.start_display_at = 0
         
         indexer = 0 + self.start_display_at
@@ -562,7 +572,7 @@ class Pager(MultiLine):
         # Now do the final line
         line = self._my_widgets[-1]
             
-        if len(self.values) <= indexer+1:
+        if values_len <= indexer+1:
             self._print_line(line, indexer)
         else:
             line.value = MORE_LABEL
