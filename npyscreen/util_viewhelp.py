@@ -9,7 +9,7 @@ def view_help(message, title="Message", form_color="STANDOUT"):
     mlw_width = mlw.width-1
     
     message_lines = []
-    for line in message.split('\n'):
+    for line in message.splitlines():
         line = textwrap.wrap(line, mlw_width)
         if line == []:
             message_lines.append('')
