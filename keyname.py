@@ -9,7 +9,7 @@ def mainloop(scr):
 	S.display()
 	while 1:
 		S.curses_pad.keypad(1)
-		curses.cbreak()
+		#curses.cbreak()
 		curses.raw()
 		curses.cbreak()
 		#S.curses_pad.nodelay(1)
