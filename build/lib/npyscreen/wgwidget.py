@@ -326,31 +326,33 @@ big a given widget is ... use .height and .width instead"""
                 self.parent.parentApp.while_waiting()
 
     def get_and_use_key_press(self):
-            curses.meta(1)
-            self.parent.curses_pad.keypad(1)
-            if self.parent.keypress_timeout:
-                curses.halfdelay(self.parent.keypress_timeout)
-                ch = self.parent.curses_pad.getch()
-                if ch == -1:
-                    return self.try_while_waiting()
-            else:
-                self.parent.curses_pad.timeout(-1)
-                ch = self.parent.curses_pad.getch()
-            # handle escape-prefixed rubbish.
-            if ch == curses.ascii.ESC:
-                #self.parent.curses_pad.timeout(1)
-                self.parent.curses_pad.nodelay(1)
-                ch2 = self.parent.curses_pad.getch()
-                if ch2 != -1: 
-                    ch = curses.ascii.alt(ch2)
-                self.parent.curses_pad.timeout(-1) # back to blocking mode
-                #curses.flushinp()
+        curses.raw()
+        curses.cbreak()
+        curses.meta(1)
+        self.parent.curses_pad.keypad(1)
+        if self.parent.keypress_timeout:
+            curses.halfdelay(self.parent.keypress_timeout)
+            ch = self.parent.curses_pad.getch()
+            if ch == -1:
+                return self.try_while_waiting()
+        else:
+            self.parent.curses_pad.timeout(-1)
+            ch = self.parent.curses_pad.getch()
+        # handle escape-prefixed rubbish.
+        if ch == curses.ascii.ESC:
+            #self.parent.curses_pad.timeout(1)
+            self.parent.curses_pad.nodelay(1)
+            ch2 = self.parent.curses_pad.getch()
+            if ch2 != -1: 
+                ch = curses.ascii.alt(ch2)
+            self.parent.curses_pad.timeout(-1) # back to blocking mode
+            #curses.flushinp()
+        
+        self.handle_input(ch)
+        if self.check_value_change:
+            self.when_check_value_changed()
             
-            self.handle_input(ch)
-            if self.check_value_change:
-                self.when_check_value_changed()
-                
-            self.try_adjust_widgets()
+        self.try_adjust_widgets()
             
 
     #def when_parent_changes_value(self):

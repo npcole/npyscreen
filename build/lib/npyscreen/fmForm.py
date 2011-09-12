@@ -87,7 +87,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
         self.handlers = { 
                     curses.KEY_F1: self.h_display_help,
                     "KEY_F(1)": self.h_display_help,
-                    "^U":       self.h_display_help,
+                    "^O":       self.h_display_help,
                     "^L":       self.h_display,
                     #curses.KEY_RESIZE: self.h_display,
                     }
@@ -292,7 +292,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
 
             if self.help and self.editing:
                 try:
-                    help_advert = " Help: F1 or ^U "
+                    help_advert = " Help: F1 or ^O "
                     self.curses_pad.addstr(
                      0, self.curses_pad.getmaxyx()[1]-len(help_advert)-2, help_advert 
                      )

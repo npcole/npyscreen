@@ -7,10 +7,16 @@ def view_help(message, title="Message", form_color="STANDOUT"):
     F = fmForm.Form(name=title, color=form_color)
     mlw = F.add(wgmultiline.Pager,)
     mlw_width = mlw.width-1
-    message = textwrap.wrap(message, mlw_width)
-    mlw.values = message
+    
+    message_lines = []
+    for line in message.split('\n'):
+        line = textwrap.wrap(line, mlw_width)
+        if line == []:
+            message_lines.append('')
+        else:
+            message_lines.extend(line)
+    mlw.values = message_lines
     F.edit()
-    del wlw
-    F.destroy()
+    del mlw
     del F
     

@@ -15,7 +15,7 @@ def mainloop(scr):
 			(curses.keyname(ch), curses.ascii.unctrl(ch), ch))
 			scr.addstr(1,0, str(ch))
 		except:
-			pass
+			raise
 		#return ch
 		#scr.addstr(2,2, unicode(ch, 'utf-8'))
 		scr.refresh()
