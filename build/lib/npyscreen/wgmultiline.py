@@ -531,12 +531,13 @@ class MultiLineAction(MultiLine):
     
         
 
-
-
-
-
-
 class Pager(MultiLine):
+    def __init__(self, screen, autowrap=False,  **keywords):
+        super(Pager, self).__init__(screen, **keywords)
+        self.autowrap = autowrap
+        self._values_cache_for_wrapping = []
+        
+    
     
     def _wrap_message_lines(self, message_lines, line_length):
         lines = []
@@ -549,14 +550,20 @@ class Pager(MultiLine):
         return lines
     
     def setValuesWrap(self, lines):
+        if self.autowrap and (lines == self._values_cache_for_wrapping):
+            return False
         try:
             lines = lines.split('\n')
         except AttributeError:
             pass
         self.values = self._wrap_message_lines(lines, self.width-1)
-    
+        self._values_cache_for_wrapping = self.values 
+        
     def update(self, clear=True):
         #we look this up a lot. Let's have it here.
+        if self.autowrap:
+            self.setValuesWrap(self.values)
+            
         display_length = len(self._my_widgets)
         values_len = len(self.values)
     
