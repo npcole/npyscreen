@@ -113,7 +113,11 @@ class TextfieldBase(widget.Widget):
         if value == None:
             return ''
         else:
-            return self.safe_string(str(self.value))
+            try:
+                str_value = str(value)
+            except ReferenceError:                
+                return ">*ERROR*ERROR*ERROR*<"
+            return self.safe_string(str_value)
 
     def _print(self):
         string_to_print = self.display_value(self.value)
@@ -281,6 +285,8 @@ class FixedText(TextfieldBase):
         super(FixedText, self).set_up_handlers()
         self.handlers.update({curses.KEY_LEFT:    self.h_cursor_left,
                            curses.KEY_RIGHT:   self.h_cursor_right,
+                           ord('k'):    self.h_exit_up,
+                           ord('j'):    self.h_exit_down,
                            })
     
     

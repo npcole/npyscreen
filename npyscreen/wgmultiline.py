@@ -532,7 +532,7 @@ class MultiLineAction(MultiLine):
         
 
 class Pager(MultiLine):
-    def __init__(self, screen, autowrap,  **keywords):
+    def __init__(self, screen, autowrap=False,  **keywords):
         super(Pager, self).__init__(screen, **keywords)
         self.autowrap = autowrap
         self._values_cache_for_wrapping = []
@@ -550,7 +550,7 @@ class Pager(MultiLine):
         return lines
     
     def setValuesWrap(self, lines):
-        if lines == self._values_cache_for_wrapping:
+        if self.autowrap and (lines == self._values_cache_for_wrapping):
             return False
         try:
             lines = lines.split('\n')
