@@ -13,11 +13,9 @@ class MenuViewerController(object):
         self._menuStack = []
         self._editing = False
 
-
     def create(self):
         pass
-    
-    
+        
     def setMenu(self, mnu):
         self._menuStack = []
         self._setMenuWithoutResettingStack(mnu)
