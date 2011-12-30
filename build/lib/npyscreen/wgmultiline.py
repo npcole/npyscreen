@@ -542,11 +542,14 @@ class Pager(MultiLine):
     def _wrap_message_lines(self, message_lines, line_length):
         lines = []
         for line in message_lines:
-            this_line_set = textwrap.wrap(line.rstrip(), line_length)
-            if this_line_set:
-                lines.extend(this_line_set)
-            else:
+            if line.rstrip() == '':
                 lines.append('')
+            else:
+                this_line_set = textwrap.wrap(line.rstrip(), line_length)
+                if this_line_set:
+                    lines.extend(this_line_set)
+                else:
+                    lines.append('')
         return lines
     
     def setValuesWrap(self, lines):
