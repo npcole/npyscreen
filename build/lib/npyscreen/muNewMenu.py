@@ -31,15 +31,16 @@ class NewMenu(object):
         return weakref.proxy(_mnu)
     
     def getItemObjects(self):
-        return self._menuList
+        return [itm for itm in self._menuList if itm.enabled]
         
 
 class MenuItem(object):
     """docstring for MenuItem"""
-    def __init__(self, text='', onSelect=None, document=None):
+    def __init__(self, text='', onSelect=None, document=None,):
         self.setText(text)
         self.setOnSelect(onSelect)
         self.setDocumentation(document)
+        self.enabled = True
         
     def setText(self, text):
         self._text = text
