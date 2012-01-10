@@ -8,6 +8,7 @@ class NewMenu(object):
     def __init__(self, name=None):
         self.name      = name
         self._menuList = []
+        self.enabled   = True
     
     def addItemsFromList(self, item_list):
         for l in item_list:

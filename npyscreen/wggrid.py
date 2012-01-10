@@ -150,6 +150,14 @@ Should accept one argument (the object to be represented), and return a string."
         self.complex_handlers = [
                     ]
     
+    def getValuesFlatList(self):
+        output_list = []
+        for row in self.values:
+            for col in row:
+                output_list.append(col)
+        return output_list
+    
+    
     def ensure_cursor_on_display_down_right(self, inpt=None):
         while self.begin_row_display_at  + len(self._my_widgets) - 1 < self.edit_cell[0]:
             self.h_scroll_display_down(inpt)

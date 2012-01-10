@@ -91,7 +91,14 @@ class FileGrid(wggrid.SimpleGrid):
         else:
             self.parent.wCommand.value = select_file
             self.h_exit_down(None)
-
+    
+    def display_value(self, vl):
+        p = os.path.split(vl)
+        if p[1]:
+            return p[1]
+        else:
+            return os.path.split(p[0])[1] + os.sep
+        
 class FileSelector(fmFormMutt.FormMutt):
     MAIN_WIDGET_CLASS   = FileGrid
     COMMAND_WIDGET_CLASS= FileCommand
@@ -127,19 +134,16 @@ class FileSelector(fmFormMutt.FormMutt):
         self.wStatus1.value = working_dir
         
         file_list = [".." ]
-        file_list.extend(os.listdir(working_dir))
+        file_list.extend([os.path.join(working_dir, fn) for fn in os.listdir(working_dir)])
 
         # DOES NOT CURRENTLY WORK - EXCEPT FOR THE WORKING DIRECTORY.  REFACTOR.
-
-
-
         new_file_list= []
         for f in file_list:
             f = os.path.normpath(f)
             if os.path.isdir(f):
                 new_file_list.append(f + os.sep)
             else:
-                new_file_list.append(f + "*")
+                new_file_list.append(f) # + "*")
         file_list = new_file_list
         del new_file_list
 
@@ -161,6 +165,7 @@ class FileSelector(fmFormMutt.FormMutt):
             col_number += 1
         
         self.wMain.values = file_list_cols
+        self.edit_cell = [0,0]
         self.display()
         
     def adjust_widgets(self):
