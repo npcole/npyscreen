@@ -7,6 +7,10 @@ TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
 
+2.0pre45
+Bug fixes.  Calendar is now more robust.
+Menus can now be dynamically enabled and disabled.
+
 2.0pre44
 Numerous bug fixes and improvements.  The help system (apparently broken for
 some time) has been fixed.

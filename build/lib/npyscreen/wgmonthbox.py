@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from . import wgwidget   as widget
+from . import wgwidget as widget
 import calendar
 import datetime
 import curses
@@ -23,6 +23,8 @@ class DateEntryBase(widget.Widget):
             return datetime.date
             
     def _check_date(self):
+        if not self.value:
+            return None
         if not self.allow_date_in_past:
             if self.value < self.date_or_datetime().today():
                 if self.allow_todays_date:
@@ -149,11 +151,14 @@ class MonthBox(DateEntryBase):
             self.clear()
             return False
         if not self.value:
-            self.addstr(self.rely, self.relx, "No value set")
+            self.parent.curses_pad.addstr(self.rely, self.relx, "No value set")
         else:
             year  = self.value.year
             month = self.value.month
-            monthname = self.value.strftime('%B')
+            try:
+                monthname = self.value.strftime('%B')
+            except ValueError:
+                monthname = "Month: %s" % self.value.month
             day   = self.value.day
         
             # Print the Title Line
@@ -163,37 +168,43 @@ class MonthBox(DateEntryBase):
             else:
                 self.parent.curses_pad.addstr(self.rely, self.relx, ("%s, %s" % (monthname, year)))
         
-            # Print the day names
-            # weekheader puts an extra space at the end of each name
-            if self.do_colors():
-                self.parent.curses_pad.addstr(self.rely+1, self.relx, calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1),
-                                                self.parent.theme_manager.findPair(self, 'LABEL'))
-            else:
-                self.parent.curses_pad.addstr(self.rely+1, self.relx, calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1))
-        
             # Print the days themselves
-            cal_data = calendar.monthcalendar(year, month)
-            print_line = self.rely+2
+            try:
+                cal_data = calendar.monthcalendar(year, month)
+                do_cal_print = True
+            except OverflowError:
+                do_cal_print = False
+                self.parent.curses_pad.addstr(self.rely+1, self.relx, "Unable to display")
+                self.parent.curses_pad.addstr(self.rely+2, self.relx, "calendar for date.")
+            if do_cal_print:
+                # Print the day names
+                # weekheader puts an extra space at the end of each name
+                if self.do_colors():
+                    self.parent.curses_pad.addstr(self.rely+1, self.relx, calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1),
+                                                    self.parent.theme_manager.findPair(self, 'LABEL'))
+                else:
+                    self.parent.curses_pad.addstr(self.rely+1, self.relx, calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1))
+                print_line = self.rely+2
         
-            for calrow in cal_data:
-                print_column = self.relx
+                for calrow in cal_data:
+                    print_column = self.relx
             
-                for thisday in calrow:
-                    if thisday is 0:
-                        pass
-                    elif day == thisday:
-                        if self.do_colors():
-                            self.parent.curses_pad.addstr(print_line, print_column, str(thisday), curses.A_STANDOUT | self.parent.theme_manager.findPair(self, self.color))
+                    for thisday in calrow:
+                        if thisday is 0:
+                            pass
+                        elif day == thisday:
+                            if self.do_colors():
+                                self.parent.curses_pad.addstr(print_line, print_column, str(thisday), curses.A_STANDOUT | self.parent.theme_manager.findPair(self, self.color))
+                            else:
+                                self.parent.curses_pad.addstr(print_line, print_column, str(thisday), curses.A_STANDOUT)
                         else:
-                            self.parent.curses_pad.addstr(print_line, print_column, str(thisday), curses.A_STANDOUT)
-                    else:
-                        if self.do_colors():
-                            self.parent.curses_pad.addstr(print_line, print_column, str(thisday), self.parent.theme_manager.findPair(self, self.color))
-                        else:
-                            self.parent.curses_pad.addstr(print_line, print_column, str(thisday))
-                    print_column += self.__class__.DAY_FIELD_WIDTH
+                            if self.do_colors():
+                                self.parent.curses_pad.addstr(print_line, print_column, str(thisday), self.parent.theme_manager.findPair(self, self.color))
+                            else:
+                                self.parent.curses_pad.addstr(print_line, print_column, str(thisday))
+                        print_column += self.__class__.DAY_FIELD_WIDTH
             
-                print_line += 1
+                    print_line += 1
             # Print some help
             if self.do_colors():
                 self.parent.curses_pad.addstr(self.rely+9, self.relx, "keys: dwmyDWMYt", self.parent.theme_manager.findPair(self, 'LABEL'))

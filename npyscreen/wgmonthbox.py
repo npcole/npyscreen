@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from . import wgwidget   as widget
+from . import wgwidget as widget
 import calendar
 import datetime
 import curses
@@ -23,6 +23,8 @@ class DateEntryBase(widget.Widget):
             return datetime.date
             
     def _check_date(self):
+        if not self.value:
+            return None
         if not self.allow_date_in_past:
             if self.value < self.date_or_datetime().today():
                 if self.allow_todays_date:
