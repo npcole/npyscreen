@@ -2,7 +2,7 @@
 
 import curses
 import curses.panel
-import curses.wrapper
+#import curses.wrapper
 from . import npyspmfuncs as pmfuncs
 import os
 from . import npysThemeManagers as ThemeManagers

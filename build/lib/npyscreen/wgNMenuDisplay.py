@@ -109,7 +109,13 @@ class MenuDisplayScreen(Form.Form):
     def __init__(self, *args, **keywords):
         super(MenuDisplayScreen, self).__init__(*args, **keywords)
         self._menuListWidget = self.add(multiline.MultiLine, return_exit=True)
-
+        self._menuListWidget.add_handlers({
+            ord('q'):       self._menuListWidget.h_exit_down,
+            ord('Q'):       self._menuListWidget.h_exit_down,
+            ord('x'):       self._menuListWidget.h_select_exit,
+            curses.ascii.SP:    self._menuListWidget.h_select_exit,
+        })
+        
 class HasMenus(object):
     MENU_KEY = "^X"
     def initialize_menus(self):
@@ -140,6 +146,7 @@ class HasMenus(object):
                 _root_menu.addSubmenu(mnu)            
             self._NMDisplay.setMenu(_root_menu)
             self._NMDisplay.edit()
+        self.DISPLAY()
         
     def popup_menu(self, menu):
         self._NMDisplay.setMenu(menu)

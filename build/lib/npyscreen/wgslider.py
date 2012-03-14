@@ -62,7 +62,7 @@ class Slider(widget.Widget):
             self.parent.curses_pad.bkgdset(curses.A_NORMAL)
             #self.parent.curses_pad.bkgdset(curses.ACS_HLINE)
             BACKGROUND_CHAR = curses.ACS_HLINE
-            BARCHAR         = ' '
+            BARCHAR         = " "
         
     
         for n in range(blocks_on_screen):
@@ -127,5 +127,4 @@ class Slider(widget.Widget):
 
 class TitleSlider(titlefield.TitleText):
     _entry_type = Slider
-
-
+    
