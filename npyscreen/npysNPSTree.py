@@ -57,6 +57,15 @@ class NPSTreeData(object):
         #else:
         #    return(self._parent.findDepth(d+1))
     
+    def isLastSibling(self):
+        if self.getParent():
+            if self.getParent().getChildren()[-1] == self:
+                return True
+            else:
+                return False
+        else:
+            return None
+    
     def hasChildren(self):
         if len(self._children) > 0:
             return True
@@ -105,7 +114,12 @@ class NPSTreeData(object):
                 return the_item        
         return new_function
 
-
+    def walkParents(self):
+        p = self.getParent()
+        while p:
+            yield p
+            p = p.getParent()
+            
     def walkTree(self, onlyExpanded=True, ignoreRoot=True, sort=None, sort_function=None):
         #Iterate over Tree        
         if sort is None:

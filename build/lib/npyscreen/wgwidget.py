@@ -3,7 +3,7 @@
 import sys
 import curses
 import curses.ascii
-import curses.wrapper
+#import curses.wrapper
 import weakref
 from . import npysGlobalOptions as GlobalOptions
 import locale
@@ -310,7 +310,13 @@ big a given widget is ... use .height and .width instead"""
         self.highlight = 0
         self.update()
         
-
+    def _get_ch(self):
+        try:
+            # Python3.3 and above - returns unicode
+            ch = self.parent.curses_pad.get_wch()
+        except AttributeError:
+            ch = self.parent.curses_pad.getch()
+        return ch
 
     def try_adjust_widgets(self):
         if hasattr(self.parent, "adjust_widgets"):
@@ -332,12 +338,12 @@ big a given widget is ... use .height and .width instead"""
         self.parent.curses_pad.keypad(1)
         if self.parent.keypress_timeout:
             curses.halfdelay(self.parent.keypress_timeout)
-            ch = self.parent.curses_pad.getch()
+            ch = self._get_ch()
             if ch == -1:
                 return self.try_while_waiting()
         else:
             self.parent.curses_pad.timeout(-1)
-            ch = self.parent.curses_pad.getch()
+            ch = self._get_ch()
         # handle escape-prefixed rubbish.
         if ch == curses.ascii.ESC:
             #self.parent.curses_pad.timeout(1)

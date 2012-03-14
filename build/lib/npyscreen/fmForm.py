@@ -10,9 +10,6 @@ from . import npysGlobalOptions
 from . import fm_form_edit_loop   as form_edit_loop
 from . import util_viewhelp
 
-
-
-
 class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
     BLANK_COLUMNS_RIGHT= 2
     BLANK_LINES_BASE   = 2

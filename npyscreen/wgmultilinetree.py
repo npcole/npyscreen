@@ -202,7 +202,9 @@ class MultiLineTreeNew(multiline.MultiLine):
                 ord('['): self.h_collapse_tree,
                 ord(']'): self.h_expand_tree,
                 ord('{'): self.h_collapse_all,
-                ord('}'): self.h_expand_all,                
+                ord('}'): self.h_expand_all,
+                ord('h'): self.h_collapse_tree,
+                ord('l'): self.h_expand_tree,                
         })
 
     
@@ -261,7 +263,7 @@ class MultiLineTreeNew(multiline.MultiLine):
                     self.values[cursor_line].expanded = False
                     break
                 else:
-                    cursor_line -=1
+                    cursor_line -= 1
         self._cached_tree = None
         self.display()
 

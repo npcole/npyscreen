@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import curses
 import curses.ascii
-import curses.wrapper
+#import curses.wrapper
 from . import wgwidget as widget
 
 class TextfieldBase(widget.Widget):
@@ -220,8 +220,8 @@ class Textfield(TextfieldBase):
             })
 
         self.complex_handlers.extend((
-                                             (self.t_input_isprint, self.h_addch),
-                                    # (self.t_is_ck, self.h_erase_right),
+                        (self.t_input_isprint, self.h_addch),
+                        # (self.t_is_ck, self.h_erase_right),
                         # (self.t_is_cu, self.h_erase_left),
                         ))
 

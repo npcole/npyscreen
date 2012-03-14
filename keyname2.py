@@ -7,7 +7,7 @@ def mainloop(scr):
 	while 1:
 		scr.keypad(1)
 		curses.halfdelay(100)
-		ch = scr.getch()
+		ch = scr.get_wch()
 		if ch == "-1": scr.addstr(2, 0, '-1')
 		try: 
 			scr.erase()
@@ -22,4 +22,4 @@ def mainloop(scr):
 	
 if __name__ == "__main__":
 #	locale.setlocale(locale.LC_ALL, '')
-	print curses.wrapper(mainloop)
+	print(curses.wrapper(mainloop))
