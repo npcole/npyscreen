@@ -59,7 +59,7 @@ class NPSTreeData(object):
     
     def isLastSibling(self):
         if self.getParent():
-            if self.getParent().getChildren()[-1] == self:
+            if list(self.getParent().getChildren())[-1] == self:
                 return True
             else:
                 return False

@@ -94,20 +94,24 @@ class TextfieldBase(widget.Widget):
         self.parent.curses_pad.bkgdset(' ',curses.A_NORMAL)
 
         if self.editing and cursor:
-            # Cursors do not seem to work on pads.
-            #self.parent.curses_pad.move(self.rely, self.cursor_position - self.begin_at)
-            # let's have a fake cursor
-            _cur_loc_x = self.cursor_position - self.begin_at + self.relx + self.left_margin
-            # The following two lines work fine for ascii, but not for unicode
-            #char_under_cur = self.parent.curses_pad.inch(self.rely, _cur_loc_x)
-            #self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
-            #The following appears to work for unicode as well.
-            try:
-                char_under_cur = self.display_value(self.value)[self.cursor_position]
-            except:
-                char_under_cur = ' '
+            self.print_cursor()
+            
+    def print_cursor(self):
+        # Cursors do not seem to work on pads.
+        #self.parent.curses_pad.move(self.rely, self.cursor_position - self.begin_at)
+        # let's have a fake cursor
+        _cur_loc_x = self.cursor_position - self.begin_at + self.relx + self.left_margin
+        # The following two lines work fine for ascii, but not for unicode
+        #char_under_cur = self.parent.curses_pad.inch(self.rely, _cur_loc_x)
+        #self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
+        #The following appears to work for unicode as well.
+        try:
+            char_under_cur = self.display_value(self.value)[self.cursor_position]
+        except:
+            char_under_cur = ' '
 
-            self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, curses.A_STANDOUT)
+        self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, curses.A_STANDOUT)
+        
 
     def display_value(self, value):
         if value == None:
@@ -224,6 +228,13 @@ class Textfield(TextfieldBase):
                         # (self.t_is_ck, self.h_erase_right),
                         # (self.t_is_cu, self.h_erase_left),
                         ))
+
+    def t_input_isprint_newish_broken(self, input):
+        #input expected to be an ord
+        if input > 31 or input == 9 and (chr(input) not in '\n\t\r'):
+            return True
+        else:
+            return False
 
     def t_input_isprint(self, input):
         if curses.ascii.isprint(input) and \

@@ -314,8 +314,10 @@ big a given widget is ... use .height and .width instead"""
         try:
             # Python3.3 and above - returns unicode
             ch = self.parent.curses_pad.get_wch()
+            self._last_get_ch_was_unicode = True
         except AttributeError:
             ch = self.parent.curses_pad.getch()
+            self._last_get_ch_was_unicode = False
         return ch
 
     def try_adjust_widgets(self):

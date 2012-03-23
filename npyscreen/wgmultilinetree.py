@@ -19,7 +19,7 @@ class TreeLine(textbox.TextfieldBase):
         self._tree_last_line    = False
         self._tree_depth_next   = False
         self.safe_depth_display = False
-        self.show_v_lines       = False
+        self.show_v_lines       = True
         super(TreeLine, self).__init__(*args, **keywords)
         
     #EXPERIMENTAL
@@ -147,6 +147,7 @@ class TreeLineAnnotated(TreeLine):
 
 class MultiLineTreeNew(multiline.MultiLine):
     # Experimental
+    
     _contained_widgets = TreeLineAnnotated
     def _setMyValues(self, tree):
         if tree == [] or tree == None:
@@ -212,6 +213,10 @@ class MultiLineTreeNew(multiline.MultiLine):
     #def display_value(self, vl):
     #    return vl
     
+    
+    def _before_print_lines(self):
+        pass
+    
     def _set_line_values(self, line, value_indexer):
         line._tree_real_value   = None
         line._tree_depth        = False
@@ -238,6 +243,7 @@ class MultiLineTreeNew(multiline.MultiLine):
                     line._tree_sibling_next = True
                 else:
                     line._tree_sibling_next = False
+    
             except:
                 line._sibling_next = False
                 line._tree_last_line = True
