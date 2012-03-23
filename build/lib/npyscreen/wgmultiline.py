@@ -176,7 +176,7 @@ object to be passed to the contained widget."""
 
             self._last_start_display_at = self.start_display_at
             
-
+            self._before_print_lines()
             indexer = 0 + self.start_display_at
             for line in self._my_widgets[:-1]:
                 self._print_line(line, indexer)
@@ -227,6 +227,9 @@ object to be passed to the contained widget."""
             self.update(clear=clear)
         
 
+    def _before_print_lines(self):
+        # Provide a function for the Tree classes to override.
+        pass
 
     def _print_line(self, line, value_indexer):
         self._set_line_values(line, value_indexer)
