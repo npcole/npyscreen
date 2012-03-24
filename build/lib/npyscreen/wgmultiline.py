@@ -46,11 +46,13 @@ the same effect can be achieved by altering the __str__() method of displayed ob
             return_exit=False,
             exit_left  = False,
             exit_right = False,
+            widgets_inherit_color = False,
              **keywords):
         
         self.never_cache     = False
         self.exit_left       = exit_left
         self.exit_right      = exit_right
+        self.widgets_inherit_color = widgets_inherit_color
         super(MultiLine, self).__init__(screen, **keywords)
         if self.height < self.__class__._MINIMUM_HEIGHT:
             raise Exception("Not enough space allowed for %s" % str(self))
@@ -232,6 +234,8 @@ object to be passed to the contained widget."""
         pass
 
     def _print_line(self, line, value_indexer):
+        if self.widgets_inherit_color and self.do_colors():
+            line.color = self.color
         self._set_line_values(line, value_indexer)
         self._set_line_highlighting(line, value_indexer)
 
