@@ -392,6 +392,8 @@ big a given widget is ... use .height and .width instead"""
             cursor = self.cursor_line
         elif hasattr(self, 'cursor_position'):
             cursor = self.cursor_position
+        else:
+            return None
         try:
             if self._old_cursor == cursor:
                 return False
