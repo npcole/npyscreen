@@ -63,7 +63,7 @@ class TreeLine(textbox.TextfieldBase):
                     
                     
                     
-                    if self._tree_sibling_next:
+                    if self._tree_sibling_next or _tree_depth_next > self._tree_depth:
                         self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_LTEE, curses.A_NORMAL)
                     else:
                         self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_LLCORNER, curses.A_NORMAL)
