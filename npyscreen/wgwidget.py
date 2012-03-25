@@ -139,6 +139,7 @@ class Widget(InputHandler):
             color='DEFAULT',
             use_max_space=False,
             check_value_change=True,
+            check_cursor_move=True,
             **keywords):
         """The following named arguments may be supplied:
         name= set the name of the widget.
@@ -151,6 +152,7 @@ class Widget(InputHandler):
         check_value_change=True - perform a check on every keypress and run when_value_edit if the value is different.
         """
         self.check_value_change=check_value_change
+        self.check_cursor_move =check_cursor_move
         self.hidden = hidden
         try:
             self.parent = weakref.proxy(screen)
@@ -359,6 +361,8 @@ big a given widget is ... use .height and .width instead"""
         self.handle_input(ch)
         if self.check_value_change:
             self.when_check_value_changed()
+        if self.check_cursor_move:
+            self.when_check_cursor_moved()
             
         self.try_adjust_widgets()
             
@@ -381,6 +385,24 @@ big a given widget is ... use .height and .width instead"""
     def when_value_edited(self):
         """Called when the user edits the value of the widget.  Will usually also be called the first time
         that the user edits the widget."""
+        pass
+    
+    def when_check_cursor_moved(self):
+        if hasattr(self, 'cursor_line'):
+            cursor = self.cursor_line
+        elif hasattr(self, 'cursor_position'):
+            cursor = self.cursor_position
+        try:
+            if self._old_cursor == cursor:
+                return False
+        except AttributeError:
+            pass
+        # Value must have changed:
+        self._old_cursor = cursor
+        self.when_cursor_moved()
+        
+    def when_cursor_moved(self):
+        "Called when the cursor moves"
         pass
 
     def safe_string(self, this_string):
