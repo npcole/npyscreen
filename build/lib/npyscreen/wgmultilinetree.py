@@ -45,7 +45,7 @@ class TreeLine(textbox.TextfieldBase):
             if dp: # > 0:
                 if dp < this_safe_depth_display:                    
                     for i in range(dp-1):
-                        if (i < _tree_depth_next) and (not self._tree_last_line) and not (_tree_depth_next==1):
+                        if (i+1 < _tree_depth_next) and (not self._tree_last_line) and not (_tree_depth_next==1):
                             if self.show_v_lines:
                                 self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_VLINE, curses.A_NORMAL)
                             else:
