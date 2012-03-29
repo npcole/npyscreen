@@ -47,8 +47,6 @@ class TextfieldUnicode(wgtextbox.Textfield):
                     )
                 column += self.find_width_of_char(string_to_print[place_in_string])
                 place_in_string += 1
-                
-            
         else:
             if self.do_colors():
                 if self.show_bold and self.color == 'DEFAULT':
@@ -66,7 +64,6 @@ class TextfieldUnicode(wgtextbox.Textfield):
                     color = curses.A_NORMAL
             
             while column <= (self.maximum_string_length - self.left_margin):
-                
                 if not string_to_print or place_in_string > len(string_to_print)-1:
                     break
                 width_of_char_to_print = self.find_width_of_char(string_to_print[place_in_string])
@@ -81,9 +78,7 @@ class TextfieldUnicode(wgtextbox.Textfield):
             
     def print_cursor(self):
         # This needs fixing for Unicode multi-width chars.
-        
-        
-        
+
         # Cursors do not seem to work on pads.
         #self.parent.curses_pad.move(self.rely, self.cursor_position - self.begin_at)
         # let's have a fake cursor
@@ -93,7 +88,8 @@ class TextfieldUnicode(wgtextbox.Textfield):
         #self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
         #The following appears to work for unicode as well.
         try:
-            char_under_cur = self.display_value(self.value)[self.cursor_position]
+            char_under_cur = self.value[self.cursor_position] #use the real value
+            char_under_cur = self.safe_string(char_under_cur)
         except:
             char_under_cur = ' '
 
@@ -111,7 +107,6 @@ class TextfieldUnicode(wgtextbox.Textfield):
                 return True
             else: 
                 return False
-            
         #if curses.ascii.isprint(input) and \
         if (chr(input) not in '\n\t\r'): 
             return True

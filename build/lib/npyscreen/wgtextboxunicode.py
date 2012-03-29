@@ -47,8 +47,6 @@ class TextfieldUnicode(wgtextbox.Textfield):
                     )
                 column += self.find_width_of_char(string_to_print[place_in_string])
                 place_in_string += 1
-                
-            
         else:
             if self.do_colors():
                 if self.show_bold and self.color == 'DEFAULT':
@@ -66,7 +64,6 @@ class TextfieldUnicode(wgtextbox.Textfield):
                     color = curses.A_NORMAL
             
             while column <= (self.maximum_string_length - self.left_margin):
-                
                 if not string_to_print or place_in_string > len(string_to_print)-1:
                     break
                 width_of_char_to_print = self.find_width_of_char(string_to_print[place_in_string])
@@ -111,7 +108,6 @@ class TextfieldUnicode(wgtextbox.Textfield):
                 return True
             else: 
                 return False
-            
         #if curses.ascii.isprint(input) and \
         if (chr(input) not in '\n\t\r'): 
             return True
