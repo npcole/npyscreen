@@ -29,37 +29,41 @@ class MultiLineEdit(widget.Widget):
         and it will return a string safe to print - without touching
         the original.  In Python 3 this function is not needed"""
         # In python 3
-        if sys.version_info[0] >= 3:
-            return this_string
+        ##if sys.version_info[0] >= 3:
+        #    return this_string
         if this_string == None: 
             return ""
         elif not GlobalOptions.ASCII_ONLY:
             try:
-                rtn_value = str(this_string).encode(locale.getpreferredencoding())
+                rtn = str(this_string).encode(locale.getpreferredencoding())
                 #rtn_value = rtn_value.replace('\n', ' ')  Not for this widget
-                return rtn_value
+                return rtn
             except IndexError:
-                pass
+                rtn = self.safe_filter(this_string)
             except TypeError:
-                pass
+                rtn = self.safe_filter(this_string)
             except UnicodeDecodeError:
                 warnings.warn("Unicode Error")
                 raise
             except UnicodeEncodeError:
-                pass
-        rtn = self.safe_filter(this_string)
+                rtn = self.safe_filter(this_string)
+        else:
+            rtn = self.safe_filter(this_string)
         return rtn
 
     def safe_filter(self, this_string):
         s = ''
         for cha in this_string:   #.replace('\n', ''): Not of this widget
+            if cha == "\n":
+                s += cha
             try:
-                s += cha.encode('ascii')
+                if curses.ascii.isprint(cha):
+                    s += cha
             except:
                 s += '?'
         return s
 
-
+        
 
 
     def get_value_as_list(self, upto=None, keepends=False, useEncoding=True):

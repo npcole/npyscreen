@@ -416,9 +416,9 @@ big a given widget is ... use .height and .width instead"""
             return ""
         #this_string = str(this_string)
         # In python 3
-        if sys.version_info[0] >= 3:
-            return this_string.replace('\n', ' ')
-        elif not GlobalOptions.ASCII_ONLY:
+        #if sys.version_info[0] >= 3:
+        #    return this_string.replace('\n', ' ')
+        if not GlobalOptions.ASCII_ONLY:
             try:
                 rtn_value = this_string.encode(locale.getpreferredencoding())
                 rtn_value = rtn_value.replace('\n', ' ')
@@ -431,10 +431,10 @@ big a given widget is ... use .height and .width instead"""
                 rtn = self.safe_filter(this_string)
                 return rtn
                                 
-            except UnicodeDecodeError:
-                warnings.warn("Unicode Error")
-                rtn = self.safe_filter(this_string)
-                return rtn
+            #except UnicodeDecodeError:
+            #    warnings.warn("Unicode Error")
+            #    rtn = self.safe_filter(this_string)
+            #    return rtn
                 
             except UnicodeEncodeError:
                 warnings.warn("Unicode Error")
@@ -454,14 +454,14 @@ big a given widget is ... use .height and .width instead"""
             pass
         s = []
         for cha in this_string.replace('\n', ' '):
-            #if curses.ascii.isprint(cha):
-            #    s.append(cha)
-            #else:
-            #    s.append('?')
-            try:
-                s.append(str(cha))
-            except:
+            if curses.ascii.isprint(cha):
+                s.append(cha)
+            else:
                 s.append('?')
+            #try:
+            #    s.append(str(cha))
+            #except:
+            #    s.append('?')
         s = ''.join(s)
         
         self._safe_filter_value_cache = (this_string, s)

@@ -431,10 +431,10 @@ big a given widget is ... use .height and .width instead"""
                 rtn = self.safe_filter(this_string)
                 return rtn
                                 
-            except UnicodeDecodeError:
-                warnings.warn("Unicode Error")
-                rtn = self.safe_filter(this_string)
-                return rtn
+            #except UnicodeDecodeError:
+            #    warnings.warn("Unicode Error")
+            #    rtn = self.safe_filter(this_string)
+            #    return rtn
                 
             except UnicodeEncodeError:
                 warnings.warn("Unicode Error")

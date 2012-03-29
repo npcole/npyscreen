@@ -97,7 +97,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
 Should accept one argument (the object to be represented), and return a string or the 
 object to be passed to the contained widget."""
         try:
-            return str(vl)
+            return self.safe_string(str(vl))
         except weakref.ReferenceError:
             return "**REFERENCE ERROR**"
 
