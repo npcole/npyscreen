@@ -18,6 +18,7 @@ class TextfieldUnicode(wgtextbox.Textfield):
         return columns
     
     def find_width_of_char(self, char):
+        return 1
         w = unicodedata.east_asian_width(char)
         if w == 'A':
             # Abiguous - allow 1, but be aware that this could well be wrong
@@ -71,7 +72,7 @@ class TextfieldUnicode(wgtextbox.Textfield):
                     break 
                 self.parent.curses_pad.addstr(self.rely,self.relx+column+self.left_margin, 
                     string_to_print[place_in_string], 
-                    color 
+                    color
                     )
                 column += width_of_char_to_print
                 place_in_string += 1

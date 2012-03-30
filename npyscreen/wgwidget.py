@@ -411,7 +411,10 @@ big a given widget is ... use .height and .width instead"""
         """Check that what you are trying to display contains only
         printable chars.  (Try to catch dodgy input).  Give it a string,
         and it will return a string safe to print - without touching
-        the original.  In Python 3 this function is not needed"""
+        the original.  In Python 3 this function is not needed
+        
+        N.B. This will return a unicode string.
+        """
         if not this_string: 
             return ""
         #this_string = str(this_string)
@@ -420,24 +423,28 @@ big a given widget is ... use .height and .width instead"""
         #    return this_string.replace('\n', ' ')
         if not GlobalOptions.ASCII_ONLY:
             try:
-                rtn_value = this_string.encode(locale.getpreferredencoding())
-                rtn_value = rtn_value.replace('\n', ' ')
+                rtn_value = this_string.replace('\n', ' ')
+                rtn_value = rtn_value.encode(locale.getpreferredencoding(), 'replace')
+                
+                # return back to unicode
+                rtn_value = rtn_value.decode()
+                
                 return rtn_value
-            except IndexError:
-                rtn = self.safe_filter(this_string)
-                return rtn
+            #except IndexError:
+            #    rtn = self.safe_filter(this_string)
+            #    return rtn
                 
             except TypeError:
                 rtn = self.safe_filter(this_string)
                 return rtn
                                 
-            #except UnicodeDecodeError:
-            #    warnings.warn("Unicode Error")
-            #    rtn = self.safe_filter(this_string)
-            #    return rtn
+            except UnicodeDecodeError:
+                #warnings.warn("Unicode Error")
+                rtn = self.safe_filter(this_string)
+                return rtn
                 
             except UnicodeEncodeError:
-                warnings.warn("Unicode Error")
+                #warnings.warn("Unicode Error")
                 rtn = self.safe_filter(this_string)
                 return rtn
             
@@ -454,14 +461,14 @@ big a given widget is ... use .height and .width instead"""
             pass
         s = []
         for cha in this_string.replace('\n', ' '):
-            if curses.ascii.isprint(cha):
-                s.append(cha)
-            else:
-                s.append('?')
-            #try:
-            #    s.append(str(cha))
-            #except:
+            #if curses.ascii.isprint(cha):
+            #    s.append(cha)
+            #else:
             #    s.append('?')
+            try:
+                s.append(str(cha))
+            except:
+                s.append('?')
         s = ''.join(s)
         
         self._safe_filter_value_cache = (this_string, s)
