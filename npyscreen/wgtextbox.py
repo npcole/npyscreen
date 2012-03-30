@@ -119,6 +119,9 @@ class TextfieldBase(widget.Widget):
         else:
             try:
                 str_value = str(value)
+            except UnicodeEncodeError:
+                str_value = self.safe_string(value)
+                return str_value
             except ReferenceError:                
                 return ">*ERROR*ERROR*ERROR*<"
             return self.safe_string(str_value)

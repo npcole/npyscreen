@@ -29,8 +29,8 @@ class MultiLineEdit(widget.Widget):
         and it will return a string safe to print - without touching
         the original.  In Python 3 this function is not needed"""
         # In python 3
-        ##if sys.version_info[0] >= 3:
-        #    return this_string
+        if sys.version_info[0] >= 3:
+            return this_string
         if this_string == None: 
             return ""
         elif not GlobalOptions.ASCII_ONLY:
@@ -43,8 +43,8 @@ class MultiLineEdit(widget.Widget):
             except TypeError:
                 rtn = self.safe_filter(this_string)
             except UnicodeDecodeError:
-                warnings.warn("Unicode Error")
-                raise
+                #warnings.warn("Unicode Error")
+                rtn = self.safe_filter(this_string)
             except UnicodeEncodeError:
                 rtn = self.safe_filter(this_string)
         else:
@@ -52,17 +52,17 @@ class MultiLineEdit(widget.Widget):
         return rtn
 
     def safe_filter(self, this_string):
-        s = ''
+        s = []
         for cha in this_string:   #.replace('\n', ''): Not of this widget
             if cha == "\n":
-                s += cha
-            try:
-                if curses.ascii.isprint(cha):
-                    s += cha
-            except:
-                s += '?'
+                s.append(cha)
+            else:
+                try:
+                    s.append(str(cha))
+                except:
+                    s.append('?')
+        s = ''.join(s)
         return s
-
         
 
 
