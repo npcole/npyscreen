@@ -18,6 +18,7 @@ class TextfieldUnicode(wgtextbox.Textfield):
         return columns
     
     def find_width_of_char(self, char):
+        return 1
         w = unicodedata.east_asian_width(char)
         if w == 'A':
             # Abiguous - allow 1, but be aware that this could well be wrong
@@ -71,16 +72,14 @@ class TextfieldUnicode(wgtextbox.Textfield):
                     break 
                 self.parent.curses_pad.addstr(self.rely,self.relx+column+self.left_margin, 
                     string_to_print[place_in_string], 
-                    color 
+                    color
                     )
                 column += width_of_char_to_print
                 place_in_string += 1
             
     def print_cursor(self):
         # This needs fixing for Unicode multi-width chars.
-        
-        
-        
+
         # Cursors do not seem to work on pads.
         #self.parent.curses_pad.move(self.rely, self.cursor_position - self.begin_at)
         # let's have a fake cursor
@@ -90,7 +89,8 @@ class TextfieldUnicode(wgtextbox.Textfield):
         #self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
         #The following appears to work for unicode as well.
         try:
-            char_under_cur = self.display_value(self.value)[self.cursor_position]
+            char_under_cur = self.value[self.cursor_position] #use the real value
+            char_under_cur = self.safe_string(char_under_cur)
         except:
             char_under_cur = ' '
 

@@ -98,6 +98,10 @@ Should accept one argument (the object to be represented), and return a string o
 object to be passed to the contained widget."""
         try:
             return self.safe_string(str(vl))
+        except UnicodeDecodeError:
+            return self.safe_string(vl)
+        except UnicodeEncodeError:
+            return self.safe_string(vl)
         except weakref.ReferenceError:
             return "**REFERENCE ERROR**"
 

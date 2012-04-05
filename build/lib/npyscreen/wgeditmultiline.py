@@ -35,31 +35,35 @@ class MultiLineEdit(widget.Widget):
             return ""
         elif not GlobalOptions.ASCII_ONLY:
             try:
-                rtn_value = str(this_string).encode(locale.getpreferredencoding())
+                rtn = str(this_string).encode(locale.getpreferredencoding())
                 #rtn_value = rtn_value.replace('\n', ' ')  Not for this widget
-                return rtn_value
+                return rtn
             except IndexError:
-                pass
+                rtn = self.safe_filter(this_string)
             except TypeError:
-                pass
+                rtn = self.safe_filter(this_string)
             except UnicodeDecodeError:
-                warnings.warn("Unicode Error")
-                raise
+                #warnings.warn("Unicode Error")
+                rtn = self.safe_filter(this_string)
             except UnicodeEncodeError:
-                pass
-        rtn = self.safe_filter(this_string)
+                rtn = self.safe_filter(this_string)
+        else:
+            rtn = self.safe_filter(this_string)
         return rtn
 
     def safe_filter(self, this_string):
-        s = ''
+        s = []
         for cha in this_string:   #.replace('\n', ''): Not of this widget
-            try:
-                s += cha.encode('ascii')
-            except:
-                s += '?'
+            if cha == "\n":
+                s.append(cha)
+            else:
+                try:
+                    s.append(str(cha))
+                except:
+                    s.append('?')
+        s = ''.join(s)
         return s
-
-
+        
 
 
     def get_value_as_list(self, upto=None, keepends=False, useEncoding=True):
