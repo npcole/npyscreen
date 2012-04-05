@@ -9,6 +9,7 @@ import re
 from functools import reduce
 
 class MultiLineEdit(widget.Widget):
+    _SAFE_STRING_STRIPS_NL = False
     def __init__(self, screen, autowrap=True, slow_scroll=True, scroll_exit=True, value=None, **keywords):
         self.value = value or ''
         super(MultiLineEdit, self).__init__(screen, **keywords)
@@ -23,33 +24,6 @@ class MultiLineEdit(widget.Widget):
         self.autowrap = autowrap
         self.wrapon = re.compile("\s+|-+")
 
-    def safe_string(self, this_string):
-        """Check that what you are trying to display contains only
-        printable chars.  (Try to catch dodgy input).  Give it a string,
-        and it will return a string safe to print - without touching
-        the original.  In Python 3 this function is not needed"""
-        # In python 3
-        if sys.version_info[0] >= 3:
-            return this_string
-        if this_string == None: 
-            return ""
-        elif not GlobalOptions.ASCII_ONLY:
-            try:
-                rtn = str(this_string).encode(locale.getpreferredencoding())
-                #rtn_value = rtn_value.replace('\n', ' ')  Not for this widget
-                return rtn
-            except IndexError:
-                rtn = self.safe_filter(this_string)
-            except TypeError:
-                rtn = self.safe_filter(this_string)
-            except UnicodeDecodeError:
-                #warnings.warn("Unicode Error")
-                rtn = self.safe_filter(this_string)
-            except UnicodeEncodeError:
-                rtn = self.safe_filter(this_string)
-        else:
-            rtn = self.safe_filter(this_string)
-        return rtn
 
     def safe_filter(self, this_string):
         s = []

@@ -124,12 +124,14 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
 
 class Widget(InputHandler):
     "A base class for widgets. Do not use directly"
-
+    
+    _SAFE_STRING_STRIPS_NL = True
+    
     def destroy(self):
         """Destroy the widget: methods should provide a mechanism to destroy any references that might
         case a memory leak.  See select. module for an example"""
         pass
-
+        
     def __init__(self, screen, 
             relx=0, rely=0, name=None, value=None, 
             width = False, height = False,
@@ -423,7 +425,10 @@ big a given widget is ... use .height and .width instead"""
         #    return this_string.replace('\n', ' ')
         if not GlobalOptions.ASCII_ONLY:
             try:
-                rtn_value = this_string.replace('\n', ' ')
+                if self.__class__._SAFE_STRING_STRIPS_NL == True:
+                    rtn_value = this_string.replace('\n', ' ')
+                else:
+                    rtn_value = this_string
                 rtn_value = rtn_value.encode(locale.getpreferredencoding(), 'replace')
                 
                 # return back to unicode
@@ -455,25 +460,30 @@ big a given widget is ... use .height and .width instead"""
     
     def safe_filter(self, this_string):
         try:
-            if self._safe_filter_value_cache[0] == this_string:
-                return self._safe_filter_value_cache[1]
-        except AttributeError:
-            pass
-        s = []
-        for cha in this_string.replace('\n', ' '):
-            #if curses.ascii.isprint(cha):
-            #    s.append(cha)
-            #else:
-            #    s.append('?')
+            this_string = this_string.decode(locale.getpreferredencoding(), 'replace')
+            return this_string.encode('ascii', 'replace').decode()
+        except:
+            # Things have gone badly wrong if we get here, but let's try to salvage it.
             try:
-                s.append(str(cha))
-            except:
-                s.append('?')
-        s = ''.join(s)
+                if self._safe_filter_value_cache[0] == this_string:
+                    return self._safe_filter_value_cache[1]
+            except AttributeError:
+                pass
+            s = []
+            for cha in this_string.replace('\n', ' '):
+                #if curses.ascii.isprint(cha):
+                #    s.append(cha)
+                #else:
+                #    s.append('?')
+                try:
+                    s.append(str(cha))
+                except:
+                    s.append('?')
+            s = ''.join(s)
         
-        self._safe_filter_value_cache = (this_string, s)
+            self._safe_filter_value_cache = (this_string, s)
         
-        return s
+            return s
         
         #s = ''
         #for cha in this_string.replace('\n', ''):
