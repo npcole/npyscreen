@@ -1,11 +1,17 @@
 #!/usr/bin/python
 import curses
+import locale
+from . import npysGlobalOptions as GlobalOptions
 from . import wgwidget    as widget
 from . import wgcheckbox  as checkbox
 
 class MiniButton(checkbox._ToggleControl):
     def __init__(self, screen, name='Button', *args, **keywords):
         self.encoding = 'utf-8'
+        if GlobalOptions.ASCII_ONLY or locale.getpreferredencoding() == 'US-ASCII':
+            self._force_ascii = True
+        else:
+            self._force_ascii = False
         self.name = self.safe_string(name)
         self.label_width = len(name) + 2
         super(MiniButton, self).__init__(screen, *args, **keywords)
