@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+import codecs
 import sys
 import curses
 import curses.ascii
@@ -415,7 +415,8 @@ big a given widget is ... use .height and .width instead"""
         and it will return a string safe to print - without touching
         the original.  In Python 3 this function is not needed
         
-        N.B. This will return a unicode string.
+        N.B. This will return a unicode string on python 3 and a utf-8 string
+        on python2
         """
         if not this_string: 
             return ""
@@ -424,36 +425,19 @@ big a given widget is ... use .height and .width instead"""
         #if sys.version_info[0] >= 3:
         #    return this_string.replace('\n', ' ')
         if not GlobalOptions.ASCII_ONLY:
-            try:
-                if self.__class__._SAFE_STRING_STRIPS_NL == True:
-                    rtn_value = this_string.replace('\n', ' ')
-                else:
-                    rtn_value = this_string
-                rtn_value = rtn_value.encode(locale.getpreferredencoding(), 'replace')
-                
-                # return back to unicode
-                rtn_value = rtn_value.decode()
-                
-                return rtn_value
-            #except IndexError:
-            #    rtn = self.safe_filter(this_string)
-            #    return rtn
-                
-            except TypeError:
-                rtn = self.safe_filter(this_string)
-                return rtn
-                                
-            except UnicodeDecodeError:
-                #warnings.warn("Unicode Error")
-                rtn = self.safe_filter(this_string)
-                return rtn
-                
-            except UnicodeEncodeError:
-                #warnings.warn("Unicode Error")
-                rtn = self.safe_filter(this_string)
-                return rtn
+            if self.__class__._SAFE_STRING_STRIPS_NL == True:
+                rtn_value = this_string.replace('\n', ' ')
+            else:
+                rtn_value = this_string
             
-
+            # is the string already unicode?
+            if isinstance(rtn_value, bytes):
+                # no it isn't.
+                rtn_value = rtn_value.decode(locale.getpreferredencoding(), errors='replace')
+            if sys.version_info[0] >= 3:
+                return rtn_value     
+            else:
+                return rtn_value.encode('utf-8', errors='replace')
         else:
             rtn = self.safe_filter(this_string)
             return rtn
