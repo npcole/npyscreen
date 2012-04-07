@@ -171,6 +171,11 @@ class Widget(InputHandler):
         self.use_max_space = use_max_space
         self.color = color
         self.encoding = 'utf-8'#locale.getpreferredencoding()
+        if GlobalOptions.ASCII_ONLY or locale.getpreferredencoding() == 'US-ASCII':
+            self._force_ascii = True
+        else:
+            self._force_ascii = False
+        
         
         self.set_up_handlers()
         
@@ -480,7 +485,7 @@ big a given widget is ... use .height and .width instead"""
             rtn_value = this_string
         
         # Does the terminal want ascii?
-        if locale.getpreferredencoding() == 'US-ASCII':
+        if self._force_ascii:
             if isinstance(rtn_value, bytes):
                 # no it isn't.
                 rtn_value = rtn_value.decode(self.encoding, errors='replace')
