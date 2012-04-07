@@ -347,7 +347,8 @@ class Textfield(TextfieldBase):
             return True
         else: 
             return False
-
+        
+        
     def h_addch(self, inp):
         if self.editable:
             #self.value = self.value[:self.cursor_position] + curses.keyname(input) \
