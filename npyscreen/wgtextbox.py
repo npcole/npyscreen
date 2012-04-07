@@ -16,7 +16,11 @@ class TextfieldBase(widget.Widget):
         
         super(TextfieldBase, self).__init__(screen, **keywords)
 
-        self.encoding = locale.getpreferredencoding()
+        if GlobalOptions.ASCII_ONLY or locale.getpreferredencoding() == 'US-ASCII':
+            self._force_ascii = True
+        else:
+            self._force_ascii = False
+        
         self.cursor_position = None
         
         self.show_bold = False
@@ -161,7 +165,9 @@ class TextfieldBase(widget.Widget):
     
     def _print_unicode_char(self, ch):
         # return the ch to print.  For python 3 this is just ch
-        if sys.version_info[0] >= 3:
+        if self._force_ascii:
+            return ch.encode('ascii', errors='replace')
+        elif sys.version_info[0] >= 3:
             return ch
         else:
             return ch.encode('utf-8', errors='strict')
@@ -173,9 +179,10 @@ class TextfieldBase(widget.Widget):
             string_to_print = self.display_value(self.value)[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
         else:
             # ensure unicode only here encoding here.
-            string_to_print = self.display_value(self.value).decode(
-                    self.encoding, errors='replace', 
-                    )[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
+            dv = self.display_value(self.value)
+            if isinstance(dv, bytes):
+                dv = dv.decode(self.encoding, errors='replace')
+            string_to_print = dv[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
         
         column = 0
         place_in_string = 0

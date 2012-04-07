@@ -23,6 +23,12 @@ class MultiLineEdit(widget.Widget):
         self.encoding = locale.getpreferredencoding()
         self.autowrap = autowrap
         self.wrapon = re.compile("\s+|-+")
+        
+        if GlobalOptions.ASCII_ONLY or locale.getpreferredencoding() == 'US-ASCII':
+            self._force_ascii = True
+        else:
+            self._force_ascii = False
+        
 
 
     def safe_filter(self, this_string):
@@ -113,7 +119,7 @@ class MultiLineEdit(widget.Widget):
             line_to_display = text_to_display[self.start_display_at+line_counter][xdisplay_offset:]
             line_to_display = self.safe_string(line_to_display)
             if isinstance(line_to_display, bytes):
-                line_to_display = line_to_display.decode(locale.getpreferredencoding(), errors='replace')
+                line_to_display = line_to_display.decode(self.encoding, errors='replace')
             column = 0
             place_in_string = 0
             while column <= (display_width):
@@ -171,7 +177,9 @@ class MultiLineEdit(widget.Widget):
             
     def _print_unicode_char(self, ch):
         # return the ch to print.  For python 3 this is just ch
-        if sys.version_info[0] >= 3:
+        if self._force_ascii:
+            return ch.encode('ascii', errors='replace')
+        elif sys.version_info[0] >= 3:
             return ch
         else:
             return ch.encode('utf-8', errors='strict')

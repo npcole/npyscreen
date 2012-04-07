@@ -170,6 +170,7 @@ class Widget(InputHandler):
         self.rely = rely
         self.use_max_space = use_max_space
         self.color = color
+        self.encoding = 'utf-8'#locale.getpreferredencoding()
         
         self.set_up_handlers()
         
@@ -482,7 +483,7 @@ big a given widget is ... use .height and .width instead"""
         if locale.getpreferredencoding() == 'US-ASCII':
             if isinstance(rtn_value, bytes):
                 # no it isn't.
-                rtn_value = rtn_value.decode(locale.getpreferredencoding(), errors='replace')
+                rtn_value = rtn_value.decode(self.encoding, errors='replace')
             else:
                 if sys.version_info[0] >= 3:
                     # even on python3, in this case, we want a string that
@@ -490,14 +491,14 @@ big a given widget is ... use .height and .width instead"""
                     rtn_value = rtn_value.encode('ascii', errors='replace').decode()
                     return rtn_value     
                 else:
-                    return rtn_value.encode('ascii', errors='replace')                
+                    return rtn_value.encode('ascii', errors='replace')
             return rtn_value
         # If not....
         if not GlobalOptions.ASCII_ONLY:
             # is the string already unicode?
             if isinstance(rtn_value, bytes):
                 # no it isn't.
-                rtn_value = rtn_value.decode(locale.getpreferredencoding(), errors='replace')
+                rtn_value = rtn_value.decode(self.encoding, errors='replace')
             if sys.version_info[0] >= 3:
                 return rtn_value     
             else:
@@ -508,7 +509,7 @@ big a given widget is ... use .height and .width instead"""
     
     def safe_filter(self, this_string):
         try:
-            this_string = this_string.decode(locale.getpreferredencoding(), 'replace')
+            this_string = this_string.decode(self.encoding, 'replace')
             return this_string.encode('ascii', 'replace').decode()
         except:
             # Things have gone badly wrong if we get here, but let's try to salvage it.
