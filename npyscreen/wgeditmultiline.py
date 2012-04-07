@@ -187,14 +187,38 @@ class MultiLineEdit(widget.Widget):
                         # (self.t_is_cu, self.h_erase_left),
                         ))
 
-    def t_input_isprint(self, input):
-        if curses.ascii.isprint(input) and \
-        (chr(input) not in '\n\t\r'): 
+    
+    def h_addch(self, inp):
+        if self.editable:
+            if self._last_get_ch_was_unicode == True and isinstance(self.value, bytes):
+                # probably dealing with python2.
+                ch_adding = inp
+                self.value = self.value.decode()
+            elif self._last_get_ch_was_unicode == True:
+                ch_adding = inp
+            else:
+                try:
+                    ch_adding = chr(inp)
+                except TypeError:
+                    ch_adding = input
+            self.value = self.value[:self.cursor_position] + ch_adding \
+                + self.value[self.cursor_position:]
+            self.cursor_position += len(ch_adding)
+        else:
+            return False
+        if self.autowrap:
+            self.reformat_preserve_nl()
+    
+    def t_input_isprint(self, inp):
+        if self._last_get_ch_was_unicode and inp not in '\n\t\r':
+            return True
+        if curses.ascii.isprint(inp) and \
+        (chr(inp) not in '\n\t\r'): 
             return True
         
         else: return False
 
-    def h_addch(self, input):
+    def h_addch_disabled(self, input):
         """Add printable characters.  However, do NOT add newlines with this function"""
         if not self.editable: return False
         self.value = self.value[:self.cursor_position] + chr(input) \

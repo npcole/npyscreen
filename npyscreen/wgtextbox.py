@@ -1,8 +1,11 @@
 #!/usr/bin/python
 import curses
 import curses.ascii
+import sys
+import locale
 #import curses.wrapper
 from . import wgwidget as widget
+from . import npysGlobalOptions as GlobalOptions
 
 class TextfieldBase(widget.Widget):
     def __init__(self, screen, value=None, **keywords):
@@ -13,6 +16,7 @@ class TextfieldBase(widget.Widget):
         
         super(TextfieldBase, self).__init__(screen, **keywords)
 
+        self.encoding = locale.getpreferredencoding()
         self.cursor_position = None
         
         self.show_bold = False
@@ -44,6 +48,8 @@ class TextfieldBase(widget.Widget):
 
         # Not needed here -- gets called too much!
         #pmfuncs.hide_cursor()
+        
+        value_to_use_for_calculations = self.value
 
         if clear: self.clear()
 
@@ -53,12 +59,16 @@ class TextfieldBase(widget.Widget):
             raise ValueError
         
         if self.editing:
+            if isinstance(self.value, bytes):
+                # use a unicode version of self.value to work out where the cursor is.
+                # not always accurate, but better than the bytes
+                value_to_use_for_calculations = self.display_value(self.value).decode(self.encoding, errors='replace')
             if cursor:
                 if self.cursor_position is False:
-                    self.cursor_position = len(self.value)
+                    self.cursor_position = len(value_to_use_for_calculations)
 
-                elif self.cursor_position > len(self.value):
-                    self.cursor_position = len(self.value)
+                elif self.cursor_position > len(value_to_use_for_calculations):
+                    self.cursor_position = len(value_to_use_for_calculations)
 
                 elif self.cursor_position < 0:
                     self.cursor_position = 0
@@ -95,8 +105,27 @@ class TextfieldBase(widget.Widget):
 
         if self.editing and cursor:
             self.print_cursor()
-            
+    
     def print_cursor(self):
+        # This needs fixing for Unicode multi-width chars.
+
+        # Cursors do not seem to work on pads.
+        #self.parent.curses_pad.move(self.rely, self.cursor_position - self.begin_at)
+        # let's have a fake cursor
+        _cur_loc_x = self.cursor_position - self.begin_at + self.relx + self.left_margin
+        # The following two lines work fine for ascii, but not for unicode
+        #char_under_cur = self.parent.curses_pad.inch(self.rely, _cur_loc_x)
+        #self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
+        #The following appears to work for unicode as well.
+        try:
+            char_under_cur = self.value[self.cursor_position] #use the real value
+            char_under_cur = self.safe_string(char_under_cur)
+        except IndexError:
+            char_under_cur = ' '
+        self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, curses.A_STANDOUT)
+
+
+    def print_cursor_pre_unicode(self):
         # Cursors do not seem to work on pads.
         #self.parent.curses_pad.move(self.rely, self.cursor_position - self.begin_at)
         # let's have a fake cursor
@@ -126,7 +155,85 @@ class TextfieldBase(widget.Widget):
                 return ">*ERROR*ERROR*ERROR*<"
             return self.safe_string(str_value)
 
+    
+    def find_width_of_char(self, ch):
+        return 1
+    
+    def _print_unicode_char(self, ch):
+        # return the ch to print.  For python 3 this is just ch
+        if sys.version_info[0] >= 3:
+            return ch
+        else:
+            return ch.encode('utf-8', errors='strict')
+    
     def _print(self):
+        string_to_print = self.display_value(self.value)[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
+        
+        if sys.version_info[0] >= 3:
+            string_to_print = self.display_value(self.value)[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
+        else:
+            # ensure unicode only here encoding here.
+            string_to_print = self.display_value(self.value).decode(
+                    self.encoding, errors='replace', 
+                    )[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
+        
+        column = 0
+        place_in_string = 0
+        if self.syntax_highlighting:
+            self.update_highlighting(start=self.begin_at, end=self.maximum_string_length+self.begin_at-self.left_margin)
+            while column <= (self.maximum_string_length - self.left_margin):
+                if not string_to_print or place_in_string > len(string_to_print)-1:
+                    break
+                width_of_char_to_print = self.find_width_of_char(string_to_print[place_in_string])
+                if column - 1 + width_of_char_to_print > self.maximum_string_length:
+                    break 
+                try:
+                    highlight = self._highlightingdata[self.begin_at+place_in_string]
+                except:
+                    highlight = curses.A_NORMAL                
+                self.parent.curses_pad.addstr(self.rely,self.relx+column+self.left_margin, 
+                    self._print_unicode_char(string_to_print[place_in_string]), 
+                    highlight
+                    )
+                column += self.find_width_of_char(string_to_print[place_in_string])
+                place_in_string += 1
+        else:
+            if self.do_colors():
+                if self.show_bold and self.color == 'DEFAULT':
+                    color = self.parent.theme_manager.findPair(self, 'BOLD') | curses.A_BOLD
+                elif self.show_bold:
+                    color = self.parent.theme_manager.findPair(self, self.color) | curses.A_BOLD
+                elif self.important:
+                    color = self.parent.theme_manager.findPair(self, 'IMPORTANT') | curses.A_BOLD
+                else:
+                    color = self.parent.theme_manager.findPair(self)
+            else:
+                if self.important or self.show_bold:
+                    color = curses.A_BOLD
+                else:
+                    color = curses.A_NORMAL
+
+            while column <= (self.maximum_string_length - self.left_margin):
+                if not string_to_print or place_in_string > len(string_to_print)-1:
+                    break
+                width_of_char_to_print = self.find_width_of_char(string_to_print[place_in_string])
+                if column - 1 + width_of_char_to_print > self.maximum_string_length:
+                    break 
+                self.parent.curses_pad.addstr(self.rely,self.relx+column+self.left_margin, 
+                    self._print_unicode_char(string_to_print[place_in_string]), 
+                    color
+                    )
+                column += width_of_char_to_print
+                place_in_string += 1
+
+    
+    
+    
+    
+    
+    def _print_pre_unicode(self):
+        # This method was used to print the string before we became interested in unicode.
+        
         string_to_print = self.display_value(self.value)
         if string_to_print == None: return
         
@@ -232,30 +339,33 @@ class Textfield(TextfieldBase):
                         # (self.t_is_cu, self.h_erase_left),
                         ))
 
-    def t_input_isprint_newish_broken(self, input):
-        #input expected to be an ord
-        if input > 31 or input == 9 and (chr(input) not in '\n\t\r'):
+    def t_input_isprint(self, inp):
+        if self._last_get_ch_was_unicode and inp not in '\n\t\r':
             return True
-        else:
+        if curses.ascii.isprint(inp) and \
+        (chr(inp) not in '\n\t\r'): 
+            return True
+        else: 
             return False
 
-    def t_input_isprint(self, input):
-        if curses.ascii.isprint(input) and \
-        (chr(input) not in '\n\t\r'): 
-            return True
-        
-        else: return False
-
-    def h_addch(self, input):
+    def h_addch(self, inp):
         if self.editable:
             #self.value = self.value[:self.cursor_position] + curses.keyname(input) \
             #   + self.value[self.cursor_position:]
             #self.cursor_position += len(curses.keyname(input))
             
             # workaround for the metamode bug:
-            
-            ch_adding = chr(input)
-            
+            if self._last_get_ch_was_unicode == True and isinstance(self.value, bytes):
+                # probably dealing with python2.
+                ch_adding = inp
+                self.value = self.value.decode()
+            elif self._last_get_ch_was_unicode == True:
+                ch_adding = inp
+            else:
+                try:
+                    ch_adding = chr(inp)
+                except TypeError:
+                    ch_adding = input
             self.value = self.value[:self.cursor_position] + ch_adding \
                 + self.value[self.cursor_position:]
             self.cursor_position += len(ch_adding)

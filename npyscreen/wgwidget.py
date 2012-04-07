@@ -20,6 +20,8 @@ EXITED_MOUSE = 130
 SETMAX       = 'SETMAX'
 RAISEERROR   = 'RAISEERROR'
 
+ALLOW_NEW_INPUT = True
+
 class InputHandler(object):
     "An object that can handle user input"
 
@@ -33,18 +35,22 @@ class InputHandler(object):
         if _input in self.handlers:
             self.handlers[_input](_input)
             return True
+        try:
+            if curses.ascii.unctrl(_input) in self.handlers:
+                self.handlers[curses.ascii.unctrl(_input)](_input)
+                return True
+        except TypeError:
+            pass
 
-        elif curses.ascii.unctrl(_input) in self.handlers:
-            self.handlers[curses.ascii.unctrl(_input)](_input)
-            return True
 
-
+        if not hasattr(self, 'complex_handlers'): 
+            return False
         else:
-            if not hasattr(self, 'complex_handlers'): return False
             for test, handler in self.complex_handlers:
                 if test(_input): 
                     handler(_input)
                     return True
+        
         if hasattr(self, 'parent_widget') and hasattr(self.parent_widget, 'handle_input'):
             if self.parent_widget.handle_input(_input):
                 return True
@@ -320,8 +326,51 @@ big a given widget is ... use .height and .width instead"""
             ch = self.parent.curses_pad.get_wch()
             self._last_get_ch_was_unicode = True
         except AttributeError:
-            ch = self.parent.curses_pad.getch()
-            self._last_get_ch_was_unicode = False
+            # Try to read utf-8 if possible.
+            _stored_bytes =[]
+            self._last_get_ch_was_unicode = True
+            global ALLOW_NEW_INPUT
+            if ALLOW_NEW_INPUT == True and locale.getpreferredencoding() == 'UTF-8':
+                ch = self.parent.curses_pad.getch()
+                if ch <= 127:
+                    rtn_ch = ch
+                    self._last_get_ch_was_unicode = False
+                    return rtn_ch
+                elif ch <= 193:
+                    rtn_ch = ch
+                    self._last_get_ch_was_unicode = False
+                    return rtn_ch
+                # if we are here, we need to read 1, 2 or 3 more bytes.
+                # all of the subsequent bytes should be in the range 128 - 191, 
+                # but we'll risk not checking...
+                elif 194 <= ch <= 223: 
+                        # 2 bytes
+                        _stored_bytes.append(ch)
+                        _stored_bytes.append(self.parent.curses_pad.getch())
+                elif 224 <= ch <= 239: 
+                        # 3 bytes 
+                        _stored_bytes.append(ch)
+                        _stored_bytes.append(self.parent.curses_pad.getch()) 
+                        _stored_bytes.append(self.parent.curses_pad.getch()) 
+                elif 240 <= ch <= 244: 
+                        # 4 bytes 
+                        _stored_bytes.append(ch) 
+                        _stored_bytes.append(self.parent.curses_pad.getch()) 
+                        _stored_bytes.append(self.parent.curses_pad.getch()) 
+                        _stored_bytes.append(self.parent.curses_pad.getch())
+                elif ch >= 245:
+                    # probably a control character
+                    self._last_get_ch_was_unicode = False
+                    return ch
+                
+                if sys.version_info[0] >= 3:
+                    ch = bytes(_stored_bytes).decode('utf-8', errors='strict')
+                else:
+                    ch = ''.join([chr(b) for b in _stored_bytes])
+                    ch = ch.decode('utf-8')
+            else:
+                ch = self.parent.curses_pad.getch()
+                self._last_get_ch_was_unicode = False
         return ch
 
     def try_adjust_widgets(self):

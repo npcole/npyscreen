@@ -3,6 +3,7 @@ import curses
 import curses.ascii
 #import curses.wrapper
 from . import wgwidget as widget
+from . import npysGlobalOptions as GlobalOptions
 
 class TextfieldBase(widget.Widget):
     def __init__(self, screen, value=None, **keywords):
@@ -243,8 +244,8 @@ class Textfield(TextfieldBase):
         if curses.ascii.isprint(input) and \
         (chr(input) not in '\n\t\r'): 
             return True
-        
-        else: return False
+        else: 
+            return False
 
     def h_addch(self, input):
         if self.editable:
