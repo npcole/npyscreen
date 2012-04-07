@@ -19,7 +19,7 @@ class TestApp(npyscreen.NPSAppManaged):
         
         m1 = F.add(npyscreen.MultiLine, name = "Mutliline", scroll_exit=True, max_height=5)
         
-        me = F.add(npyscreen.MultiLineEdit, name="Testing",)
+        me = F.add(npyscreen.MultiLineEdit, name="Testing", autowrap=False)
         
         
         t1.value = u"This is a \n test"

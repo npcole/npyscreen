@@ -7,7 +7,7 @@ def mainloop(scr):
 	while 1:
 		scr.keypad(1)
 		curses.halfdelay(100)
-		ch = scr.get_wch()
+		ch = scr.getch()
 		if ch == "-1": scr.addstr(2, 0, '-1')
 		try: 
 			scr.erase()

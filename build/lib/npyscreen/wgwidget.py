@@ -424,12 +424,27 @@ big a given widget is ... use .height and .width instead"""
         # In python 3
         #if sys.version_info[0] >= 3:
         #    return this_string.replace('\n', ' ')
-        if not GlobalOptions.ASCII_ONLY:
-            if self.__class__._SAFE_STRING_STRIPS_NL == True:
-                rtn_value = this_string.replace('\n', ' ')
+        if self.__class__._SAFE_STRING_STRIPS_NL == True:
+            rtn_value = this_string.replace('\n', ' ')
+        else:
+            rtn_value = this_string
+        
+        # Does the terminal want ascii?
+        if locale.getpreferredencoding() == 'US-ASCII':
+            if isinstance(rtn_value, bytes):
+                # no it isn't.
+                rtn_value = rtn_value.decode(locale.getpreferredencoding(), errors='replace')
             else:
-                rtn_value = this_string
-            
+                if sys.version_info[0] >= 3:
+                    # even on python3, in this case, we want a string that
+                    # contains only ascii chars - but in unicode, so:
+                    rtn_value = rtn_value.encode('ascii', errors='replace').decode()
+                    return rtn_value     
+                else:
+                    return rtn_value.encode('ascii', errors='replace')                
+            return rtn_value
+        # If not....
+        if not GlobalOptions.ASCII_ONLY:
             # is the string already unicode?
             if isinstance(rtn_value, bytes):
                 # no it isn't.
