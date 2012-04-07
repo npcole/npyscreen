@@ -5,6 +5,7 @@ from . import wgcheckbox  as checkbox
 
 class MiniButton(checkbox._ToggleControl):
     def __init__(self, screen, name='Button', *args, **keywords):
+        self.encoding = 'utf-8'
         self.name = self.safe_string(name)
         self.label_width = len(name) + 2
         super(MiniButton, self).__init__(screen, *args, **keywords)
