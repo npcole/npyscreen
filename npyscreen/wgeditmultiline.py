@@ -20,7 +20,7 @@ class MultiLineEdit(widget.Widget):
         self.maximum_display_height = self.height
         self.slow_scroll = slow_scroll
         self.scroll_exit = scroll_exit
-
+        self.encoding = locale.getpreferredencoding()
         self.autowrap = autowrap
         self.wrapon = re.compile("\s+|-+")
 
@@ -107,16 +107,48 @@ class MultiLineEdit(widget.Widget):
         max_display = len(text_to_display[self.start_display_at:])
 
         for line_counter in range(self.height):
-            if line_counter >= len(text_to_display)-self.start_display_at: break
+            if line_counter >= len(text_to_display)-self.start_display_at: 
+                break
             
-            if self.do_colors():
-                self.parent.curses_pad.addnstr(self.rely+line_counter, self.relx, 
-                    text_to_display[self.start_display_at+line_counter][xdisplay_offset:], display_width,
-                    self.parent.theme_manager.findPair(self))
-            else:
-                self.parent.curses_pad.addnstr(self.rely+line_counter, self.relx, 
-                    text_to_display[self.start_display_at+line_counter][xdisplay_offset:], display_width)
+            line_to_display = text_to_display[self.start_display_at+line_counter][xdisplay_offset:]
+            line_to_display = self.safe_string(line_to_display)
+            if isinstance(line_to_display, bytes):
+                line_to_display = line_to_display.decode(locale.getpreferredencoding(), errors='replace')
+            column = 0
+            place_in_string = 0
+            while column <= (display_width):
+                if not line_to_display:
+                    break
+                if place_in_string >= len(line_to_display):
+                    break
+                width_of_char_to_print = 1 # self.find_width_of_char(string_to_print[place_in_string])
+                                           # change this when actually have a function to do this
+                if column - 1 + width_of_char_to_print > display_width:
+                    break
+                
+                if self.do_colors():
+                    color = self.parent.theme_manager.findPair(self)
+                else:
+                    color = curses.A_NORMAL
+                
+                self.parent.curses_pad.addstr(self.rely+line_counter,self.relx+column, 
+                    self._print_unicode_char(line_to_display[place_in_string]), 
+                    color
+                    )
+                column += width_of_char_to_print
+                place_in_string += 1
+                
+            # This needs altering using the methods from the textbox class
+            # to properly deal with unicode.
             
+            #if self.do_colors():
+            #    self.parent.curses_pad.addnstr(self.rely+line_counter, self.relx, 
+            #        text_to_display[self.start_display_at+line_counter][xdisplay_offset:], display_width,
+            #        self.parent.theme_manager.findPair(self))
+            #else:
+            #    self.parent.curses_pad.addnstr(self.rely+line_counter, self.relx, 
+            #        text_to_display[self.start_display_at+line_counter][xdisplay_offset:], display_width)
+            #
 
         if self.editing:
             # Cursors do not seem to work on pads.
@@ -137,6 +169,12 @@ class MultiLineEdit(widget.Widget):
             
             self.parent.curses_pad.addstr(self.rely + _cur_y - self.start_display_at, _cur_x - xdisplay_offset + self.relx, char_under_cur, curses.A_STANDOUT)
             
+    def _print_unicode_char(self, ch):
+        # return the ch to print.  For python 3 this is just ch
+        if sys.version_info[0] >= 3:
+            return ch
+        else:
+            return ch.encode('utf-8', errors='strict')
 
     def reformat_preserve_nl(self, *ignorethese):
         # Adapted from a script found at:
@@ -182,9 +220,9 @@ class MultiLineEdit(widget.Widget):
             })
 
         self.complex_handlers.extend((
-                                             (self.t_input_isprint, self.h_addch),
-                                    # (self.t_is_ck, self.h_erase_right),
-                        # (self.t_is_cu, self.h_erase_left),
+                    (self.t_input_isprint, self.h_addch),
+                    # (self.t_is_ck, self.h_erase_right),
+                    # (self.t_is_cu, self.h_erase_left),
                         ))
 
     
