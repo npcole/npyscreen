@@ -328,56 +328,62 @@ big a given widget is ... use .height and .width instead"""
         self.update()
         
     def _get_ch(self):
-        try:
-            # Python3.3 and above - returns unicode
-            ch = self.parent.curses_pad.get_wch()
-            self._last_get_ch_was_unicode = True
-        except AttributeError:
+        #try:
+        #    # Python3.3 and above - returns unicode
+        #    ch = self.parent.curses_pad.get_wch()
+        #    self._last_get_ch_was_unicode = True
+        #except AttributeError:
+            
+        # For now, disable all attempt to use get_wch()
+        # but everything that follows could be in the except clause above.
+        
             # Try to read utf-8 if possible.
-            _stored_bytes =[]
-            self._last_get_ch_was_unicode = True
-            global ALLOW_NEW_INPUT
-            if ALLOW_NEW_INPUT == True and locale.getpreferredencoding() == 'UTF-8':
-                ch = self.parent.curses_pad.getch()
-                if ch <= 127:
-                    rtn_ch = ch
-                    self._last_get_ch_was_unicode = False
-                    return rtn_ch
-                elif ch <= 193:
-                    rtn_ch = ch
-                    self._last_get_ch_was_unicode = False
-                    return rtn_ch
-                # if we are here, we need to read 1, 2 or 3 more bytes.
-                # all of the subsequent bytes should be in the range 128 - 191, 
-                # but we'll risk not checking...
-                elif 194 <= ch <= 223: 
-                        # 2 bytes
-                        _stored_bytes.append(ch)
-                        _stored_bytes.append(self.parent.curses_pad.getch())
-                elif 224 <= ch <= 239: 
-                        # 3 bytes 
-                        _stored_bytes.append(ch)
-                        _stored_bytes.append(self.parent.curses_pad.getch()) 
-                        _stored_bytes.append(self.parent.curses_pad.getch()) 
-                elif 240 <= ch <= 244: 
-                        # 4 bytes 
-                        _stored_bytes.append(ch) 
-                        _stored_bytes.append(self.parent.curses_pad.getch()) 
-                        _stored_bytes.append(self.parent.curses_pad.getch()) 
-                        _stored_bytes.append(self.parent.curses_pad.getch())
-                elif ch >= 245:
-                    # probably a control character
-                    self._last_get_ch_was_unicode = False
-                    return ch
-                
-                if sys.version_info[0] >= 3:
-                    ch = bytes(_stored_bytes).decode('utf-8', errors='strict')
-                else:
-                    ch = ''.join([chr(b) for b in _stored_bytes])
-                    ch = ch.decode('utf-8')
-            else:
-                ch = self.parent.curses_pad.getch()
+        _stored_bytes =[]
+        self._last_get_ch_was_unicode = True
+        global ALLOW_NEW_INPUT
+        if ALLOW_NEW_INPUT == True and locale.getpreferredencoding() == 'UTF-8':
+            ch = self.parent.curses_pad.getch()
+            if ch <= 127:
+                rtn_ch = ch
                 self._last_get_ch_was_unicode = False
+                return rtn_ch
+            elif ch <= 193:
+                rtn_ch = ch
+                self._last_get_ch_was_unicode = False
+                return rtn_ch
+            # if we are here, we need to read 1, 2 or 3 more bytes.
+            # all of the subsequent bytes should be in the range 128 - 191, 
+            # but we'll risk not checking...
+            elif 194 <= ch <= 223: 
+                    # 2 bytes
+                    _stored_bytes.append(ch)
+                    _stored_bytes.append(self.parent.curses_pad.getch())
+            elif 224 <= ch <= 239: 
+                    # 3 bytes 
+                    _stored_bytes.append(ch)
+                    _stored_bytes.append(self.parent.curses_pad.getch()) 
+                    _stored_bytes.append(self.parent.curses_pad.getch()) 
+            elif 240 <= ch <= 244: 
+                    # 4 bytes 
+                    _stored_bytes.append(ch) 
+                    _stored_bytes.append(self.parent.curses_pad.getch()) 
+                    _stored_bytes.append(self.parent.curses_pad.getch()) 
+                    _stored_bytes.append(self.parent.curses_pad.getch())
+            elif ch >= 245:
+                # probably a control character
+                self._last_get_ch_was_unicode = False
+                return ch
+            
+            if sys.version_info[0] >= 3:
+                ch = bytes(_stored_bytes).decode('utf-8', errors='strict')
+            else:
+                ch = ''.join([chr(b) for b in _stored_bytes])
+                ch = ch.decode('utf-8')
+        else:
+            ch = self.parent.curses_pad.getch()
+            self._last_get_ch_was_unicode = False
+        
+        # This line should not be in the except clause.
         return ch
 
     def try_adjust_widgets(self):
