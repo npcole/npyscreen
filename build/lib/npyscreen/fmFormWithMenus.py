@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
-
+import curses
 from . import fmForm
 from . import fmActionForm
 from . import wgNMenuDisplay
@@ -17,8 +17,14 @@ class FormBaseNewWithMenus(fmForm.FormBaseNew, wgNMenuDisplay.HasMenus):
     def draw_form(self):
         super(FormBaseNewWithMenus, self).draw_form()
         menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
+        if isinstance(menu_advert, bytes):
+            menu_advert = menu_advert.decode('utf-8', errors='replace')
         y, x = self.display_menu_advert_at()
-        self.curses_pad.addnstr(y, x, menu_advert, self.columns - x - 1)
+        self.add_line(y, x, 
+            menu_advert, 
+            self.make_attributes_list(menu_advert, curses.A_NORMAL),
+            self.columns - x - 1
+            )
     
 
 class FormWithMenus(fmForm.Form, wgNMenuDisplay.HasMenus):
@@ -34,7 +40,14 @@ class FormWithMenus(fmForm.Form, wgNMenuDisplay.HasMenus):
         super(FormWithMenus, self).draw_form()
         menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
         y, x = self.display_menu_advert_at()
-        self.curses_pad.addnstr(y, x, menu_advert, self.columns - x - 1)
+        if isinstance(menu_advert, bytes):
+            menu_advert = menu_advert.decode('utf-8', errors='replace')
+        self.add_line(y, x, 
+            menu_advert, 
+            self.make_attributes_list(menu_advert, curses.A_NORMAL),
+            self.columns - x - 1
+            )
+        
 
 # The following class does not inherit from FormWithMenus and so some code is duplicated.  
 # The pig is getting to inherit edit() from ActionForm, but draw_form from FormWithMenus
@@ -49,7 +62,14 @@ class ActionFormWithMenus(fmActionForm.ActionForm, wgNMenuDisplay.HasMenus):
         super(ActionFormWithMenus, self).draw_form()
         menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
         y, x = self.display_menu_advert_at()
-        self.curses_pad.addnstr(y, x, menu_advert, self.columns - x - 1)
+        if isinstance(menu_advert, bytes):
+            menu_advert = menu_advert.decode('utf-8', errors='replace')
+        self.add_line(y, x, 
+            menu_advert, 
+            self.make_attributes_list(menu_advert, curses.A_NORMAL),
+            self.columns - x - 1
+            )
+        
         
 class SplitFormWithMenus(fmForm.SplitForm, FormWithMenus):
     """Just the same as the Title Form, but with a horizontal line"""

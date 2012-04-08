@@ -39,12 +39,22 @@ class MiniButton(checkbox._ToggleControl):
         else:
             button_state = curses.A_NORMAL
         
-        str = self.name.center(self.label_width)
-        if self.do_colors():
-            self.parent.curses_pad.addnstr(self.rely, self.relx+1, str, self.label_width, self.parent.theme_manager.findPair(self, 'CONTROL') | button_state)
-        else:
-            self.parent.curses_pad.addnstr(self.rely, self.relx+1, str, self.label_width, button_state) 
+        button_name = self.name
+        if isinstance(button_name, bytes):
+            button_name = button_name.decode(self.encoding, errors='replace')
+        button_name = button_name.center(self.label_width)
         
+        if self.do_colors():
+            button_attributes = self.parent.theme_manager.findPair(self, 'CONTROL') | button_state
+        else:
+            button_attributes = button_state
+        
+        self.add_line(self.rely, self.relx+1,
+            button_name,
+            self.make_attributes_list(button_name, button_attributes),
+            self.label_width
+            )
+
 
 class MiniButtonPress(MiniButton):
     def h_toggle(self):

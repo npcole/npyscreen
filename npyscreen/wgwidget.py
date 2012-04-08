@@ -6,6 +6,7 @@ import curses.ascii
 #import curses.wrapper
 import weakref
 from . import npysGlobalOptions as GlobalOptions
+from . import wgwidget_proto
 import locale
 import warnings
 
@@ -128,7 +129,7 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
 
 
 
-class Widget(InputHandler):
+class Widget(InputHandler, wgwidget_proto._LinePrinter):
     "A base class for widgets. Do not use directly"
     
     _SAFE_STRING_STRIPS_NL = True
