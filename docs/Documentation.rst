@@ -147,7 +147,7 @@ keypress_timeout_default
     If this is set, new forms will be created with keypress_timeout set to this, provided they know what application they belong to - i.e. they have been passed *parentApp=* at creation time. If you are using NPSAppManaged, this will happen automatically.
 
 *while_waiting()*, *_internal_while_waiting()*
-    Applications can also have a while_waiting method.  You can define and override this at will, and it will be called while the application is waiting for user input (see the while_waiting method on forms).  The *_internal_while_waiting()* method is for internal use.
+    Applications can also have a *while_waiting* method.  You can define and override this at will, and it will be called while the application is waiting for user input (see the while_waiting method on forms).  The *_internal_while_waiting()* method is for internal use by npyscreen.
 
 NPSApp
 ------
@@ -346,6 +346,15 @@ All widgets have the following methods:
     
 *when_value_edited()*
     Called when, during editing of the widget, its value changes.  I.e. after keypresses.
+    You can disable this by setting the attribute *check_value_change* to False.
+    
+    You can override this function for your own use.
+
+*when_cursor_moved()*
+    Called when, during the editing of the widget, its cursor has been moved.  You can disable
+    the check for this by setting the attribute *check_cursor_move* to False.
+    
+    You can override this function for your own use. 
 
 Titled Widgets
 **************
@@ -674,5 +683,5 @@ Title... versions of widgets also define the attribute *labelColor*, which can b
 
 Unicode
 *******
-At time of writing there is very limited support for unicode text, and this feature should be considered experimental.  It is currently limited to the text fields (including most labels), including the multi-line edit box.  Because of a limitation in the python curses bindings, user input is currently limited to ascii characters.  However, unicode strings supplied for display should be presented correctly.  Please report any problems.
+The latest versions of the library aim to handle unicode/utf-8 strings.  Please report any problems.
 
