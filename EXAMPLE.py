@@ -7,7 +7,7 @@ class TestApp(npyscreen.NPSApp):
     def main(self):
         # These lines create the form and populate it with widgets.
         # A fairly complex screen in only 8 or so lines of code - a line for each control.
-        F = npyscreen.Form(name = "Welcome to Npyscreen",)
+        F = npyscreen.Form(name = "Welcome to Npyscreen é",)
         t = F.add(npyscreen.TitleText, name = "Text:",)
         fn = F.add(npyscreen.TitleFilename, name = "Filename:")
         dt = F.add(npyscreen.TitleDateCombo, name = "Date:")

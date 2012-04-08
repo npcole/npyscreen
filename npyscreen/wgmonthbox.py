@@ -150,8 +150,10 @@ class MonthBox(DateEntryBase):
         if self.hidden:
             self.clear()
             return False
+        
+        # Title line        
         if not self.value:
-            self.parent.curses_pad.addstr(self.rely, self.relx, "No value set")
+            _title_line = "No Value Set"
         else:
             year  = self.value.year
             month = self.value.month
@@ -160,14 +162,25 @@ class MonthBox(DateEntryBase):
             except ValueError:
                 monthname = "Month: %s" % self.value.month
             day   = self.value.day
+            
+            _title_line = "%s, %s" % (monthname, year)
         
-            # Print the Title Line
-            if self.do_colors():
-                self.parent.curses_pad.addstr(self.rely, self.relx, ("%s, %s" % (monthname, year)), 
-                                                    self.parent.theme_manager.findPair(self))
-            else:
-                self.parent.curses_pad.addstr(self.rely, self.relx, ("%s, %s" % (monthname, year)))
+        if isinstance(_title_line, bytes):
+            _title_line = _title_line.decode(self.encoding, errors='replace')
         
+        if self.do_colors():
+            title_attribute = self.parent.theme_manager.findPair(self)
+        else:
+            title_attribute = curses.A_NORMAL
+        
+        self.add_line(self.rely, self.relx, 
+            _title_line,
+            self.make_attributes_list(_title_line, title_attribute),
+            self.width-1
+        )
+        
+        
+        if self.value:
             # Print the days themselves
             try:
                 cal_data = calendar.monthcalendar(year, month)
@@ -179,11 +192,21 @@ class MonthBox(DateEntryBase):
             if do_cal_print:
                 # Print the day names
                 # weekheader puts an extra space at the end of each name
+                
+                cal_header = calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1)
+                if isinstance(cal_header, bytes):
+                    cal_header = cal_header.decode(self.encoding, errors='replace')
+                
                 if self.do_colors():
-                    self.parent.curses_pad.addstr(self.rely+1, self.relx, calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1),
-                                                    self.parent.theme_manager.findPair(self, 'LABEL'))
+                    cal_title_attribute = self.parent.theme_manager.findPair(self, 'LABEL')
                 else:
-                    self.parent.curses_pad.addstr(self.rely+1, self.relx, calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1))
+                    cal_title_attribute = curses.A_NORMAL
+                self.add_line(self.rely+1, self.relx,
+                    cal_header,
+                    self.make_attributes_list(cal_header, cal_title_attribute),
+                    self.width,
+                    )
+                    
                 print_line = self.rely+2
         
                 for calrow in cal_data:

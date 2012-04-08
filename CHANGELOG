@@ -6,6 +6,28 @@ KNOWN BUGS:
 TODO - fix F keys on OS X
 	 - fix _print_line of multiline class
 	- Drop down menus?
+	- change the textfield widgets to use the new _LinePrinter class (to make everything more
+		robust)
+	- should monthbox calendar also accept utf-8 for day names?
+	
+	
+2.0pre48
+	- fix display of utf-8 form names.
+	- fix display of utf-8 buttons.
+	- check display of utf-8 sliders.
+	- calendar widget now compatible with utf-8 except in day names.
+
+2.0pre47
+An important release.  On utf-8 enabled terminals, the library should now handle
+the display and entry of utf-8/unicode strings on both python 2 and 3, with the single caveat
+that multi-width characters still cause problems, because there is not a reliable way
+to detect them.
+
+I have not yet been able to test how well this works with the get_wch() function
+introduced in python3.3.  This is disabled for now, but should not make a difference 
+to most users.
+
+This release should be considered an alpha release for version 2.
 
 2.0pre45
 Bug fixes.  Calendar is now more robust.

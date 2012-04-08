@@ -7,10 +7,13 @@ from . import npyspmfuncs as pmfuncs
 #import Menu
 import curses
 from . import npysGlobalOptions
+from . import wgwidget_proto
 from . import fm_form_edit_loop   as form_edit_loop
 from . import util_viewhelp
 
-class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
+class _FormBase(proto_fm_screen_area.ScreenArea, 
+        widget.InputHandler, 
+        wgwidget_proto._LinePrinter):
     BLANK_COLUMNS_RIGHT= 2
     BLANK_LINES_BASE   = 2
     OK_BUTTON_BR_OFFSET = (2,6)
@@ -276,25 +279,39 @@ class _FormBase(proto_fm_screen_area.ScreenArea, widget.InputHandler,):
 
         self.refresh()
 
+    def draw_title_and_help(self):
+        try:
+            if self.name:
+                _title = self.name[:(self.columns-4)]
+                _title = ' ' + str(_title) + ' '
+                #self.curses_pad.addstr(0,1, ' '+str(_title)+' ')
+                if isinstance(_title, bytes):
+                    _title = _title.decode('utf-8', errors='replace')
+                self.add_line(0,1, 
+                    _title, 
+                    self.make_attributes_list(_title, curses.A_NORMAL),
+                    self.columns-4
+                    )
+        except:
+            pass
+
+        if self.help and self.editing:
+            try:
+                help_advert = u" Help: F1 or ^O "
+                self.add_line(
+                 0, self.curses_pad.getmaxyx()[1]-len(help_advert)-2, 
+                 help_advert,
+                 self.make_attributes_list(help_advert, curses.A_NORMAL),
+                 len(help_advert)
+                 )
+            except:
+                raise
+
     def draw_form(self):
         if self.framed:
             self.curses_pad.border()
+            self.draw_title_and_help()
 
-            try:
-                if self.name:
-                    _title = self.name[:(self.columns-4)]
-                    self.curses_pad.addstr(0,1, ' '+str(_title)+' ')
-            except:
-                pass
-
-            if self.help and self.editing:
-                try:
-                    help_advert = " Help: F1 or ^O "
-                    self.curses_pad.addstr(
-                     0, self.curses_pad.getmaxyx()[1]-len(help_advert)-2, help_advert 
-                     )
-                except:
-                    pass
 
     def add_widget(self, widgetClass, w_id=None, max_height=None, rely=None, relx=None, *args, **keywords):
         """Add a widget to the form.  The form will do its best to decide on placing, unless you override it.
@@ -353,21 +370,8 @@ class TitleForm(Form):
     def draw_form(self):
         MAXY, MAXX = self.curses_pad.getmaxyx()
         self.curses_pad.hline(0, 0, curses.ACS_HLINE, MAXX) 
-        try:
-            if self.name:
-                self.curses_pad.addstr(0,1, ' '+str(self.name)+' ')
-        except:
-            pass
-
-        if self.help and self.editing:
-            try:
-                help_advert = " Help: F1 or M-h "
-                self.curses_pad.addstr(
-                 0, self.curses_pad.MAXX-len(help_advert)-2, help_advert 
-                 )
-            except:
-                pass
-
+        self.draw_title_and_help()
+        
 class TitleFooterForm(TitleForm):
     BLANK_LINES_BASE=1
     def draw_form(self):
