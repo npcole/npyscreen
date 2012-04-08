@@ -9,4 +9,13 @@ setup(
 	author_email="n@npcole.com",
 	url="http://www.npcole.com/npyscreen/",
 	packages=['npyscreen'],
+	license='New BSD License',
+	classifiers= [
+	    'Environment :: Console',
+	    'Operating System :: POSIX',
+	    'Environment :: Console :: Curses',
+	    'Intended Audience :: Developers',
+	    'License :: OSI Approved :: BSD License',
+	    'Topic :: Terminals'
+	    ]   
 )
