@@ -580,8 +580,18 @@ AnnotateTextboxBase, TreeLineAnnotated
         be too, since npyscreen will use one if the display is configured for colour
         and the other if configured for black and white.
 
+Box Widgets
+***********
+BoxBasic, RoundCheckBox
+   BoxBasic prints a box with an optional name and footer on the screen.  It is intended as a base class 
+   for further widgets.
+  
+BoxTitle
+    BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base
+    class for more complex layouts.
 
- 
+
+
 All about Key Bindings
 ======================
 
