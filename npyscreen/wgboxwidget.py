@@ -13,17 +13,18 @@ class BoxBasic(Widget):
             self.clear()
             return False
         HEIGHT = self.height - 1
+        WIDTH  = self.width - 1
         # draw box.
-        self.parent.curses_pad.hline(self.rely, self.relx, curses.ACS_HLINE, self.width)
-        self.parent.curses_pad.hline(self.rely + HEIGHT, self.relx, curses.ACS_HLINE, self.width)
+        self.parent.curses_pad.hline(self.rely, self.relx, curses.ACS_HLINE, WIDTH)
+        self.parent.curses_pad.hline(self.rely + HEIGHT, self.relx, curses.ACS_HLINE, WIDTH)
         self.parent.curses_pad.vline(self.rely, self.relx, curses.ACS_VLINE, self.height)
-        self.parent.curses_pad.vline(self.rely, self.relx+self.width, curses.ACS_VLINE, HEIGHT)
+        self.parent.curses_pad.vline(self.rely, self.relx+WIDTH, curses.ACS_VLINE, HEIGHT)
         
         # draw corners
         self.parent.curses_pad.addch(self.rely, self.relx, curses.ACS_ULCORNER, )
-        self.parent.curses_pad.addch(self.rely, self.relx+self.width, curses.ACS_URCORNER, )
+        self.parent.curses_pad.addch(self.rely, self.relx+WIDTH, curses.ACS_URCORNER, )
         self.parent.curses_pad.addch(self.rely+HEIGHT, self.relx, curses.ACS_LLCORNER, )
-        self.parent.curses_pad.addch(self.rely+HEIGHT, self.relx+self.width, curses.ACS_LRCORNER, )
+        self.parent.curses_pad.addch(self.rely+HEIGHT, self.relx+WIDTH, curses.ACS_LRCORNER, )
         
         # draw title
         if self.name:
