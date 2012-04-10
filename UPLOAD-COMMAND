@@ -1,0 +1,1 @@
+python setup.py sdist upload --identity="560F6E28" --sign # for pypi
