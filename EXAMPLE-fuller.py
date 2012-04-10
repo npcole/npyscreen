@@ -21,7 +21,7 @@ class TestApp(npyscreen.NPSApp):
         ms2= F.add(npyscreen.MultiSelect, max_height=4, value = [1,], 
                 values = ["Option1","Option2","Option3"], scroll_exit=True, width=20)
 
-        bn = F.add(npyscreen.MiniButton, name = "Buttonét",)
+        bn = F.add(npyscreen.MiniButton, name = "Button",)
         
         gd = F.add(npyscreen.SimpleGrid, relx = 42, rely=15, width=20)
         gd.values = []
