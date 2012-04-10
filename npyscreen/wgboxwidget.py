@@ -1,4 +1,5 @@
 import curses
+import weakref
 from .wgwidget import Widget
 from .wgmultiline import MultiLine
 class BoxBasic(Widget):
@@ -84,8 +85,8 @@ class BoxTitle(BoxBasic):
          rely=self.rely+1, relx = self.relx+2, 
          max_width=self.width-4, max_height=self.height-2,
          ))
-        self.entry_widget = self._my_widgets[0]
-    
+        self.entry_widget = weakref.proxy(self._my_widgets[0])
+            
     def update(self, clear=True):
         if self.hidden and clear:
             self.clear()
