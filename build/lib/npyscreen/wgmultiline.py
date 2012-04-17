@@ -41,6 +41,7 @@ display different kinds of objects.  Given the standard definition,
 the same effect can be achieved by altering the __str__() method of displayed objects"""
     _MINIMUM_HEIGHT = 2 # Raise an error if not given this.
     _contained_widgets = textbox.Textfield
+    _contained_widget_height = 1
     def __init__(self, screen, values = None, value = None,
             slow_scroll=False, scroll_exit=False, 
             return_exit=False,
@@ -86,10 +87,10 @@ the same effect can be achieved by altering the __str__() method of displayed ob
     
     def make_contained_widgets(self, ):
         self._my_widgets = []
-        for h in range(self.height):
+        for h in range(self.height // self.__class__._contained_widget_height):
             self._my_widgets.append(self._contained_widgets(self.parent, 
              rely=h+self.rely, relx = self.relx, 
-             max_width=self.width, max_height=1))
+             max_width=self.width, max_height=self.__class__._contained_widget_height))
 
 
     def display_value(self, vl):

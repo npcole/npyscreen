@@ -215,7 +215,22 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
         self.DISPLAY()
         
     def get_and_use_mouse_event(self):
-        curses.beep()
+        mouse_event = curses.getmouse()
+        wg = self.find_mouse_handler(mouse_event)
+        if wg:
+            self.set_editing(wg)
+        else:
+            curses.beep()
+    
+    def find_mouse_handler(self, mouse_event):
+        #mouse_id, x, y, z, bstate = mouse_event
+        for wd in self._widgets__:
+            try:
+                if wd.intersted_in_mouse_event(mouse_event) == True:
+                    return wd
+            except AttributeError:
+                pass
+        return None
         
     def set_editing(self, wdg):
         try:

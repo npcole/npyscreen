@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre48c",
+	version="2.0pre50a",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -11,6 +11,10 @@ setup(
 	packages=['npyscreen'],
 	license='New BSD License',
 	classifiers= [
+	    'Development Status :: 5 - Production/Stable',
+	    'Programming Language :: Python :: 3',
+	    'Programming Language :: Python :: 2.6',
+	    'Programming Language :: Python :: 2.7',
 	    'Environment :: Console',
 	    'Operating System :: POSIX',
 	    'Environment :: Console :: Curses',
@@ -25,5 +29,10 @@ This framework should be powerful enough to create everything from quick, simple
 There is a very wide variety of default widgets - everything from simple text fields to more complex tree and grid views.
 
 I have used versions of this library for private scripts and small applications for around ten years. As a result, it is fairly mature.	
-	"""
+
+Please report bugs using the bug-tracker at http://code.google.com/p/npyscreen.
+
+*Latest Changes*:
+Version 2.0pre50 enables basic mouse support.  Note that the Apple terminal does not handle mouse events correctly.
+"""
 )

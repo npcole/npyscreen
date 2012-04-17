@@ -173,7 +173,10 @@ class TextfieldBase(widget.Widget):
             return ch.encode('utf-8', errors='strict')
     
     def _print(self):
-        string_to_print = self.display_value(self.value)[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
+        string_to_print = self.display_value(self.value)
+        if not string_to_print:
+            return None
+        string_to_print = string_to_print[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
         
         if sys.version_info[0] >= 3:
             string_to_print = self.display_value(self.value)[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]

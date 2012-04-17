@@ -55,6 +55,11 @@ from .wggridcoltitles           import GridColTitles
 from .muNewMenu                 import NewMenu, MenuItem
 from .wgNMenuDisplay            import MenuDisplay, MenuDisplayScreen
 
+# Experimental
+from .wgboxwidget               import BoxBasic, BoxTitle
+
+# End Experimental
+
 from .npyspmfuncs               import CallSubShell
 
 from .utilNotify                 import notify, notify_confirm, notify_wait, notify_ok_cancel, notify_yes_no
