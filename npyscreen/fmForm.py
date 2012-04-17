@@ -301,7 +301,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
                 _title = ' ' + str(_title) + ' '
                 #self.curses_pad.addstr(0,1, ' '+str(_title)+' ')
                 if isinstance(_title, bytes):
-                    _title = _title.decode('utf-8', errors='replace')
+                    _title = _title.decode('utf-8', 'replace')
                 self.add_line(0,1, 
                     _title, 
                     self.make_attributes_list(_title, curses.A_NORMAL),
@@ -312,7 +312,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
 
         if self.help and self.editing:
             try:
-                help_advert = u" Help: F1 or ^O "
+                help_advert = " Help: F1 or ^O "
                 self.add_line(
                  0, self.curses_pad.getmaxyx()[1]-len(help_advert)-2, 
                  help_advert,

@@ -29,11 +29,11 @@ class BoxBasic(Widget):
         # draw title
         if self.name:
             if isinstance(self.name, bytes):
-                name = self.name.decode(self.encoding, errors='replace')
+                name = self.name.decode(self.encoding, 'replace')
             else:
                 name = self.name
             name = self.safe_string(name)
-            name = u" " + name + u" "
+            name = " " + name + " "
             name_attributes = curses.A_NORMAL
             if self.do_colors() and not self.editing:
                 name_attributes = name_attributes | self.parent.theme_manager.findPair(self, 'LABEL') #| curses.A_BOLD
@@ -54,9 +54,9 @@ class BoxBasic(Widget):
             if hasattr(self, 'footer') and self.footer:
                 footer_text = self.footer
                 if isinstance(footer_text, bytes):
-                    footer_text = footer_text.decode(self.encoding, errors='replace')
+                    footer_text = footer_text.decode(self.encoding, 'replace')
                 footer_text = self.safe_string(footer_text)
-                footer_text = u" " + footer_text + u" "
+                footer_text = " " + footer_text + " "
                 footer_attributes = self.get_footer_attributes(footer_text)
                 if len(footer_text) <= self.width - 4:
                     placing = self.width - 4 - len(footer_text)
