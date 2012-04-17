@@ -14,11 +14,11 @@ class _LinePrinter(object):
             force_ascii = self._force_ascii
         # return the ch to print.  For python 3 this is just ch
         if force_ascii:
-            return ch.encode('ascii', errors='replace')
+            return ch.encode('ascii', 'replace')
         elif sys.version_info[0] >= 3:
             return ch
         else:
-            return ch.encode('utf-8', errors='replace')
+            return ch.encode('utf-8', 'replace')
 
     def add_line(self, realy, realx, 
                 unicode_string, 

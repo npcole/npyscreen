@@ -18,7 +18,7 @@ class FormBaseNewWithMenus(fmForm.FormBaseNew, wgNMenuDisplay.HasMenus):
         super(FormBaseNewWithMenus, self).draw_form()
         menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
         if isinstance(menu_advert, bytes):
-            menu_advert = menu_advert.decode('utf-8', errors='replace')
+            menu_advert = menu_advert.decode('utf-8', 'replace')
         y, x = self.display_menu_advert_at()
         self.add_line(y, x, 
             menu_advert, 
@@ -41,7 +41,7 @@ class FormWithMenus(fmForm.Form, wgNMenuDisplay.HasMenus):
         menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
         y, x = self.display_menu_advert_at()
         if isinstance(menu_advert, bytes):
-            menu_advert = menu_advert.decode('utf-8', errors='replace')
+            menu_advert = menu_advert.decode('utf-8', 'replace')
         self.add_line(y, x, 
             menu_advert, 
             self.make_attributes_list(menu_advert, curses.A_NORMAL),
@@ -62,8 +62,9 @@ class ActionFormWithMenus(fmActionForm.ActionForm, wgNMenuDisplay.HasMenus):
         super(ActionFormWithMenus, self).draw_form()
         menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
         y, x = self.display_menu_advert_at()
+        
         if isinstance(menu_advert, bytes):
-            menu_advert = menu_advert.decode('utf-8', errors='replace')
+            menu_advert = menu_advert.decode('utf-8', 'replace')
         self.add_line(y, x, 
             menu_advert, 
             self.make_attributes_list(menu_advert, curses.A_NORMAL),

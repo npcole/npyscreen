@@ -166,7 +166,7 @@ class MonthBox(DateEntryBase):
             _title_line = "%s, %s" % (monthname, year)
         
         if isinstance(_title_line, bytes):
-            _title_line = _title_line.decode(self.encoding, errors='replace')
+            _title_line = _title_line.decode(self.encoding, 'replace')
         
         if self.do_colors():
             title_attribute = self.parent.theme_manager.findPair(self)
@@ -195,7 +195,7 @@ class MonthBox(DateEntryBase):
                 
                 cal_header = calendar.weekheader(self.__class__.DAY_FIELD_WIDTH - 1)
                 if isinstance(cal_header, bytes):
-                    cal_header = cal_header.decode(self.encoding, errors='replace')
+                    cal_header = cal_header.decode(self.encoding, 'replace')
                 
                 if self.do_colors():
                     cal_title_attribute = self.parent.theme_manager.findPair(self, 'LABEL')

@@ -28,7 +28,7 @@ class Slider(widget.Widget):
         
         stri = "%s / %s" %(self.value, self.out_of)
         if isinstance(stri, bytes):
-            stri = stri.decode(self.encoding, errors='replace')
+            stri = stri.decode(self.encoding, 'replace')
         l = (len(str(self.out_of)))*2+4
         stri = stri.rjust(l)
         return stri

@@ -508,26 +508,34 @@ big a given widget is ... use .height and .width instead"""
         if self._force_ascii:
             if isinstance(rtn_value, bytes):
                 # no it isn't.
-                rtn_value = rtn_value.decode(self.encoding, errors='replace')
+                try:
+                    rtn_value = rtn_value.decode(self.encoding, 'replace')
+                except TypeError:
+                    # Python2.6
+                    rtn_value = rtn_value.decode(self.encoding, 'replace')
             else:
                 if sys.version_info[0] >= 3:
                     # even on python3, in this case, we want a string that
                     # contains only ascii chars - but in unicode, so:
-                    rtn_value = rtn_value.encode('ascii', errors='replace').decode()
+                    rtn_value = rtn_value.encode('ascii', 'replace').decode()
                     return rtn_value     
                 else:
-                    return rtn_value.encode('ascii', errors='replace')
+                    return rtn_value.encode('ascii', 'replace')
             return rtn_value
         # If not....
         if not GlobalOptions.ASCII_ONLY:
             # is the string already unicode?
             if isinstance(rtn_value, bytes):
                 # no it isn't.
-                rtn_value = rtn_value.decode(self.encoding, errors='replace')
+                try:
+                    rtn_value = rtn_value.decode(self.encoding, 'replace')
+                except:
+                    # Python2.6
+                    rtn_value = rtn_value.decode(self.encoding, 'replace')
             if sys.version_info[0] >= 3:
                 return rtn_value     
             else:
-                return rtn_value.encode('utf-8', errors='replace')
+                return rtn_value.encode('utf-8', 'replace')
         else:
             rtn = self.safe_filter(this_string)
             return rtn

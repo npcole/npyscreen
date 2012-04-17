@@ -41,7 +41,7 @@ class MiniButton(checkbox._ToggleControl):
         
         button_name = self.name
         if isinstance(button_name, bytes):
-            button_name = button_name.decode(self.encoding, errors='replace')
+            button_name = button_name.decode(self.encoding, 'replace')
         button_name = button_name.center(self.label_width)
         
         if self.do_colors():

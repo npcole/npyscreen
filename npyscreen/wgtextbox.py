@@ -66,7 +66,7 @@ class TextfieldBase(widget.Widget):
             if isinstance(self.value, bytes):
                 # use a unicode version of self.value to work out where the cursor is.
                 # not always accurate, but better than the bytes
-                value_to_use_for_calculations = self.display_value(self.value).decode(self.encoding, errors='replace')
+                value_to_use_for_calculations = self.display_value(self.value).decode(self.encoding, 'replace')
             if cursor:
                 if self.cursor_position is False:
                     self.cursor_position = len(value_to_use_for_calculations)
@@ -166,11 +166,11 @@ class TextfieldBase(widget.Widget):
     def _print_unicode_char(self, ch):
         # return the ch to print.  For python 3 this is just ch
         if self._force_ascii:
-            return ch.encode('ascii', errors='replace')
+            return ch.encode('ascii', 'replace')
         elif sys.version_info[0] >= 3:
             return ch
         else:
-            return ch.encode('utf-8', errors='strict')
+            return ch.encode('utf-8', 'strict')
     
     def _print(self):
         string_to_print = self.display_value(self.value)
@@ -184,7 +184,7 @@ class TextfieldBase(widget.Widget):
             # ensure unicode only here encoding here.
             dv = self.display_value(self.value)
             if isinstance(dv, bytes):
-                dv = dv.decode(self.encoding, errors='replace')
+                dv = dv.decode(self.encoding, 'replace')
             string_to_print = dv[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
         
         column = 0
