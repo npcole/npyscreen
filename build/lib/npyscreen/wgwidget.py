@@ -124,7 +124,7 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
 
     def h_exit_mouse(self, _input):
         self.editing = False
-        self.how_exited = MOUSE_EVENT
+        self.how_exited = EXITED_MOUSE
     
 
 
@@ -275,7 +275,7 @@ big a given widget is ... use .height and .width instead"""
         if self.height == RAISEERROR or self.width == RAISEERROR:
             # Not enough space for widget
             raise Exception("Not enough space: max y and x = %s , %s. Height and Width = %s , %s " % (my, mx, self.height, self.width) ) # unsafe. Need to add error here.
-    def update(self):
+    def update(self, clear=True):
         """How should object display itself on the screen. Define here, but do not actually refresh the curses
         display, since this should be done as little as possible.  This base widget puts nothing on screen."""
         if self.hidden:
@@ -430,7 +430,20 @@ big a given widget is ... use .height and .width instead"""
             
         self.try_adjust_widgets()
             
-
+    def intersted_in_mouse_event(self, mouse_event):
+        if not self.editable:
+            return False
+        mouse_id, x, y, z, bstate = mouse_event
+        if self.relx <= x <= self.relx + self.width-1:
+            if self.rely <= y <= self.rely + self.height-1:
+                return True
+        return False
+    
+    def handle_mouse_event(self, mouse_event):
+        # mouse_id, x, y, z, bstate = mouse_event
+        pass
+        
+        
     #def when_parent_changes_value(self):
         # Can be called by forms when they chage their value.
         #pass

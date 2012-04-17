@@ -682,6 +682,21 @@ If you find you need more, subclass ThemeManager and change class attribute *_co
 
 If you want to disable all colour in your application, npyscreen defines two convenient functions: *disableColor()* and *enableColor()*.
 
+Enhancing Mouse Support
+***********************
+Widgets that wish to handle mouse events in more detail should override the method *.handle_mouse_event(self, mouse_event)*.  Note that *mouse_event* is a tuple::
+    
+    def handle_mouse_event(self, mouse_event):
+        mouse_id, x, y, z, bstate = mouse_event
+        # Do things here....
+
+x and y are the mouse click's position on the screen.  Presumably the widget would need to also do::
+    
+    x = x-self.relx
+    y = y-self.rely
+
+See the Python Library curses module documentation for more detail on mouse events.
+
 How Widgets use colour
 **********************
 

@@ -14,8 +14,10 @@ class NPSApp(object):
     def main(self):
         """Overload this method to create your application"""
 
-    def __remove_argument_call_main(self, screen):
+    def __remove_argument_call_main(self, screen, enable_mouse=True):
         # screen disgarded.
+        if enable_mouse:
+            curses.mousemask(curses.ALL_MOUSE_EVENTS)
         del screen
         return self.main()
 

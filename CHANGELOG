@@ -10,6 +10,16 @@ TODO - fix F keys on OS X
 		robust)
 	- should monthbox calendar also accept utf-8 for day names?
 	
+20.pre50
+	- The mouse is now enabled.  At the moment, it is only used to switch between widgets on terminals that support
+	the mouse.  However, any widget can now override the method .handle_mouse_event(self, mouse_event) if a more 
+	detailed behaviour is required.
+
+
+2.0pre49
+	- minor bug fixes.
+	- introduction of two box classes, mainly intended as the base
+	  classes for other things.
 	
 2.0pre48
 	- fix display of utf-8 form names.
