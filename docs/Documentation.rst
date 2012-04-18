@@ -445,10 +445,7 @@ Dates, Sliders and Combination Widgets
 **************************************
 
 DateCombo, TitleDateCombo
-    These widgets allow a user to select a date.  The actual selection of a date is done with the class MonthBox, which is displayed in a temporary window.  The constructor can be passed the following arguments:
-        allowPastDate=False
-        allowTodaysDate=False
-    both of which will affect what the user is allowed to select.
+    These widgets allow a user to select a date.  The actual selection of a date is done with the class MonthBox, which is displayed in a temporary window.  The constructor can be passed the following arguments - allowPastDate=False and      allowTodaysDate=False - both of which will affect what the user is allowed to select.
 
 ComboBox, TitleCombo
     This box looks like a Textbox, but the user can only select from a list of options.  Which are displayed in a temporary window if the user wants to change the value.  Like the MultiLine widget, the attribute *value* is the index of a selection in the list *values*.  The ComboBox widget can also be customised by overloading the *display_value(self, vl)* method. 
