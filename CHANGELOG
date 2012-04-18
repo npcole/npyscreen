@@ -9,8 +9,15 @@ TODO - fix F keys on OS X
 	- change the textfield widgets to use the new _LinePrinter class (to make everything more
 		robust)
 	- should monthbox calendar also accept utf-8 for day names?
+
+2.0pre52
+minor bugfix in wgbox classes
+
+2.0pre51
+fixed compatibility with python2.6, 3.0 and 3.1.  All other versions should be unaffected.
+
 	
-20.pre50
+2.0pre50
 	- The mouse is now enabled.  At the moment, it is only used to switch between widgets on terminals that support
 	the mouse.  However, any widget can now override the method .handle_mouse_event(self, mouse_event) if a more 
 	detailed behaviour is required.
