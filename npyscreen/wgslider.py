@@ -43,6 +43,8 @@ class Slider(widget.Widget):
 
         if self.label:
             label_str = self.translate_value()
+            if isinstance(label_str, bytes):
+                label_str = label_str.decode(self.encoding, 'replace')
             blocks_on_screen -= len(label_str)+3
             if self.do_colors():
                 label_attributes = self.parent.theme_manager.findPair(self)
