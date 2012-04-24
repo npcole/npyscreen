@@ -313,6 +313,8 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
         if self.help and self.editing:
             try:
                 help_advert = " Help: F1 or ^O "
+                if isinstance(help_advert, bytes):
+                    help_advert = help_advert.decode('utf-8', 'replace')
                 self.add_line(
                  0, self.curses_pad.getmaxyx()[1]-len(help_advert)-2, 
                  help_advert,

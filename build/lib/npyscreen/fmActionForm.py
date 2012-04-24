@@ -50,6 +50,7 @@ class ActionForm(fmForm.Form):
                 self.editing = False
                 return False
         
+        self.edit_return_value = None
         while self.editing:
             if not self.ALL_SHOWN: self.on_screen()
             self.while_editing()
