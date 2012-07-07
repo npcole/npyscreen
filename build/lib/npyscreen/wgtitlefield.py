@@ -16,6 +16,7 @@ class TitleText(widget.Widget):
         use_two_lines = None,
         hidden=False,
         labelColor='LABEL',
+        allow_override_begin_entry_at=True,
         **keywords):
         
         self.hidden = hidden
@@ -38,7 +39,8 @@ class TitleText(widget.Widget):
             else: ab_label = len(self.name)
             self.use_two_lines = False
             self.label_widget = textbox.Textfield(screen, relx=self.relx, rely=self.rely, width=ab_label+1, value=self.name)
-            self.text_field_begin_at = ab_label + 3
+            if allow_override_begin_entry_at:
+                self.text_field_begin_at = ab_label + 1
         if self.use_two_lines: tmp_y = 1
         else: tmp_y = 0
         passon = keywords.copy()
