@@ -45,10 +45,10 @@ class ThemeManager(object):
         'CAUTIONHL'   : 'BLACK_YELLOW',
     }
     def __init__(self):
-        self._max_pairs = curses.COLOR_PAIRS - 1
         self._defined_pairs = {}
         self._names         = {}
         if curses.has_colors():
+            self._max_pairs = curses.COLOR_PAIRS - 1
             self.initialize_pairs()
             self.initialize_names()
         
