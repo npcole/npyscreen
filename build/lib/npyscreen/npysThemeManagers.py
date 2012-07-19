@@ -47,8 +47,15 @@ class ThemeManager(object):
     def __init__(self):
         self._defined_pairs = {}
         self._names         = {}
-        if curses.has_colors():
+        try:
             self._max_pairs = curses.COLOR_PAIRS - 1
+            do_color = True
+        except AttributeError:
+            # curses.start_color has failed or has not been called
+            do_color = False
+            # Disable all color use across the application
+            disableColor()
+        if do_color and curses.has_colors():
             self.initialize_pairs()
             self.initialize_names()
         
