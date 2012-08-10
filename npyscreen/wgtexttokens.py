@@ -16,8 +16,6 @@ class TextTokens(wgtextbox.Textfield,wgwidget.Widget):
         self.important = False
         self.highlight = False
         self.show_bold = False
-        
-        
 
     def find_cursor_offset_on_screen(self, position):
         index  = self.begin_at 
@@ -142,8 +140,7 @@ class TextTokens(wgtextbox.Textfield,wgwidget.Widget):
             # but it is or the cursor can end up overrunning the end of the widget.
             self.maximum_string_length+1 - self.left_margin - offset - self.begin_at,
             )
-        
-    
+
     def h_addch(self, inp):
         if self.editable:
             #self.value = self.value[:self.cursor_position] + curses.keyname(input) \
@@ -165,8 +162,6 @@ class TextTokens(wgtextbox.Textfield,wgwidget.Widget):
             self.value = self.value[:self.cursor_position] + [ch_adding,] \
                 + self.value[self.cursor_position:]
             self.cursor_position += len(ch_adding)
-    
-    
     
     def display_value(self, vl):
         return vl

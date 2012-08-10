@@ -30,9 +30,6 @@ class TestApp(npyscreen.NPSApp):
             max_height=5, rely=9)
         ms= F.add(npyscreen.TitleSelectOne, max_height=4, value = [1,], name="Pick One", 
                 values = ["Option1","Option2","Option3"], scroll_exit=True)
-        ms2= F.add(npyscreen.TitleMultiSelect, max_height=4, value = [1,], name="Pick Several", 
-                values = ["Option1","Option2","Option3"], scroll_exit=True)
-        
         
         # This lets the user play with the Form.
         F.edit()

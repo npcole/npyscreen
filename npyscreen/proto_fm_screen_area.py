@@ -32,7 +32,7 @@ class ScreenArea(object):
     BLANK_COLUMNS_RIGHT=0
     DEFAULT_NEXTRELY=2
     
-    """A screen area that can be safely resized.  But this is a low-level class,
+    """A screen area that can be safely resized.  But this is a low-level class, not the
     object you are looking for."""
 
     def __init__(self, lines=0, columns=0, 
