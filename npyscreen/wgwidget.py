@@ -389,6 +389,12 @@ big a given widget is ... use .height and .width instead"""
     def try_adjust_widgets(self):
         if hasattr(self.parent, "adjust_widgets"):
             self.parent.adjust_widgets()
+        if hasattr(self.parent, "parentApp"):
+            if hasattr(self.parent.parentApp, "_internal_adjust_widgets"):
+                self.parent.parentApp._internal_adjust_widgets()
+            if hasattr(self.parent.parentApp, "adjust_widgets"):
+                self.parent.parentApp.adjust_widgets()
+            
     
     def try_while_waiting(self):
         if hasattr(self.parent, "while_waiting"):
