@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre55",
+	version="2.0pre56",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -30,7 +30,10 @@ There is a very wide variety of default widgets - everything from simple text fi
 
 I have used versions of this library for private scripts and small applications for around ten years. As a result, it is fairly mature.	
 
-Please report bugs using the bug-tracker at http://code.google.com/p/npyscreen.
+Please report bugs or make feature requests using the bug-tracker at http://code.google.com/p/npyscreen.
+
+There is a mailing list available at https://groups.google.com/forum/?fromgroups#!forum/npyscreen/
+
 
 *Latest Changes*:
 Version 2.0pre52 fixes compatibility with python2.6, 3.0 and 3.1.  All other versions should be unaffected.

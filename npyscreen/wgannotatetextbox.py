@@ -2,6 +2,7 @@ from . import wgwidget
 from .wgtextbox import Textfield
 
 
+
 class AnnotateTextboxBase(wgwidget.Widget):
     """A base class intented for customization. Note in particular the annotationColor and annotationNoColor methods
     which you should override."""

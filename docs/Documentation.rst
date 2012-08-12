@@ -206,8 +206,12 @@ Other Standard Form Features
 
    For example, be very conservative with redraws of the whole Form (a slow operation) - make sure you put in code to test whether a redraw is necessary, and try to only redraw widgets that really need to be changed, rather than redrawing the whole screen.
    
+   If the Form's parentApp also has a method called *adjust_widgets*, this will also be called.
+   
 *while_waiting(), keypress_timeout*
    If you wish to perform actions while waiting for the user to press a key, you may define a *while_waiting* method.  You should also set the attribute *keypress_timeout*, which is a value in ms.  Whenever waiting for input, if more than the time given in *keypress_timeout* passes, while_waiting will be called.  Note that npyscreen takes no steps to ensure that *while_waiting()* is called at exactly regular intervals, and in fact it may never be called at all if the user continually presses keys.
+   
+   If a form's parentApp has a method called *while_waiting* this will also be called.
    
    A *keypress_timeout* value of 10 suggests that the *while_waiting* method is called about every second, assuming the user takes no other action.
    

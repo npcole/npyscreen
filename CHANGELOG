@@ -10,6 +10,11 @@ TODO - fix F keys on OS X
 		robust)
 	- should monthbox calendar also accept utf-8 for day names?
 
+
+2.0pre56
+some bug fixes. Some internal changes to allow event-driven applications to be written more
+easily.
+
 2.0pre52
 minor bugfix in wgbox classes
 
