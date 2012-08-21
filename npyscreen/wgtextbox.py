@@ -8,7 +8,9 @@ from . import wgwidget as widget
 from . import npysGlobalOptions as GlobalOptions
 
 class TextfieldBase(widget.Widget):
-    def __init__(self, screen, value=None, **keywords):
+    def __init__(self, screen, value=None, highlight_color='STANDOUT', 
+        invert_highlight_color=True,
+        **keywords):
         try:
             self.value
         except:
@@ -23,6 +25,8 @@ class TextfieldBase(widget.Widget):
         
         self.cursor_position = None
         
+        self.highlight_color = highlight_color
+        self.invert_highlight_color = invert_highlight_color
         self.show_bold = False
         self.highlight = False
         self.important = False
@@ -83,13 +87,24 @@ class TextfieldBase(widget.Widget):
                 while self.cursor_position > self.begin_at + self.maximum_string_length - self.left_margin: # -1:
                     self.begin_at += 1
             else:
-                self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
+                if self.do_colors():
+                    self.parent.curses_pad.bkgdset(' ', self.parent.theme_manager.findPair(self, self.color) | curses.A_STANDOUT)
+                else:
+                    self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
 
 
 
         # Do this twice so that the _print method can ignore it if needed.
         if self.highlight:
-            self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
+            if self.do_colors():
+                if self.invert_highlight_color:
+                    attributes=self.parent.theme_manager.findPair(self, self.highlight_color) | curses.A_STANDOUT
+                else:
+                    attributes=self.parent.theme_manager.findPair(self, self.highlight_color)
+                self.parent.curses_pad.bkgdset(' ', attributes)
+            else:
+                self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
+            
 
         if self.show_bold:
             self.parent.curses_pad.attron(curses.A_BOLD)
@@ -106,7 +121,7 @@ class TextfieldBase(widget.Widget):
         self.parent.curses_pad.attroff(curses.A_BOLD)
         self.parent.curses_pad.attroff(curses.A_UNDERLINE)
         self.parent.curses_pad.bkgdset(' ',curses.A_NORMAL)
-
+        self.parent.curses_pad.attrset(0)
         if self.editing and cursor:
             self.print_cursor()
     
@@ -126,8 +141,11 @@ class TextfieldBase(widget.Widget):
             char_under_cur = self.safe_string(char_under_cur)
         except IndexError:
             char_under_cur = ' '
-        self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, curses.A_STANDOUT)
-
+        if self.do_colors():
+            self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, self.parent.theme_manager.findPair(self) | curses.A_STANDOUT)
+        else:
+            self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, curses.A_STANDOUT)
+            
 
     def print_cursor_pre_unicode(self):
         # Cursors do not seem to work on pads.
