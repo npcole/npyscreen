@@ -13,6 +13,8 @@ def enableColor():
 
 class ThemeManager(object):
     _colors_to_define = ( 
+     # DO NOT DEFINE THIS COLOR - THINGS BREAK
+     #('WHITE_BLACK',      DO_NOT_DO_THIS,      DO_NOT_DO_THIS),
      ('BLACK_WHITE',      curses.COLOR_BLACK,      curses.COLOR_WHITE),
      ('BLUE_BLACK',       curses.COLOR_BLUE,       curses.COLOR_BLACK),
      ('CYAN_BLACK',       curses.COLOR_CYAN,       curses.COLOR_BLACK),
@@ -23,13 +25,20 @@ class ThemeManager(object):
      ('BLACK_RED',        curses.COLOR_BLACK,      curses.COLOR_RED),
      ('BLACK_GREEN',      curses.COLOR_BLACK,      curses.COLOR_GREEN),
      ('BLACK_YELLOW',     curses.COLOR_BLACK,      curses.COLOR_YELLOW),
-    )
+     
+     ('BLUE_WHITE',       curses.COLOR_BLUE,       curses.COLOR_WHITE),
+     ('CYAN_WHITE',       curses.COLOR_CYAN,       curses.COLOR_WHITE),
+     ('GREEN_WHITE',      curses.COLOR_GREEN,      curses.COLOR_WHITE),
+     ('MAGENTA_WHITE',    curses.COLOR_MAGENTA,    curses.COLOR_WHITE),
+     ('RED_WHITE',        curses.COLOR_RED,        curses.COLOR_WHITE),
+     ('YELLOW_WHITE',     curses.COLOR_YELLOW,     curses.COLOR_WHITE),
+)
     
     default_colors = {
         'DEFAULT'     : 'WHITE_BLACK',
         'FORMDEFAULT' : 'WHITE_BLACK',
         'NO_EDIT'     : 'BLUE_BLACK',
-        'STANDOUT'    : 'CYAN_BLACK',
+        'STANDOUT'    : 'WHITE_BLACK',
         'LABEL'       : 'GREEN_BLACK',
         'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'YELLOW_BLACK',

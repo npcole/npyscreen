@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import npyscreen
 
+# This example shows how to display the contents of 
+# a dictionary to a user.
 
 class KeyValueLine(npyscreen.AnnotateTextboxBase):
     ANNOTATE_WIDTH = 20
