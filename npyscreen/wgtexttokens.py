@@ -6,6 +6,11 @@ from . import wgtitlefield
 
 class TextTokens(wgtextbox.Textfield,wgwidget.Widget):
     """This is an experiemental widget"""
+    
+    # NB IT DOES NOT CURRENTLY SUPPORT THE HIGHLIGHTING COLORS
+    # OF THE TEXTFIELD CLASS.
+    
+    
     def __init__(self, *args, **keywords):        
         super(TextTokens, self).__init__(*args, **keywords)
         self.begin_at        = 0 # which token to begin display with
@@ -136,8 +141,7 @@ class TextTokens(wgtextbox.Textfield,wgwidget.Widget):
             ATTR_LIST = self.parent.theme_manager.findPair(self) | curses.A_STANDOUT
         else:
             ATTR_LIST = curses.A_STANDOUT
-        
-        
+    
         self.add_line(self.rely, 
              self.begin_at + self.relx + self.left_margin + offset,
             char_under_cur, 

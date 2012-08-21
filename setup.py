@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre56",
+	version="2.0pre57",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -36,6 +36,10 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 2.0pre57 fixes color support - it should now be possible to display
+a terminal with a different color background. Text widgets have some
+additional color options.
+
 Version 2.0pre52 fixes compatibility with python2.6, 3.0 and 3.1.  All other versions should be unaffected.
 
 Version 2.0pre50 enables basic mouse support.  Note that the Apple terminal does not handle mouse events correctly.
