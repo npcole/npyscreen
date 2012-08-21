@@ -92,6 +92,9 @@ class ThemeManager(object):
         # White on Black is fixed as color_pair 0
         self._defined_pairs['WHITE_BLACK'] = (0, curses.COLOR_WHITE, curses.COLOR_BLACK)
         for cp in self.__class__._colors_to_define:
+            if cp[0] == 'WHITE_BLACK':
+                # silently protect the user from breaking things.
+                continue
             self.initalize_pair(cp[0], cp[1], cp[2])
     
     def initialize_names(self):

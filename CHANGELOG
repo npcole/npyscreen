@@ -11,6 +11,10 @@ TODO - fix F keys on OS X
 	- should monthbox calendar also accept utf-8 for day names?
 
 
+2.0pre57
+fix color support. Light colored terminals now possible. Text widgets have
+additional color options.
+
 2.0pre56
 some bug fixes. Some internal changes to allow event-driven applications to be written more
 easily.
