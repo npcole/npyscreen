@@ -13,7 +13,11 @@ def enableColor():
 
 class ThemeManager(object):
     _colors_to_define = ( 
+     # DO NOT DEFINE THIS COLOR - THINGS BREAK
+     #('WHITE_BLACK',      DO_NOT_DO_THIS,      DO_NOT_DO_THIS),
      ('BLACK_WHITE',      curses.COLOR_BLACK,      curses.COLOR_WHITE),
+     #('BLACK_ON_DEFAULT', curses.COLOR_BLACK,      -1),
+     #('WHITE_ON_DEFAULT', curses.COLOR_WHITE,      -1),
      ('BLUE_BLACK',       curses.COLOR_BLUE,       curses.COLOR_BLACK),
      ('CYAN_BLACK',       curses.COLOR_CYAN,       curses.COLOR_BLACK),
      ('GREEN_BLACK',      curses.COLOR_GREEN,      curses.COLOR_BLACK),
@@ -23,13 +27,21 @@ class ThemeManager(object):
      ('BLACK_RED',        curses.COLOR_BLACK,      curses.COLOR_RED),
      ('BLACK_GREEN',      curses.COLOR_BLACK,      curses.COLOR_GREEN),
      ('BLACK_YELLOW',     curses.COLOR_BLACK,      curses.COLOR_YELLOW),
-    )
+     
+     ('BLUE_WHITE',       curses.COLOR_BLUE,       curses.COLOR_WHITE),
+     ('CYAN_WHITE',       curses.COLOR_CYAN,       curses.COLOR_WHITE),
+     ('GREEN_WHITE',      curses.COLOR_GREEN,      curses.COLOR_WHITE),
+     ('MAGENTA_WHITE',    curses.COLOR_MAGENTA,    curses.COLOR_WHITE),
+     ('RED_WHITE',        curses.COLOR_RED,        curses.COLOR_WHITE),
+     ('YELLOW_WHITE',     curses.COLOR_YELLOW,     curses.COLOR_WHITE),
+)
     
     default_colors = {
         'DEFAULT'     : 'WHITE_BLACK',
         'FORMDEFAULT' : 'WHITE_BLACK',
         'NO_EDIT'     : 'BLUE_BLACK',
         'STANDOUT'    : 'CYAN_BLACK',
+        'CURSOR'      : 'WHITE_BLACK',
         'LABEL'       : 'GREEN_BLACK',
         'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'YELLOW_BLACK',
@@ -45,6 +57,7 @@ class ThemeManager(object):
         'CAUTIONHL'   : 'BLACK_YELLOW',
     }
     def __init__(self):
+        #curses.use_default_colors()
         self._defined_pairs = {}
         self._names         = {}
         try:
@@ -83,6 +96,9 @@ class ThemeManager(object):
         # White on Black is fixed as color_pair 0
         self._defined_pairs['WHITE_BLACK'] = (0, curses.COLOR_WHITE, curses.COLOR_BLACK)
         for cp in self.__class__._colors_to_define:
+            if cp[0] == 'WHITE_BLACK':
+                # silently protect the user from breaking things.
+                continue
             self.initalize_pair(cp[0], cp[1], cp[2])
     
     def initialize_names(self):

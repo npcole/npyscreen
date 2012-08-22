@@ -172,7 +172,12 @@ class MultiLineEdit(widget.Widget):
             except:
                 char_under_cur = ' '
             
-            self.parent.curses_pad.addstr(self.rely + _cur_y - self.start_display_at, _cur_x - xdisplay_offset + self.relx, char_under_cur, curses.A_STANDOUT)
+            if self.do_colors():
+                self.parent.curses_pad.addstr(self.rely + _cur_y - self.start_display_at, _cur_x - xdisplay_offset + self.relx, char_under_cur, 
+                                                self.parent.theme_manager.findPair(self) | curses.A_STANDOUT)
+                
+            else:
+                self.parent.curses_pad.addstr(self.rely + _cur_y - self.start_display_at, _cur_x - xdisplay_offset + self.relx, char_under_cur, curses.A_STANDOUT)
             
     def _print_unicode_char(self, ch):
         # return the ch to print.  For python 3 this is just ch
