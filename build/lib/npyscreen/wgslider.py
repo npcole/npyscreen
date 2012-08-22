@@ -4,7 +4,9 @@ from . import wgwidget     as widget
 from . import wgtitlefield as titlefield
 
 class Slider(widget.Widget):
-    def __init__(self, screen, value=0, out_of=100, step=1, lowest=0, label=True, **keywords):
+    def __init__(self, screen, value=0, 
+                out_of=100, step=1, lowest=0,
+                label=True, **keywords):
         self.out_of = out_of
         self.value = value
         self.step = step

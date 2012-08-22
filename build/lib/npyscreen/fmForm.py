@@ -10,6 +10,7 @@ from . import npysGlobalOptions
 from . import wgwidget_proto
 from . import fm_form_edit_loop   as form_edit_loop
 from . import util_viewhelp
+from . import npysGlobalOptions as GlobalOptions
 
 class _FormBase(proto_fm_screen_area.ScreenArea, 
         widget.InputHandler, 
@@ -282,6 +283,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
     def display(self, clear=False):
         #APPLICATION_THEME_MANAGER.setTheme(self)
         if curses.has_colors() and not npysGlobalOptions.DISABLE_ALL_COLORS:
+            self.curses_pad.attrset(0)
             color_attribute = self.theme_manager.findPair(self, self.color)
             self.curses_pad.bkgdset(' ', color_attribute)
             self.curses_pad.attron(color_attribute)
@@ -326,6 +328,9 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
 
     def draw_form(self):
         if self.framed:
+            if curses.has_colors() and not GlobalOptions.DISABLE_ALL_COLORS:
+                self.curses_pad.attrset(0)
+                self.curses_pad.bkgdset(' ', curses.A_NORMAL | self.theme_manager.findPair(self, self.color))
             self.curses_pad.border()
             self.draw_title_and_help()
 

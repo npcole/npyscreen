@@ -6,6 +6,11 @@ from . import wgtitlefield
 
 class TextTokens(wgtextbox.Textfield,wgwidget.Widget):
     """This is an experiemental widget"""
+    
+    # NB IT DOES NOT CURRENTLY SUPPORT THE HIGHLIGHTING COLORS
+    # OF THE TEXTFIELD CLASS.
+    
+    
     def __init__(self, *args, **keywords):        
         super(TextTokens, self).__init__(*args, **keywords)
         self.begin_at        = 0 # which token to begin display with
@@ -132,10 +137,15 @@ class TextTokens(wgtextbox.Textfield,wgwidget.Widget):
             char_under_cur = char_under_cur.decode(self.encoding, 'replace')
         
         offset = self.find_cursor_offset_on_screen(self.cursor_position)
+        if self.do_colors():
+            ATTR_LIST = self.parent.theme_manager.findPair(self) | curses.A_STANDOUT
+        else:
+            ATTR_LIST = curses.A_STANDOUT
+    
         self.add_line(self.rely, 
              self.begin_at + self.relx + self.left_margin + offset,
             char_under_cur, 
-            self.make_attributes_list(char_under_cur, curses.A_STANDOUT),
+            self.make_attributes_list(char_under_cur, ATTR_LIST),
             # I don't understand why the "- self.begin_at" is needed in the following line
             # but it is or the cursor can end up overrunning the end of the widget.
             self.maximum_string_length+1 - self.left_margin - offset - self.begin_at,

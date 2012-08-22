@@ -304,7 +304,10 @@ big a given widget is ... use .height and .width instead"""
 #                   self.parent.curses_pad.addch(self.rely+y, self.relx + x, usechar)
 #               except: pass
 #Use this instead
-            self.parent.curses_pad.addstr(self.rely+y, self.relx, usechar * (self.width))  # used to be width + 1
+            if self.do_colors():
+                self.parent.curses_pad.addstr(self.rely+y, self.relx, usechar * (self.width), self.parent.theme_manager.findPair(self, 'FORMDEFAULT'))  # used to be width + 1
+            else:
+                self.parent.curses_pad.addstr(self.rely+y, self.relx, usechar * (self.width))  # used to be width + 1
 
     def edit(self):
         """Allow the user to edit the widget: ie. start handling keypresses."""
