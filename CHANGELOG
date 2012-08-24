@@ -10,6 +10,9 @@ TODO - fix F keys on OS X
 		robust)
 	- should monthbox calendar also accept utf-8 for day names?
 
+2.0pre59
+Improved support for writing complex, mutt- and irssi-like applications.
+
 2.0pre58
 Changes to some color themes - mostly to revert default behaviour to
 a more conservative set of choices.
