@@ -99,17 +99,19 @@ Once all of your forms are ready and registered with an NPSAppManaged instance, 
 
 This method will activate the default form, which should have been given an id of "MAIN".  You can change this default by changing the class/instance variable *.STARTING_FORM*.
 
-Thereafter, the next form to be displayed will be the one specified by the instance variable *NEXT_ACTIVE_FORM*.  Whenever a Form edit loop exits, the Form specified here will be activated.  If *NEXT_ACTIVE_FORM* is None, the main loop will exit.
+Thereafter, the next form to be displayed will be the one specified by the instance variable *NEXT_ACTIVE_FORM*.  Whenever a Form edit loop exits, the Form specified here will be activated.  If *NEXT_ACTIVE_FORM* is None, the main loop will exit.  *NEXT_ACTIVE_FORM* should be set by calling the application's *setNextForm(formid)* method.  This documentation used to suggest that you set the attribute directly. While there are no immediate plans to deprecate this attribute, setting it directly should be avoided.
 
-There are two mechanisms that Forms should use to control NEXT_ACTIVE_FORM.  
+There are three mechanisms that Forms should use to control NEXT_ACTIVE_FORM.  
 
-1. All Forms registered with an NPSAppManaged which do *not* have the special method *.activate()* will have their method *.afterEditing* called, if they have it.  Logic to determine which the *NEXT_ACTIVE_FORM* should be should go here.  This is the preferred method.
+1. All Forms registered with an NPSAppManaged which do *not* have the special method *.activate()* will have their method *.afterEditing* called, if they have it.  Logic to determine which the *NEXT_ACTIVE_FORM* should be should go here.  *NEXT_ACTIVE_FORM* should be set by calling the application's *setNextForm(formid)* method.  If you are expecting your users to select an ok or cancel button, this is the preferred way to switch screens.
 
-2. Forms registered with an NPSAppManaged may be given an *.activate()* method, which NPSAppManaged will call instead of the usual *.edit()* method.  This can contain additional logic.  This is NOT the preferred method, but may allow greater flexibility.  Note that in this case, the usual .edit() method will not be called, unless you call it explicitly.   For example, an .activate() method might look like this::
+2. The application method *switchForm(formid)* causes the application to immediately stop editing the current form and switch to the one specified. Depending on the type of Form, the logic associated with them may be bypassed too.
+
+3. Forms registered with an NPSAppManaged may be given an *.activate()* method, which NPSAppManaged will call instead of the usual *.edit()* method.  This can contain additional logic.  This is NOT the preferred method, but may allow greater flexibility.  Note that in this case, the usual .edit() method will not be called, unless you call it explicitly.   For example, an .activate() method might look like this::
     
     def activate(self):
          self.edit()
-         self.parentApp.NEXT_ACTIVE_FORM = None
+         self.parentApp.setNextForm(None)
     
    which would cause the mainloop to exit after the Form was complete.
 
@@ -140,6 +142,9 @@ activate()
     
 switchForm(formid)
     Immediately stop editing the current form and switch to the specified form.
+
+switchFormPrevious()
+    Immediately switch to the previous form in the history.
 
 The following attribute affects new Forms:
 
@@ -662,13 +667,24 @@ A basic theme looks like this::
 
     class DefaultTheme(npyscreen.ThemeManager):
         default_colors = {
-            'DEFAULT'     : 'WHITE_BLACK',
-            'FORMDEFAULT' : 'YELLOW_BLACK',
-            'NO_EDIT'     : 'BLUE_BLACK',
-            'STANDOUT'    : 'CYAN_BLACK',
-            'LABEL'       : 'BLUE_BLACK',
-            'LABELBOLD'   : 'WHITE_BLACK',
-            'CONTROL'     : 'GREEN_BLACK',
+        'DEFAULT'     : 'WHITE_BLACK',
+        'FORMDEFAULT' : 'WHITE_BLACK',
+        'NO_EDIT'     : 'BLUE_BLACK',
+        'STANDOUT'    : 'CYAN_BLACK',
+        'CURSOR'      : 'WHITE_BLACK',
+        'LABEL'       : 'GREEN_BLACK',
+        'LABELBOLD'   : 'WHITE_BLACK',
+        'CONTROL'     : 'YELLOW_BLACK',
+        'IMPORTANT'   : 'GREEN_BLACK',
+        'SAFE'        : 'GREEN_BLACK',
+        'WARNING'     : 'YELLOW_BLACK',
+        'DANGER'      : 'RED_BLACK',
+        'CRITICAL'    : 'BLACK_RED',
+        'GOOD'        : 'GREEN_BLACK',
+        'GOODHL'      : 'GREEN_BLACK',
+        'VERYGOOD'    : 'BLACK_GREEN',
+        'CAUTION'     : 'YELLOW_BLACK',
+        'CAUTIONHL'   : 'BLACK_YELLOW',
         }
         
 The colours - such as WHITE_BLACK ("white on black") - are defined in the *initialize_pairs* method of the ThemeManager class.  The following are defined by default::
@@ -688,6 +704,20 @@ If you find you need more, subclass ThemeManager and change class attribute *_co
 
 If you want to disable all colour in your application, npyscreen defines two convenient functions: *disableColor()* and *enableColor()*.
 
+
+How Widgets use colour
+**********************
+
+When a widget is being drawn, it asks the active ThemeManager to tell it appropriate colours.  'LABEL', for example, is a label given to colours that will be used for the labels of widgets.  The Theme manager looks up the relevant name in its *default_colors* dictionary and returns the appropriate colour-pair as an curses attribute that is then used to draw the widget on the screen.
+
+Individual widgets often have *color* attribute of their own (which may be set by the constructor).  This is usually set to 'DEFAULT', but could be changed to any other defined name.  This mechanism typically only allows individual widgets to have one particular part of their colour-scheme changed.
+
+Title... versions of widgets also define the attribute *labelColor*, which can be used to change the colour of their label colour.
+
+Unicode
+*******
+The latest versions of the library aim to handle unicode/utf-8 strings.  Please report any problems.
+
 Enhancing Mouse Support
 ***********************
 Widgets that wish to handle mouse events in more detail should override the method *.handle_mouse_event(self, mouse_event)*.  Note that *mouse_event* is a tuple::
@@ -703,16 +733,4 @@ x and y are the mouse click's position on the screen.  Presumably the widget wou
 
 See the Python Library curses module documentation for more detail on mouse events.
 
-How Widgets use colour
-**********************
-
-When a widget is being drawn, it asks the active ThemeManager to tell it appropriate colours.  'LABEL', for example, is a label given to colours that will be used for the labels of widgets.  The Theme manager looks up the relevant name in its *default_colors* dictionary and returns the appropriate colour-pair as an curses attribute that is then used to draw the widget on the screen.
-
-Individual widgets often have *color* attribute of their own (which may be set by the constructor).  This is usually set to 'DEFAULT', but could be changed to any other defined name.  This mechanism typically only allows individual widgets to have one particular part of their colour-scheme changed.
-
-Title... versions of widgets also define the attribute *labelColor*, which can be used to change the colour of their label colour.
-
-Unicode
-*******
-The latest versions of the library aim to handle unicode/utf-8 strings.  Please report any problems.
 

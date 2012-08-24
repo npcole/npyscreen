@@ -133,21 +133,42 @@ class TextCommandBoxTraditional(TextCommandBox):
     # WILL PASS INPUT TO A LINKED WIDGET - THE LINKED WIDGET
     # UNLESS PUT IN TO COMMAND LINE MODE BY THE ENTRY OF BEGINNING_OF_COMMAND_LINE_CHARS
     # WILL NEED TO BE ALTERED TO LOOK AS IF IT IS BEING EDITED TOO.
-    BEGINNING_OF_COMMAND_LINE_CHARS = ":/"
-    def __init__(self, *args, **keywords):
-        super(TextCommandBoxTraditional, self).__init__(*args, **keywords)
+    BEGINNING_OF_COMMAND_LINE_CHARS = (":", "/")
+    def __init__(self, screen,
+                    history=False, 
+                    history_max=100, 
+                    set_up_history_keys=False,
+                    *args, **keywords):
+        super(TextCommandBoxTraditional, self).__init__(screen,
+         history=history,
+         history_max=history_max, 
+         set_up_history_keys=set_up_history_keys,
+         *args, **keywords
+        )
         self.linked_widget = None
+        self.always_pass_to_linked_widget = []
     
     def handle_input(self, inputch):
         try:
             inputchstr = chr(inputch)
         except:
             inputchstr = False
+        
+        input_unctrl = curses.ascii.unctrl(inputch)
+            
         if not self.linked_widget:
             return super(TextCommandBoxTraditional, self).handle_input(inputch)
         
+        if (inputch in self.always_pass_to_linked_widget) or \
+            (inputchstr in self.always_pass_to_linked_widget) or \
+            (input_unctrl in self.always_pass_to_linked_widget):
+            rtn = self.linked_widget.handle_input(inputch)
+            self.linked_widget.update()
+            return rtn
+
         if inputchstr and (self.value == '' or self.value == None):
-            if inputchstr in self.BEGINNING_OF_COMMAND_LINE_CHARS:
+            if inputchstr in self.BEGINNING_OF_COMMAND_LINE_CHARS or \
+                inputch in self.BEGINNING_OF_COMMAND_LINE_CHARS:
                 return super(TextCommandBoxTraditional, self).handle_input(inputch)
             
         if self.value:
@@ -192,8 +213,3 @@ class FormMuttActiveTraditionalWithMenus(FormMuttActiveTraditional,
     def __init__(self, *args, **keywords):
         super(FormMuttActiveTraditionalWithMenus, self).__init__(*args, **keywords)
         self.initialize_menus()
-
-
-
-
-        
