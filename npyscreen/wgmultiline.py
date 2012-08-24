@@ -48,6 +48,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
             exit_left  = False,
             exit_right = False,
             widgets_inherit_color = False,
+            always_show_cursor = False,
              **keywords):
         
         self.never_cache     = False
@@ -63,6 +64,9 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         
         # does pushing return select and then leave the widget?
         self.return_exit = return_exit
+        
+        # Show cursor even when not editing?
+        self.always_show_cursor = always_show_cursor
         
         
         self.slow_scroll     = slow_scroll
@@ -133,7 +137,7 @@ object to be passed to the contained widget."""
         #self._remake_filter_cache()
         self._filtered_values_cache = self.get_filtered_indexes()
 
-        if self.editing:
+        if self.editing or self.always_show_cursor:
             if self.cursor_line < 0: self.cursor_line = 0
             if self.cursor_line > len(self.values)-1: self.cursor_line = len(self.values)-1
             
@@ -210,7 +214,7 @@ object to be passed to the contained widget."""
                 else:
                     self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
         
-            if self.editing: 
+            if self.editing or self.always_show_cursor: 
                 self._my_widgets[(self.cursor_line-self.start_display_at)].highlight=True
                 self._my_widgets[(self.cursor_line-self.start_display_at)].update(clear=True)
             else:

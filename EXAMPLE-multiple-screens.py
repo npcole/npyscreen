@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import npyscreen, curses
 
 class MyTestApp(npyscreen.NPSAppManaged):

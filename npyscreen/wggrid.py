@@ -10,10 +10,14 @@ class SimpleGrid(widget.Widget):
     default_column_number = 4
     additional_y_offset   = 0
     additional_x_offset   = 0
-    def __init__(self, screen, columns = None, column_width = None, col_margin=1, row_height = 1, values = None,
+    def __init__(self, screen, columns = None, 
+            column_width = None, col_margin=1, row_height = 1, 
+            values = None,
+            always_show_cursor = False,
             **keywords):
         super(SimpleGrid, self).__init__(screen, **keywords)
         self.col_margin = col_margin
+        self.always_show_cursor = always_show_cursor
         self.columns_requested = columns
         self.column_width_requested = column_width
         self.row_height = row_height
@@ -68,7 +72,7 @@ Should accept one argument (the object to be represented), and return a string."
             self.begin_col_display_at = 0
         if self.begin_row_display_at < 0:
             self.begin_row_display_at = 0
-        if self.editing and not self.edit_cell:
+        if (self.editing or self.always_show_cursor) and not self.edit_cell:
             self.edit_cell = [0,0]
         row_indexer = self.begin_row_display_at
         for widget_row in self._my_widgets:
@@ -101,7 +105,7 @@ Should accept one argument (the object to be represented), and return a string."
         else:
             self._cell_widget_show_value_selected(cell, False)
         
-        if self.editing and cell.grid_current_value_index != -1:
+        if (self.editing or self.always_show_cursor) and cell.grid_current_value_index != -1:
             if ((self.edit_cell[0] == cell.grid_current_value_index[0]) and (self.edit_cell[1] == cell.grid_current_value_index[1])):
                 self._cell_show_cursor(cell, True)
             else:

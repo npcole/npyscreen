@@ -2,6 +2,7 @@ import weakref
 import re
 import curses
 from . import fmFormMutt
+from . import fmFormWithMenus
 from . import npysNPSFilteredData
 from . import wgtextbox
 
@@ -12,6 +13,10 @@ class ActionControllerSimple(object):
         except:
             self.parent = parent
         self._action_list = []
+        self.create()
+    
+    def create(self):
+        pass
     
     def add_action(self, ident, function, live):
         ident = re.compile(ident)
@@ -49,6 +54,36 @@ class TextCommandBox(wgtextbox.Textfield):
         else:
             self.parent.action_controller.process_command_complete(self.value, weakref.proxy(self))
 
+
+class TextCommandBoxTraditional(TextCommandBox):
+    # EXPERIMENTAL
+    # NOT READY FOR ACTUAL USE.
+    # BUT WILL PASS INPUT TO A LINKED WIDGET - THE LINKED WIDGET
+    # WILL NEED TO BE ALTERED TO LOOK AS IF IT IS BEING EDITED TOO.
+    BEGINNING_OF_COMMAND_LINE_CHARS = ":/"
+    def __init__(self, *args, **keywords):
+        super(TextCommandBoxTraditional, self).__init__(*args, **keywords)
+        self.linked_widget = None
+    
+    def handle_input(self, inputch):
+        try:
+            inputchstr = chr(inputch)
+        except:
+            inputchstr = False
+        if not self.linked_widget:
+            return super(TextCommandBoxTraditional, self).handle_input(inputch)
+        
+        if inputchstr and (self.value == '' or self.value == None):
+            if inputchstr in self.BEGINNING_OF_COMMAND_LINE_CHARS:
+                return super(TextCommandBoxTraditional, self).handle_input(inputch)
+            
+        if self.value:
+            return super(TextCommandBoxTraditional, self).handle_input(inputch)
+        
+        rtn = self.linked_widget.handle_input(inputch)
+        self.linked_widget.update()
+        return rtn
+
 class FormMuttActive(fmFormMutt.FormMutt):
     DATA_CONTROLER    = npysNPSFilteredData.NPSFilteredDataList
     ACTION_CONTROLLER  = ActionControllerSimple
@@ -57,11 +92,32 @@ class FormMuttActive(fmFormMutt.FormMutt):
         super(FormMuttActive, self).__init__(*args, **keywords)
         self.set_value(self.DATA_CONTROLER())
         self.action_controller = self.ACTION_CONTROLLER(parent=self)
-        
-    
 
-class FormMuttActiveWithMenus(FormMuttActive):
+class FormMuttActiveWithMenus(FormMuttActive, fmFormWithMenus.FormBaseNewWithMenus):
     def __init__(self, *args, **keywords):
         super(FormMuttActiveWithMenus, self).__init__(*args, **keywords)
         self.initialize_menus()
+        
+        
+class FormMuttActiveTraditional(fmFormMutt.FormMutt):
+    DATA_CONTROLER    = npysNPSFilteredData.NPSFilteredDataList
+    ACTION_CONTROLLER  = ActionControllerSimple
+    COMMAND_WIDGET_CLASS = TextCommandBoxTraditional
+    def __init__(self, *args, **keywords):
+        super(FormMuttActiveTraditional, self).__init__(*args, **keywords)
+        self.set_value(self.DATA_CONTROLER())
+        self.action_controller        = self.ACTION_CONTROLLER(parent=self)
+        self.wCommand.linked_widget   = self.wMain
+        self.wMain.editable           = False
+        self.wMain.always_show_cursor = True
+
+class FormMuttActiveTraditionalWithMenus(FormMuttActiveTraditional, 
+ fmFormWithMenus.FormBaseNewWithMenus):
+    def __init__(self, *args, **keywords):
+        super(FormMuttActiveTraditionalWithMenus, self).__init__(*args, **keywords)
+        self.initialize_menus()
+
+
+
+
         
