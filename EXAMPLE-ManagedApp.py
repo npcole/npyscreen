@@ -19,7 +19,7 @@ class MainForm(npyscreen.Form):
 
     def exit_application(self):
         curses.beep()
-        self.parentApp.NEXT_ACTIVE_FORM = None
+        self.parentApp.setNextForm(None)
         self.editing = False
 
 def main():
