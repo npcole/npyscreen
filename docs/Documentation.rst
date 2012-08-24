@@ -269,9 +269,16 @@ FormMutt
    
     By default, wStatus1 and wStatus2 have *editable* set to False.
     
-FormMuttActive
-    This class is intended to make the creation of more complicated applications easier.  It uses the additional classes *NPSFilteredDataBase* and *ActionControllerSimple* 
+FormMuttActive, FormMuttActiveTraditional
+    These classes are intended to make the creation of more complicated applications easier.  It uses the additional classes *NPSFilteredDataBase*, *ActionControllerSimple*, *TextCommandBox*, *TextCommandBoxTraditional*.
     
+    A very common *nix style of terminal application (used by applications like mutt and irssi) has a central display with a list or grid of times, a command line at the bottom and some status lines.
+    
+    These classes make setting up a similar form easy.  The difference between the *FormMuttActive* and *FormMuttActiveTraditional* classes is that in the latter the only widget that the user ever actually edits is the command line at the bottom of the screen.  However, keypresses will be passed to the multiline widget in the centre of the display if these widgets are not editing a command line, allowing the user to scroll around and select items.
+    
+    What is actually displayed on the screen is controlled by the *ActionControllerSimple* class, which uses as a base the data stored not by any of the individual widgets but by the *NPSFilteredDatabase* class.
+    
+    I will write separate documentation explaining how to properly use and extend these classes.  In the meantime please contact me if you require help.
     
 Menus
 =====
@@ -584,12 +591,10 @@ AnnotateTextboxBase, TreeLineAnnotated
 Box Widgets
 ***********
 BoxBasic, RoundCheckBox
-   BoxBasic prints a box with an optional name and footer on the screen.  It is intended as a base class 
-   for further widgets.
+   BoxBasic prints a box with an optional name and footer on the screen.  It is intended as a base class for further widgets.
   
 BoxTitle
-    BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base
-    class for more complex layouts.
+    BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base class for more complex layouts.
 
 
 

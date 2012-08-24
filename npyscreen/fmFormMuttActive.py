@@ -7,6 +7,14 @@ from . import fmFormWithMenus
 from . import npysNPSFilteredData
 from . import wgtextbox
 
+# This file defines Action Controllers
+# and Widgets
+# and Forms
+
+
+##########################################################################################
+# Action Controllers
+##########################################################################################
 
 class ActionControllerSimple(object):
     def __init__(self, parent=None):
@@ -36,6 +44,11 @@ class ActionControllerSimple(object):
         for a in self._action_list:
             if a['identifier'].match(command_line):
                 a['function'](command_line, control_widget_proxy, live=False)
+
+
+##########################################################################################
+# Widgets
+##########################################################################################
 
 class TextCommandBox(wgtextbox.Textfield):
     def __init__(self, screen, 
@@ -101,8 +114,6 @@ class TextCommandBox(wgtextbox.Textfield):
         self._current_history_index = _current_history_index
         self.display()
 
-    
-    
     def h_execute_command(self, *args, **keywords):
         if self.history:
             self._history_store.append(self.value)
@@ -117,11 +128,10 @@ class TextCommandBox(wgtextbox.Textfield):
         else:
             self.parent.action_controller.process_command_complete(self.value, weakref.proxy(self))
 
-
 class TextCommandBoxTraditional(TextCommandBox):
     # EXPERIMENTAL
-    # NOT READY FOR ACTUAL USE.
-    # BUT WILL PASS INPUT TO A LINKED WIDGET - THE LINKED WIDGET
+    # WILL PASS INPUT TO A LINKED WIDGET - THE LINKED WIDGET
+    # UNLESS PUT IN TO COMMAND LINE MODE BY THE ENTRY OF BEGINNING_OF_COMMAND_LINE_CHARS
     # WILL NEED TO BE ALTERED TO LOOK AS IF IT IS BEING EDITED TOO.
     BEGINNING_OF_COMMAND_LINE_CHARS = ":/"
     def __init__(self, *args, **keywords):
@@ -147,6 +157,10 @@ class TextCommandBoxTraditional(TextCommandBox):
         self.linked_widget.update()
         return rtn
 
+##########################################################################################
+# Form Classes
+##########################################################################################
+
 class FormMuttActive(fmFormMutt.FormMutt):
     DATA_CONTROLER    = npysNPSFilteredData.NPSFilteredDataList
     ACTION_CONTROLLER  = ActionControllerSimple
@@ -160,7 +174,6 @@ class FormMuttActiveWithMenus(FormMuttActive, fmFormWithMenus.FormBaseNewWithMen
     def __init__(self, *args, **keywords):
         super(FormMuttActiveWithMenus, self).__init__(*args, **keywords)
         self.initialize_menus()
-        
         
 class FormMuttActiveTraditional(fmFormMutt.FormMutt):
     DATA_CONTROLER    = npysNPSFilteredData.NPSFilteredDataList
