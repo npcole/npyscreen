@@ -1,10 +1,12 @@
 import weakref
 import re
 import curses
+import collections
 from . import fmFormMutt
 from . import fmFormWithMenus
 from . import npysNPSFilteredData
 from . import wgtextbox
+
 
 class ActionControllerSimple(object):
     def __init__(self, parent=None):
@@ -36,6 +38,21 @@ class ActionControllerSimple(object):
                 a['function'](command_line, control_widget_proxy, live=False)
 
 class TextCommandBox(wgtextbox.Textfield):
+    def __init__(self, screen, 
+                    history=False, 
+                    history_max=100, 
+                    set_up_history_keys=False,
+                    *args, **keywords):
+        super(TextCommandBox, self).__init__(screen, *args, **keywords)
+        self.history = history
+        self._history_store = collections.deque(maxlen=history_max)        
+        self._current_history_index = False
+        self._current_command = None
+        if set_up_history_keys:
+            self.set_up_history_keys()
+        
+        # History functions currently not complete.
+        
     def set_up_handlers(self):
         super(TextCommandBox, self).set_up_handlers()
         self.handlers.update({
@@ -43,7 +60,53 @@ class TextCommandBox(wgtextbox.Textfield):
                    curses.ascii.CR:     self.h_execute_command,
         })
     
+    def set_up_history_keys(self):
+        self.handlers.update({
+            "^P":   self.h_get_previous_history,
+            "^N":   self.h_get_next_history,
+            curses.KEY_UP: self.h_get_previous_history,
+            curses.KEY_DOWN: self.h_get_next_history,
+        })
+    
+    def h_get_previous_history(self, ch):
+        if self._current_history_index is False:
+            self._current_command = self.value
+            _current_history_index = -1
+        else:
+            _current_history_index = self._current_history_index - 1
+        try:
+            self.value = self._history_store[_current_history_index]
+        except IndexError:
+            return True
+        self.cursor_position = len(self.value)
+        self._current_history_index = _current_history_index
+        self.display()
+    
+    def h_get_next_history(self, ch):
+        if self._current_history_index is False:
+            return True
+        elif self._current_history_index == -1:
+            self.value = self._current_command
+            self._current_history_index = False
+            self.cursor_position = len(self.value)
+            self.display()
+            return True
+        else:
+            _current_history_index = self._current_history_index + 1
+        try:
+            self.value = self._history_store[_current_history_index]
+        except IndexError:
+            return True
+        self.cursor_position = len(self.value)
+        self._current_history_index = _current_history_index
+        self.display()
+
+    
+    
     def h_execute_command(self, *args, **keywords):
+        if self.history:
+            self._history_store.append(self.value)
+            self._current_history_index = False
         self.parent.action_controller.process_command_complete(self.value, weakref.proxy(self))
         self.value = ''
         
