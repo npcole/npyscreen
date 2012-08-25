@@ -427,7 +427,7 @@ Picking Options
 MultiLine
    Offer the user a list of options.  (This widget could probably have a better name, but we're stuck with it for now)
 
-   The options should be stored in the attribute *values* as a list.  The attribute *value* stores the index of the user's selection.
+   The options should be stored in the attribute *values* as a list.  The attribute *value* stores the index of the user's selection.  If you want to return the actual selected values rather than an index, use the *get_selected_objects()* method.
 
    One of the most important features of MultiLine and widgets derived from it is that it can be adapted easily to allow the user to choose different types of objects.  To do so, override the method *display_value(self, vl)*.  The argument *vl* will be the object being displayed, and the function should return a string that can be displayed on the screen.
    
@@ -438,7 +438,7 @@ MultiLine
 TitleMultiLine
    A titled version of the MultiLine widget.  
 
-   If creating your own subclasses of MultiLine, you can create Title versions by subclassing this object and changing the _entry_type class variable.
+   If creating your own subclasses of MultiLine, you can create Title versions by subclassing this object and changing the *_entry_type* class variable.
 
 MultiSelect, TitleMultiSelect, 
     Offer the User a list of options, allow him or her to select more than one of them.
