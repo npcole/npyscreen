@@ -245,7 +245,7 @@ Form, Popup
    All form classes can have the method *set_value(value)*.  This sets the value of the attribute *value* and calls the method *when_parent_changes_value* of every contained widget on the form.
    
 ActionForm, ActionPopup
-   The ActionForm creates OK and Cancel buttons.  Selecting either exits the form.  The method *on_ok* or *on_cancel* is called when the Form exits.  Subclasses may therefore usefully override one or both of these methods, which by default do nothing.
+   The ActionForm creates OK and Cancel buttons.  Selecting either exits the form.  The method *on_ok* or *on_cancel* is called when the Form exits (assuming the user selected one of these buttons).  Subclasses may therefore usefully override one or both of these methods, which by default do nothing.
    
 TitleForm, TitleFooterForm, SplitForm
    These are Form classes with slightly different layouts.

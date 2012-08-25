@@ -198,7 +198,7 @@ Let's put that right.  We'll use the Form class from before::
     
 If you run the above code, you'll find yourself frustrated, because the application will continually display the form for you to edit, and you'll have to press "^C" (Control C) to exit.
 
-That's because the NPSAppManaged class continually displays whatever form is named by its NEXT_ACTIVE_FORM attribute (in this case, the default - 'MAIN').
+That's because the NPSAppManaged class continually displays whatever form is named by its NEXT_ACTIVE_FORM attribute (in this case, the default - 'MAIN').  Older versions of this tutorial suggested setting that directly, but you should use the setNextForm(formid) method. 
 
 Let's alter the myEmployeeForm to tell it that after being run in an NPSAppManaged context, it should tell its NPSAppManaged parent to stop displaying Forms.  We do that by creating the special method called *afterEditing*::
 
@@ -221,7 +221,7 @@ Our code now looks like this::
 
     class myEmployeeForm(npyscreen.Form):
         def afterEditing(self):
-            self.parentApp.NEXT_ACTIVE_FORM = None
+            self.parentApp.setNextForm(None)
 
         def create(self):
            self.myName        = self.add(npyscreen.TitleText, name='Name')
@@ -240,4 +240,4 @@ Our code now looks like this::
 Choosing an approach
 ====================
 
-The last example above is probably over-kill for a very simple application.  But it provides a much more robust framework with which to build larger applications than the framework we used at the start of the tutorial, at the cost of only a few lines of code.  If you are displaying more than one screen, or running an application continuously, this is probably the approach you should take.
+The last example above is probably over-kill for a very simple application.  But it provides a much more robust framework with which to build larger applications than the framework we used at the start of the tutorial, at the cost of only a few lines of code.  If you are displaying more than one screen, or running an application continuously, this is the approach you should take.
