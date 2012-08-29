@@ -27,12 +27,15 @@ def _wrap_message_lines(message, line_length):
         lines.extend(textwrap.wrap(line.rstrip(), line_length))
     return lines
     
-def notify(message, title="Message", form_color='STANDOUT', wrap=True, wide=False):
+def notify(message, title="Message", form_color='STANDOUT', 
+            wrap=True, wide=False,
+            ):
     message = _prepare_message(message)
     if wide:
         F = fmPopup.PopupWide(name=title, color=form_color)
     else:
         F   = fmPopup.Popup(name=title, color=form_color)
+    F.preserve_selected_widget = True
     mlw = F.add(wgmultiline.Pager,)
     mlw_width = mlw.width-1
     if wrap:
@@ -40,12 +43,14 @@ def notify(message, title="Message", form_color='STANDOUT', wrap=True, wide=Fals
     mlw.values = message
     F.display()
     
-def notify_confirm(message, title="Message", form_color='STANDOUT', wrap=True, wide=False):
+def notify_confirm(message, title="Message", form_color='STANDOUT', wrap=True, wide=False,
+                    editw = 0,):
     message = _prepare_message(message)
     if wide:
         F = fmPopup.PopupWide(name=title, color=form_color)
     else:
         F   = fmPopup.Popup(name=title, color=form_color)
+    F.preserve_selected_widget = True
     mlw = F.add(wgmultiline.Pager,)
     mlw_width = mlw.width-1
     if wrap:
@@ -53,6 +58,7 @@ def notify_confirm(message, title="Message", form_color='STANDOUT', wrap=True, w
     else:
         message = message.split("\n")
     mlw.values = message
+    F.editw = editw
     F.edit()
 
 def notify_wait(*args, **keywords):
@@ -61,25 +67,29 @@ def notify_wait(*args, **keywords):
     curses.flushinp()    
     
     
-def notify_ok_cancel(message, title="Message", form_color='STANDOUT', wrap=True):
+def notify_ok_cancel(message, title="Message", form_color='STANDOUT', wrap=True, editw = 0,):
     message = _prepare_message(message)
     F   = ConfirmCancelPopup(name=title, color=form_color)
+    F.preserve_selected_widget = True
     mlw = F.add(wgmultiline.Pager,)
     mlw_width = mlw.width-1
     if wrap:
         message = _wrap_message_lines(message, mlw_width)
     mlw.values = message
+    F.editw = editw
     F.edit()
     return F.value
 
-def notify_yes_no(message, title="Message", form_color='STANDOUT', wrap=True):
+def notify_yes_no(message, title="Message", form_color='STANDOUT', wrap=True, editw = 0,):
     message = _prepare_message(message)
     F   = YesNoPopup(name=title, color=form_color)
+    F.preserve_selected_widget = True
     mlw = F.add(wgmultiline.Pager,)
     mlw_width = mlw.width-1
     if wrap:
         message = _wrap_message_lines(message, mlw_width)
     mlw.values = message
+    F.editw = editw
     F.edit()
     return F.value
 

@@ -734,3 +734,24 @@ x and y are the mouse click's position on the screen.  Presumably the widget wou
 See the Python Library curses module documentation for more detail on mouse events.
 
 
+Displaying Brief Messages and Choices
+*************************************
+
+The following functions allow you to display a brief message or choice to the user.
+
+*notify(message, title="Message", form_color='STANDOUT', wrap=True, wide=False,)*
+    This function displays a message on the screen.  It does not block and the user cannot interact with it - use it to display messages like "Please Wait" while other things are happening.
+    
+*notify_wait(message, title="Message", form_color='STANDOUT', wrap=True, wide=False,)*
+    This function displays a message on the screen, and blocks for a brief amount of time. The user cannot interact with it.
+    
+*notify_confirm(message, title="Message", form_color='STANDOUT', wrap=True, wide=False, editw=0)*
+    Display a message and an OK button.  The user can scroll the message if needed.  editw controls which widget is selected when the dialog is first displayed; set to 1 to have the OK button active immediately.
+    
+*notify_ok_cancel(message, title="Message", form_color='STANDOUT', wrap=True, editw = 0,)*
+    Display a message and return True if the user selected 'OK' and False if the user selected 'Cancel'.
+    
+*notify_yes_no(message, title="Message", form_color='STANDOUT', wrap=True, editw = 0)*
+    Similar to *notify_ok_cancel* except the names of the buttons are 'Yes' and 'No'.
+
+
