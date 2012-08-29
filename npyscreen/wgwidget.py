@@ -73,6 +73,7 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
                    curses.ascii.NL:     self.h_exit_down,
                    curses.ascii.CR:     self.h_exit_down,
                    curses.ascii.TAB:    self.h_exit_down,
+                   curses.KEY_BTAB:     self.h_exit_up,
                    curses.KEY_DOWN:     self.h_exit_down,
                    curses.KEY_UP:       self.h_exit_up,
                    curses.KEY_LEFT:     self.h_exit_left,
