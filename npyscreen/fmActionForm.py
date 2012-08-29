@@ -17,12 +17,6 @@ class ActionForm(fmForm.Form):
         self.editw = len(self._widgets__)-2
         
     def edit(self):
-        self.editing=True
-        if self.editw < 0: self.editw=0
-        if self.editw > len(self._widgets__)-1:
-            self.editw = len(self._widgets__)-1
-    
-        if not self._widgets__[self.editw].editable: self.find_next_editable()
         # Add ok and cancel buttons. Will remove later
         tmp_rely, tmp_relx = self.nextrely, self.nextrelx
         
@@ -40,6 +34,17 @@ class ActionForm(fmForm.Form):
         mx -= len(ok_button_text)+self.__class__.OK_BUTTON_BR_OFFSET[1]
         self.ok_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=ok_button_text, rely=my, relx=mx, use_max_space=True)
         ok_button_postion = len(self._widgets__)-1
+        # End add buttons
+        
+        self.editing=True
+        if self.editw < 0: self.editw=0
+        if self.editw > len(self._widgets__)-1:
+            self.editw = len(self._widgets__)-1
+        if not self.preserve_selected_widget:
+            self.editw = 0
+    
+    
+        if not self._widgets__[self.editw].editable: self.find_next_editable()
         self.ok_button.update()
 
         self.display()

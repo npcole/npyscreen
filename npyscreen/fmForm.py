@@ -17,6 +17,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
         wgwidget_proto._LinePrinter):
     BLANK_COLUMNS_RIGHT= 2
     BLANK_LINES_BASE   = 2
+    OK_BUTTON_TEXT     = 'OK'
     OK_BUTTON_BR_OFFSET = (2,6)
     OKBUTTON_TYPE = button.MiniButton
     DEFAULT_X_OFFSET = 2
