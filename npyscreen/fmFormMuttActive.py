@@ -135,9 +135,9 @@ class TextCommandBoxTraditional(TextCommandBox):
     # WILL NEED TO BE ALTERED TO LOOK AS IF IT IS BEING EDITED TOO.
     BEGINNING_OF_COMMAND_LINE_CHARS = (":", "/")
     def __init__(self, screen,
-                    history=False, 
+                    history=True, 
                     history_max=100, 
-                    set_up_history_keys=False,
+                    set_up_history_keys=True,
                     *args, **keywords):
         super(TextCommandBoxTraditional, self).__init__(screen,
          history=history,
@@ -154,7 +154,10 @@ class TextCommandBoxTraditional(TextCommandBox):
         except:
             inputchstr = False
         
-        input_unctrl = curses.ascii.unctrl(inputch)
+        try:
+            input_unctrl = curses.ascii.unctrl(inputch)
+        except TypeError:
+            input_unctrl = False
             
         if not self.linked_widget:
             return super(TextCommandBoxTraditional, self).handle_input(inputch)
@@ -187,9 +190,13 @@ class FormMuttActive(fmFormMutt.FormMutt):
     ACTION_CONTROLLER  = ActionControllerSimple
     COMMAND_WIDGET_CLASS = TextCommandBox
     def __init__(self, *args, **keywords):
+        # first create action_controller, so that the create methods
+        # of forms can use it.
+        self.action_controller = self.ACTION_CONTROLLER(parent=self)
+        # then call the superclass init method.
         super(FormMuttActive, self).__init__(*args, **keywords)
         self.set_value(self.DATA_CONTROLER())
-        self.action_controller = self.ACTION_CONTROLLER(parent=self)
+        
 
 class FormMuttActiveWithMenus(FormMuttActive, fmFormWithMenus.FormBaseNewWithMenus):
     def __init__(self, *args, **keywords):
@@ -201,9 +208,11 @@ class FormMuttActiveTraditional(fmFormMutt.FormMutt):
     ACTION_CONTROLLER  = ActionControllerSimple
     COMMAND_WIDGET_CLASS = TextCommandBoxTraditional
     def __init__(self, *args, **keywords):
+        # First create action_controller so that create methods of forms 
+        # can use it.
+        self.action_controller        = self.ACTION_CONTROLLER(parent=self)
         super(FormMuttActiveTraditional, self).__init__(*args, **keywords)
         self.set_value(self.DATA_CONTROLER())
-        self.action_controller        = self.ACTION_CONTROLLER(parent=self)
         self.wCommand.linked_widget   = self.wMain
         self.wMain.editable           = False
         self.wMain.always_show_cursor = True

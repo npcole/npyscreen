@@ -380,6 +380,21 @@ class Form(form_edit_loop.FormDefaultEditLoop, _FormBase, ):
     #use the old-style edit loop
     pass
     
+class FormBaseNewExpanded(form_edit_loop.FormNewEditLoop, _FormBase):
+    BLANK_LINES_BASE   = 1
+    OK_BUTTON_BR_OFFSET = (1,6)
+    # use the new-style edit loop.
+    pass
+
+class FormExpanded(form_edit_loop.FormDefaultEditLoop, _FormBase, ):
+    BLANK_LINES_BASE   = 1
+    OK_BUTTON_BR_OFFSET = (1,6)
+    #use the old-style edit loop
+    pass
+
+    
+    
+    
 class TitleForm(Form):
     """A form without a box, just a title line"""
     BLANK_LINES_BASE    = 1

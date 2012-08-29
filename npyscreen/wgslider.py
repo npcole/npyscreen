@@ -118,6 +118,8 @@ class Slider(widget.Widget):
                     ord('-'): self.h_decrease,
                     ord('h'): self.h_decrease,
                     ord('l'): self.h_increase,
+                    ord('j'): self.h_exit_down,
+                    ord('k'): self.h_exit_up,
                 })
 
     def h_increase(self, ch):

@@ -44,7 +44,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
     _contained_widget_height = 1
     def __init__(self, screen, values = None, value = None,
             slow_scroll=False, scroll_exit=False, 
-            return_exit=False,
+            return_exit=False, select_exit=False,
             exit_left  = False,
             exit_right = False,
             widgets_inherit_color = False,
@@ -64,6 +64,9 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         
         # does pushing return select and then leave the widget?
         self.return_exit = return_exit
+        
+        # does any selection leave the widget?
+        self.select_exit = select_exit
         
         # Show cursor even when not editing?
         self.always_show_cursor = always_show_cursor
@@ -103,12 +106,13 @@ Should accept one argument (the object to be represented), and return a string o
 object to be passed to the contained widget."""
         try:
             return self.safe_string(str(vl))
-        except UnicodeDecodeError:
-            return self.safe_string(vl)
-        except UnicodeEncodeError:
-            return self.safe_string(vl)
         except weakref.ReferenceError:
             return "**REFERENCE ERROR**"
+        
+        try:
+            return "Error displaying " + self.safe_string(repr(vl))
+        except:
+            return "**** Error ****"
 
     def calculate_area_needed(self):
         return 0,0
@@ -500,10 +504,13 @@ object to be passed to the contained widget."""
     
     def h_select(self, ch):
         self.value = self.cursor_line
+        if self.select_exit:
+            self.editing = False
+            self.how_exited = True
 
     def h_select_exit(self, ch):
         self.h_select(ch)
-        if self.return_exit:
+        if self.return_exit or self.select_exit:
             self.editing = False
             self.how_exited=True
 

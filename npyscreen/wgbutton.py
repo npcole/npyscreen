@@ -57,7 +57,7 @@ class MiniButton(checkbox._ToggleControl):
 
 
 class MiniButtonPress(MiniButton):
-    def h_toggle(self):
+    def h_toggle(self, ch):
         self.value = True
         self.display()
         self.whenPressed()

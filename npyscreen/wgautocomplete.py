@@ -25,7 +25,7 @@ class Autocomplete(textbox.Textfield):
         sel = tmp_window.add_widget(multiline.MultiLine, 
                 values=values, 
                 value=self.value,
-                return_exit=True)
+                return_exit=True, select_exit=True)
         #sel = multiline.MultiLine(tmp_window, values=values, value=self.value)
         tmp_window.display()
         sel.value=0
