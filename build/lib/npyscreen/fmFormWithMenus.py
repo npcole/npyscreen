@@ -47,7 +47,6 @@ class FormWithMenus(fmForm.Form, wgNMenuDisplay.HasMenus):
             self.make_attributes_list(menu_advert, curses.A_NORMAL),
             self.columns - x - 1
             )
-        
 
 # The following class does not inherit from FormWithMenus and so some code is duplicated.  
 # The pig is getting to inherit edit() from ActionForm, but draw_form from FormWithMenus

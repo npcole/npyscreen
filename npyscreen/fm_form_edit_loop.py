@@ -51,22 +51,24 @@ class FormDefaultEditLoop(object):
     def edit(self):
         """Edit the fields until the user selects the ok button added in the lower right corner. Button will
         be removed when editing finishes"""
+        # Add ok button. Will remove later
+        tmp_rely, tmp_relx = self.nextrely, self.nextrelx
+        my, mx = self.curses_pad.getmaxyx()
+        ok_button_text = self.__class__.OK_BUTTON_TEXT
+        my -= self.__class__.OK_BUTTON_BR_OFFSET[0]
+        mx -= len(ok_button_text)+self.__class__.OK_BUTTON_BR_OFFSET[1]
+        self.ok_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=ok_button_text, rely=my, relx=mx, use_max_space=True)
+        ok_button_postion = len(self._widgets__)-1
+        self.ok_button.update()
+        # End add buttons 
         self.editing=True
         if self.editw < 0: self.editw=0
         if self.editw > len(self._widgets__)-1:
             self.editw = len(self._widgets__)-1
         if not self.preserve_selected_widget:
             self.editw = 0
-        # Add ok button. Will remove later
-        tmp_rely, tmp_relx = self.nextrely, self.nextrelx
-        my, mx = self.curses_pad.getmaxyx()
-        ok_button_text = "OK"
-        my -= self.__class__.OK_BUTTON_BR_OFFSET[0]
-        mx -= len(ok_button_text)+self.__class__.OK_BUTTON_BR_OFFSET[1]
-        self.ok_button = self.add_widget(self.__class__.OKBUTTON_TYPE, name=ok_button_text, rely=my, relx=mx, use_max_space=True)
-        ok_button_postion = len(self._widgets__)-1
-        self.ok_button.update()
         if not self._widgets__[self.editw].editable: self.find_next_editable()
+
 
         self.display()
 

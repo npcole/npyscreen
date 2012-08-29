@@ -11,7 +11,7 @@ class ConfirmCancelPopup(fmPopup.ActionPopup):
         self.value = False
 
 class YesNoPopup(ConfirmCancelPopup):
-    OK_BUTTTON_TEXT = "Yes"
+    OK_BUTTON_TEXT = "Yes"
     CANCEL_BUTTON_TEXT = "No"
     
 def _prepare_message(message):

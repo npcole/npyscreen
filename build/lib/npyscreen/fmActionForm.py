@@ -21,6 +21,9 @@ class ActionForm(fmForm.Form):
         if self.editw < 0: self.editw=0
         if self.editw > len(self._widgets__)-1:
             self.editw = len(self._widgets__)-1
+        if not self.preserve_selected_widget:
+            self.editw = 0
+    
     
         if not self._widgets__[self.editw].editable: self.find_next_editable()
         # Add ok and cancel buttons. Will remove later
