@@ -88,7 +88,7 @@ class TextfieldBase(widget.Widget):
                     self.begin_at += 1
             else:
                 if self.do_colors():
-                    self.parent.curses_pad.bkgdset(' ', self.parent.theme_manager.findPair(self, self.color) | curses.A_STANDOUT)
+                    self.parent.curses_pad.bkgdset(' ', self.parent.theme_manager.findPair(self, self.highlight_color) | curses.A_STANDOUT)
                 else:
                     self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
 

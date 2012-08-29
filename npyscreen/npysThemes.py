@@ -10,7 +10,7 @@ class DefaultTheme(ThemeManagers.ThemeManager):
         'CURSOR'      : 'WHITE_BLACK',
         'LABEL'       : 'GREEN_BLACK',
         'LABELBOLD'   : 'WHITE_BLACK',
-        'CONTROL'     : 'GREEN_BLACK',
+        'CONTROL'     : 'YELLOW_BLACK',
         'WARNING'     : 'RED_BLACK',
         'CRITICAL'    : 'BLACK_RED',
         'GOOD'        : 'GREEN_BLACK',
@@ -19,6 +19,26 @@ class DefaultTheme(ThemeManagers.ThemeManager):
         'CAUTION'     : 'YELLOW_BLACK',
         'CAUTIONHL'   : 'BLACK_YELLOW',
     }
+    
+class ElegantTheme(ThemeManagers.ThemeManager):
+    default_colors = {
+        'DEFAULT'     : 'WHITE_BLACK',
+        'FORMDEFAULT' : 'WHITE_BLACK',
+        'NO_EDIT'     : 'BLUE_BLACK',
+        'STANDOUT'    : 'CYAN_BLACK',
+        'CURSOR'      : 'CYAN_BLACK',
+        'LABEL'       : 'GREEN_BLACK',
+        'LABELBOLD'   : 'WHITE_BLACK',
+        'CONTROL'     : 'YELLOW_BLACK',
+        'WARNING'     : 'RED_BLACK',
+        'CRITICAL'    : 'BLACK_RED',
+        'GOOD'        : 'GREEN_BLACK',
+        'GOODHL'      : 'GREEN_BLACK',
+        'VERYGOOD'    : 'BLACK_GREEN',
+        'CAUTION'     : 'YELLOW_BLACK',
+        'CAUTIONHL'   : 'BLACK_YELLOW',
+    }
+
 
 class ColorfulTheme(ThemeManagers.ThemeManager):
     default_colors = {

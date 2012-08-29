@@ -88,3 +88,8 @@ class ActionForm(fmForm.Form):
     def on_ok(self):
         pass
         
+class ActionFormExpanded(ActionForm):
+    BLANK_LINES_BASE   = 1
+    OK_BUTTON_BR_OFFSET = (1,6)
+    CANCEL_BUTTON_BR_OFFSET = (1, 12)
+    

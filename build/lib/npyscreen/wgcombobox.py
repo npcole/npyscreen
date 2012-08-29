@@ -49,6 +49,10 @@ Should accept one argument (the object to be represented), and return a string."
                       curses.ascii.NL:  self.h_change_value,
                       curses.ascii.CR:  self.h_change_value,
                       ord('x'):         self.h_change_value,
+                      ord('k'):         self.h_exit_up,
+                      ord('j'):         self.h_exit_down,
+                      ord('h'):         self.h_exit_left,
+                      ord('l'):         self.h_exit_right,                      
                       })
     
     def h_change_value(self, input):
@@ -56,7 +60,7 @@ Should accept one argument (the object to be represented), and return a string."
         F = Popup.Popup(name = self.name)
         l = F.add(multiline.MultiLine, 
             values = [self.display_value(x) for x in self.values],
-            return_exit=True, 
+            return_exit=True, select_exit=True,
             value=self.value)
         F.display()
         l.edit()

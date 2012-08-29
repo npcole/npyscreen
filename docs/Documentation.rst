@@ -274,7 +274,7 @@ FormMutt
    
     By default, wStatus1 and wStatus2 have *editable* set to False.
     
-FormMuttActive, FormMuttActiveTraditional
+FormMuttActive, FormMuttActiveWithMenus, FormMuttActiveTraditional, FormMuttActiveTraditionalWithMenus
     These classes are intended to make the creation of more complicated applications easier.  It uses the additional classes *NPSFilteredDataBase*, *ActionControllerSimple*, *TextCommandBox*, *TextCommandBoxTraditional*.
     
     A very common *nix style of terminal application (used by applications like mutt and irssi) has a central display with a list or grid of times, a command line at the bottom and some status lines.
