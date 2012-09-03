@@ -11,7 +11,7 @@ class ConfirmCancelPopup(fmPopup.ActionPopup):
         self.value = False
 
 class YesNoPopup(ConfirmCancelPopup):
-    OK_BUTTTON_TEXT = "Yes"
+    OK_BUTTON_TEXT = "Yes"
     CANCEL_BUTTON_TEXT = "No"
     
 def _prepare_message(message):
@@ -83,13 +83,13 @@ def notify_ok_cancel(message, title="Message", form_color='STANDOUT', wrap=True,
 def notify_yes_no(message, title="Message", form_color='STANDOUT', wrap=True, editw = 0,):
     message = _prepare_message(message)
     F   = YesNoPopup(name=title, color=form_color)
-    F.preserve_selected_widget = False
+    F.preserve_selected_widget = True
     mlw = F.add(wgmultiline.Pager,)
     mlw_width = mlw.width-1
     if wrap:
         message = _wrap_message_lines(message, mlw_width)
     mlw.values = message
-    F.editw = 1
+    F.editw = editw
     F.edit()
     return F.value
 
