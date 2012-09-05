@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import codecs
+import copy
 import sys
 import curses
 import curses.ascii
@@ -464,10 +465,13 @@ big a given widget is ... use .height and .width instead"""
             if self.value == self._old_value:
                 return False
         except AttributeError:
-            pass
+            self._old_value = copy.deepcopy(self.value)
+            self.when_value_edited()
+            return True
         # Value must have changed:
-        self._old_value = self.value
+        self._old_value = copy.deepcopy(self.value)
         self.when_value_edited()
+        return True
     
     def when_value_edited(self):
         """Called when the user edits the value of the widget.  Will usually also be called the first time
