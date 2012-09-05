@@ -107,19 +107,16 @@ class TitleText(widget.Widget):
                 return self.__tmp_value
             except:
                 return None
-    
     def set_value(self, value):
         try:
             self.entry_widget.value = value
         except:
             # probably trying to set the value before the textarea is initialised
             self.__tmp_value = value
-            
     def del_value(self):
         del self.entry_widget.value
-
     value = property(get_value, set_value, del_value)
+
 
 class TitleFixedText(TitleText):
     _entry_type = textbox.FixedText
-
