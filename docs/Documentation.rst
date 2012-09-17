@@ -20,6 +20,11 @@ Status of this Document
 
 This document explains the key features of Npyscreen - enough to get you using it.  It is, however, a work in progress.
 
+Unless otherwise marked, all of the Forms and methods here can be considered part of the 
+official API.
+
+Anything not set out in this document might be part of the internal workings of npyscreen, and may be subject to change in future versions.
+
 
 Objects Overview
 ================
@@ -277,7 +282,7 @@ FormMutt
 FormMuttActive, FormMuttActiveWithMenus, FormMuttActiveTraditional, FormMuttActiveTraditionalWithMenus
     These classes are intended to make the creation of more complicated applications easier.  It uses the additional classes *NPSFilteredDataBase*, *ActionControllerSimple*, *TextCommandBox*, *TextCommandBoxTraditional*.
     
-    A very common *nix style of terminal application (used by applications like mutt and irssi) has a central display with a list or grid of times, a command line at the bottom and some status lines.
+    A very common \*nix style of terminal application (used by applications like mutt and irssi) has a central display with a list or grid of times, a command line at the bottom and some status lines.
     
     These classes make setting up a similar form easy.  The difference between the *FormMuttActive* and *FormMuttActiveTraditional* classes is that in the latter the only widget that the user ever actually edits is the command line at the bottom of the screen.  However, keypresses will be passed to the multiline widget in the centre of the display if these widgets are not editing a command line, allowing the user to scroll around and select items.
     
@@ -286,7 +291,7 @@ FormMuttActive, FormMuttActiveWithMenus, FormMuttActiveTraditional, FormMuttActi
     I will write separate documentation explaining how to properly use and extend these classes.  In the meantime please contact me if you require help.
 
 Multi-page Forms
-----------------
+****************
 
 FormMultiPage (new in version 2.0pre63)
     This *experimental* class adds support for multi-page forms.  By default, scrolling down off the last widget on a page moves to the next page, and moving up from the first widget moves back a page. 
@@ -308,7 +313,7 @@ FormMultPageAction (new in version 2.0pre64)
     This is an *experimental* version of the FormMultiPage class that adds the on_ok and on_cancel methods of the ActionForm class and automatically creates cancel and ok buttons on the last page of the form.
     
 FormMultiPageWithMenus, FormMultPageActionWithMenus
-    Menu-enabled classes of the above classes.
+    Menu-enabled versions of the above classes.
 
 Menus
 =====
@@ -744,7 +749,7 @@ Unicode
 The latest versions of the library aim to handle unicode/utf-8 strings.  Please report any problems.
 
 Enhancing Mouse Support
-***********************
+=======================
 Widgets that wish to handle mouse events in more detail should override the method *.handle_mouse_event(self, mouse_event)*.  Note that *mouse_event* is a tuple::
     
     def handle_mouse_event(self, mouse_event):
@@ -760,7 +765,7 @@ See the Python Library curses module documentation for more detail on mouse even
 
 
 Displaying Brief Messages and Choices
-*************************************
+=====================================
 
 The following functions allow you to display a brief message or choice to the user.
 
