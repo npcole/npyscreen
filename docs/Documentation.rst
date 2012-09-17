@@ -284,7 +284,24 @@ FormMuttActive, FormMuttActiveWithMenus, FormMuttActiveTraditional, FormMuttActi
     What is actually displayed on the screen is controlled by the *ActionControllerSimple* class, which uses as a base the data stored not by any of the individual widgets but by the *NPSFilteredDatabase* class.
     
     I will write separate documentation explaining how to properly use and extend these classes.  In the meantime please contact me if you require help.
+
+Multi-page Forms
+----------------
+
+FormMultiPage (new in version 2.0pre63)
+    This *experimental* class adds support for multi-page forms.  By default, scrolling down off the last widget on a page moves to the next page, and moving up from the first widget moves back a page. 
     
+    Two new methods are added to this form:
+    
+    *add_page()*
+        Intended for use during the creation of the form.  This adds a new page, and resets the position at which new widgets will be added.  The index of the page added is returned.
+        
+    *switch_page(*index*)*
+        This method changes the active page to the one specified by *index*.
+        
+    Please note that this class is EXPERIMENTAL.  The API is still under review, and may change in future releases.  It is intended for applications which may have to create forms dynamically, which might need to create a single form larger than a screen (for example, a Jabber client that needs to display an xmpp form specified by the server.)  It is *not* intended to display arbitrarily large lists of items.  For that purpose, the multiline classes of widgets are much more efficient.
+        
+
 Menus
 =====
 

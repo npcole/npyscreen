@@ -18,7 +18,7 @@ class TestApp(npyscreen.NPSApp):
         
         ml= F.add(npyscreen.MultiLineEdit, 
             value = """try typing here!\nMutiline text, press ^R to reformat.\n""", 
-            max_height=5, rely=9)
+                    max_height=5,)
         ms= F.add(npyscreen.TitleSelectOne, max_height=4, value = [1,], name="Pick One", 
                 values = ["Option1","Option2","Option3"], scroll_exit=True)
         ms2= F.add(npyscreen.TitleMultiSelect, max_height =-2, value = [1,], name="Pick Several", 
