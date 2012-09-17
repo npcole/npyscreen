@@ -291,18 +291,24 @@ Multi-page Forms
 FormMultiPage (new in version 2.0pre63)
     This *experimental* class adds support for multi-page forms.  By default, scrolling down off the last widget on a page moves to the next page, and moving up from the first widget moves back a page. 
     
-    Two new methods are added to this form:
+    Three new methods are added to this form:
     
     *add_page()*
         Intended for use during the creation of the form.  This adds a new page, and resets the position at which new widgets will be added.  The index of the page added is returned.
         
     *switch_page(*index*)*
         This method changes the active page to the one specified by *index*.
+    
+    *add_widget_intelligent(*args, **keywords)*
+        This method adds a widget to the form.  If there is not enough space on the current page, it tries creating a new page and adding the widget there.  Note that this method may still raise an exception if the user has specified options that prevent the widget from appearing even on the new page.
         
     Please note that this class is EXPERIMENTAL.  The API is still under review, and may change in future releases.  It is intended for applications which may have to create forms dynamically, which might need to create a single form larger than a screen (for example, a Jabber client that needs to display an xmpp form specified by the server.)  It is *not* intended to display arbitrarily large lists of items.  For that purpose, the multiline classes of widgets are much more efficient.
         
 FormMultPageAction (new in version 2.0pre64)
     This is an *experimental* version of the FormMultiPage class that adds the on_ok and on_cancel methods of the ActionForm class and automatically creates cancel and ok buttons on the last page of the form.
+    
+FormMultiPageWithMenus, FormMultPageActionWithMenus
+    Menu-enabled classes of the above classes.
 
 Menus
 =====
