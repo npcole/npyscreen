@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre63",
+	version="2.0pre64",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -36,6 +36,9 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 2.0pre64 extends multi-page support and includes revision to the
+documentation.
+
 Version 2.0pre63 adds initial support for multi-page forms.  See documentation on the 
 FormMultiPage class for details.
 
