@@ -58,6 +58,8 @@ from .wgNMenuDisplay            import MenuDisplay, MenuDisplayScreen
 # Experimental
 from .wgboxwidget               import BoxBasic, BoxTitle
 
+from .fmFormMultiPage           import FormMultiPage
+
 # End Experimental
 
 from .npyspmfuncs               import CallSubShell
