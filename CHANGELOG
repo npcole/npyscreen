@@ -10,6 +10,8 @@ TODO - fix F keys on OS X
 		robust)
 	- should monthbox calendar also accept utf-8 for day names?
 
+2.0pre64
+Multipage support added.
 
 2.0pre60
 Documentation updates and some user-requested enhancement.
