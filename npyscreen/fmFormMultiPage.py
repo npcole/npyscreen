@@ -1,13 +1,21 @@
 ## Very, very experimental. Do NOT USE.
-
-from . import fmForm
-from . import wgNMenuDisplay
+from .         import fmForm
+from .wgwidget import NotEnoughSpaceForWidget
+from .         import wgNMenuDisplay
 
 
 class FormMultiPage(fmForm.FormBaseNew):
     def __init__(self, *args, **keywords):
         super(FormMultiPage, self).__init__(*args, **keywords)
         self.switch_page(0)
+    
+    def add_widget_intelligent(self, *args, **keywords):
+        try:
+            return self.add_widget(*args, **keywords)
+        except NotEnoughSpaceForWidget:
+            self.add_page()
+            return self.add_widget(*args, **keywords)
+            
     
     def _clear_all_widgets(self,):
         super(FormMultiPage, self)._clear_all_widgets()
@@ -46,6 +54,7 @@ class FormMultiPage(fmForm.FormBaseNew):
                 if self._active_page < len(self._pages__)-1:
                     self.switch_page(self._active_page + 1)
         self.display()
+    
     
     def find_previous_editable(self, *args):
         if self.editw == 0:
