@@ -54,6 +54,7 @@ class ActionFormWithMenus(fmActionForm.ActionForm, wgNMenuDisplay.HasMenus):
     def __init__(self, *args, **keywords):
         super(ActionFormWithMenus, self).__init__(*args, **keywords)
         self.initialize_menus()
+    
     def display_menu_advert_at(self):
         return self.lines-1, 1
 

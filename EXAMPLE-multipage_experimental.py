@@ -7,7 +7,7 @@ class TestApp(npyscreen.NPSApp):
     def main(self):
         # These lines create the form and populate it with widgets.
         # A fairly complex screen in only 8 or so lines of code - a line for each control.
-        F = npyscreen.FormMultiPage(name = "Welcome to Npyscreen",)
+        F = npyscreen.FormMultiPageActionWithMenus(name = "Welcome to Npyscreen",)
         t = F.add(npyscreen.TitleText, name = "Text:",)
         fn = F.add(npyscreen.TitleFilename, name = "Filename:")
         dt = F.add(npyscreen.TitleDateCombo, name = "Date:")
@@ -26,8 +26,12 @@ class TestApp(npyscreen.NPSApp):
         
         F.switch_page(0)
         
+        def on_ok():
+            npyscreen.notify_confirm("OK Button Pressed!")
+        F.on_ok = on_ok
         # This lets the user play with the Form.
         F.edit()
+        
 
 
 if __name__ == "__main__":
