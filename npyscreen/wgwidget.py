@@ -24,6 +24,10 @@ RAISEERROR   = 'RAISEERROR'
 
 ALLOW_NEW_INPUT = True
 
+class NotEnoughSpaceForWidget(Exception):
+    pass
+
+
 class InputHandler(object):
     "An object that can handle user input"
 
@@ -161,6 +165,7 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         editable=True/False the user may change the value of the widget.
         hidden=True/False The widget is hidden.
         check_value_change=True - perform a check on every keypress and run when_value_edit if the value is different.
+        check_cursor_move=True - perform a check every keypress and run when_cursor_moved if the cursor has moved.
         """
         self.check_value_change=check_value_change
         self.check_cursor_move =check_cursor_move
@@ -244,9 +249,9 @@ big a given widget is ... use .height and .width instead"""
         if max_width not in (None, False) and max_width < 0:
             max_width = mx + max_width
         if max_height not in (None, False) and max_height <= 0:
-            raise Exception("Not enough space for requested size")  
+            raise NotEnoughSpaceForWidget("Not enough space for requested size")  
         if max_width not in (None, False) and max_width <= 0:
-            raise Exception("Not enough space for requested size")
+            raise NotEnoughSpaceForWidget("Not enough space for requested size")
         
         if ny > 0:
             if my >= ny: self.height = ny
@@ -276,7 +281,8 @@ big a given widget is ... use .height and .width instead"""
 
         if self.height == RAISEERROR or self.width == RAISEERROR:
             # Not enough space for widget
-            raise Exception("Not enough space: max y and x = %s , %s. Height and Width = %s , %s " % (my, mx, self.height, self.width) ) # unsafe. Need to add error here.
+            raise NotEnoughSpaceForWidget("Not enough space: max y and x = %s , %s. Height and Width = %s , %s " % (my, mx, self.height, self.width) ) # unsafe. Need to add error here.
+    
     def update(self, clear=True):
         """How should object display itself on the screen. Define here, but do not actually refresh the curses
         display, since this should be done as little as possible.  This base widget puts nothing on screen."""
