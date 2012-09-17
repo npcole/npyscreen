@@ -14,6 +14,8 @@ from   .fmPopup                 import Popup, MessagePopup, ActionPopup, PopupWi
 from   .fmFormMutt              import FormMutt, FormMuttWithMenus
 from   .fmFileSelector          import FileSelector
 
+from .fmFormMultiPage           import FormMultiPage
+
 from   .npysNPSTree             import NPSTreeData
 
 from .npysNPSFilteredData       import NPSFilteredDataBase, NPSFilteredDataList
@@ -57,9 +59,6 @@ from .wgNMenuDisplay            import MenuDisplay, MenuDisplayScreen
 
 # Experimental
 from .wgboxwidget               import BoxBasic, BoxTitle
-
-from .fmFormMultiPage           import FormMultiPage
-
 # End Experimental
 
 from .npyspmfuncs               import CallSubShell

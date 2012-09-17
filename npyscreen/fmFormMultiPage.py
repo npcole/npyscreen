@@ -22,7 +22,7 @@ class FormMultiPage(fmForm.FormBaseNew):
     
     def add_page(self):
         self._pages__.append([])
-        page_number = len(self._pages__) - 1
+        page_number   = len(self._pages__)-1
         self.nextrely = self.DEFAULT_NEXTRELY
         self.nextrelx = self.DEFAULT_X_OFFSET
         self.switch_page(page_number, display=False)
@@ -57,6 +57,5 @@ class FormMultiPage(fmForm.FormBaseNew):
                 if self._widgets__[n].editable and not self._widgets__[n].hidden: 
                     self.editw = n
                     break
-    
     
     
