@@ -9,18 +9,21 @@ from   .apNPSApplicationManaged import NPSAppManaged
 from   .proto_fm_screen_area    import setTheme
 from   .fmForm                  import FormBaseNew, Form, TitleForm, TitleFooterForm, SplitForm, FormExpanded, FormBaseNewExpanded
 from   .fmActionForm            import ActionForm, ActionFormExpanded
-from   .fmFormWithMenus         import FormWithMenus, ActionFormWithMenus, FormBaseNewWithMenus, SplitFormWithMenus
+from   .fmFormWithMenus         import FormWithMenus, ActionFormWithMenus, \
+                                       FormBaseNewWithMenus, SplitFormWithMenus
 from   .fmPopup                 import Popup, MessagePopup, ActionPopup, PopupWide, ActionPopupWide
 from   .fmFormMutt              import FormMutt, FormMuttWithMenus
 from   .fmFileSelector          import FileSelector
 
-from .fmFormMultiPage           import FormMultiPage
+from .fmFormMuttActive          import ActionControllerSimple, TextCommandBox, \
+                                       FormMuttActive, FormMuttActiveWithMenus
+
+from .fmFormMultiPage           import FormMultiPage, FormMultiPageAction,\
+                                       FormMultiPageActionWithMenus, FormMultiPageWithMenus
 
 from   .npysNPSTree             import NPSTreeData
 
 from .npysNPSFilteredData       import NPSFilteredDataBase, NPSFilteredDataList
-from .fmFormMuttActive          import ActionControllerSimple, TextCommandBox, \
-                                    FormMuttActive, FormMuttActiveWithMenus
 
 from .wgbutton                  import MiniButton
 from .wgbutton                  import MiniButtonPress
@@ -36,7 +39,8 @@ from .wgslider                  import Slider, TitleSlider
 from .wgwidget                  import DummyWidget, NotEnoughSpaceForWidget
 
 from .wgmultiline               import MultiLine, Pager, TitleMultiLine, MultiLineAction
-from .wgmultiselect             import MultiSelect, TitleMultiSelect, MultiSelectFixed, TitleMultiSelectFixed, MultiSelectAction
+from .wgmultiselect             import MultiSelect, TitleMultiSelect, MultiSelectFixed, \
+                                       TitleMultiSelectFixed, MultiSelectAction
 from .wgeditmultiline           import MultiLineEdit
 from .wgcombobox                import ComboBox, TitleCombo
 from .wgcheckbox                import Checkbox, RoundCheckBox
