@@ -307,6 +307,8 @@ FormMultiPage (new in version 2.0pre63)
     *add_widget_intelligent(*args, **keywords)*
         This method adds a widget to the form.  If there is not enough space on the current page, it tries creating a new page and adding the widget there.  Note that this method may still raise an exception if the user has specified options that prevent the widget from appearing even on the new page.
         
+    The default class will display the page you are on in the bottom right corner if the attribute *display_pages* is True and if there is more than one page.  You can also pass *display_pages=False* in to the constructor.  The color used for this display is stored in the attribute *pages_label_color*.  By default this is 'NORMAL'.  Other good values might be 'STANDOUT', 'CONTROL' or 'LABEL'. Again, you can pass this in to the constructor.
+        
     Please note that this class is EXPERIMENTAL.  The API is still under review, and may change in future releases.  It is intended for applications which may have to create forms dynamically, which might need to create a single form larger than a screen (for example, a Jabber client that needs to display an xmpp form specified by the server.)  It is *not* intended to display arbitrarily large lists of items.  For that purpose, the multiline classes of widgets are much more efficient.
         
 FormMultPageAction (new in version 2.0pre64)

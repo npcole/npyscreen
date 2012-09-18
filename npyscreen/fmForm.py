@@ -325,7 +325,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
                  len(help_advert)
                  )
             except:
-                raise
+                pass
 
     def draw_form(self):
         if self.framed:

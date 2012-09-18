@@ -57,7 +57,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         self.widgets_inherit_color = widgets_inherit_color
         super(MultiLine, self).__init__(screen, **keywords)
         if self.height < self.__class__._MINIMUM_HEIGHT:
-            raise Exception("Not enough space allowed for %s" % str(self))
+            raise widget.NotEnoughSpaceForWidget("Not enough space allowed for %s" % str(self))
         self.make_contained_widgets()
 
         self.value = value
