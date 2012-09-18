@@ -1,13 +1,58 @@
 ## Very, very experimental. Do NOT USE.
+import curses
 from .         import fmForm
 from .wgwidget import NotEnoughSpaceForWidget
 from .         import wgNMenuDisplay
 
 
 class FormMultiPage(fmForm.FormBaseNew):
-    def __init__(self, *args, **keywords):
+    page_info_pre_pages_display = '[ '
+    page_info_post_pages_display = ' ]'
+    page_info_pages_name = 'Page'
+    page_info_out_of     = 'of'
+    def __init__(self, display_pages=True, pages_label_color='NORMAL', *args, **keywords):
         super(FormMultiPage, self).__init__(*args, **keywords)
+        self.display_pages = display_pages
+        self.pages_label_color = pages_label_color
         self.switch_page(0)
+    
+    def draw_form(self, *args, **keywords):
+        super(FormMultiPage, self).draw_form(*args, **keywords)
+        self.display_page_number()
+    
+    def display_page_number(self):
+        if not self.display_pages:
+            return False
+            
+        if len(self._pages__) > 1:
+            display_text = "%s%s %s %s %s%s" % (
+                self.page_info_pre_pages_display,
+                self.page_info_pages_name,
+                self._active_page + 1,
+                self.page_info_out_of,
+                len(self._pages__),
+                self.page_info_post_pages_display,
+            )
+        # for python2
+            if isinstance(display_text, bytes):
+                display_text = display_text.decode('utf-8', 'replace')
+        
+            maxy,maxx = self.curses_pad.getmaxyx()
+        
+            if (maxx-5) <= len(display_text):
+                # then give up.
+                return False
+        
+            self.add_line(
+                maxy - 1,
+                maxx - len(display_text) - 2,
+                display_text,
+                self.make_attributes_list(display_text, 
+                     curses.A_NORMAL | self.theme_manager.findPair(self, 
+                                                                  self.pages_label_color)),
+                maxx - len(display_text) - 2,
+            )
+        
     
     def add_widget_intelligent(self, *args, **keywords):
         try:
