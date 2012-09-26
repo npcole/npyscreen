@@ -13,7 +13,7 @@ class ActionControllerSearch(npyscreen.ActionControllerSimple):
         self.parent.wMain.display()
 
 
-class FmSearchActive(npyscreen.FormMuttActive):
+class FmSearchActive(npyscreen.FormMuttActiveTraditional):
     ACTION_CONTROLLER = ActionControllerSearch
 
 class TestApp(npyscreen.NPSApp):
