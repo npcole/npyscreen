@@ -9,12 +9,12 @@ class NPSTreeData(object):
                     highlight=False, expanded=True, ignoreRoot=True, sort_function=None):
         self.setParent(parent)
         self.setContent(content)
-        self.selected = selected
+        self.selected   = selected
         self.highlight  = highlight
-        self.expanded = expanded
-        self._children = []
+        self.expanded   = expanded
+        self._children  = []
         self.ignoreRoot = ignoreRoot
-        self.sort     = False
+        self.sort       = False
         self.sort_function = sort_function
         self.sort_function_wrapper = True
         
