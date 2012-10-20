@@ -251,7 +251,7 @@ class MultiLineTreeNew(multiline.MultiLine):
                 line._tree_depth_next = self.values[value_indexer+1].findDepth()
             except:
                 line._tree_depth_next = False
-            line.hide = False
+            line.hidden = False
         except IndexError:
             self._set_line_blank(line)
         except TypeError:
@@ -347,7 +347,7 @@ class MultiLineTree(multiline.MultiLine):
     def _set_line_values(self, line, value_indexer):
         try:
             line.value = self.get_tree_display(self.values[value_indexer]) + "  " + self.display_value(self.values[value_indexer]) + "  "
-            line.hide = False
+            line.hidden = False
         except IndexError:
             self._set_line_blank(line)
         except TypeError:
@@ -361,7 +361,7 @@ class SelectOneTree(MultiLineTree):
     def _print_line(self, line, value_indexer):
         try:
             line.value = self.values[value_indexer]
-            line.hide = False
+            line.hidden = False
             if (self.values[value_indexer] in self.value and (self.value is not None)):
                 line.show_bold = True
                 line.name = self.display_value(self.values[value_indexer])
@@ -376,7 +376,7 @@ class SelectOneTree(MultiLineTree):
                 line.important = False
         except IndexError:
             line.name = None
-            line.hide = True
+            line.hidden = True
 
         line.highlight= False
     

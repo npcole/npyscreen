@@ -256,7 +256,7 @@ object to be passed to the contained widget."""
     def _set_line_values(self, line, value_indexer):
         try:
             line.value = self.display_value(self.values[value_indexer])
-            line.hide = False
+            line.hidden = False
         except IndexError:
             self._set_line_blank(line)
         except TypeError:
@@ -266,7 +266,7 @@ object to be passed to the contained widget."""
         line.value = None
         line.show_bold=False
         line.name = None
-        line.hide = True
+        line.hidden = True
         
                 
     def _set_line_highlighting(self, line, value_indexer):
@@ -438,7 +438,7 @@ object to be passed to the contained widget."""
         
     def h_clear_filter(self, ch):
         self.clear_filter()
-        self.display()
+        self.update()
     
     def h_cursor_beginning(self, ch):
         self.cursor_line = 0

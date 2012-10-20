@@ -292,8 +292,12 @@ big a given widget is ... use .height and .width instead"""
 
     def display(self):
         """Do an update of the object AND refresh the screen"""
-        self.update()
-        self.parent.refresh()
+        if self.hidden:
+            self.clear()
+            self.parent.refresh()
+        else:
+            self.update()
+            self.parent.refresh()
 
     def set_editable(self, value):
         if value: self._is_editable = True
