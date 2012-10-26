@@ -60,6 +60,9 @@ class TextfieldBase(widget.Widget):
         value_to_use_for_calculations = self.value
 
         if clear: self.clear()
+        
+        if self.hidden:
+            return True
 
         if self.begin_at < 0: self.begin_at = 0
         

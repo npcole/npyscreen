@@ -10,6 +10,11 @@ TODO - fix F keys on OS X
 		robust)
 	- should monthbox calendar also accept utf-8 for day names?
 
+2.0pre65
+Bug fixes.  All text boxes should now honour the .hidden attribute.
+
+Tree classes improved.
+
 2.0pre64
 Multipage support added.
 
