@@ -255,18 +255,22 @@ object to be passed to the contained widget."""
 
     def _set_line_values(self, line, value_indexer):
         try:
-            line.value = self.display_value(self.values[value_indexer])
-            line.hidden = False
+            _vl = self.values[value_indexer]
         except IndexError:
             self._set_line_blank(line)
+            return False
         except TypeError:
             self._set_line_blank(line)
+            return False
+        line.value = self.display_value(_vl)
+        line.hidden = False
+        
 
     def _set_line_blank(self, line):
-        line.value = None
-        line.show_bold=False
-        line.name = None
-        line.hidden = True
+        line.value    = None
+        line.show_bold= False
+        line.name     = None
+        line.hidden   = True
         
                 
     def _set_line_highlighting(self, line, value_indexer):
