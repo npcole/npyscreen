@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre66",
+	version="2.0pre68",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -36,6 +36,11 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 2.0pre68 setting a form's .editing attribute to False now causes it to exit immediately,
+even if a widget is still being edited.
+
+Version 2.0pre67 fixes minor bugs.
+
 Version 2.0pre65 fixes several bugs.  All textboxes now honour the .hidden
 attribute.  The major side effect of this is that tree classes are now
 easier to write.
