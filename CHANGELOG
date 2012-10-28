@@ -10,6 +10,11 @@ TODO - fix F keys on OS X
 		robust)
 	- should monthbox calendar also accept utf-8 for day names?
 
+
+2.0pre68
+Setting a form's .editing attribute to False will now cause the edit loop of a widget 
+to exit immediately.
+
 2.0pre65
 Bug fixes.  All text boxes should now honour the .hidden attribute.
 

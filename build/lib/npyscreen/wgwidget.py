@@ -334,9 +334,22 @@ big a given widget is ... use .height and .width instead"""
         self.how_exited = False
 
     def _edit_loop(self):
-        while self.editing:
+        if not self.parent.editing:
+            _i_set_parent_editing = True
+            self.parent.editing = True
+        else:
+            _i_set_parent_editing = False
+        while self.editing and self.parent.editing:
             self.display()
             self.get_and_use_key_press()
+        if _i_set_parent_editing:
+            self.parent.editing = False
+        
+        if self.editing:
+            self.editing = False
+            self.how_exited = True
+        
+        
 
     def _post_edit(self):
         self.highlight = 0

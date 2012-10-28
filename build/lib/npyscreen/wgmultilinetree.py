@@ -122,7 +122,7 @@ class TreeLineAnnotated(TreeLine):
          # historical reasons.
         _annotation, _color = self.getAnnotationAndColor()
         self.parent.curses_pad.addstr(self.rely, real_x, _annotation, self.parent.theme_manager.findPair(self, _color))
-        return len(self._annotate)
+        return len(_annotation)
         
     def annotationNoColor(self, real_x):
         # Must return the "Margin" needed before the entry begins

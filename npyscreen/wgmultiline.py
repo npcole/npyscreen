@@ -676,7 +676,7 @@ class Pager(MultiLine):
                     ord('k'):           self.h_scroll_line_up,
                     ord('x'):       self.h_exit,
                     ord('q'):       self.h_exit,
-                    curses.ascii.ESC:   self.h_exit,
+                    curses.ascii.ESC:   self.h_exit_escape,
                 }
 
         self.complex_handlers = [
