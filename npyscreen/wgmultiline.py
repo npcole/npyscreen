@@ -397,7 +397,7 @@ object to be passed to the contained widget."""
                     ord('p'):       self.move_previous_filtered,
                     # "^L":        self.h_set_filtered_to_selected,
                     curses.ascii.SP:    self.h_select,
-                    curses.ascii.ESC:   self.h_exit,
+                    curses.ascii.ESC:   self.h_exit_escape,
                     curses.ascii.CR:    self.h_select_exit,
                 } )
                 
