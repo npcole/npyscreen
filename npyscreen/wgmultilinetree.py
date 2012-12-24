@@ -98,7 +98,7 @@ class TreeLine(textbox.TextfieldBase):
             return self.safe_string(vl.getContent())
         except:
             # Catch the times this is None.
-            return self.safe_string(vl)
+            self.safe_string(vl)
             
     
 
@@ -148,7 +148,8 @@ class TreeLineAnnotated(TreeLine):
 class MultiLineTreeNew(multiline.MultiLine):
     # Experimental
     
-    _contained_widgets = TreeLineAnnotated
+    #_contained_widgets = TreeLineAnnotated
+    _contained_widgets = TreeLine
     def _setMyValues(self, tree):
         if tree == [] or tree == None:
             self._myFullValues = NPSTree.NPSTreeData()
@@ -194,6 +195,8 @@ class MultiLineTreeNew(multiline.MultiLine):
         else:
             return False
     
+    def display_value(self, vl):
+        return vl
     
     def set_up_handlers(self):
         super(MultiLineTreeNew, self).set_up_handlers()
@@ -296,11 +299,14 @@ class MultiLineTreeNew(multiline.MultiLine):
         self.cursor_line  = 0
         self.display()
 
-
+class MultiLineTreeNewAnnotated(MultiLineTreeNew):
+    _contained_widgets = TreeLineAnnotated
 
 class MultiLineTreeNewAction(MultiLineTreeNew, multiline.MultiLineAction):
     pass
 
+class MultiLineTreeNewAnnotatedAction(MultiLineTreeNew, multiline.MultiLineAction):
+    _contained_widgets = TreeLineAnnotated
 
 
 

@@ -553,10 +553,16 @@ MultiLineTreeNew, MultiLineTreeNewAction
     class.  This method should return an NPSTree instance.  The function will be
     called automatically whenever *values* is assigned.
 
-    By default this class uses *TreeLineAnnotated* widgets to display each
-    line of the tree.  You can change this by changing the class attribute
-    *_contained_widgets*.
 
+    *Changed in version 2.0pre69* By default this class uses *TreeLine* widgets 
+    to display each line of the tree.  In derived classes You can change this by changing
+    the class attribute *_contained_widgets*.
+    
+MutlilineTreeNewAnnotated, MultilineTreeNewAnnotatedAction
+    *New in version 2.0pre69* By default this class uses *TreeLineAnnotated* widgets 
+    to display each line of the tree.  In derived classes You can change this by changing
+    the class attribute *_contained_widgets*.
+    
 Grids
 *****
 SimpleGrid
