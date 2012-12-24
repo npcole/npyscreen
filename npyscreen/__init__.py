@@ -51,7 +51,7 @@ from .wgselectone               import SelectOne, TitleSelectOne
 from .wgdatecombo               import DateCombo, TitleDateCombo
 from .wgmultilinetree           import MultiLineTree, SelectOneTree
 from .wgmultilinetree           import MultiLineTreeNew, MultiLineTreeNewAction, TreeLine, TreeLineAnnotated # Experimental
-
+from .wgmultilinetree           import MultiLineTreeNewAnnotatedAction, MultiLineTreeNewAnnotated # Experimental
 
 from .wgmonthbox                import MonthBox
 from .wggrid                    import SimpleGrid
