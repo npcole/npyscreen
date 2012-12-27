@@ -12,9 +12,7 @@ TODO - fix F keys on OS X
 
 
 2.0pre69
-MutliLineTreeNew and related classes tidied up in response to bug report.  
-Slight API changes, noted in documentation.
-
+MLTree, MLTreeAnnotated, MLTreeAction, MLTreeActionAnnotated classes introduced.
 
 2.0pre68
 Setting a form's .editing attribute to False will now cause the edit loop of a widget 
