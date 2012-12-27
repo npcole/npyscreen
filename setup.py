@@ -36,7 +36,7 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
-Version 2.0pre69 fixes and tidies up some of the new tree classes.  There is a minor API change assocatied with this, noted in the documentation.
+Version 2.0pre69 fixes and tidies up some of the new tree classes.  There is an API change assocatied with this, noted in the documentation, though backward compatibility should have been maintained. 
 
 Version 2.0pre68 setting a form's .editing attribute to False now causes it to exit immediately,
 even if a widget is still being edited.
