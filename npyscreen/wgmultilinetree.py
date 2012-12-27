@@ -23,8 +23,8 @@ class TreeLine(textbox.TextfieldBase):
         super(TreeLine, self).__init__(*args, **keywords)
         
     #EXPERIMENTAL
-    def _print(self):
-        self.left_margin = 0
+    def _print(self, left_margin=0):
+        self.left_margin = left_margin
         self.parent.curses_pad.bkgdset(' ',curses.A_NORMAL)
         self.left_margin += self._print_tree(self.relx)
         if self.highlight:
@@ -45,7 +45,7 @@ class TreeLine(textbox.TextfieldBase):
             if dp: # > 0:
                 if dp < this_safe_depth_display:                    
                     for i in range(dp-1):
-                        if (i+1 < _tree_depth_next) and (not self._tree_last_line):# and not (_tree_depth_next==1):
+                        if (i < _tree_depth_next) and (not self._tree_last_line): # was i+1 < # and not (_tree_depth_next==1):
                             if self.show_v_lines:
                                 self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_VLINE, curses.A_NORMAL)
                             else:
@@ -95,7 +95,7 @@ class TreeLine(textbox.TextfieldBase):
         
     def display_value(self, vl):
         try:
-            return self.safe_string(vl.getContent())
+            return self.safe_string(vl.getContentForDisplay())
         except:
             # Catch the times this is None.
             self.safe_string(vl)
@@ -211,11 +211,6 @@ class MLTree(multiline.MultiLine):
                 ord('l'): self.h_expand_tree,                
         })
 
-    
-    
-    #def display_value(self, vl):
-    #    return vl
-    
     
     def _before_print_lines(self):
         pass

@@ -535,6 +535,8 @@ NPSTreeData
 
     *newChild(content=...)* creates a new child node.
     
+    *selectable* (new in version 2.0pre70) If this attribute is true the user can mark a value as 'selected'. This is used by MLTreeMultiSelect widget, and is True by default.
+    
 
 Trees
 *****
@@ -553,6 +555,18 @@ MLTreeAnnotated, MLTreeAnnotatedAction
     By default this class uses *TreeLineAnnotated* widgets to display each line of the tree.
     In derived classes You can change this by changing the class 
     attribute *_contained_widgets*.
+
+MLTreeMultiSelect
+    *New in version 2.0pre70*
+    
+    This class allows you to select multiple items of a tree.  You can select which nodes of NPSTreeData the user is able to select by setting the attribue *selectable* on that node.
+    
+    The method *get_selected_objects(self, return_node=True)* returns an generator object that lists the nodes that are selected.  If return_node is True, the actual node itself is yielded, otherwise the value of *node.getContent()* is yielded instead. 
+    
+    The selected nodes also have their attribute *selected* set to True, and so you can walk through the tree to find them if you prefer.
+
+
+
 
 MultiLineTree, SelectOneTree, and MultiLineTree
     These widgets all work in a very similar way to the non-Tree versions,

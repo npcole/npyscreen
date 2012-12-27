@@ -11,6 +11,9 @@ TODO - fix F keys on OS X
 	- should monthbox calendar also accept utf-8 for day names?
 
 
+2.0pre70
+MLTreeMultiSelect introduced.
+
 2.0pre69
 MLTree, MLTreeAnnotated, MLTreeAction, MLTreeActionAnnotated classes introduced.
 
