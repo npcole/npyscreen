@@ -49,9 +49,12 @@ from .wgautocomplete            import TitleFilename, Filename, Autocomplete
 from .muMenu                    import Menu
 from .wgselectone               import SelectOne, TitleSelectOne
 from .wgdatecombo               import DateCombo, TitleDateCombo
+
 from .wgmultilinetree           import MultiLineTree, SelectOneTree
 from .wgmultilinetree           import MultiLineTreeNew, MultiLineTreeNewAction, TreeLine, TreeLineAnnotated # Experimental
 from .wgmultilinetree           import MultiLineTreeNewAnnotatedAction, MultiLineTreeNewAnnotated # Experimental
+from .wgmultilinetree           import MLTree, MLTreeAnnotated, MLTreeAction, MLTreeAnnotatedAction
+
 
 from .wgmonthbox                import MonthBox
 from .wggrid                    import SimpleGrid

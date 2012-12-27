@@ -539,27 +539,47 @@ NPSTreeData
 Trees
 *****
 
+MLTree, MLTreeAction
+    The *values* attribute of this class must store an NPSTree instance.
+    However, if you wish you can override the method *convertToTree* of this
+    class.  This method should return an NPSTree instance.  The function will be
+    called automatically whenever *values* is assigned.
+
+    By default this class uses *TreeLine* widgets 
+    to display each line of the tree.  In derived classes You can change this by changing
+    the class attribute *_contained_widgets*.
+
+MLTreeAnnotated, MLTreeAnnotatedAction
+    By default this class uses *TreeLineAnnotated* widgets to display each line of the tree.
+    In derived classes You can change this by changing the class 
+    attribute *_contained_widgets*.
+
 MultiLineTree, SelectOneTree, and MultiLineTree
     These widgets all work in a very similar way to the non-Tree versions,
     except that they expect to contain an NPSTree in their .values attribute.
     The other major difference is that their .value attribute does not contain
     the index of the selected value(s), but the selected value(s)
     itself/themselves.  However, these classes will in a future version be DEPRECATED in favour of the
-    much improved *MultiLineTreeNew* and *MultiLineTreeNewAction* classes. 
+    much improved *MLTree* and *MLTreeAction* classes. 
+
 
 MultiLineTreeNew, MultiLineTreeNewAction
+    *These classes are provided solely for compatibility with old code. New classes should use the MLTree and related classes*  
+
     The *values* attribute of this class must store an NPSTree instance.
     However, if you wish you can override the method *convertToTree* of this
     class.  This method should return an NPSTree instance.  The function will be
     called automatically whenever *values* is assigned.
 
 
-    *Changed in version 2.0pre69* By default this class uses *TreeLine* widgets 
+    By default this class uses *TreeLineAnnotated* widgets 
     to display each line of the tree.  In derived classes You can change this by changing
     the class attribute *_contained_widgets*.
     
 MutlilineTreeNewAnnotated, MultilineTreeNewAnnotatedAction
-    *New in version 2.0pre69* By default this class uses *TreeLineAnnotated* widgets 
+    *These classes are provided solely for compatibility with old code. New classes should use the MLTree and related classes*  
+    
+    By default this class uses *TreeLineAnnotated* widgets 
     to display each line of the tree.  In derived classes You can change this by changing
     the class attribute *_contained_widgets*.
     

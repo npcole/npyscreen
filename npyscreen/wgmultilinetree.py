@@ -106,24 +106,24 @@ class TreeLineAnnotated(TreeLine):
     ## Experimental.
     _annotate = "   ?   "
     _annotatecolor = 'CONTROL'
-    
+
     def getAnnotationAndColor(self):
         # This is actually the api.  Override this function to return the correct string and colour name as a tuple.
         self.setAnnotateString()
         return (self._annotate, self._annotatecolor)
-    
+
     def setAnnotateString(self):
         # This was an experimental function it was the original way to set the string and annotation.
         self._annotate = "   ?   "
         self._annotatecolor = 'CONTROL'
-    
+
     def annotationColor(self, real_x):
         # Must return the "Margin" needed before the entry begins
          # historical reasons.
         _annotation, _color = self.getAnnotationAndColor()
         self.parent.curses_pad.addstr(self.rely, real_x, _annotation, self.parent.theme_manager.findPair(self, _color))
         return len(_annotation)
-        
+
     def annotationNoColor(self, real_x):
         # Must return the "Margin" needed before the entry begins
         #self.parent.curses_pad.addstr(self.rely, real_x, 'xxx')
@@ -131,7 +131,7 @@ class TreeLineAnnotated(TreeLine):
         _annotation, _color = self.getAnnotationAndColor()
         self.parent.curses_pad.addstr(self.rely, real_x, _annotation)
         return len(_annotation)
-    
+
     def _print(self):
         self.left_margin = 0
         self.parent.curses_pad.bkgdset(' ',curses.A_NORMAL)
@@ -145,7 +145,7 @@ class TreeLineAnnotated(TreeLine):
         super(TreeLine, self)._print()
 
 
-class MultiLineTreeNew(multiline.MultiLine):
+class MLTree(multiline.MultiLine):
     # Experimental
     
     #_contained_widgets = TreeLineAnnotated
@@ -199,7 +199,7 @@ class MultiLineTreeNew(multiline.MultiLine):
         return vl
     
     def set_up_handlers(self):
-        super(MultiLineTreeNew, self).set_up_handlers()
+        super(MLTree, self).set_up_handlers()
         self.handlers.update({
                 ord('<'): self.h_collapse_tree,
                 ord('>'): self.h_expand_tree,
@@ -298,15 +298,16 @@ class MultiLineTreeNew(multiline.MultiLine):
         self._cached_tree = None
         self.cursor_line  = 0
         self.display()
-
-class MultiLineTreeNewAnnotated(MultiLineTreeNew):
+    
+class MLTreeAnnotated(MLTree):
     _contained_widgets = TreeLineAnnotated
 
-class MultiLineTreeNewAction(MultiLineTreeNew, multiline.MultiLineAction):
+class MLTreeAction(MLTree, multiline.MultiLineAction):
     pass
 
-class MultiLineTreeNewAnnotatedAction(MultiLineTreeNew, multiline.MultiLineAction):
+class MLTreeAnnotatedAction(MLTree, multiline.MultiLineAction):
     _contained_widgets = TreeLineAnnotated
+
 
 
 
@@ -429,7 +430,179 @@ class SelectOneTree(MultiLineTree):
             # There is an error - trying to select too many things.
             curses.beep()
 
-        
+
+#####################################################################################
+# The Following are maintained here for compatibility only.
+# All new Applications should use classes above this comment.
+#####################################################################################
+
+
+class MultiLineTreeNew(multiline.MultiLine):
+    # Experimental
+    
+    _contained_widgets = TreeLineAnnotated
+    #_contained_widgets = TreeLine
+    def _setMyValues(self, tree):
+        if tree == [] or tree == None:
+            self._myFullValues = NPSTree.NPSTreeData()
+        elif not isinstance(tree, NPSTree.NPSTreeData):
+            tree = self.convertToTree(tree)
+            if not isinstance(tree, NPSTree.NPSTreeData):
+                raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
+        else:
+            self._myFullValues = tree
+    
+    def convertToTree(tree):
+        "Override this function to convert a set of values to a tree."
+        return None
+    
+    def clearDisplayCache(self):
+        self._cached_tree = None
+        self._cached_sort = None
+        self._cached_tree_as_list = None
+    
+    def _getApparentValues(self):
+        try:
+            if self._cached_tree is weakref.proxy(self._myFullValues) and \
+            (self._cached_sort == (self._myFullValues.sort, self._myFullValues.sort_function)):
+                return self._cached_tree_as_list
+        except:
+            pass
+        self._cached_tree = weakref.proxy(self._myFullValues)
+        self._cached_sort = (self._myFullValues.sort, self._myFullValues.sort_function)
+        self._cached_tree_as_list = self._myFullValues.getTreeAsList()
+        return self._cached_tree_as_list
+    
+    def _walkMyValues(self):
+        return self._myFullValues.walkTree()
+    
+    def _delMyValues(self):
+        self._myFullValues = None
+    
+    values = property(_getApparentValues, _setMyValues, _delMyValues)
+    
+    def filter_value(self, index):
+        if self._filter in self.display_value(self.values[index].getContent()):
+            return True
+        else:
+            return False
+    
+    #def display_value(self, vl):
+    #    return vl
+    
+    def set_up_handlers(self):
+        super(MultiLineTreeNew, self).set_up_handlers()
+        self.handlers.update({
+                ord('<'): self.h_collapse_tree,
+                ord('>'): self.h_expand_tree,
+                ord('['): self.h_collapse_tree,
+                ord(']'): self.h_expand_tree,
+                ord('{'): self.h_collapse_all,
+                ord('}'): self.h_expand_all,
+                ord('h'): self.h_collapse_tree,
+                ord('l'): self.h_expand_tree,                
+        })
+
+    
+    
+    #def display_value(self, vl):
+    #    return vl
+    
+    
+    def _before_print_lines(self):
+        pass
+    
+    def _set_line_values(self, line, value_indexer):
+        line._tree_real_value   = None
+        line._tree_depth        = False
+        line._tree_sibling_next = False
+        line._tree_has_children = False
+        line._tree_expanded     = False
+        line._tree_last_line    = False
+        line._tree_depth_next   = False
+        line._tree_ignore_root  = None
+        try:
+            line.value = self.display_value(self.values[value_indexer])
+            line._tree_real_value = self.values[value_indexer]
+            line._tree_ignore_root = self._myFullValues.ignoreRoot
+            try:
+                line._tree_depth        = self.values[value_indexer].findDepth()
+                line._tree_has_children = self.values[value_indexer].hasChildren()
+                line._tree_expanded     = self.values[value_indexer].expanded
+            except:
+                line._tree_depth        = False
+                line._tree_has_children = False
+                line._tree_expanded     = False
+            try:
+                if line._tree_depth == self.values[value_indexer+1].findDepth():
+                    line._tree_sibling_next = True
+                else:
+                    line._tree_sibling_next = False
+    
+            except:
+                line._sibling_next = False
+                line._tree_last_line = True
+            try:
+                line._tree_depth_next = self.values[value_indexer+1].findDepth()
+            except:
+                line._tree_depth_next = False
+            line.hidden = False
+        except IndexError:
+            self._set_line_blank(line)
+        except TypeError:
+            self._set_line_blank(line)
+            
+    def h_collapse_tree(self, ch):
+        if self.values[self.cursor_line].expanded and self.values[self.cursor_line].hasChildren():
+            self.values[self.cursor_line].expanded = False
+        else:
+            look_for_depth = self.values[self.cursor_line].findDepth() - 1
+            cursor_line = self.cursor_line - 1
+            while cursor_line >= 0:
+                if look_for_depth == self.values[cursor_line].findDepth():
+                    self.cursor_line = cursor_line
+                    self.values[cursor_line].expanded = False
+                    break
+                else:
+                    cursor_line -= 1
+        self._cached_tree = None
+        self.display()
+
+    def h_expand_tree(self, ch):
+        if not self.values[self.cursor_line].expanded:
+            self.values[self.cursor_line].expanded = True
+        else:
+            for v in self.values[self.cursor_line].walkTree(onlyExpanded=False):
+                v.expanded = True
+        self._cached_tree = None
+        self.display()
+    
+    def h_collapse_all(self, ch):
+        for v in self._myFullValues.walkTree(onlyExpanded=True):
+            v.expanded = False
+        self._cached_tree = None
+        self.cursor_line = 0
+        self.display()
+    
+    def h_expand_all(self, ch):
+        for v in self._myFullValues.walkTree(onlyExpanded=False):
+            v.expanded    = True
+        self._cached_tree = None
+        self.cursor_line  = 0
+        self.display()
+
+class MultiLineTreeNewAnnotated(MultiLineTreeNew):
+    _contained_widgets = TreeLineAnnotated
+
+class MultiLineTreeNewAction(MultiLineTreeNew, multiline.MultiLineAction):
+    pass
+
+class MultiLineTreeNewAnnotatedAction(MultiLineTreeNew, multiline.MultiLineAction):
+    _contained_widgets = TreeLineAnnotated
+
+
+
+
 
 
 
