@@ -95,7 +95,7 @@ class TreeLine(textbox.TextfieldBase):
         
     def display_value(self, vl):
         try:
-            return self.safe_string(vl.getContentForDisplay())
+            return self.safe_string(self._tree_real_value.getContentForDisplay())
         except:
             # Catch the times this is None.
             self.safe_string(vl)
