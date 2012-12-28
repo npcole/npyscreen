@@ -10,16 +10,8 @@ class TreeLineSelectable(wgmultilinetree.TreeLine):
     CANNOT_SELECT           = '   '
     CANNOT_SELECT_SELECTED  = ' * '
     
-    def _print(self, left_margin=0):
-        if not hasattr(self._tree_real_value, 'selected'):
-            return None
-        
-        self.left_margin = left_margin
-        self.parent.curses_pad.bkgdset(' ',curses.A_NORMAL)
-        self.left_margin += self._print_tree(self.relx)
-        
+    def _print_select_controls(self):
         SELECT_DISPLAY = None
-        
         
         if self._tree_real_value.selectable:
             if self.value.selected:
@@ -52,22 +44,57 @@ class TreeLineSelectable(wgmultilinetree.TreeLine):
                       self.width-self.left_margin,
         )
         
-        self.left_margin += len(SELECT_DISPLAY) + 1
+        return len(SELECT_DISPLAY)
+    
+    
+    def _print(self, left_margin=0):
+        if not hasattr(self._tree_real_value, 'selected'):
+            return None
+        self.left_margin = left_margin
+        self.parent.curses_pad.bkgdset(' ',curses.A_NORMAL)
+        self.left_margin += self._print_tree(self.relx)
         
+        self.left_margin += self._print_select_controls() + 1
+
         
         if self.highlight:
             self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
         super(wgmultilinetree.TreeLine, self)._print()
         
+        
+class TreeLineSelectableAnnotated(TreeLineSelectable, wgmultilinetree.TreeLineAnnotated):
+    def _print(self, left_margin=0):
+        if not hasattr(self._tree_real_value, 'selected'):
+            return None
+        self.left_margin = left_margin
+        self.parent.curses_pad.bkgdset(' ',curses.A_NORMAL)
+        self.left_margin += self._print_tree(self.relx)
+        self.left_margin += self._print_select_controls() + 1
+        if self.do_colors():    
+            self.left_margin += self.annotationColor(self.left_margin+self.relx)
+        else:
+            self.left_margin += self.annotationNoColor(self.left_margin+self.relx)
+        if self.highlight:
+            self.parent.curses_pad.bkgdset(' ',curses.A_STANDOUT)
+        super(wgmultilinetree.TreeLine, self)._print()
+        
+        
+
 class MLTreeMultiSelect(wgmultilinetree.MLTree):
     _contained_widgets = TreeLineSelectable
-    
+    def __init__(self, screen, select_cascades=True, *args, **keywords):
+        super(MLTreeMultiSelect, self).__init__(screen, *args, **keywords)
+        self.select_cascades = select_cascades
+        
     def h_select(self, ch):
         vl = self.values[self.cursor_line]
         vl_to_set = not vl.selected
-        for v in vl.walkTree(onlyExpanded=False, ignoreRoot=False):        
-            if v.selectable:
-                v.selected = vl_to_set
+        if self.select_cascades:
+            for v in vl.walkTree(onlyExpanded=False, ignoreRoot=False):        
+                if v.selectable:
+                    v.selected = vl_to_set
+        else:
+            vl.selected = vl_to_set
         if self.select_exit:
             self.editing = False
             self.how_exited = True
@@ -79,5 +106,8 @@ class MLTreeMultiSelect(wgmultilinetree.MLTree):
                 if return_node:
                     yield v
                 else:
-                    yield v.getContent()            
+                    yield v.getContent()
+                    
+class MLTreeMultiSelectAnnotated(MLTreeMultiSelect):
+    _contained_widgets = TreeLineSelectableAnnotated
     

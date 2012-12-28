@@ -7,7 +7,7 @@ class TestApp(npyscreen.NPSApp):
         #wgtree = F.add(npyscreen.MLTree)
         wgtree = F.add(npyscreen.MLTreeMultiSelect)
         
-        treedata = npyscreen.NPSTreeData(content='Root', selectable=True,ignoreRoot=True)
+        treedata = npyscreen.NPSTreeData(content='Root', selectable=True,ignoreRoot=False)
         c1 = treedata.newChild(content='Child 1', selectable=True, selected=True)
         c2 = treedata.newChild(content='Child 2', selectable=True)
         g1 = c1.newChild(content='Grand-child 1', selectable=True)
