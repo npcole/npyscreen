@@ -559,13 +559,20 @@ MLTreeAnnotated, MLTreeAnnotatedAction
 MLTreeMultiSelect
     *New in version 2.0pre70*
     
-    This class allows you to select multiple items of a tree.  You can select which nodes of NPSTreeData the user is able to select by setting the attribue *selectable* on that node.
+    This class allows you to select multiple items of a tree.  You can select which nodes of NPSTreeData the user is able to select by setting the attribute *selectable* on that node.
     
-    The method *get_selected_objects(self, return_node=True)* returns an generator object that lists the nodes that are selected.  If return_node is True, the actual node itself is yielded, otherwise the value of *node.getContent()* is yielded instead. 
+    The method *get_selected_objects(self, return_node=True,)* returns an generator object that lists the nodes that are selected.  If return_node is True, the actual node itself is yielded, otherwise the value of *node.getContent()* is yielded instead.
+    
+    *New in Version 2.0pre71*   If the attribute *select_cascades* is True (which can be set by passing the argument *select_cascades* at the time of creation or setting the attribute directly later), selecting a node will automatically select any selectable nodes under the selected node. This is set to True by default.
     
     The selected nodes also have their attribute *selected* set to True, and so you can walk through the tree to find them if you prefer.
+    
+    The widget used to display each line is *TreeLineSelectable*.
 
-
+MLTreeMultiSelectAnnotated
+    *New in version 2.0pre71*
+    
+    A version of the MLTreeMultiSelect class that uses *TreeLineSelectableAnnotated* as its display widgets.
 
 
 MultiLineTree, SelectOneTree, and MultiLineTree
@@ -638,13 +645,13 @@ FormControlCheckbox
    addInvisibleWhenSelected(*wg*)
       Widgets registered in this way are visible only when the FormControlCheckbox is not selected.
       
-AnnotateTextboxBase, TreeLineAnnotated
-    The AnnotateTextboxBase class is mainly intended for use by the
+AnnotateTextboxBase, TreeLineAnnotated, TreeLineSelectableAnnotated
+    The *AnnotateTextboxBase* class is mainly intended for use by the
     multiline listing widgets, for situations where each item displayed needs an
     annotation supplied to the left of the entry itself.  The API for these
     classes is slightly ugly, because these classes were originally intended for
     internal use only.  It is likely that more user-friendly versions will be
-    supplied in a later release.  Classes derived from AnnotateTextboxBase
+    supplied in a later release.  Classes derived from *AnnotateTextboxBase*
     should define the following:
 
     *ANNOTATE_WIDTH*

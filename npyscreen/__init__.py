@@ -57,6 +57,7 @@ from .wgmultilinetree           import MLTree, MLTreeAnnotated, MLTreeAction, ML
 
 # experimental
 from .wgmultilinetreeselectable import MLTreeMultiSelect, TreeLineSelectable
+from .wgmultilinetreeselectable import MLTreeMultiSelectAnnotated, TreeLineSelectableAnnotated
 
 
 from .wgmonthbox                import MonthBox
