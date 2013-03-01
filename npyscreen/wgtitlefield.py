@@ -100,17 +100,16 @@ class TitleText(widget.Widget):
         self.entry_widget.update()  
     
     def get_value(self):
-        try:
+        if hasattr(self, 'entry_widget'):
             return self.entry_widget.value
-        except:
-            try:
-                return self.__tmp_value
-            except:
-                return None
+        elif hasattr(self, '__tmp_value'):
+            return self.__tmp_value
+        else:
+            return None
     def set_value(self, value):
-        try:
+        if hasattr(self, 'entry_widget'):
             self.entry_widget.value = value
-        except:
+        else:
             # probably trying to set the value before the textarea is initialised
             self.__tmp_value = value
     def del_value(self):
