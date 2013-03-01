@@ -689,24 +689,20 @@ class TitleMultiLine(titlefield.TitleText):
         return self.entry_widget.get_selected_objects()
 
     def get_values(self):
-        try:
+        if hasattr(self, 'entry_widget'): 
             return self.entry_widget.values
-        except:
-            try:
-                return self.__tmp_values
-            except:
-                return None
-    
-    def set_values(self, values):
-        try:
-            self.entry_widget.values = values
-        except:
+        elif hasattr(self, '__tmp_value'):
+            return self.__tmp_values
+        else:
+            return None
+    def set_values(self, value):
+        if hasattr(self, 'entry_widget'): 
+            self.entry_widget.values = value
+        elif hasattr(self, '__tmp_value'):
             # probably trying to set the value before the textarea is initialised
-            self.__tmp_values = values
-
+            self.__tmp_values = value
     def del_values(self):
-        del self.entry_widget.values
-    
+        del self.entry_widget.value
     values = property(get_values, set_values, del_values)
 
 

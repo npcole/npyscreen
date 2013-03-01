@@ -336,7 +336,7 @@ big a given widget is ... use .height and .width instead"""
     def _edit_loop(self):
         if not self.parent.editing:
             _i_set_parent_editing = True
-            self.parent.editing = True
+            self.parent.editing   = True
         else:
             _i_set_parent_editing = False
         while self.editing and self.parent.editing:
@@ -346,7 +346,7 @@ big a given widget is ... use .height and .width instead"""
             self.parent.editing = False
         
         if self.editing:
-            self.editing = False
+            self.editing    = False
             self.how_exited = True
         
         
