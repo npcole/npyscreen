@@ -155,6 +155,7 @@ class MLTree(multiline.MultiLine):
             self._myFullValues = NPSTree.NPSTreeData()
         elif not isinstance(tree, NPSTree.NPSTreeData):
             tree = self.convertToTree(tree)
+            self._myFullValues = tree
             if not isinstance(tree, NPSTree.NPSTreeData):
                 raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
         else:
@@ -442,6 +443,7 @@ class MultiLineTreeNew(multiline.MultiLine):
             self._myFullValues = NPSTree.NPSTreeData()
         elif not isinstance(tree, NPSTree.NPSTreeData):
             tree = self.convertToTree(tree)
+            self._myFullValues = tree
             if not isinstance(tree, NPSTree.NPSTreeData):
                 raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
         else:
