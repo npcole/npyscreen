@@ -115,17 +115,16 @@ class BoxTitle(BoxBasic):
     
         
     def get_value(self):
-        try:
+        if hasattr(self, 'entry_widget'):
             return self.entry_widget.value
-        except:
-            try:
-                return self.__tmp_value
-            except:
-                return None
+        elif hasattr(self, '__tmp_value'):
+            return self.__tmp_value
+        else:
+            return None
     def set_value(self, value):
-        try:
+        if hasattr(self, 'entry_widget'):
             self.entry_widget.value = value
-        except:
+        else:
             # probably trying to set the value before the textarea is initialised
             self.__tmp_value = value
     def del_value(self):
@@ -133,17 +132,16 @@ class BoxTitle(BoxBasic):
     value = property(get_value, set_value, del_value)
     
     def get_values(self):
-        try:
+        if hasattr(self, 'entry_widget'): 
             return self.entry_widget.values
-        except:
-            try:
-                return self.__tmp_values
-            except:
-                return None
+        elif hasattr(self, '__tmp_value'):
+            return self.__tmp_values
+        else:
+            return None
     def set_values(self, value):
-        try:
+        if hasattr(self, 'entry_widget'): 
             self.entry_widget.values = value
-        except:
+        elif hasattr(self, '__tmp_value'):
             # probably trying to set the value before the textarea is initialised
             self.__tmp_values = value
     def del_values(self):
