@@ -148,7 +148,21 @@ class BoxTitle(BoxBasic):
         del self.entry_widget.value
     values = property(get_values, set_values, del_values)
     
-       
+    def get_editable(self):
+        if hasattr(self, 'entry_widget'): 
+            return self.entry_widget.editable
+        else:
+            return None
+    def set_editable(self, value):
+        if hasattr(self, 'entry_widget'): 
+            self.entry_widget.editable = value
+        elif hasattr(self, '__tmp_value'):
+            # probably trying to set the value before the textarea is initialised
+            self.__tmp_values = value
+    def del_editable(self):
+        del self.entry_widget.editable
+    editable = property(get_editable, set_editable, del_editable)
+    
            
        
     
