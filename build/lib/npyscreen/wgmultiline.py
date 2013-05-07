@@ -49,11 +49,13 @@ the same effect can be achieved by altering the __str__() method of displayed ob
             exit_right = False,
             widgets_inherit_color = False,
             always_show_cursor = False,
+            allow_filtering    = True,
              **keywords):
         
         self.never_cache     = False
         self.exit_left       = exit_left
         self.exit_right      = exit_right
+        self.allow_filtering = allow_filtering
         self.widgets_inherit_color = widgets_inherit_color
         super(MultiLine, self).__init__(screen, **keywords)
         if self.height < self.__class__._MINIMUM_HEIGHT:
@@ -433,6 +435,8 @@ object to be passed to the contained widget."""
         else: return False
     
     def h_set_filter(self, ch):
+        if not self.allow_filtering:
+            return None
         P = FilterPopupHelper()
         P.owner_widget = weakref.proxy(self)
         P.display()

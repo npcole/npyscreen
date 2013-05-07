@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre71",
+	version="2.0pre74",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -36,6 +36,9 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 2.0pre73 corrects two bugs - thanks to Lasse for his help in finding
+them and offering patches.
+
 Version 2.0pre71 new tree classes introduced. Bug fixes.
 
 Version 2.0pre70 introduces the MLTreeMultiSelect class.
