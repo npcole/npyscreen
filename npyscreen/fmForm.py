@@ -23,7 +23,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
     DEFAULT_X_OFFSET = 2
     PRESERVE_SELECTED_WIDGET_DEFAULT = False # Preserve cursor location between displays?
     FRAMED = True
-    def __init__(self, name=None, parentApp=None, framed=FRAMED, help=None, color='FORMDEFAULT', 
+    def __init__(self, name=None, parentApp=None, framed=None, help=None, color='FORMDEFAULT', 
                     widget_list=None, cycle_widgets=False, *args, **keywords):
         super(_FormBase, self).__init__(*args, **keywords)
         self.preserve_selected_widget = self.__class__.PRESERVE_SELECTED_WIDGET_DEFAULT
@@ -36,8 +36,10 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
                 self.keypress_timeout = self.parentApp.keypress_timeout_default
             except AttributeError:
                 pass
-        
-        self.framed = framed
+        if framed is None:
+            self.framed = self.__class__.FRAMED
+        else:
+            self.framed = framed
         self.name=name
         self.editing = False
         ## OLD MENU CODE REMOVED self.__menus  = []
