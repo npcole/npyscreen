@@ -221,6 +221,8 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
         wg = self.find_mouse_handler(mouse_event)
         if wg:
             self.set_editing(wg)
+            if hasattr(wg, 'handle_mouse_event'):
+                wg.handle_mouse_event(mouse_event)
         else:
             curses.beep()
     

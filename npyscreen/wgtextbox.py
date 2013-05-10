@@ -23,7 +23,7 @@ class TextfieldBase(widget.Widget):
         else:
             self._force_ascii = False
         
-        self.cursor_position = None
+        self.cursor_position = False
         
         self.highlight_color = highlight_color
         self.invert_highlight_color = invert_highlight_color
@@ -327,7 +327,8 @@ class Textfield(TextfieldBase):
 
     def edit(self):
         self.editing = 1
-        self.cursor_position = len(self.value)
+        if self.cursor_position is False:
+            self.cursor_position = len(self.value)
         self.parent.curses_pad.keypad(1)
         
         self.old_value = self.value
@@ -340,7 +341,7 @@ class Textfield(TextfieldBase):
 
         self.begin_at = 0
         self.display()
-
+        self.cursor_position = False
         return self.how_exited, self.value
 
     ###########################################################################################
@@ -433,8 +434,15 @@ class Textfield(TextfieldBase):
     def h_erase_right(self, input):
         if self.editable:
             self.value = self.value[:self.cursor_position]
-            self.cursor_postition = len(self.value)
+            self.cursor_position = len(self.value)
             self.begin_at = 0
+    
+    def handle_mouse_event(self, mouse_event):
+        mouse_id, x, y, z, bstate = mouse_event
+        rel_mouse_x = x - self.relx
+        self.cursor_position = rel_mouse_x + self.begin_at
+        self.display()
+
     
 class FixedText(TextfieldBase):
     def set_up_handlers(self):

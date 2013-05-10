@@ -5,9 +5,7 @@ from . import wgtextbox  as textbox
 from . import wgwidget   as widget
 
 class TitleText(widget.Widget):
-    
     _entry_type = textbox.Textfield
-
 
     def __init__(self, screen, 
         begin_entry_at = 16, 
@@ -97,7 +95,11 @@ class TitleText(widget.Widget):
             self.label_widget.show_bold = False
             self.label_widget.color = self.labelColor
         self.label_widget.update()
-        self.entry_widget.update()  
+        self.entry_widget.update()
+    
+    def handle_mouse_event(self, mouse_event):
+        if self.entry_widget.intersted_in_mouse_event(mouse_event):
+            self.entry_widget.handle_mouse_event(mouse_event)
     
     def get_value(self):
         if hasattr(self, 'entry_widget'):
