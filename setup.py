@@ -36,6 +36,10 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 2.0pre74 corrects one minor bug and introduces makes box widgets
+behave slightly more predictably (.editable attribute now linked to that of
+the contained widget.
+
 Version 2.0pre73 corrects two bugs - thanks to Lasse for his help in finding
 them and offering patches.
 
