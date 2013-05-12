@@ -149,6 +149,7 @@ Should accept one argument (the object to be represented), and return a string."
                     #ord('x'):       self.h_exit,
                     ord('q'):       self.h_exit,
                     curses.ascii.ESC:   self.h_exit,
+                    curses.KEY_MOUSE:    self.h_exit_mouse,
                 }
 
         self.complex_handlers = [
