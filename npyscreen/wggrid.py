@@ -124,6 +124,16 @@ Should accept one argument (the object to be represented), and return a string."
     def _cell_show_cursor(self, cell, yes_no):
         cell.highlight = yes_no
         
+    def handle_mouse_event(self, mouse_event):
+        # unfinished
+        for row in self._my_widgets:
+            for c in row:
+                if c.intersted_in_mouse_event(mouse_event):
+                    if c.grid_current_value_index != -1:
+                        self.edit_cell = list(c.grid_current_value_index)
+        self.display()
+
+        
     def set_up_handlers(self):
         super(SimpleGrid, self).set_up_handlers()
         self.handlers = {
