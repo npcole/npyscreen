@@ -181,6 +181,7 @@ class TextCommandBoxTraditional(TextCommandBox):
         self.linked_widget.update()
         return rtn
 
+
 ##########################################################################################
 # Form Classes
 ##########################################################################################
@@ -216,6 +217,9 @@ class FormMuttActiveTraditional(fmFormMutt.FormMutt):
         self.wCommand.linked_widget   = self.wMain
         self.wMain.editable           = False
         self.wMain.always_show_cursor = True
+        
+        # special mouse handling
+        self.wMain.interested_in_mouse_even_when_not_editable = True
 
 class FormMuttActiveTraditionalWithMenus(FormMuttActiveTraditional, 
  fmFormWithMenus.FormBaseNewWithMenus):

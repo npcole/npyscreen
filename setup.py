@@ -36,6 +36,10 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 2.0pre76 further improves the handling of mouse events on compatible
+terminals.
+
+
 Version 2.0pre75 improves the handling of the mouse on compatible terminals.
 
 Version 2.0pre74 corrects one minor bug and introduces makes box widgets

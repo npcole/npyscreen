@@ -178,6 +178,8 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         self.check_value_change=check_value_change
         self.check_cursor_move =check_cursor_move
         self.hidden = hidden
+        self.interested_in_mouse_even_when_not_editable = False# used only for rare widgets to allow user to click
+                                                        # even if can't actually select the widget.  See mutt-style forms
         try:
             self.parent = weakref.proxy(screen)
         except TypeError:
@@ -473,18 +475,23 @@ big a given widget is ... use .height and .width instead"""
         self.try_adjust_widgets()
             
     def intersted_in_mouse_event(self, mouse_event):
-        if not self.editable:
+        if not self.editable and not self.interested_in_mouse_even_when_not_editable:
             return False
         mouse_id, x, y, z, bstate = mouse_event
-        if self.relx + self.parent.show_atx <= x <= self.relx + self.width-1:
-            if self.rely + self.parent.show_aty <= y <= self.rely + self.height-1:
+        if self.relx <= x <= self.relx + self.width-1 + self.parent.show_atx:
+            if self.rely  <= y <= self.rely + self.height-1 + self.parent.show_aty:
                 return True
         return False
     
     def handle_mouse_event(self, mouse_event):
         # mouse_id, x, y, z, bstate = mouse_event
         pass
-        
+    
+    def interpret_mouse_event(self, mouse_event):
+        mouse_id, x, y, z, bstate = mouse_event
+        rel_y       = y - self.rely - self.parent.show_aty
+        rel_x = x - self.relx - self.parent.show_atx
+        return (mouse_id, rel_x, rel_y, z, bstate)
         
     #def when_parent_changes_value(self):
         # Can be called by forms when they chage their value.
