@@ -23,7 +23,8 @@ class TestApp(npyscreen.NPSApp):
 
         bn = F.add(npyscreen.MiniButton, name = "Button",)
         
-        gd = F.add(npyscreen.SimpleGrid, relx = 42, rely=15, width=20)
+        #gd = F.add(npyscreen.SimpleGrid, relx = 42, rely=15, width=20)
+        gd = F.add(npyscreen.GridColTitles, relx = 42, rely=15, width=20, col_titles = ['1','2','3','4'])
         gd.values = []
         for x in range(36):
             row = []

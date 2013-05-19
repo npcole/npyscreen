@@ -129,8 +129,16 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
         self.how_exited = EXITED_ESCAPE
 
     def h_exit_mouse(self, _input):
-        self.editing = False
-        self.how_exited = EXITED_MOUSE
+        mouse_event = self.parent.safe_get_mouse_event()
+        if mouse_event and self.intersted_in_mouse_event(mouse_event):
+            self.handle_mouse_event(mouse_event)
+        else:
+            if mouse_event:
+                curses.ungetmouse(*mouse_event)
+                ch = self.parent.curses_pad.getch()
+                assert ch == curses.KEY_MOUSE
+            self.editing = False
+            self.how_exited = EXITED_MOUSE
     
 
 
@@ -468,8 +476,8 @@ big a given widget is ... use .height and .width instead"""
         if not self.editable:
             return False
         mouse_id, x, y, z, bstate = mouse_event
-        if self.relx <= x <= self.relx + self.width-1:
-            if self.rely <= y <= self.rely + self.height-1:
+        if self.relx + self.parent.show_atx <= x <= self.relx + self.width-1:
+            if self.rely + self.parent.show_aty <= y <= self.rely + self.height-1:
                 return True
         return False
     

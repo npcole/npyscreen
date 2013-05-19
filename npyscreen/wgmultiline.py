@@ -376,10 +376,15 @@ object to be passed to the contained widget."""
             
     def handle_mouse_event(self, mouse_event):
         # unfinished
-        mouse_id, x, y, z, bstate = mouse_event
-        self.cursor_line = y - self.rely + self.start_display_at
-        if self.cursor_line > len(self.values):
-            self.cursor_line = len(self.values)
+        #mouse_id, x, y, z, bstate = mouse_event
+        #self.cursor_line = y - self.rely - self.parent.show_aty + self.start_display_at
+        
+        mouse_id, rel_x, rel_y, z, bstate = self.interpret_mouse_event(mouse_event)
+        self.cursor_line = rel_y + self.start_display_at
+        
+        
+        ##if self.cursor_line > len(self.values):
+        ##    self.cursor_line = len(self.values)
         self.display()
 
     def set_up_handlers(self):

@@ -438,9 +438,10 @@ class Textfield(TextfieldBase):
             self.begin_at = 0
     
     def handle_mouse_event(self, mouse_event):
-        mouse_id, x, y, z, bstate = mouse_event
-        rel_mouse_x = x - self.relx
-        self.cursor_position = rel_mouse_x + self.begin_at
+        #mouse_id, x, y, z, bstate = mouse_event
+        #rel_mouse_x = x - self.relx - self.parent.show_atx
+        mouse_id, rel_x, rel_y, z, bstate = self.interpret_mouse_event(mouse_event)
+        self.cursor_position = rel_x + self.begin_at
         self.display()
 
     
