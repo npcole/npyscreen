@@ -6,6 +6,7 @@ import weakref
 from . import npyspmfuncs as pmfuncs
 #import Menu
 import curses
+import _curses
 from . import npysGlobalOptions
 from . import wgwidget_proto
 from . import fm_form_edit_loop   as form_edit_loop
@@ -218,8 +219,19 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
     def h_display(self, input):
         self.DISPLAY()
         
+    def safe_get_mouse_event(self):
+        try:
+            mouse_event = curses.getmouse()
+            return mouse_event
+        except _curses.error:
+            return None
+    
     def get_and_use_mouse_event(self):
-        mouse_event = curses.getmouse()
+        mouse_event = self.safe_get_mouse_event()
+        if mouse_event:
+            self.use_mouse_event(mouse_event)
+        
+    def use_mouse_event(self, mouse_event):
         wg = self.find_mouse_handler(mouse_event)
         if wg:
             self.set_editing(wg)

@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre74",
+	version="2.0pre75",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -36,6 +36,8 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 2.0pre75 improves the handling of the mouse on compatible terminals.
+
 Version 2.0pre74 corrects one minor bug and introduces makes box widgets
 behave slightly more predictably (.editable attribute now linked to that of
 the contained widget.

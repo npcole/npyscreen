@@ -373,6 +373,14 @@ object to be passed to the contained widget."""
             return None
         else:
             return self.values[self.value]
+            
+    def handle_mouse_event(self, mouse_event):
+        # unfinished
+        mouse_id, x, y, z, bstate = mouse_event
+        self.cursor_line = y - self.rely - self.parent.show_aty + self.start_display_at
+        #if self.cursor_line > len(self.values):
+        #    self.cursor_line = len(self.values)
+        self.display()
 
     def set_up_handlers(self):
         super(MultiLine, self).set_up_handlers()

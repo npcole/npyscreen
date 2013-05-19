@@ -40,6 +40,3 @@ class GridColTitles(grid.SimpleGrid):
         cell.value = cell_title
         cell.update()
         
-    
-    
-

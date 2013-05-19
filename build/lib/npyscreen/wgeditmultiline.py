@@ -206,6 +206,16 @@ class MultiLineEdit(widget.Widget):
         w = DocWrapper(width=self.maximum_display_width)
         self.value = w.fill(self.value)
         
+        
+    #def handle_mouse_event(self, mouse_event):
+        # unfinished
+        #mouse_id, x, y, z, bstate = mouse_event
+        #rel_mouse_x = x - self.relx
+        #rel_mouse_y = y = self.rely
+        #self.cursor_position = rel_mouse_x + self.begin_at
+        #self.display()
+
+        
     ######################################################################
     def set_up_handlers(self):
         super(MultiLineEdit, self).set_up_handlers()    
