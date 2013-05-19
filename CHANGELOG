@@ -1,0 +1,413 @@
+KNOWN BUGS:
+    - Only part of the UI can handle Unicode.
+    
+
+
+TODO - fix F keys on OS X
+	 - fix _print_line of multiline class
+	- Drop down menus?
+	- change the textfield widgets to use the new _LinePrinter class (to make everything more
+		robust)
+	- should monthbox calendar also accept utf-8 for day names?
+
+
+2.0pre70
+MLTreeMultiSelect introduced.
+
+2.0pre69
+MLTree, MLTreeAnnotated, MLTreeAction, MLTreeActionAnnotated classes introduced.
+
+2.0pre68
+Setting a form's .editing attribute to False will now cause the edit loop of a widget 
+to exit immediately.
+
+2.0pre65
+Bug fixes.  All text boxes should now honour the .hidden attribute.
+
+Tree classes improved.
+
+2.0pre64
+Multipage support added.
+
+2.0pre60
+Documentation updates and some user-requested enhancement.
+
+2.0pre59
+Improved support for writing complex, mutt- and irssi-like applications.
+
+2.0pre58
+Changes to some color themes - mostly to revert default behaviour to
+a more conservative set of choices.
+
+2.0pre57
+fix color support. Light colored terminals now possible. Text widgets have
+additional color options.
+
+2.0pre56
+some bug fixes. Some internal changes to allow event-driven applications to be written more
+easily.
+
+2.0pre52
+minor bugfix in wgbox classes
+
+2.0pre51
+fixed compatibility with python2.6, 3.0 and 3.1.  All other versions should be unaffected.
+
+	
+2.0pre50
+	- The mouse is now enabled.  At the moment, it is only used to switch between widgets on terminals that support
+	the mouse.  However, any widget can now override the method .handle_mouse_event(self, mouse_event) if a more 
+	detailed behaviour is required.
+
+
+2.0pre49
+	- minor bug fixes.
+	- introduction of two box classes, mainly intended as the base
+	  classes for other things.
+	
+2.0pre48
+	- fix display of utf-8 form names.
+	- fix display of utf-8 buttons.
+	- check display of utf-8 sliders.
+	- calendar widget now compatible with utf-8 except in day names.
+
+2.0pre47
+An important release.  On utf-8 enabled terminals, the library should now handle
+the display and entry of utf-8/unicode strings on both python 2 and 3, with the single caveat
+that multi-width characters still cause problems, because there is not a reliable way
+to detect them.
+
+I have not yet been able to test how well this works with the get_wch() function
+introduced in python3.3.  This is disabled for now, but should not make a difference 
+to most users.
+
+This release should be considered an alpha release for version 2.
+
+2.0pre45
+Bug fixes.  Calendar is now more robust.
+Menus can now be dynamically enabled and disabled.
+
+2.0pre44
+Numerous bug fixes and improvements.  The help system (apparently broken for
+some time) has been fixed.
+
+2.0pre40
+Bug fixes based on user reports - esp. win32.
+
+2.0pre39
+Numerous improvements to the tree classes. And other bug fixes.
+
+2.0pre38
+display_value method added to the textbox class.  This should make it 
+easier to customize. 
+
+2.0pre37
+Numberous improvements and fixes.  The NPSTree class now no longer
+relies on any recursive functions.
+
+2.0pre36
+The notify_* functions have all recieved some polish and now accept a
+wide=True param.
+
+forms now have a method .DISPLAY() that will do a full clear/redraw of the
+screen that is certain(?) to get rid of any unexpected corruption caused by
+any other processes that have been writing to the terminal.
+
+Numerous bug-fixes and small improvements.
+
+2.0pre35
+Added the following extremely convenient functions:
+
+notify_confirm(message, title="Message", form_color="STANDOUT", wrap=True)
+notify_wait(message, title="Message", form_color="STANDOUT", wrap=True)
+notify_ok_cancel(message, title="Message", form_color="STANDOUT", wrap=True )
+notify_yes_no(message, title="Message", form_color="STANDOUT", wrap=True )
+
+
+2.0pre33
+
+Numerous bug fixes and small improvements.
+
+2.0pre32
+	Widgets can now explicitly request the maximum physical screen area.
+Users should not usually have to use this, it is used for drawing things
+like 'ok' buttons'.  The way the available space is calculated has been
+cleaned up.
+
+
+2.0pre31
+	First version to support Python 3.
+	File structure rearranged (no change to documented api)
+	Editmultiline cursor movement bug fixed.
+
+2.0pre30
+	Added the FormMutt class. Added code to allow max_height to specify negative numbers. Numerous bug fixes.
+
+2.0pre29
+	Added a second grid class.
+
+2.0pre28
+	Numerous bug fixes.  Added a SimpleGrid class.
+
+2.0pre27
+	Added MiniButtonPress class.
+	
+	CheckBox and Button classes now have the whenToggled method.
+
+2.0pre26
+	Include documentation in Tarball.
+
+2.0pre25 
+	Bug fixes.
+
+2.0pre24
+	while_waiting() and keypress_timeout added (see widget class for details).  How to use is explained in the user documentation.
+
+2.0pre21
+	Colour system fully added and operational. Approaching release status.
+
+2.0pre20
+	Date class fixed so that it is no longer possible to crash the library by selecting an invalid date.
+	Minor bug that had stopped the new root menu system working fixed.
+
+2.0pre19
+	Form Titles are now truncated to the width of the form
+	New Menuing system added (the NewMenu and NMenuDisplay objects).  The previous menuing system is deprecated in favour of this one.
+	To take advantage of it, FormWithMenus, ActionFormWithMenus, SplitFormWithMenus have been added.
+
+
+2.0pre18
+	Added NPSAppManaged.  This should be the starting point for any new applications.
+	
+2.0pre17
+	EXIT_LEFT and EXIT_RIGHT added.
+	Menu.before_item_select callback added.
+
+2.0pre16
+	Some key bindings changed - return is no longer primarily a way to move field.  Tab now more consistently moves field.
+	multiline widgets now no longer exit by default if return pressed, but can be made to do so with the argument return_exit=True to __init__().
+	Moving by year in the calendar widgets really does so - though 29th Feb is converted to 28th Feb.
+	Escape button handler added for all widgets and forms.  In ActionForms this moves the user to the cancel button.
+	ActionPopup class added.
+
+2.0pre15
+	At last functionality to handle dates has been added with the MonthBox, ComboDate and TitleComboDate classes.
+	
+
+2.0pre14
+	RoundCheckBox added
+	TitleSelectOne added.  SelectOne added.
+	MultiSelect is now a subclass of SelectOne
+
+2.0pre13
+	Comboxbox made more useful. There is now a method, similar to the multiline class which controls how the values of the comboxbox are to be displayed.  This makes it into a good base class to display many types of objects.
+	
+	Removed the try: except: in the keypress handling routines to remove a possibility of masking exceptions in user code.
+
+
+2.0pre12
+	The Multiline class (and so all its derived classes) now has the method display_value(vl).  This should be overloaded to affect how objects are displayed.  Previously, the object expected self.values to be a list of strings, and printed them straight to the screen.  This new method allows greater flexibility and should simplify coding for the end user, at the cost of a small amount of overhead.
+
+
+2.0pre11 
+	Added new ActionForm class.  This has an ok and a cancel button, with methods to overload for each.
+	
+	while_editing method is now passed a weakref to the currently selected widget.
+
+	Added the adjust_widgets method to Form classes and widget editing.
+	Added system to hide widgets.
+	Fixed some bugs in the editmultiline widget.
+	Fixed minor bug in Widget class editing function that was affecting the
+	 Checkbox class.
+	Fixed bug in the MultiSelect class when fast scrolling.
+
+	Changed default menu key from ^D to ^X
+
+2.0pre10
+	Added the TitleMultiLineFixed and MultiLineFixed classes.
+
+
+2.0pre9
+	Popup type added. More a convenience type than anything else. But prompted lots of cleanups / bug-fixes.  Form types now properly respect the lines/column sizes specified on creation - these now override anything else specified.  Several fixes to do with widgets calculating the size of the screen.  Note that the Popup class is more of a convenience than anything else at the moment - it is simply a Form object that is a small size and set to display at a particular place on the screen.
+	
+	Auto-complete types now use a popup window, not a fullscreen one.
+	
+	Function keys on OS X and meta-keys on OS X seem broken due to python's curses module. No way to fix at this time. Write programs using control modifier only.
+	
+	Look of slider widget changed. Now works better on OS X (where CKBOARD never looked right).
+	
+	Menu class added.
+	
+	Popup menu system also includes an automatic "root" menu, which is bound to ^D by default.  This displays a list of any popup menus currently defined for a given form, along with a note of their keybindings.  Finding a good binding for this function is difficult.  ^M is already taken by the terminal. ^E is awkward, and in any case is a favourite of unix-types for other things. ^N and ^U are also already taken for other things.  ^D falls right under the fingers, at least.
+	
+	EXAMPLE updated to show off the package's new features.
+	
+	NB (Developer) this popup system may have introduced the possibility of circular references.
+
+2.0pre8
+	Had lots of problems with OS X.  Seems that the standard ncurses
+	library has problems on OSX - screen resizing not properly
+	reported/detected.  
+
+	Fixed by non-apple builds of curses/python.  However, still getting
+	some crashes on refresh() calls that seem to be related to screen
+	size, which seems to be sometimes improperly reported.  Fixed with a
+	try: loop in screen_area.  It's the first truly horrid hack that I
+	can remember putting in in a while, but it seems to have no ill
+	effects and to solve the problem.
+
+
+2.0pre7
+	OK button shifted one to the left
+
+	Major performance problem solved by editing the widget.clear()
+	function.  This has made the multiline widget more responsive.
+	The edit loop for multiline widgets is also altered.  It now only
+	responds to key presses every 10ms and I've been more explicit about
+	the refreshing during the edit loop.  
+
+
+2.0pre6	
+	Added FixedText and TitleFixedText widgets.
+
+	Added titled versions of the MultiLine and MultiSelect widgets (not
+	fully bug tested).
+
+	Small bugfix in the Form.edit() method.
+
+	There is a bug in the height=parameter that needs fixing.  For now,
+	always create widgets using max_height=
+
+	error in line 175 of the multiline widget fixed - scroll_exit now
+	works without error.
+
+	error in Checkbox fixed (self.hide now defined in __init__)
+
+	Bug fixed. Widgets were using the useable_space method of
+	screen_areas to calcuate the space available to them.  An error in
+	coding meant that his method was reporting the physical space in a
+	terminal, not the space in the Form area.  A new method has been
+	introduced called widget_useable_space which reports the Form area
+	instead, or rather safe values (leaving 1 col and 1 row clear).
+
+	Bug in add_widget fixed - max_height default should be None, not False.
+
+
+2.0pre5
+	global keybindings ^N and ^P added
+
+
+2.0pre4
+	NPSApp class created.  mainloop should be overloaded.  Call using the
+	method .run()
+
+2.0pre3
+	Minor bug with widget placement fixed.
+
+
+2.0pre2
+	Fixed cursor movement on multi-line text editor.
+	
+2.0pre1
+	Completely rewritten.  Now contains a multiline text editor.  Some
+	of the API has changed, and memory management is now no longer a
+	problem.  All widgets now write directly onto their parent screen,
+	not onto subpads.
+	
+------------------------------------------------------------------------------
+
+0.9.7
+	Dummy function while_editing(self) added to the Screen widget.  This
+	is called on every iteration of the edit loop, and is intended to 
+	be overridden.
+
+
+0.9.67 
+	Small efficiency changes made to the scrolling widgets. More needed.
+	Typo fixed.
+
+0.9.6.5
+	Have removed the checks for binary characters from textfield.
+	It is now once again up to the programmer to sanitise data - ie.
+	removing tabs and binary characters before attempting to display.
+
+	To check every time data might have changed is just too expensive.
+
+0.9.6.1
+	Also altered textfield so that \t \r \n are not accepted (ever) as
+	characters for input into the field.  They shouldn't have been
+	anyway, since those keys are intercepted for other things, but good
+	to be sure.  
+
+	Do not put a \t into a field you want to edit. Still haven't decided
+	how to sanitise this problem.
+
+0.9.6
+	Altered textfield class.  If binary data is detected, a warning is
+	displayed.  If this check causes performance problems, let me know.
+
+0.9.5
+	Forms now automatically scroll to show as much of a widget as
+	possible, using a method called on_screen().  This method should be
+	re-factored to be more efficient.  Currently it uses 4 while loops,
+	which, while they get the job done (geddit?) should really be if
+	statements instead.
+
+	To avoid calling without need, the refresh loop now sets a value
+	called ALL_SHOWN to true or false.
+
+0.9.4
+	A wrapper to help edit multi-line text added: the StringToEditor
+	function and the MultLineText class.  The latter is based on the
+	button, and can be seen in EXAMPLE.py.  Neither have been stress
+	tested - Paul? - and so should be regarded as beta until the next
+	release.
+
+	Minor bug-fixes.
+	
+0.9.3
+	Internal changes to the multi-line widgets to make them more
+	flexible.  An indication that there are items not shown on the
+	screen added. Designed to be space efficient, but do we like?
+
+0.9.2.2
+	Internals of the Titled widgets cleaned up.
+
+0.9.2.1 
+	Internals of the Form wrapper changed.
+
+0.9.2
+	Numerous cleanups.  Some small documentation changes.  
+	_Form object made easier to subclass by tidying up the edit loop.
+	Action to take when widget exits is now determined by a dictionary 
+	lookup: see the set_up_exit_condition_handlers() and the
+	handle_exiting_widgets(condition) methods for details.
+
+0.9.1.2
+	Include CHANGELOG file in manifest.
+	Minor key binding change: TAB now always exits a widget without
+	making a selection, instead of sometimes making a selection and then
+	exiting.
+
+0.9.1	
+	Fixed some minor bugs.
+
+0.9.0
+	The old Form class has been moved to _Form.  Form is now a wrapper
+	class, and should call the destructor correctly.  This means that
+	.destroy() calls should no longer be needed on Form objects.
+	Hurrah!
+
+0.8.7
+	API change.
+	Workarounds for the keyname bug have been removed.  Code now uses
+	ascii.unctrl instead.  However programs MUST now specify M-x key
+	handlers as !x.  Since no one is using this in the wild yet, this
+	shouldn't be a problem.
+	
+0.8.65
+	Also added workaround to the key handling loop.
+
+0.8.6
+	added workaround for keyname error in curses library.
+	changelog started

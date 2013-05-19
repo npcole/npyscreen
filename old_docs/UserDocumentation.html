@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>Npyscreen</title>
+<link rel="stylesheet" href="~/Desktop/TestStyle.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="../../../../Desktop/TestStyle.css" type="text/css" />
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 5196 2007-06-03 20:25:28Z wiemann $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="npyscreen">
+<h1 class="title">Npyscreen</h1>
+
+<p>&quot;User interfaces without all that mucking around in hyperspace&quot;</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#overview" id="id1">Overview</a></li>
+<li><a class="reference internal" href="#status-of-this-document" id="id2">Status of this Document</a></li>
+<li><a class="reference internal" href="#objects-overview" id="id3">Objects Overview</a></li>
+<li><a class="reference internal" href="#programming-with-npyscreen" id="id4">Programming with npyscreen</a><ul>
+<li><a class="reference internal" href="#application-objects" id="id5">Application Objects</a><ul>
+<li><a class="reference internal" href="#npsappmanaged" id="id6">NPSAppManaged</a><ul>
+<li><a class="reference internal" href="#letting-npsappmanaged-manage-your-forms" id="id7">Letting NPSAppManaged manage your Forms</a></li>
+<li><a class="reference internal" href="#which-form-is-displayed-by-npsappmanaged" id="id8">Which Form is displayed by NPSAppManaged</a></li>
+<li><a class="reference internal" href="#additional-services-offered-by-npsappmanaged" id="id9">Additional Services offered by NPSAppManaged</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#npsapp" id="id10">NPSApp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#forms-basic-principles" id="id11">Forms: Basic Principles</a><ul>
+<li><a class="reference internal" href="#creating-a-form" id="id12">Creating a Form</a></li>
+<li><a class="reference internal" href="#placing-widgets-on-a-form" id="id13">Placing widgets on a Form</a></li>
+<li><a class="reference internal" href="#other-standard-form-features" id="id14">Other Standard Form Features</a></li>
+<li><a class="reference internal" href="#displaying-and-editing-forms" id="id15">Displaying and Editing Forms</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#form-classes" id="id16">Form Classes</a></li>
+<li><a class="reference internal" href="#menus" id="id17">Menus</a></li>
+<li><a class="reference internal" href="#widgets-basic-features" id="id18">Widgets: Basic Features</a><ul>
+<li><a class="reference internal" href="#constructor-arguments" id="id19">Constructor arguments</a></li>
+<li><a class="reference internal" href="#using-and-displaying-widgets" id="id20">Using and Displaying Widgets</a></li>
+<li><a class="reference internal" href="#titled-widgets" id="id21">Titled Widgets</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#widget-types" id="id22">Widget Types</a><ul>
+<li><a class="reference internal" href="#displaying-text" id="id23">Displaying Text</a></li>
+<li><a class="reference internal" href="#picking-options" id="id24">Picking Options</a></li>
+<li><a class="reference internal" href="#dates-sliders-and-combination-widgets" id="id25">Dates, Sliders and Combination Widgets</a></li>
+<li><a class="reference internal" href="#other-controls" id="id26">Other Controls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#all-about-key-bindings" id="id27">All about Key Bindings</a></li>
+<li><a class="reference internal" href="#support-for-colour" id="id28">Support for Colour</a><ul>
+<li><a class="reference internal" href="#setting-up-colour" id="id29">Setting up colour</a></li>
+<li><a class="reference internal" href="#how-widgets-use-colour" id="id30">How Widgets use colour</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id1">Overview</a></h1>
+<p>Npyscreen is a python library that is designed to make the writing of curses-based user interfaces quick and easy.</p>
+<p>It is designed to run using only the python standard library, and the only requirements are a working python (2.4 or above) installation and a working curses library.  Npyscreen will therefore work on almost all common platforms, and even in the Cygwin environment on Windows.</p>
+</div>
+<div class="section" id="status-of-this-document">
+<h1><a class="toc-backref" href="#id2">Status of this Document</a></h1>
+<p>This document explains the key features of Npyscreen - enough to get you using it.  It is, however, a work in progress.</p>
+</div>
+<div class="section" id="objects-overview">
+<h1><a class="toc-backref" href="#id3">Objects Overview</a></h1>
+<dl class="docutils">
+<dt>Form Objects</dt>
+<dd>Form objects (typically the size of a whole terminal, but sometimes larger or - for menus and the like - smaller) provide an area which can contain widget objects.  They may provide additional functions like a system for handling menus, or routines that will be run if a user selects an &quot;ok&quot; button.  They may also define operations carried out between key-presses, or as the user moves around the Form.</dd>
+<dt>Widget Objects</dt>
+<dd>These are the individual controls on a form - text boxes, labels, sliders, and so on.</dd>
+<dt>Application Objects</dt>
+<dd>These objects provide a convenient way to manage the running of your application.  Although it is possible to program simple applications without using the Application objects, it is not advisable.  Application objects make the management of multiple screens much less error-prone (in the 'bugs that may at any time crash your application') sense.  In addition, making use of these objects will enable you to take advantage of additional features as npyscreen is developed.</dd>
+</dl>
+</div>
+<div class="section" id="programming-with-npyscreen">
+<h1><a class="toc-backref" href="#id4">Programming with npyscreen</a></h1>
+<div class="section" id="application-objects">
+<h2><a class="toc-backref" href="#id5">Application Objects</a></h2>
+<div class="section" id="npsappmanaged">
+<h3><a class="toc-backref" href="#id6">NPSAppManaged</a></h3>
+<p>Unless you have exceptionally good reasons to do otherwise, this is almost certainly the best way to manage your application.</p>
+<p>Unlike the plain NPSApp class, you do not need to write your own main loop - NPSApp managed will manage the display of each Form of your application.  Set up your form objects and simply call the <em>.run()</em> method of your NPSAppManaged instance.</p>
+<div class="section" id="letting-npsappmanaged-manage-your-forms">
+<h4><a class="toc-backref" href="#id7">Letting NPSAppManaged manage your Forms</a></h4>
+<p>There are two methods for registering a Form object with an NPSAppManaged instance:</p>
+<dl class="docutils">
+<dt>.registerForm(<em>id</em>, <em>fm</em>)</dt>
+<dd><em>id</em> should be a string that uniquely identifies the form.  <em>fm</em> should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - contrast with the .addForm version.</dd>
+<dt>.addForm(<em>id</em>, <em>FormClass</em> ...)</dt>
+<dd>This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  <em>id</em> should be a string that uniquely identifies the Form.  <em>FormClass</em> should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.</dd>
+</dl>
+<p>All Forms registered with an NPSAppManaged instance can access the controlling application as <em>self.parentApp</em>.</p>
+<p>If for any reason you need to remove a Form, you can do with the .removeForm(<em>id</em>) method.</p>
+</div>
+<div class="section" id="which-form-is-displayed-by-npsappmanaged">
+<h4><a class="toc-backref" href="#id8">Which Form is displayed by NPSAppManaged</a></h4>
+<p>Once all of your forms are ready and registered with an NPSAppManaged instance, you should call .run()</p>
+<p>This method will activate the default form, which should have been given an id of &quot;MAIN&quot;.  You can change this default by changing the class/instance variable <em>.STARTING_FORM</em>.</p>
+<p>Thereafter, the next form to be displayed will be the one specified by the instance variable <em>NEXT_ACTIVE_FORM</em>.  Whenever a Form edit loop exits, the Form specified here will be activated.  If <em>NEXT_ACTIVE_FORM</em> is None, the main loop will exit.</p>
+<p>There are two mechanisms that Forms should use to control NEXT_ACTIVE_FORM.</p>
+<ol class="arabic">
+<li><p class="first">All Forms registered with an NPSAppManaged which do <em>not</em> have the special method <em>.activate()</em> will have their method <em>.afterEditing</em> called, if they have it.  Logic to determine which the <em>NEXT_ACTIVE_FORM</em> should be should go here.  This is the preferred method.</p>
+</li>
+<li><p class="first">Forms registered with an NPSAppManaged may be given an <em>.activate()</em> method, which NPSAppManaged will call instead of the usual <em>.edit()</em> method.  This can contain additional logic.  This is NOT the preferred method, but may allow greater flexibility.  Note that in this case, the usual .edit() method will not be called, unless you call it explicitly.   For example, an .activate() method might look like this:</p>
+<pre class="literal-block">
+def activate(self):
+     self.edit()
+     self.parentApp.NEXT_ACTIVE_FORM = None
+</pre>
+<p>which would cause the mainloop to exit after the Form was complete.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="additional-services-offered-by-npsappmanaged">
+<h4><a class="toc-backref" href="#id9">Additional Services offered by NPSAppManaged</a></h4>
+<p>The following methods may be usefully overridden by subclassing NPSAppManaged.  By default they do nothing.</p>
+<dl class="docutils">
+<dt>onInMainLoop</dt>
+<dd>Called between each screen while the application is running. Not called before the first screen.</dd>
+<dt>onStart</dt>
+<dd>Override this method to perform any initialisation.  If you wished, you could set up your application's Forms here.</dd>
+<dt>onCleanExit</dt>
+<dd>Override this method to perform any cleanup when application is exiting without error.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="npsapp">
+<h3><a class="toc-backref" href="#id10">NPSApp</a></h3>
+<p>To use NPSApp subclass it and provide your own .main() definition.  When you are ready to run the application call .run() and your mainloop will be executed.</p>
+<p>While it provides maximum flexibility, NPSApp is in almost every other way inferior to NPSAppManaged.</p>
+</div>
+</div>
+</div>
+<div class="section" id="forms-basic-principles">
+<h1><a class="toc-backref" href="#id11">Forms: Basic Principles</a></h1>
+<p>A Form object is a screen area that contains widgets.  Forms control which widget a user is editing, and may provide additional functionality, such as pop-up menus or actions that happen on particular keypresses.</p>
+<div class="section" id="creating-a-form">
+<h2><a class="toc-backref" href="#id12">Creating a Form</a></h2>
+<p>The Following arguments can be passed to a Form's constructor:</p>
+<dl class="docutils">
+<dt><em>name=</em></dt>
+<dd>Names the Form.  As for some widgets, this will display a title.</dd>
+<dt><em>lines=0, columns=0, minimum_lines=24, minimum_columns=80</em></dt>
+<dd>You can adjust the size of the Form, either providing an absolute size (with <em>lines=</em> and <em>columns=</em>) or a minimum size (<em>minimum_lines=</em> and <em>minimum_columns=</em>).  The default miniums (24x80) provide the standard size for terminal.  If you plan your Forms to fit within that size, they should be viewable on almost all systems without the need to scroll the Form.  Note that you can use the absolute sizing in one direction and the minimum in the other, should you wish.</dd>
+</dl>
+<p>Forms cannot be resized once created.</p>
+</div>
+<div class="section" id="placing-widgets-on-a-form">
+<h2><a class="toc-backref" href="#id13">Placing widgets on a Form</a></h2>
+<p>To add a widget to a Form, use the method:</p>
+<dl class="docutils">
+<dt><em>add(WidgetClass, ...)</em></dt>
+<dd>WidgetClass must be a class, all of the additional arguments will be passed to the widget's own constructor.  A reference to the widget will be returned.</dd>
+</dl>
+<p>The position and size of a widget are controlled by the widget's constructor.  However, there are hints that the Form class provides.  If you do not override the position of the widget, it will be placed according to the Form's <em>.nextrelx</em> and <em>nextrely</em> instance attributes.  The <em>.nextrely</em> attribute is increased automatically each time a widget is placed.  You might also increase it yourself by doing something like:</p>
+<pre class="literal-block">
+self.nextrely += 1
+</pre>
+<p>Which would leave a gap between the previous widget and the next placed one.</p>
+</div>
+<div class="section" id="other-standard-form-features">
+<h2><a class="toc-backref" href="#id14">Other Standard Form Features</a></h2>
+<dl class="docutils">
+<dt><em>.create()</em></dt>
+<dd>This method is called by the Form's constructor.  It does nothing by default - it is there for you to override in subclasses, but it is the best place to set up all the widgets on a Form.  Expect this method to be full of <em>self.add(...)</em> method calls, then!</dd>
+<dt><em>.while_editing()</em></dt>
+<dd>This method is called as the user moves between widgets.  It is intended for you to override in subclasses, to do things like altering one widget based on the value of another.</dd>
+<dt><em>adjust_widgets()</em></dt>
+<dd><blockquote class="first">
+Be very careful with this method.  It is called for every keypress while the Form is being edited, and there is no guarantee that it might not be called even more frequently.  By default it does nothing, and is intended for you to override.  Since it gets called so frequently, thoughtlessness here could slow down your whole application.</blockquote>
+<p class="last">For example, be very conservative with redraws of the whole Form (a slow operation) - make sure you put in code to test whether a redraw is necessary, and try to only redraw widgets that really need to be changed, rather than redrawing the whole screen.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="displaying-and-editing-forms">
+<h2><a class="toc-backref" href="#id15">Displaying and Editing Forms</a></h2>
+<dl class="docutils">
+<dt><em>.display()</em></dt>
+<dd>Redraw every widget on the Form and the Form itself.</dd>
+<dt><em>.edit()</em></dt>
+<dd>Allow the user to interactively edit the value of each widget.  You should not need to call this method if correctly using the <em>NPSAppManaged</em> class, but will need to use it otherwise.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="form-classes">
+<h1><a class="toc-backref" href="#id16">Form Classes</a></h1>
+<dl class="docutils">
+<dt>Form, Popup</dt>
+<dd><p class="first">The basic Form class.  When editing the form, the user can exit by selecting the OK button in the bottom right corner.</p>
+<p class="last">By default, a Form will fill the Terminal.  Popup is simply a Form with a smaller default size.</p>
+</dd>
+<dt>ActionForm, ActionPopup</dt>
+<dd>The ActionForm creates OK and Cancel buttons.  Selecting either exits the form.  The method <em>on_ok</em> or <em>on_cancel</em> is called when the Form exits.  Subclasses may therefore usefully override one or both of these methods, which by default do nothing.</dd>
+<dt>TitleForm, TitleFooterForm, SplitForm</dt>
+<dd><p class="first">These are Form classes with slightly different layouts.</p>
+<p class="last">The SplitForm has a horizontal line across the middle.  The method <em>get_half_way()</em> will tell you where it has been drawn.</p>
+</dd>
+<dt>FormWithMenus, ActionFormWithMenus</dt>
+<dd><p class="first">These forms are similar to the Form and ActionForm classes, but provide the additional functionality of Popup menus.</p>
+<p class="last">To add a new menu to the Form use the method <em>new_menu(name='')</em>.  This will create the menu and return a proxy to it.  For more details see the section on Menus below.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="menus">
+<h1><a class="toc-backref" href="#id17">Menus</a></h1>
+<p>Some Form classes support the use of popup menus.  Indeed, menus could in theory be used as widgets on their own.  Popup menus (inspired, in fact, by the menu system in RiscOS) were selected instead of drop-down menus as being more suitable for a keyboard environment, making better use of available screen space and being easier to deploy on terminals of varied sizes.</p>
+<p>Menus are usually created by calling a (supporting) Form's <em>new_menu</em> method.  Thereafter, the following methods are useful:</p>
+<dl class="docutils">
+<dt><em>addItem(text='', onSelect=function)</em></dt>
+<dd><em>text</em> should be the string to be menu.  onSelect should be a function to be called if that item is selected by the user.  This is one of the few easy opportunities in npyscreen to create circular references - you may wish to pass in a proxy to a function instead.  I've tried to guard you against circular references as much as possible - but this is just one of those times I can't second-guess your application structure.</dd>
+<dt><em>addNewSubmenu(...)</em></dt>
+<dd>Create a new submenu (returning a proxy to it).  This is the preferred way of creating submenus.</dd>
+<dt><em>addSubmenu(submenu)</em></dt>
+<dd>Add an existing Menu to the Menu as a submenu.  All things considered, addNewSubmenu is usually a better bet.</dd>
+</dl>
+<p>(Internally, this menu system is referred to as the &quot;New&quot; menu system - it replaces a drop-down menu system with which I was never very happy.)</p>
+</div>
+<div class="section" id="widgets-basic-features">
+<h1><a class="toc-backref" href="#id18">Widgets: Basic Features</a></h1>
+<p>Widgets are created by passing their class as the first argument of a Form's <em>add(...)</em> method.  The remaining arguments will be passed to the widget's own constructor.  These control things such as size, position, name, and initial values.</p>
+<div class="section" id="constructor-arguments">
+<h2><a class="toc-backref" href="#id19">Constructor arguments</a></h2>
+<dl class="docutils">
+<dt><em>name=</em></dt>
+<dd>You should probably give each widget a name (a string).  Where appropriate, it will be used as the label of the widget.</dd>
+<dt><em>relx=</em>, <em>rely=</em></dt>
+<dd>The position of the widget on the Form is controlled by relx and rely integers.   You don't have to specify them, in which case the form will do its best to decide where to put the widget.  You can specify only one or the other if you so choose (eg. you probably don't usually need to specify relx).</dd>
+<dt><em>width=</em>, <em>height=</em>, <em>max_width=</em>, <em>max_height=</em></dt>
+<dd>By default, widgets will expand to fill all available space to the right and downwards, unless that would not make sense - for example single lines of text do not need moe than one line, and so don't claim more than one.  To alter the size of a widget, therefore, specify a different <em>max_width</em> or <em>max_height</em>.  It is probably better to use the max_ versions - these will not raise an error if space is getting tight and you specify too much, but will try to squash the widget into remaining space.</dd>
+<dt><em>value=</em></dt>
+<dd>The value of a widget is the thing a user can change - a string, a date, a selection of items, a filename.  The initial setting of the <em>.value</em> attribute can be specified here.</dd>
+<dt><em>values=</em></dt>
+<dd>Where a widget offers the user a selection from a list of values, these can be specified here: this is the initial setting of the <em>values</em> attribute.</dd>
+<dt><em>editable=True</em></dt>
+<dd>Whether the user should be able to edit a widget.  (Initial setting of the <em>.editable</em> attribute.)</dd>
+<dt><em>hidden=False</em></dt>
+<dd>Whether a widget is visible or not.  (Initial setting of the <em>.hidden</em> attribute.)</dd>
+<dt><em>color='DEFAULT'</em>, labelColor='LABEL'</dt>
+<dd>Provides a hint to the colour-management system as to how the widget should be displayed.  More details elsewhere.</dd>
+</dl>
+</div>
+<div class="section" id="using-and-displaying-widgets">
+<h2><a class="toc-backref" href="#id20">Using and Displaying Widgets</a></h2>
+<p>All widgets have the following methods:</p>
+<dl class="docutils">
+<dt><em>display()</em></dt>
+<dd>Redraws the widget and tells curses to update the screen.</dd>
+<dt><em>update()</em></dt>
+<dd><p class="first">Redraws the widget, but doesn't tell curses to update the screen (it is more efficient to update all widgets and then have the Form on which they sit tell curses to redraw the screen all in one go).</p>
+<p class="last">Most widgets accept the optional argument <em>clear=False|True</em> which affects whether they first blank the area they occupy before redrawing themselves</p>
+</dd>
+<dt><em>edit()</em></dt>
+<dd>Allow the user to interact with the widget.  The method returns when the user leaves the widget.</dd>
+</dl>
+</div>
+<div class="section" id="titled-widgets">
+<h2><a class="toc-backref" href="#id21">Titled Widgets</a></h2>
+<p>Many widgets exist in two forms, one with a label, one without.  For example Textbox and TitleText.  If the label is particularly long (at time of construction), the label may be put on its own line.  Additional constructor arguments:</p>
+<dl class="docutils">
+<dt><em>use_two_lines=</em></dt>
+<dd>If either True or False, override what the widget would otherwise choose.</dd>
+<dt><em>field_width=</em></dt>
+<dd>(For text fields) - how wide should the entry part of the widget be?</dd>
+<dt><em>begin_entry_at=16</em></dt>
+<dd>At what column should the entry part of the widget begin?</dd>
+</dl>
+<p>Internally titled widgets are actually a textbox (for the label) and whatever other kind of widget is required.  You can access the separate widgets (if you ever need to - you shouldn't) through the <em>label_widget</em> <em>entry_widget</em> attributes.</p>
+<p>However, you may never need to, since the <em>value</em> and <em>values</em> attributes of the combined widget should work as expected.</p>
+</div>
+</div>
+<div class="section" id="widget-types">
+<h1><a class="toc-backref" href="#id22">Widget Types</a></h1>
+<div class="section" id="displaying-text">
+<h2><a class="toc-backref" href="#id23">Displaying Text</a></h2>
+<dl class="docutils">
+<dt>Textbox, TitleText</dt>
+<dd>A single line of text, although of arbitrary length - the basic entry widget.</dd>
+<dt>FixedText, TitleFixedText</dt>
+<dd>A single line of text, but with the editing functions of Textbox removed.</dd>
+<dt>PasswordEntry, TitlePassword</dt>
+<dd>A textbox but altered so that the exact letters of <em>.value</em> are not displayed.</dd>
+<dt>Autocomplete</dt>
+<dd><p class="first">This is a textbox but with additional functionality - the idea is that if the user presses TAB the widget will attempt to 'complete' what the user was typing, offering a choice of options if appropriate.</p>
+<p class="last">Of course, context is everything here.  <em>Autocomplete</em> is therefore not useful, but is intended as something you can subclass.  See the Filename and TitleFilename classes for examples.</p>
+</dd>
+<dt>TitleFilename, Filename</dt>
+<dd><p class="first">A textbox that will attempt to 'complete' a filename or path entered by the user.</p>
+<p class="last">This is an example of the <em>Autocomplete</em> widget.</p>
+</dd>
+<dt>MultiLineEdit</dt>
+<dd>This widget allows the user to edit several lines of text.</dd>
+<dt>Pager</dt>
+<dd>This widget displays lines of text, allowing the user to scroll through them, but not edit them.</dd>
+</dl>
+</div>
+<div class="section" id="picking-options">
+<h2><a class="toc-backref" href="#id24">Picking Options</a></h2>
+<dl class="docutils">
+<dt>MultiLine</dt>
+<dd><p class="first">Offer the user a list of options.  (This widget could probably have a better name, but we're stuck with it for now)</p>
+<p>The options should be stored in the attribute <em>values</em> as a list.  The attribute <em>value</em> stores the index of the user's selection.</p>
+<p class="last">One of the most important features of MultiLine and widgets derived from it is that it can be adapted easily to allow the user to choose different types of objects.  To do so, override the method <em>display_value(self, vl)</em>.  The argument <em>vl</em> will be the object being displayed, and the function should return a string that can be displayed on the screen.</p>
+</dd>
+<dt>TitleMultiLine</dt>
+<dd><p class="first">A titled version of the MultiLine widget.</p>
+<p class="last">If creating your own subclasses of MultiLine, you can create Title versions by subclassing this object and changing the _entry_type class variable.</p>
+</dd>
+<dt>MultiSelect, TitleMultiSelect,</dt>
+<dd><p class="first">Offer the User a list of options, allow him or her to select more than one of them.</p>
+<p class="last">The <em>value</em> attribute is a list of the indexes user's choices.  As with the MultiLine widget, the list of choices is stored in the attribue <em>values</em>.</p>
+</dd>
+<dt>SelectOne, TitleSelectOne</dt>
+<dd>Functionally, these are like the Multiline versions, but with a display similar to the MultiSelect widget.</dd>
+<dt>MultiSelectFixed, TitleMultiSelectFixed</dt>
+<dd>These special versions of MultiSelect are intended to display data, but like Textfixed do not allow the user to actually edit it.</dd>
+</dl>
+</div>
+<div class="section" id="dates-sliders-and-combination-widgets">
+<h2><a class="toc-backref" href="#id25">Dates, Sliders and Combination Widgets</a></h2>
+<dl class="docutils">
+<dt>DateCombo, TitleDateCombo</dt>
+<dd>These widgets allow a user to select a date.  The actual selection of a date is done with the class MonthBox, which is displayed in a temporary window.</dd>
+<dt>ComboBox, TitleCombo</dt>
+<dd>This box looks like a Textbox, but the user can only select from a list of options.  Which are displayed in a temporary window if the user wants to change the value.  Like the MultiLine widget, the attribute <em>value</em> is the index of a selection in the list <em>values</em>.  The ComboBox widget can also be customised by overloading the <em>display_value(self, vl)</em> method.</dd>
+<dt>Slider, TitleSlider</dt>
+<dd><p class="first">Slider presents a horizontal slider.  The following additional arguments to the constructor are useful:</p>
+<dl class="docutils">
+<dt>out_of=100</dt>
+<dd>The maximum value of the slider.</dd>
+<dt>step=1</dt>
+<dd>The increments by which a user my increase or decrease the value.</dd>
+<dt>lowest=0</dt>
+<dd>The minimum value a user can select. Note that sliders are not designed to allow a user to select negative values.  <em>lowest</em> should be &gt;= 0</dd>
+<dt>label=True</dt>
+<dd>Whether to print a text label next to the slider.  If so, see the <em>translate_value</em> method.</dd>
+</dl>
+<p>All of these options set attributes of the same name that may be altered once the widget exists.</p>
+<p>The text displayed next to the widget (if <em>label=True</em>) is generated by the <em>translate_value</em> method.  This takes no options and returns a string.  It makes sense to subclass the Slider object and overload this method.  It probably makes sense to ensure that the string generated is of a fixed length.  Thus the default code looks like:</p>
+<pre class="last literal-block">
+stri = &quot;%s / %s&quot; %(self.value, self.out_of)
+l = (len(str(self.out_of)))*2+4
+stri = stri.rjust(l)
+return stri
+</pre>
+</dd>
+</dl>
+</div>
+<div class="section" id="other-controls">
+<h2><a class="toc-backref" href="#id26">Other Controls</a></h2>
+<dl class="docutils">
+<dt>Checkbox, RoundCheckBox</dt>
+<dd>These offer a single option - the label is generated from the attribute <em>name</em>, as for titled widgets.  The attribute <em>value</em> is either true or false.</dd>
+<dt>Button</dt>
+<dd>Functionally similar to the Checkbox widgets, but looking different.  The Button is usually used for OK and Cancel Buttons on Forms and similar things.</dd>
+<dt>FormControlCheckbox</dt>
+<dd><p class="first">A common use of Checkbox is to offer the user the option to enter additional data.  For example &quot;Enter Expiry Date&quot;.  In such a case, the Form needs to display additional fields in some cases, but not in others.  FormControlCheckbox makes this trivial.</p>
+<p>Two methods are defined:</p>
+<dl class="last docutils">
+<dt>addVisibleWhenSelected(<em>wg</em>)</dt>
+<dd><p class="first"><em>wg</em> should be a widget.</p>
+<p>This method does not create a widget, but instead puts an existing widget under the control of the FormControlCheckbox.  If FormControlCheckbox is selected, the widget will be visible.</p>
+<p class="last">As many widgets as you wish can be added in this way.</p>
+</dd>
+<dt>addInvisibleWhenSelected(<em>wg</em>)</dt>
+<dd>Widgets registered in this way are visible only when the FormControlCheckbox is not selected.</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="all-about-key-bindings">
+<h1><a class="toc-backref" href="#id27">All about Key Bindings</a></h1>
+<p>Many objects can take actions based on user key presses.  All such objects inherit from the internal class InputHandler.  That class defines a dictionary called <em>handlers</em> and a list called <em>complex_handlers</em>.  Both of these are set up by a method called set_up_handlers called during the Constructor.</p>
+<dl class="docutils">
+<dt><em>handlers</em></dt>
+<dd><p class="first">Might look something like this:</p>
+<pre class="last literal-block">
+    {curses.ascii.NL:   self.h_exit_down,
+     curses.ascii.CR:   self.h_exit_down,
+     curses.ascii.TAB:  self.h_exit_down,
+     curses.KEY_DOWN:   self.h_exit_down,
+     curses.KEY_UP:     self.h_exit_up,
+     curses.KEY_LEFT:   self.h_exit_left,
+     curses.KEY_RIGHT:  self.h_exit_right,
+     &quot;^P&quot;:                  self.h_exit_up,
+     &quot;^N&quot;:                  self.h_exit_down,
+     curses.ascii.ESC:      self.h_exit_escape,
+     curses.KEY_MOUSE:      self.h_exit_mouse,
+     }
+
+If a key is pressed (note support for notations like &quot;^N&quot; for &quot;Control-N&quot; and &quot;!a&quot; for &quot;Alt N&quot;) that exists as a key in this dictionary, the function associated with it is called.  No further action is taken.  By convention functions that handle user input are prefixed with h\_.
+</pre>
+</dd>
+<dt><em>complex_handlers</em></dt>
+<dd><p class="first">This list should contain list or tuple pairs like this (test_func, dispatch_func).</p>
+<p>If the key is not named in the dictionary <em>handlers</em>, each test_func is run.  If it returns True, the dispatch_func is run and the search stops.</p>
+<p class="last">Complex handlers are used, for example, to ensure that only printable characters are entered into a textbox.  Since they will be run frequently, there should be as few of them as possible, and they should execute as quickly as possible.</p>
+</dd>
+</dl>
+<p>When a user is editing a widget and a key is pressed, <em>handlers</em> and then <em>complex_handlers</em> are used to try to find a function to execute.  If the widget doesn't define an action to be taken, the <em>handlers</em> and <em>complex_handlers</em> of the parent Form are then checked.</p>
+</div>
+<div class="section" id="support-for-colour">
+<h1><a class="toc-backref" href="#id28">Support for Colour</a></h1>
+<div class="section" id="setting-up-colour">
+<h2><a class="toc-backref" href="#id29">Setting up colour</a></h2>
+<p>All of the standard widgets are entirely usable on a monochrome terminal.  However, it's a colourful world these days, and npyscreen lets you display your widgets in, well, if not Technicolor(TM) then as close a curses will allow.</p>
+<p>Colour is handled by the ThemeManager class.  Generally, your application should stick to using one ThemeManager, which you should set using the <em>setTheme(ThemeManager)</em> function.  So for example:</p>
+<pre class="literal-block">
+npyscreen.setTheme(npyscreen.Themes.ColorfulTheme)
+</pre>
+<p>Any default themes defined by npyscreen will be accessible via npyscreen.Themes.</p>
+<p>A basic theme looks like this:</p>
+<pre class="literal-block">
+class DefaultTheme(npyscreen.ThemeManager):
+    default_colors = {
+        'DEFAULT'     : 'WHITE_BLACK',
+        'FORMDEFAULT' : 'YELLOW_BLACK',
+        'NO_EDIT'     : 'BLUE_BLACK',
+        'STANDOUT'    : 'CYAN_BLACK',
+        'LABEL'       : 'BLUE_BLACK',
+        'LABELBOLD'   : 'WHITE_BLACK',
+        'CONTROL'     : 'GREEN_BLACK',
+    }
+</pre>
+<p>The colours - such as WHITE_BLACK (&quot;white on black&quot;) - are defined in the <em>initialize_pairs</em> method of the ThemeManager class.  The following are defined by default:</p>
+<pre class="literal-block">
+('BLACK_WHITE',      curses.COLOR_BLACK,      curses.COLOR_WHITE),
+ ('BLUE_BLACK',       curses.COLOR_BLUE,       curses.COLOR_BLACK),
+ ('CYAN_BLACK',       curses.COLOR_CYAN,       curses.COLOR_BLACK),
+ ('GREEN_BLACK',      curses.COLOR_GREEN,      curses.COLOR_BLACK),
+ ('MAGENTA_BLACK',    curses.COLOR_MAGENTA,    curses.COLOR_BLACK),
+ ('RED_BLACK',        curses.COLOR_RED,        curses.COLOR_BLACK),
+ ('YELLOW_BLACK',     curses.COLOR_YELLOW,     curses.COLOR_BLACK),
+)
+</pre>
+<p>('WHITE_BLACK' is always defined.)</p>
+<p>If you find you need more, feel free to subclass ThemeManager and change class attribute <em>_colours_to_define</em>.   You are perfectly free to use colours other than the standard curses ones, but since not all terminals support doing so, npyscreen does not by default.</p>
+<p>If you want to disable all colour in your application, npyscreen defines two convenient functions: <em>disableColor()</em> and <em>enableColor()</em>.</p>
+</div>
+<div class="section" id="how-widgets-use-colour">
+<h2><a class="toc-backref" href="#id30">How Widgets use colour</a></h2>
+<p>When a widget is being drawn, it asks the active ThemeManager to tell it appropriate colours.  'LABEL', for example, is a label given to colours that will be used for the labels of widgets.  The Theme manager looks up the relevant name in its <em>default_colors</em> dictionary and returns the appropriate colour-pair as an curses attribute that is then used to draw the widget on the screen.</p>
+<p>Individual widgets often have <em>color</em> attribute of their own (which may be set by the constructor).  This is usually set to 'DEFAULT', but could be changed to any other defined name.  This mechanism typically only allows individual widgets to have one particular part of their colour-scheme changed.</p>
+<p>Title... versions of widgets also define the attribute <em>labelColor</em>, which can be used to change the colour of their label colour.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

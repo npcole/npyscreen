@@ -1,0 +1,6 @@
+include npyscreen/CHANGELOG
+include setup.py
+include EXAMPLE*.py
+include LICENCE
+include docs/*
+include CHANGELOG

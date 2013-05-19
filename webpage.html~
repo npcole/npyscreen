@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="author" content="Nicholas Cole">
+<title>npyscreen</title>
+</head>
+<body>
+
+<H1>npyscreen.py</H1>
+<H2>Rapid UI development for python/curses</H2>
+<h5>(Putting a user interface on your hacks^W programs without all that mucking around in hyperspace)</h5>
+
+<hr>
+
+<p>Wouldn't it be really nice if asking the user to give you some information could be easy? As easy as:
+
+<pre><code>
+	MyForm = Form()
+	
+	usrn_box = MyForm.add_widget(TitleText, name="Your name:")
+	internet = MyForm.add_widget(TitleText, name="Your favourite internet page:")
+	
+	MyForm.edit()
+	
+	# usrn_box.value and internet.value now hold the user's answers.
+</code>
+</pre>
+
+<p>If you think so, this library is for you.
+
+<hr>
+
+<p>The best way to see how it works is to download the source code and have a look at <code><strong>EXAMPLE.py</strong></code>.  
+
+
+<p>If you want to install it, you can do:
+
+<p><code>python setup.py install</code>
+</p>
+
+<h2>Some very quick documentation</h2>
+
+<h3>Widgets defined:</h3>
+<ul><li>Textbox and TitleText</li>
+	<li>Password and TitlePassword</li>
+	<li>ComboBox (select from a list of choices) and TitleCombo</li>
+	<li>Slider and TitleSlider (select a value, a range of options, or just use as a progress bar)</li>
+	<li>DisplayLines (also allows you to let the user select a line)</li>
+	<li>MultiSelect</li>
+	<li>ScrollLines (acts like a pager, pass in the text you want to show as an array of lines to <code>values=</code> )</li>
+	<li>FileName and TitleFileName.  Examine these two if you'd like to make your own auto-completing widgets.</li>
+	<li>Button and CheckBox</li>
+	<li>MultiLineText.  This is cunning - it puts a button on the screen which, if "pressed" loads the contents of its .value attribute into an editor, and then reading the results back in when the editor quits.  See FAQ for details as to why.</li>
+</ul>
+
+
+<h3>Some helpful convenience functions:</h3>
+	<ul>
+	<li>CallSubShell(<em>string</em>) calls an external command using os.system (usual warnings about checking what you feed it apply).  It makes sure that pyscreen doesn't get in your way.</li>
+	<li>ViewText(<em>text</em>)</li>
+	<li>MakeChoice(<em>choices</em>)</li>
+	<li>MakeMultiChoice(<em>choices</em>)</li>
+	</ul>
+	
+<p>The last two of which return the index(es) of the choices the user made.</p>
+	
+<p>A guide to some of the options you can feed them is given at the start of <code>__init__.py</code>.  There are many more.  Each widget is also very easy to subclass for specific uses.
+
+
+<h3>Notes:</h3>
+
+<p>Form objects have three methods and one other feature that you'll find useful:
+
+<ul><li><code>.add_widget(<em>WidgetClass, ....</em>)</code> adds a new widget to the form.  Any arguments you specify are passed to the widget constuctor.  Keep hold of the return value (which is a weakref to the widget) because you'll want it later to get the value of the widget out again, or to alter the properties of the widget.</li>
+
+<li><code>.display()</code> which draws everything on the screen, and which you might want to call if you are producing a display-only screen, and are updating the values for it.</li>
+
+<li><code>.edit()</code> also updates the screen, but also lets the user edit all the values in the form.  After this method returns, you can get the values you are interested in by examining the <code>.value</code> of each widget.
+
+<li>Built-in help. If you create a widget with the argument help=, or else (after creating it) define the Form's help property, the user will be offered access to the help during editing.  Again, see the example script for details.
+
+If there is just one control on the screen that you want the user to edit, you can call the .edit() method of that widget, rather than of the containing form.</li>
+
+</ul>
+
+<p>A typical sequence is to create a new form, populate it with widgets, and then put it on the screen with .display() or .edit(). When you've finished with a Form, just let it go out of scope, and it will clean itself up.  If you want to make sure, you can call .destroy() on it.</p>
+
+<p>If there is just one control on the screen that you want the user to edit, you can call the .edit() method of that widget, rather than of the containing form.</p>
+
+<p>The "Titled" versions show the name of the widget (specified with <code>name=<i>string</i></code> when creating it) on the screen.  
+
+<p>You can override the default placement of the widget on the with the arguments <code>relx=</code> and <code>rely=</code>.
+
+<p>You can stop a user from editing the value of a widget by passing in <code>editable=False</code>.  This can be changed after widget creation (eg. <code>usrname_box.editable=False</code>).
+
+<p>Left to themselves, the multi-line widgets grab all of the remaining screen space (down and to the right) to display themselves in.  You can alter this by specifying <code>request_height=<em>lines</em></code> and/or <code>request_width=<em>chars</em></code> at creation, which is probably the method you'll choose for most layouts (again, see the <code>EXAMPLE.py</code> script for a good few examples.  There are a couple of other controls as well, as you can see in the source.</p>
+
+<hr>
+
+<h2>FAQ</h2>
+<ol>
+<li><h3>What is this library used for?</h3>
+<p>npyscreen is written to let you write quick interfaces to console programs in a *NIX/BSD/OS X environment.  I use it for putting a front end on system admin scripts, and for a couple of lager projects.
+</p>
+<p>It is designed to be as non-intrusive as possible into the rest of your code, so you can use it to develop an application that will later have a full gui, if that is your wish.
+</p>
+<li><h3>What do I need to run programs written with this library?</h3>
+If python runs on your system, and has a curses module, this code should run.  So any flavour of Linux/BSD, OS X, and (though I haven't tried it), MS Windows using the Cygwin environment ought to work. Let me know. It will not run on MS Windows without Cygwin, because of the lack of a curses library.
+
+<p>In other words, if you have python on your system, you can probably run this code.</p>
+
+<p>It doesn't use anything that is not part of the standard python library, which was a deliberate design choice.</p>
+
+<strong>You'll need python version 2.3 or above, though.</strong>
+
+<li><h3>How does this library stack up against $foo?</h3>
+
+<p>As far as I know, there are no curses widget kits under active development for python.  The standard library curses module is powerful, but only gives access to the underlying curses sytem.  npyscreen does its very best to shield you from all of that: it'll even try to protect you from the worst effects of screen re-sizes and the like.
+</p>
+<p>It is not an interface to the CDK.  There is one of those on the web somewhere, but I don't know how well it works.
+</p>
+
+<p>On the other hand, this library is much more powerful, and easy to use, than using external programs such as dialog.</p>
+
+<li><h3>Can I have a Form that is larger than a terminal?</h3>
+Yes, you can.  Try not to, though, they are horrid things.  For lists or lines of text longer than the screen, use the multi-line version of the widgets instead, not an actual Form object bigger than the screen.
+
+<li><h3>Can I use colour?</h3>
+<p>None of the default widget set does, because their function doesn't <em>require</em> it, and I don't think using colour in curses for the sake of it makes for good UI design.  Not everyone can tell colours apart, and you don't know how a user's system will display your application.
+</p>
+
+<p>That said, it would be very easy to subclass any of the widgets to display in colour, and if you can give me a valid reason for needing it, I'll even add full colour support to the whole library. I just haven't needed it yet.</p>
+
+<li><h3>Where is the multi-line text editing widget? (short answer)</h3>
+<p>For this sort of thing, use the widget MultiLineText or the function StringToEditor(<em>string</em>).</p>
+
+<li><h3>Where is the multi-line text editing widget? (long answer)</h3>
+<p>You don't want one of these. Really, you don't.  I coded a basic version, and then realised that there is a reason that Microsoft are integrating Word with Outlook, that all of the major graphical toolkits have people crying out to have their favourite editors embedded, and so on.  The reason is that little tiny boxes for editing text in are very frustrating for the user.  Should lines wrap? If so, in what way? What should the key bindings be? Why can't it work like my editor does? etc. etc. etc.
+</p>
+
+<p>There is a reason that nobody uses the built-in editor in mutt.  Everyone uses vi, vim, emacs, nano, pico or whatever else they like.
+
+<p>So: if you want your users to be able to enter more than a line of text, let them do it in a temporary file, with an editor of their choice.  Then you can read that back into your program.  That, in my opinion, is The Right Thing to Do.  
+
+<p>I've given you a widget to do this: it's called MultiLineText. There is also a function called StringToEditor(<em>string</em>) if you want something even more flexible. 
+</p>
+
+<li><h3>Will you add mouse support?</h3>
+As soon as I find that I need it.
+
+<li><h3>Can I use unicode/utf-8?</h3>
+Python currently does not have a binding to use cursesw.  As soon as it does, I'll update this library to use it.  For the moment, though, the answer is a very sad "no".
+
+<li><h3>Why do some things look (slightly) nasty (I'm using rxvt)?</h3></li>
+<p>The special characters used by curses are defined by the terminal used, and not by the program asking for them.  The character ACS_CKBOARD defined by rxvt is not nice (on my system), but looks very good in other terminals.  All of that said, it is not a major problem, just annoying.
+</p>
+
+<p>aterm, which is based on rxvt, might be a good alternative for many people (for those who for some reason don't want to use xterm).</p>
+
+<p>(If your application is to run on rxvt, you could simply subclass Slider and Button to look slightly different.  Or you could ask the rxvt people to define a better character.)</p>
+
+<p>Any suggestions for alternative designs for these widgets welcome, bearing in mind that they should work on monochrome as well as colour displays.</p> 
+
+
+<li><h3>How do I send you comments?</h3>
+You can email me at npyscreen AT npcole DOT com.
+
+<li><h3>Do you want feedback?</h3>
+Yes.
+
+</body>
+</html>

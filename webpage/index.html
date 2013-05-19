@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="author" content="Nicholas Cole">
+<title>npyscreen</title>
+</head>
+<body>
+
+<H1>npyscreen.py</H1>
+<H2>Rapid UI development for python/curses</H2>
+<h5>(Putting a user interface on your hacks^W programs without all that mucking around in hyperspace)</h5>
+
+<hr>
+
+<p>Wouldn't it be really nice if asking the user to give you some information could be easy? As easy as:
+
+<pre><code>
+	MyForm = Form()
+	
+	usrn_box = MyForm.add_widget(TitleText, name="Your name:")
+	internet = MyForm.add_widget(TitleText, name="Your favourite internet page:")
+	
+	MyForm.edit()
+	
+	# usrn_box.value and internet.value now hold the user's answers.
+</code>
+</pre>
+
+<p>If you think so, this library is for you.
+
+<hr>
+
+This is a curses library and application framework for python that provides a reasonably comprehensive set of default widgets.  
+
+<p>The best way to see how it works is to download the source code and have a look at <code><strong>EXAMPLE.py</strong></code>.  
+
+<h3>You can download the latest version of the software from <A HREF="http://code.google.com/p/npyscreen">Google Code</A> or from <A HREF="http://pypi.python.org/pypi/npyscreen/">PyPI</A>.</h3>
+
+<p>If you want to install it, you can do:
+
+<p><code>python setup.py install</code>
+
+<p>or, if you want to download and install from PyPI automatically:
+<p><code>easy_install npyscreen</code>
+</p>
+
+<p>You might also like to read the tutorial and documentation included with the distribution.
+
+<h3>Strengths</h3>
+
+<p>This framework should be powerful enough to create everything from quick, simple programs to complex, multi-screen applications.  It is designed to make doing the simple tasks very quick and to take much of the pain out of writing larger applications.
+
+<p>The framework is easy to extend.  That said, if you have a requirement for a widget that is not currently included you can try emailing me and I'll see whether I have time to help - no promises!
+
+
+<h3>Limitations</h3>
+
+<p>This library does not currently support the mouse, mostly because I have not had the need for mouse support, but that feature may well be added in the future, and the core of it is already built into the library.
+
+<p>The library aims to support unicode/utf-8.  Please report any problems using the bug-tracker at code.google.com/p/npyscreen.
+
+<p>I am working on a new mechanism for creating Forms which will make resizing forms automatic when the terminal resizes.  However, in the meantime, the library will create forms based on a fixed size (determined when the Form is created).  On the plus side, this library does make sure that a resized terminal will not cause your application to crash.  (In fact, this library was first inspired by the desire to be able to write applications that would not crash merely because a terminal window had changed shape.  Things rapidly got more complicated.)
+
+</body>
+</html>
