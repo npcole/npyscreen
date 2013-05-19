@@ -178,6 +178,8 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         self.check_value_change=check_value_change
         self.check_cursor_move =check_cursor_move
         self.hidden = hidden
+        self.interested_in_mouse_even_when_not_editable = False# used only for rare widgets to allow user to click
+                                                        # even if can't actually select the widget.  See mutt-style forms
         try:
             self.parent = weakref.proxy(screen)
         except TypeError:
@@ -473,7 +475,7 @@ big a given widget is ... use .height and .width instead"""
         self.try_adjust_widgets()
             
     def intersted_in_mouse_event(self, mouse_event):
-        if not self.editable:
+        if not self.editable and not self.interested_in_mouse_even_when_not_editable:
             return False
         mouse_id, x, y, z, bstate = mouse_event
         if self.relx <= x <= self.relx + self.width-1 + self.parent.show_atx:
