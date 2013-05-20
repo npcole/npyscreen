@@ -10,7 +10,7 @@ from npyscreen import TextTokens, TitleTextTokens
 
 class TextBoxForm(Form):
     def create(self):
-        tb = self.add(TextTokens, name="TokenField")
+        tb = self.add(TextTokens, name="TokenField", )#max_width=25)
         tb.value = [
                     "Token 1 Testing", 
                     "Token 2 ééé", 
