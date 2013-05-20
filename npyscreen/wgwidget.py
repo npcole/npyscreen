@@ -478,6 +478,8 @@ big a given widget is ... use .height and .width instead"""
         if not self.editable and not self.interested_in_mouse_even_when_not_editable:
             return False
         mouse_id, x, y, z, bstate = mouse_event
+        x += self.parent.show_from_x
+        y += self.parent.show_from_y
         if self.relx <= x <= self.relx + self.width-1 + self.parent.show_atx:
             if self.rely  <= y <= self.rely + self.height-1 + self.parent.show_aty:
                 return True
@@ -489,6 +491,8 @@ big a given widget is ... use .height and .width instead"""
     
     def interpret_mouse_event(self, mouse_event):
         mouse_id, x, y, z, bstate = mouse_event
+        x += self.parent.show_from_x
+        y += self.parent.show_from_y
         rel_y       = y - self.rely - self.parent.show_aty
         rel_x = x - self.relx - self.parent.show_atx
         return (mouse_id, rel_x, rel_y, z, bstate)
