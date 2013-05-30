@@ -372,8 +372,8 @@ object to be passed to the contained widget."""
         if self.value == None:
             return None
         else:
-            return self.values[self.value]
-            
+            return [self.values[x] for x in self.value]
+                        
     def handle_mouse_event(self, mouse_event):
         # unfinished
         #mouse_id, x, y, z, bstate = mouse_event
