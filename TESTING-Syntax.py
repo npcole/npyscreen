@@ -6,11 +6,28 @@ import npyscreen
 
 class SyntaxTest(npyscreen.Textfield):
     def update_highlighting(self, start, end):
-        self._highlightingdata = [curses.A_BOLD, curses.A_BOLD, curses.A_BOLD]
+        # highlighting color
+        hl_color  = self.parent.theme_manager.findPair(self, 'IMPORTANT')
+        hl_colorb = self.parent.theme_manager.findPair(self, 'WARNING')
+        hl_colorc = self.parent.theme_manager.findPair(self, 'CRITICAL')
+        
+        self._highlightingdata = [curses.A_BOLD, 
+                        curses.A_BOLD,
+                        hl_color,
+                        hl_color,
+                        hl_color,
+                        hl_color,
+                        hl_colorb,
+                        hl_colorb,
+                        hl_colorc,
+                        hl_colorc,
+                        hl_colorc,
+                        hl_colorc,
+        ]
 
-class SyntaxTestMultiline(npyscreen.MultiLineEdit):
-    def update_highlighting(self, start, end):
-        self._highlightingdata = [curses.A_BOLD, curses.A_BOLD, curses.A_BOLD]
+#class SyntaxTestMultiline(npyscreen.MultiLineEdit):
+#    def update_highlighting(self, start, end):
+#        self._highlightingdata = [curses.A_BOLD, curses.A_BOLD, curses.A_BOLD]
 
 
 
