@@ -11,6 +11,8 @@ from . import wgwidget_proto
 import locale
 import warnings
 
+from .globals import DEBUG
+
 
 EXITED_DOWN  =  1
 EXITED_UP    = -1
@@ -549,52 +551,58 @@ big a given widget is ... use .height and .width instead"""
         N.B. This will return a unicode string on python 3 and a utf-8 string
         on python2
         """
-        if not this_string: 
-            return ""
-        #this_string = str(this_string)
-        # In python 3
-        #if sys.version_info[0] >= 3:
-        #    return this_string.replace('\n', ' ')
-        if self.__class__._SAFE_STRING_STRIPS_NL == True:
-            rtn_value = this_string.replace('\n', ' ')
-        else:
-            rtn_value = this_string
-        
-        # Does the terminal want ascii?
-        if self._force_ascii:
-            if isinstance(rtn_value, bytes):
-                # no it isn't.
-                try:
-                    rtn_value = rtn_value.decode(self.encoding, 'replace')
-                except TypeError:
-                    # Python2.6
-                    rtn_value = rtn_value.decode(self.encoding, 'replace')
+        try:
+            if not this_string: 
+                return ""
+            #this_string = str(this_string)
+            # In python 3
+            #if sys.version_info[0] >= 3:
+            #    return this_string.replace('\n', ' ')
+            if self.__class__._SAFE_STRING_STRIPS_NL == True:
+                rtn_value = this_string.replace('\n', ' ')
             else:
+                rtn_value = this_string
+        
+            # Does the terminal want ascii?
+            if self._force_ascii:
+                if isinstance(rtn_value, bytes):
+                    # no it isn't.
+                    try:
+                        rtn_value = rtn_value.decode(self.encoding, 'replace')
+                    except TypeError:
+                        # Python2.6
+                        rtn_value = rtn_value.decode(self.encoding, 'replace')
+                else:
+                    if sys.version_info[0] >= 3:
+                        # even on python3, in this case, we want a string that
+                        # contains only ascii chars - but in unicode, so:
+                        rtn_value = rtn_value.encode('ascii', 'replace').decode()
+                        return rtn_value     
+                    else:
+                        return rtn_value.encode('ascii', 'replace')
+                return rtn_value
+            # If not....
+            if not GlobalOptions.ASCII_ONLY:
+                # is the string already unicode?
+                if isinstance(rtn_value, bytes):
+                    # no it isn't.
+                    try:
+                        rtn_value = rtn_value.decode(self.encoding, 'replace')
+                    except:
+                        # Python2.6
+                        rtn_value = rtn_value.decode(self.encoding, 'replace')
                 if sys.version_info[0] >= 3:
-                    # even on python3, in this case, we want a string that
-                    # contains only ascii chars - but in unicode, so:
-                    rtn_value = rtn_value.encode('ascii', 'replace').decode()
                     return rtn_value     
                 else:
-                    return rtn_value.encode('ascii', 'replace')
-            return rtn_value
-        # If not....
-        if not GlobalOptions.ASCII_ONLY:
-            # is the string already unicode?
-            if isinstance(rtn_value, bytes):
-                # no it isn't.
-                try:
-                    rtn_value = rtn_value.decode(self.encoding, 'replace')
-                except:
-                    # Python2.6
-                    rtn_value = rtn_value.decode(self.encoding, 'replace')
-            if sys.version_info[0] >= 3:
-                return rtn_value     
+                    return rtn_value.encode('utf-8', 'replace')
             else:
-                return rtn_value.encode('utf-8', 'replace')
-        else:
-            rtn = self.safe_filter(this_string)
-            return rtn
+                rtn = self.safe_filter(this_string)
+                return rtn
+        except:
+            if DEBUG:
+                raise
+            else:
+                return "*ERROR DISPLAYING STRING*"
     
     def safe_filter(self, this_string):
         try:
