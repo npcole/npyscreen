@@ -2,3 +2,7 @@ syntax: glob
 
 *.pyc
 example-addressbook.db
+*.gz
+*.asc
+*.gpg
+*.sig
