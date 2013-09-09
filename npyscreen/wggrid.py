@@ -207,7 +207,8 @@ Should accept one argument (the object to be represented), and return a string."
             self.h_scroll_right(inpt)
     
     def h_move_line_down(self, inpt):
-        if self.edit_cell[0] <= (len(self.values) -2) and (len(self.values[self.edit_cell[0]+1]) > self.edit_cell[1]):
+        if self.edit_cell[0] <= (len(self.values) -2) \
+        and (len(self.values[self.edit_cell[0]+1]) > self.edit_cell[1]):
             self.edit_cell[0] += 1
         if self.begin_row_display_at  + len(self._my_widgets) - 1 < self.edit_cell[0]:
             self.h_scroll_display_down(inpt)
