@@ -141,9 +141,11 @@ class TextfieldBase(widget.Widget):
         #The following appears to work for unicode as well.
         try:
             #char_under_cur = self.value[self.cursor_position] #use the real value
-            char_under_cur = self._get_string_to_print()[self.cursor_position] 
+            char_under_cur = self._get_string_to_print()[self.cursor_position]
             char_under_cur = self.safe_string(char_under_cur)
         except IndexError:
+            char_under_cur = ' '
+        except TypeError:
             char_under_cur = ' '
         if self.do_colors():
             self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, self.parent.theme_manager.findPair(self) | curses.A_STANDOUT)

@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from .globals                    import DEBUG
+
 from .npyssafewrapper           import wrapper, wrapper_basic
 
 from   .npysThemeManagers       import ThemeManager, disableColor, enableColor
