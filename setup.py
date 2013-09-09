@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre78",
+	version="2.0pre79",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -36,7 +36,7 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
-Version 2.0pre78 is a bugfix release.
+Version 2.0pre79 is a bugfix release.
 
 Version 2.0pre76 further improves the handling of mouse events on compatible
 terminals.
