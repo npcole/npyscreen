@@ -140,7 +140,8 @@ class TextfieldBase(widget.Widget):
         #self.parent.curses_pad.addch(self.rely, self.cursor_position - self.begin_at + self.relx, char_under_cur, curses.A_STANDOUT)
         #The following appears to work for unicode as well.
         try:
-            char_under_cur = self.value[self.cursor_position] #use the real value
+            #char_under_cur = self.value[self.cursor_position] #use the real value
+            char_under_cur = self._string_to_print[self.cursor_position] # Set in self._print()
             char_under_cur = self.safe_string(char_under_cur)
         except IndexError:
             char_under_cur = ' '
@@ -256,7 +257,7 @@ class TextfieldBase(widget.Widget):
                     )
                 column += width_of_char_to_print
                 place_in_string += 1
-
+        self._string_to_print = string_to_print
     
     
     
