@@ -141,7 +141,7 @@ class TextfieldBase(widget.Widget):
         #The following appears to work for unicode as well.
         try:
             #char_under_cur = self.value[self.cursor_position] #use the real value
-            char_under_cur = self._string_to_print[self.cursor_position] # Set in self._print()
+            char_under_cur = self._get_string_to_print()[self.cursor_position] 
             char_under_cur = self.safe_string(char_under_cur)
         except IndexError:
             char_under_cur = ' '
@@ -194,8 +194,25 @@ class TextfieldBase(widget.Widget):
         else:
             return ch.encode('utf-8', 'strict')
     
-    def _print(self):
+    def _get_string_to_print(self):
         string_to_print = self.display_value(self.value)
+        if not string_to_print:
+            return None
+        string_to_print = string_to_print[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
+        
+        if sys.version_info[0] >= 3:
+            string_to_print = self.display_value(self.value)[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
+        else:
+            # ensure unicode only here encoding here.
+            dv = self.display_value(self.value)
+            if isinstance(dv, bytes):
+                dv = dv.decode(self.encoding, 'replace')
+            string_to_print = dv[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
+        return string_to_print
+    
+    
+    def _print(self):
+        string_to_print = self._get_string_to_print()
         if not string_to_print:
             return None
         string_to_print = string_to_print[self.begin_at:self.maximum_string_length+self.begin_at-self.left_margin]
@@ -257,7 +274,6 @@ class TextfieldBase(widget.Widget):
                     )
                 column += width_of_char_to_print
                 place_in_string += 1
-        self._string_to_print = string_to_print
     
     
     
