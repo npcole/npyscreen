@@ -839,6 +839,8 @@ The following functions allow you to display a brief message or choice to the us
     
 *notify_yes_no(message, title="Message", form_color='STANDOUT', wrap=True, editw = 0)*
     Similar to *notify_ok_cancel* except the names of the buttons are 'Yes' and 'No'.
+    
+
 
 
 Writing More Complex Forms
