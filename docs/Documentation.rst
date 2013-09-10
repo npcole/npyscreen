@@ -841,6 +841,11 @@ The following functions allow you to display a brief message or choice to the us
     Similar to *notify_ok_cancel* except the names of the buttons are 'Yes' and 'No'.
     
 
+The following function will display a dialog box for the user to select a filename.
+
+*selectFile(select_dir=False, must_exist=False, confirm_if_exists=True,sort_by_extension=True,)*
+    This form is currently experimental.
+    
 
 
 Writing More Complex Forms
