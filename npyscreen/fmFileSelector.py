@@ -151,21 +151,8 @@ class FileSelector(fmFormMutt.FormMutt):
         file_list.sort()
         file_list.sort(key=os.path.isdir, reverse=True)
         
+        self.wMain.set_grid_values_from_flat_list(file_list, reset_cursor=False)
                 
-        file_list_cols    = [ [], ]
-        column_number_max = self.wMain.columns
-        col_number        = 0
-        row_number        = 0
-        for f in file_list:
-            if col_number >= column_number_max:
-                col_number = 0
-                file_list_cols.append([])
-                row_number += 1
-            file_list_cols[row_number].append(f)    
-            col_number += 1
-        
-        self.wMain.values = file_list_cols
-        self.edit_cell = [0,0]
         self.display()
         
     def adjust_widgets(self):

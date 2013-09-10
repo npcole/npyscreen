@@ -34,6 +34,25 @@ class SimpleGrid(widget.Widget):
             self.values = None
         else:
             self.values = values
+            
+    def set_grid_values_from_flat_list(self, new_values, max_cols=None, reset_cursor=True):
+        if not max_cols:
+            max_cols = self.columns
+        grid_values = [ [], ]
+        col_number        = 0
+        row_number        = 0
+        for f in new_values:
+            if col_number >= max_cols:
+                col_number = 0
+                grid_values.append([])
+                row_number += 1
+            grid_values[row_number].append(f)    
+            col_number += 1
+        self.values = grid_values
+        if reset_cursor:
+            self.edit_cell = [0,0]
+        
+        
 
     def make_contained_widgets(self):
         if self.column_width_requested:
