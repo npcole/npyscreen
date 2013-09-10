@@ -609,7 +609,11 @@ Grids
 SimpleGrid
     This offers a spreadsheet-like display.  The default is only intended to display information (in a grid of text-fields).  However, it is designed to be flexible and easy to customize to display a variety of different data.  Future versions may include new types of grids.  Note that you can control the look of the grid by specifying either *columns* or *column_width* at the time the widget is created.  It may be that in the future the other multi-line classes will be derived from this class.
 
+    The cursor location is specified in the attribute *.edit_cell*.  Note that this follows the (odd) curses convention of specifying the row, then the column.
+
     *values* should be specified as a two-dimensional array.
+    
+    The convenience function *set_grid_values_from_flat_list(new_values, max_cols=None, reset_cursor=True) takes a flat list and displays it on the grid.
 
 GridColTitles
     Like the simple grid, but uses the first two lines of the display to display the column titles.  These can be provided as a *col_titles* argument at the time of construction, or by setting the *col_titles* attribute at any time.  In either case, provide a list of strings.
