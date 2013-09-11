@@ -196,8 +196,10 @@ class FileSelector(fmFormMutt.FormMutt):
         file_list = []
         if os.path.abspath(os.path.join(working_dir, '..')) != os.path.abspath(working_dir):
             file_list.append('..')
-        file_list.extend([os.path.join(working_dir, fn) for fn in os.listdir(working_dir)])
-
+        try:
+            file_list.extend([os.path.join(working_dir, fn) for fn in os.listdir(working_dir)])
+        except OSError:
+            utilNotify.notify_wait(title="Error", message="Could not read specified directory.")
         # DOES NOT CURRENTLY WORK - EXCEPT FOR THE WORKING DIRECTORY.  REFACTOR.
         new_file_list= []
         for f in file_list:
