@@ -502,7 +502,7 @@ FilenameCombo, TitleFilenameCombo
     This presents a control for picking filenames.  The following arguments can be passed in to the constructor::
         
         select_dir=False
-        must_exist=True
+        must_exist=False
         confirm_if_exists=False
         sort_by_extension=True
         

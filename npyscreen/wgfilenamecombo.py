@@ -8,7 +8,7 @@ class FilenameCombo(wgcombobox.ComboBox):
     def __init__(self, screen,
     # The following are all options taken from the FileSelector
     select_dir=False, #Select a dir, not a file
-    must_exist=True, #Selected File must already exist
+    must_exist=False, #Selected File must already exist
     confirm_if_exists=False,
     sort_by_extension=True,
     *args, **keywords):
