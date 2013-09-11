@@ -21,7 +21,7 @@ class FilenameCombo(wgcombobox.ComboBox):
         
     def _print(self):
         if self.value == None:
-            printme = '-unset-'
+            printme = '- Unset -'
         else:
             try:
                 printme = self.display_value(self.value)
@@ -42,7 +42,10 @@ class FilenameCombo(wgcombobox.ComboBox):
             confirm_if_exists = self.confirm_if_exists,
             sort_by_extension = self.sort_by_extension
         )
+        if self.value == '':
+            self.value = None
         self.display()
+        
 
 class TitleFilenameCombo(wgcombobox.TitleCombo):
     _entry_type = FilenameCombo
