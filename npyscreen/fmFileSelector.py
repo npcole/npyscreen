@@ -147,14 +147,15 @@ class FileSelector(fmFormMutt.FormMutt):
             self.value = os.getcwd()
     
     def try_exit(self):
-        self.wCommand.value = os.path.join(self.value, self.wCommand.value)
-        self.wCommand.value = os.path.expanduser(self.wCommand.value)
-        self.wCommand.value = os.path.abspath(self.wCommand.value)
-        
         if not self.wCommand.value:
             self.value=''
             self.exit_editing()
             return None
+        
+        self.wCommand.value = os.path.join(self.value, self.wCommand.value)
+        self.wCommand.value = os.path.expanduser(self.wCommand.value)
+        self.wCommand.value = os.path.abspath(self.wCommand.value)
+        
         
         self.value = self.wCommand.value
         
@@ -240,6 +241,6 @@ def selectFile(starting_value=None, *args, **keywords):
         F.value = os.getcwd()
     F.update_grid()
     F.display()
-    F.edit()
+    F.edit()    
     return F.wCommand.value
         
