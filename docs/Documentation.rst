@@ -498,6 +498,20 @@ DateCombo, TitleDateCombo
 ComboBox, TitleCombo
     This box looks like a Textbox, but the user can only select from a list of options.  Which are displayed in a temporary window if the user wants to change the value.  Like the MultiLine widget, the attribute *value* is the index of a selection in the list *values*.  The ComboBox widget can also be customised by overloading the *display_value(self, vl)* method. 
 
+FilenameCombo, TitleFilenameCombo
+    This presents a control for picking filenames.  The following arguments can be passed in to the constructor::
+        
+        select_dir=False
+        must_exist=True
+        confirm_if_exists=False
+        sort_by_extension=True
+        
+    These also correspond to attributes on the widget that can be set at any time.
+    
+    This widget was added in version 2.0pre81.
+        
+
+
 Slider, TitleSlider
    Slider presents a horizontal slider.  The following additional arguments to the constructor are useful:
 

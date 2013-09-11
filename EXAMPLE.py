@@ -10,6 +10,7 @@ class TestApp(npyscreen.NPSApp):
         F  = npyscreen.Form(name = "Welcome to Npyscreen",)
         t  = F.add(npyscreen.TitleText, name = "Text:",)
         fn = F.add(npyscreen.TitleFilename, name = "Filename:")
+        fn2 = F.add(npyscreen.TitleFilenameCombo, name="Filename2:")
         dt = F.add(npyscreen.TitleDateCombo, name = "Date:")
         s  = F.add(npyscreen.TitleSlider, out_of=12, name = "Slider")
         ml = F.add(npyscreen.MultiLineEdit, 
