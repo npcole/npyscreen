@@ -237,6 +237,7 @@ def selectFile(starting_value=None, *args, **keywords):
             F.value = os.getcwd()
         else:
             F.value = starting_value
+            F.wCommand.value = starting_value
     else:
         F.value = os.getcwd()
     F.update_grid()

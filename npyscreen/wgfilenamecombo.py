@@ -1,9 +1,6 @@
 from . import fmFileSelector
 from . import wgcombobox
 
-
-#UNFINISHED
-
 class FilenameCombo(wgcombobox.ComboBox):
     def __init__(self, screen,
     # The following are all options taken from the FileSelector
