@@ -34,6 +34,25 @@ class SimpleGrid(widget.Widget):
             self.values = None
         else:
             self.values = values
+            
+    def set_grid_values_from_flat_list(self, new_values, max_cols=None, reset_cursor=True):
+        if not max_cols:
+            max_cols = self.columns
+        grid_values = [ [], ]
+        col_number        = 0
+        row_number        = 0
+        for f in new_values:
+            if col_number >= max_cols:
+                col_number = 0
+                grid_values.append([])
+                row_number += 1
+            grid_values[row_number].append(f)    
+            col_number += 1
+        self.values = grid_values
+        if reset_cursor:
+            self.edit_cell = [0,0]
+        
+        
 
     def make_contained_widgets(self):
         if self.column_width_requested:
@@ -207,7 +226,8 @@ Should accept one argument (the object to be represented), and return a string."
             self.h_scroll_right(inpt)
     
     def h_move_line_down(self, inpt):
-        if self.edit_cell[0] <= len(self.values) -2:
+        if self.edit_cell[0] <= (len(self.values) -2) \
+        and (len(self.values[self.edit_cell[0]+1]) > self.edit_cell[1]):
             self.edit_cell[0] += 1
         if self.begin_row_display_at  + len(self._my_widgets) - 1 < self.edit_cell[0]:
             self.h_scroll_display_down(inpt)
