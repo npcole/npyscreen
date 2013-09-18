@@ -15,7 +15,7 @@ from   .fmFormWithMenus         import FormWithMenus, ActionFormWithMenus, \
                                        FormBaseNewWithMenus, SplitFormWithMenus
 from   .fmPopup                 import Popup, MessagePopup, ActionPopup, PopupWide, ActionPopupWide
 from   .fmFormMutt              import FormMutt, FormMuttWithMenus
-from   .fmFileSelector          import FileSelector
+from   .fmFileSelector          import FileSelector, selectFile
 
 from .fmFormMuttActive          import ActionControllerSimple, TextCommandBox, \
                                        FormMuttActive, FormMuttActiveWithMenus
@@ -60,6 +60,7 @@ from .wgmultilinetree           import MLTree, MLTreeAnnotated, MLTreeAction, ML
 # experimental
 from .wgmultilinetreeselectable import MLTreeMultiSelect, TreeLineSelectable
 from .wgmultilinetreeselectable import MLTreeMultiSelectAnnotated, TreeLineSelectableAnnotated
+from .wgfilenamecombo           import FilenameCombo, TitleFilenameCombo
 
 
 from .wgmonthbox                import MonthBox

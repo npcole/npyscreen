@@ -98,6 +98,8 @@ class FileGrid(wggrid.SimpleGrid):
         self.parent.wCommand.value = select_file
         self.parent.update_grid()
         self.edit_cell = [0, 0]
+        self.begin_row_display_at = 0
+        self.begin_col_display_at = 0
         return True
         
     

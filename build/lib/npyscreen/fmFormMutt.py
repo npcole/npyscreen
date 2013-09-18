@@ -30,7 +30,7 @@ class FormMutt(fmForm.FormBaseNew):
     def draw_form(self):
         MAXY, MAXX = self.lines, self.columns #self.curses_pad.getmaxyx()
         self.curses_pad.hline(0, 0, curses.ACS_HLINE, MAXX-1)  
-        self.curses_pad.hline(MAXY-2, 0, curses.ACS_HLINE, MAXX-1)  
+        self.curses_pad.hline(MAXY-2-self.BLANK_LINES_BASE, 0, curses.ACS_HLINE, MAXX-1)  
 
     def create(self):
         MAXY, MAXX    = self.lines, self.columns
@@ -43,18 +43,18 @@ class FormMutt(fmForm.FormBaseNew):
                                         rely=self.__class__.MAIN_WIDGET_CLASS_START_LINE,  
                                         relx=0,     max_height = -2,
                                         )
-        self.wStatus2 = self.add(self.__class__.STATUS_WIDGET_CLASS,  rely=MAXY-2, 
+        self.wStatus2 = self.add(self.__class__.STATUS_WIDGET_CLASS,  rely=MAXY-2-self.BLANK_LINES_BASE, 
                                         relx=self.__class__.STATUS_WIDGET_X_OFFSET,
                                         editable=False,  
                                         )
         
         if not self.__class__.COMMAND_WIDGET_BEGIN_ENTRY_AT:
             self.wCommand = self.add(self.__class__.COMMAND_WIDGET_CLASS, name=self.__class__.COMMAND_WIDGET_NAME,
-                                    rely = MAXY-1, relx=0,)
+                                    rely = MAXY-1-self.BLANK_LINES_BASE, relx=0,)
         else:
             self.wCommand = self.add(
                 self.__class__.COMMAND_WIDGET_CLASS, name=self.__class__.COMMAND_WIDGET_NAME,
-                                    rely = MAXY-1, relx=0,
+                                    rely = MAXY-1-self.BLANK_LINES_BASE, relx=0,
                                     begin_entry_at = self.__class__.COMMAND_WIDGET_BEGIN_ENTRY_AT,
                                     allow_override_begin_entry_at = self.__class__.COMMAND_ALLOW_OVERRIDE_BEGIN_ENTRY_AT
                                     )
