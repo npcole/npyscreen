@@ -105,10 +105,36 @@ class MenuDisplayFullScreen(MenuViewerController):
         super(MenuDisplayFullScreen, self).__init__(*args, **keywords)
 
 
+# This needs redoing so that all of the intelligence is moved to this widget,
+# which should display the menu items themselves, not strings.
+#class wgMenuListWithShortCuts(multiline.MultiLineAction):
+#    def handle_input(self, _input):
+#        decoded_input = curses.ascii.unctrl(_input)
+#        for entry_index in range(len(self.values)):
+#            if _input == self.values[entry_index].shortcut or \
+#            decoded_input == self.values[entry_index].shortcut:
+#                self.cursor_line = entry_index
+#                self.h_select_exit(_input)
+#                return True
+#        return super(wgMenuListWithShortCuts, self).handle_input(_input)
+#    
+#    def display_value(self, vl):
+#        if  vl.onSelect is self.parent._returnToPrevious:
+#            return self.safe_string('<-- Back')
+#        elif isinstance(vl, NewMenu.NewMenu):
+#            return self.safe_string('%s -->' % itm.name)
+#        else:
+#            return self.safe_string(itm.getText())
+#    
+#    def actionHighlighted(self, act_on_this, keypress):
+#        pass
+
+
 class MenuDisplayScreen(Form.Form):
     def __init__(self, *args, **keywords):
         super(MenuDisplayScreen, self).__init__(*args, **keywords)
         self._menuListWidget = self.add(multiline.MultiLine, return_exit=True)
+        #self._menuListWidget = self.add(wgMenuListWithShortCuts, return_exit=True)
         self._menuListWidget.add_handlers({
             ord('q'):       self._menuListWidget.h_exit_down,
             ord('Q'):       self._menuListWidget.h_exit_down,
