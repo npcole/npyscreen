@@ -13,8 +13,8 @@ class AnnotateTextboxBase(wgwidget.Widget):
         self.annotation_color = annotation_color
         super(AnnotateTextboxBase, self).__init__(screen, **keywords)
         
-        self.text_area = Textfield(screen, rely=self.rely, relx=self.relx+self.ANNOTATE_WIDTH, 
-                      width=self.width-self.ANNOTATE_WIDTH, value=self.name)
+        self._init_text_area()
+        
         if hasattr(self, 'display_value'):
             self.text_area.display_value = self.display_value
         self.show_bold = False
@@ -22,16 +22,26 @@ class AnnotateTextboxBase(wgwidget.Widget):
         self.important = False
         self.hide      = False
     
+    def _init_text_area(self):
+        self.text_area = Textfield(screen, rely=self.rely, relx=self.relx+self.ANNOTATE_WIDTH, 
+                      width=self.width-self.ANNOTATE_WIDTH, value=self.name)
+    
+    def _display_annotation_at(self):
+        return (self.rely, self.relx)
+        
+    
     def getAnnotationAndColor(self):
         return ('xxx', 'CONTROL')
     
     def annotationColor(self):
+        displayy, displayx = self._display_annotation_at()
         _annotation, _color = self.getAnnotationAndColor()
-        self.parent.curses_pad.addstr(self.rely, self.relx, _annotation, self.parent.theme_manager.findPair(self, _color))
+        self.parent.curses_pad.addnstr(displayy, displayx, _annotation, self.ANNOTATE_WIDTH, self.parent.theme_manager.findPair(self, _color))
 
     def annotationNoColor(self):
+        displayy, displayx = self._display_annotation_at()
         _annotation, _color = self.getAnnotationAndColor()
-        self.parent.curses_pad.addstr(self.rely, self.relx, _annotation)
+        self.parent.curses_pad.addnstr(displayy, displayx, _annotation, self.ANNOTATE_WIDTH)
 
     def update(self, clear=True):
         if clear: 
@@ -75,6 +85,13 @@ class AnnotateTextboxBase(wgwidget.Widget):
     def calculate_area_needed(self):
         return 1,0
     
-
-
+class AnnotateTextboxBaseRight(AnnotateTextboxBase):
+    def _init_text_area(self):
+        self.text_area = Textfield(screen, rely=self.rely, relx=self.relx, 
+                      width=self.width-self.ANNOTATE_WIDTH, value=self.name)
+    
+    def _display_annotation_at(self):
+        return (self.rely, self.relx+self.width-self.ANNOTATE_WIDTH)
+    
+    
 
