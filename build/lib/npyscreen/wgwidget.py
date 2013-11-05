@@ -104,6 +104,13 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
         for pair in handlers_list:
             assert len(pair) == 2
         self.complex_handlers.extend(handlers_list)
+        
+    def remove_complex_handler(self, test_function):
+        _new_list = []
+        for pair in self.complex_handlers:
+            if not pair[0] == test_function:
+                _new_list.append(pair)
+        self.complex_handlers = _new_list
 
 ###########################################################################################
 # Handler Methods here - npc convention - prefix with h_

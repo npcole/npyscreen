@@ -5,10 +5,11 @@ import weakref
 
 class NewMenu(object):
     """docstring for NewMenu"""
-    def __init__(self, name=None):
+    def __init__(self, name=None, shortcut=None):
         self.name      = name
         self._menuList = []
         self.enabled   = True
+        self.shortcut  = shortcut
     
     def addItemsFromList(self, item_list):
         for l in item_list:
@@ -37,10 +38,11 @@ class NewMenu(object):
 
 class MenuItem(object):
     """docstring for MenuItem"""
-    def __init__(self, text='', onSelect=None, document=None,):
+    def __init__(self, text='', onSelect=None, document=None, shortcut=None):
         self.setText(text)
         self.setOnSelect(onSelect)
         self.setDocumentation(document)
+        self.shortcut = shortcut
         self.enabled = True
         
     def setText(self, text):
