@@ -3,6 +3,8 @@
 from . import muNewMenu    as NewMenu
 from . import fmForm       as Form
 from . import wgmultiline  as multiline
+from . import wgannotatetextbox
+from . import utilNotify
 import weakref
 import curses
 
@@ -39,9 +41,9 @@ class MenuViewerController(object):
     def edit(self):
         try:
             if self._menu is None:
-                pass #raise ValueError("No Menu Set")
+                raise ValueError("No Menu Set")
         except AttributeError:
-            pass #raise ValueError("No Menu Set")
+            raise ValueError("No Menu Set")
         self._editing = True
         while self._editing:
             if self._menu is not None:
@@ -52,20 +54,22 @@ class MenuViewerController(object):
             _menulines = []
             _actionsToTake = []
             if len(self._menuStack) > 0:
-                _menulines.append('<-- Back')
+                _menulines.append(PreviousMenu())
                 _returnToPreviousSet = True
                 _actionsToTake.append((self._returnToPrevious, ))
             else:
                 _returnToPreviousSet = False
+            
             for itm in self._menu.getItemObjects():
                 if isinstance(itm, NewMenu.MenuItem):
-                    _menulines.append(itm.getText())
+                    _menulines.append(itm)
                     _actionsToTake.append((self._executeSelection, itm.do))
                 elif isinstance(itm, NewMenu.NewMenu):
-                    _menulines.append('%s -->' % itm.name)
+                    _menulines.append(itm)
                     _actionsToTake.append((self._goToSubmenu, itm))
                 else:
                     raise ValueError("menu %s contains objects I don't know how to handle." % self._menu.name)
+            
             
             self._DisplayArea._menuListWidget.values = _menulines
             self._DisplayArea.display()
@@ -89,6 +93,9 @@ class MenuViewerController(object):
         return _return_value
             
 
+class PreviousMenu(NewMenu.NewMenu):
+    pass
+
 
 class MenuDisplay(MenuViewerController):
     def __init__(self, color='CONTROL', lines=15, columns=36, show_atx=5, show_aty=2, *args, **keywords):
@@ -105,36 +112,50 @@ class MenuDisplayFullScreen(MenuViewerController):
         super(MenuDisplayFullScreen, self).__init__(*args, **keywords)
 
 
-# This needs redoing so that all of the intelligence is moved to this widget,
-# which should display the menu items themselves, not strings.
-#class wgMenuListWithShortCuts(multiline.MultiLineAction):
-#    def handle_input(self, _input):
-#        decoded_input = curses.ascii.unctrl(_input)
-#        for entry_index in range(len(self.values)):
-#            if _input == self.values[entry_index].shortcut or \
-#            decoded_input == self.values[entry_index].shortcut:
-#                self.cursor_line = entry_index
-#                self.h_select_exit(_input)
-#                return True
-#        return super(wgMenuListWithShortCuts, self).handle_input(_input)
-#    
-#    def display_value(self, vl):
-#        if  vl.onSelect is self.parent._returnToPrevious:
-#            return self.safe_string('<-- Back')
-#        elif isinstance(vl, NewMenu.NewMenu):
-#            return self.safe_string('%s -->' % itm.name)
-#        else:
-#            return self.safe_string(itm.getText())
-#    
-#    def actionHighlighted(self, act_on_this, keypress):
-#        pass
 
+class wgMenuLine(wgannotatetextbox.AnnotateTextboxBaseRight):
+    def getAnnotationAndColor(self,):
+        try:
+            if self.value.shortcut:
+                return (self.value.shortcut, 'LABEL')
+            else:
+                return ('', 'LABEL')
+        except AttributeError:
+            return ('', 'LABEL')
+    
+    def display_value(self, vl):
+        # if this function raises an exception, it gets masked.
+        # this is a bug.
+        if not vl:
+            return None
+        if isinstance(vl, PreviousMenu):
+            return '<-- Back'
+        elif isinstance(vl, NewMenu.NewMenu):
+            return ('%s -->' % self.safe_string(self.value.name))
+        elif isinstance(vl, NewMenu.MenuItem):
+            return self.safe_string(self.value.getText())
+        else:
+            return self.safe_string(str(self.value))
+            
+
+class wgMenuListWithSortCuts(multiline.MultiLineActionWithShortcuts):
+    _contained_widgets = wgMenuLine
+    #def actionHighlighted(self, act_on_this, key_press):
+    #    if isinstance(act_on_this, MenuItem):
+    #        return act_on_this.do()
+    #    else:
+    #        return act_on_this
+    def actionHighlighted(self, act_on_this, key_press):
+        return self.h_select_exit(key_press)
+    
+    def display_value(self, vl):
+        return vl
 
 class MenuDisplayScreen(Form.Form):
     def __init__(self, *args, **keywords):
         super(MenuDisplayScreen, self).__init__(*args, **keywords)
-        self._menuListWidget = self.add(multiline.MultiLine, return_exit=True)
-        #self._menuListWidget = self.add(wgMenuListWithShortCuts, return_exit=True)
+        #self._menuListWidget = self.add(multiline.MultiLine, return_exit=True)
+        self._menuListWidget = self.add(wgMenuListWithSortCuts, return_exit=True)
         self._menuListWidget.add_handlers({
             ord('q'):       self._menuListWidget.h_exit_down,
             ord('Q'):       self._menuListWidget.h_exit_down,

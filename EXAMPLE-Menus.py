@@ -15,7 +15,7 @@ class MainForm(npyscreen.FormWithMenus):
         # The menus are created here.
         self.m1 = self.add_menu(name="Main Menu")
         self.m1.addItemsFromList([
-            ("Just Beep",   self.whenJustBeep),
+            ("Just Beep",   self.whenJustBeep, "b"),
             ("Exit Application", self.exit_application),
         ])
         
@@ -24,7 +24,7 @@ class MainForm(npyscreen.FormWithMenus):
             ("Just Beep",   self.whenJustBeep),
         ])
         
-        self.m3 = self.m2.addNewSubmenu("A sub menu")
+        self.m3 = self.m2.addNewSubmenu("A sub menu", "^F")
         self.m3.addItemsFromList([
             ("Just Beep",   self.whenJustBeep),
         ])        

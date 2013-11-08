@@ -571,6 +571,30 @@ class MultiLineAction(MultiLine):
                     } )
 
     
+class MultiLineActionWithShortcuts(MultiLineAction):
+    shortcut_attribute_name = 'shortcut'
+    def set_up_handlers(self):
+        super(MultiLineActionWithShortcuts, self).set_up_handlers()
+        self.add_complex_handlers( ((self.h_find_shortcut_action, self.h_execute_shortcut_action),) )
+        
+        
+    def h_find_shortcut_action(self, _input):
+        _input_decoded = curses.ascii.unctrl(_input)
+        for r in range(len(self.values)):
+            if hasattr(self.values[r], self.shortcut_attribute_name):
+                from . import utilNotify
+                if getattr(self.values[r], self.shortcut_attribute_name) == _input \
+                or getattr(self.values[r], self.shortcut_attribute_name) == _input_decoded:
+                    return r
+        return False
+    
+    def h_execute_shortcut_action(self, _input):
+        l = self.h_find_shortcut_action(_input)
+        if l is False:
+            return None
+        self.cursor_line = l
+        self.display()
+        self.h_act_on_highlighted(_input)
     
     
         
