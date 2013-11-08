@@ -13,7 +13,7 @@ class AnnotateTextboxBase(wgwidget.Widget):
         self.annotation_color = annotation_color
         super(AnnotateTextboxBase, self).__init__(screen, **keywords)
         
-        self._init_text_area()
+        self._init_text_area(screen)
         
         if hasattr(self, 'display_value'):
             self.text_area.display_value = self.display_value
@@ -22,7 +22,7 @@ class AnnotateTextboxBase(wgwidget.Widget):
         self.important = False
         self.hide      = False
     
-    def _init_text_area(self):
+    def _init_text_area(self, screen):
         self.text_area = Textfield(screen, rely=self.rely, relx=self.relx+self.ANNOTATE_WIDTH, 
                       width=self.width-self.ANNOTATE_WIDTH, value=self.name)
     
@@ -86,7 +86,7 @@ class AnnotateTextboxBase(wgwidget.Widget):
         return 1,0
     
 class AnnotateTextboxBaseRight(AnnotateTextboxBase):
-    def _init_text_area(self):
+    def _init_text_area(self, screen):
         self.text_area = Textfield(screen, rely=self.rely, relx=self.relx, 
                       width=self.width-self.ANNOTATE_WIDTH, value=self.name)
     

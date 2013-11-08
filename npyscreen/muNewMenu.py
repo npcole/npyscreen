@@ -14,7 +14,7 @@ class NewMenu(object):
     def addItemsFromList(self, item_list):
         for l in item_list:
             if isinstance(l, MenuItem):
-                self.addNewSubmenu(l)
+                self.addNewSubmenu(*l)
             else:
                 self.addItem(*l)
 
@@ -38,7 +38,7 @@ class NewMenu(object):
 
 class MenuItem(object):
     """docstring for MenuItem"""
-    def __init__(self, text='', onSelect=None, document=None, shortcut=None):
+    def __init__(self, text='', onSelect=None, shortcut=None, document=None,):
         self.setText(text)
         self.setOnSelect(onSelect)
         self.setDocumentation(document)
@@ -64,4 +64,5 @@ class MenuItem(object):
         return self._help
     
     def do(self):
-        return self.onSelectFunction()
+        if self.onSelectFunction:
+            return self.onSelectFunction()
