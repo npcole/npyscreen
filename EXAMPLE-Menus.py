@@ -13,13 +13,13 @@ class MainForm(npyscreen.FormWithMenus):
         self.how_exited_handers[npyscreen.wgwidget.EXITED_ESCAPE]  = self.exit_application    
         
         # The menus are created here.
-        self.m1 = self.add_menu(name="Main Menu")
+        self.m1 = self.add_menu(name="Main Menu", shortcut="^F")
         self.m1.addItemsFromList([
-            ("Just Beep",   self.whenJustBeep, "b"),
-            ("Exit Application", self.exit_application),
+            ("Just Beep",   self.whenJustBeep, "e"),
+            ("Exit Application", self.exit_application, "X"),
         ])
         
-        self.m2 = self.add_menu(name="Another Menu")
+        self.m2 = self.add_menu(name="Another Menu", shortcut="b")
         self.m2.addItemsFromList([
             ("Just Beep",   self.whenJustBeep),
         ])

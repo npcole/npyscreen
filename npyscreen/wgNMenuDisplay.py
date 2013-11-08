@@ -173,10 +173,10 @@ class HasMenus(object):
         self.add_handlers({self.__class__.MENU_KEY: self.root_menu})
         
         
-    def new_menu(self, name=None):
+    def new_menu(self, name=None, *args, **keywords):
         if not hasattr(self, '_NMenuList'):
             self._NMenuList = []
-        _mnu = NewMenu.NewMenu(name=name)
+        _mnu = NewMenu.NewMenu(name=name, *args, **keywords)
         self._NMenuList.append(_mnu)
         return weakref.proxy(_mnu)
     

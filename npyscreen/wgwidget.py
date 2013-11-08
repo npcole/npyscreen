@@ -55,7 +55,7 @@ class InputHandler(object):
             return False
         else:
             for test, handler in self.complex_handlers:
-                if test(_input): 
+                if test(_input) is not False: 
                     handler(_input)
                     return True
         
