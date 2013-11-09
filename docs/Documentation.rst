@@ -322,10 +322,13 @@ Menus
 
 Some Form classes support the use of popup menus.  Menus could in theory be used as widgets on their own.  Popup menus (inspired, in fact, by the menu system in RiscOS) were selected instead of drop-down menus as being more suitable for a keyboard environment, making better use of available screen space and being easier to deploy on terminals of varied sizes.
 
-Menus are usually created by calling a (supporting) Form's *new_menu* method.  Thereafter, the following methods are useful:
+Menus are usually created by calling a (supporting) Form's *new_menu* method.  Version 2.0pre82 adds the argument *shortcut=None* to this method.  In the list of menus that the Form displays, this shortcut will be displayed.  After a menu has been created, the following methods on that object are useful:
 
 *addItem(text='', onSelect=function, shortcut=None)*
    *text* should be the string to be menu.  onSelect should be a function to be called if that item is selected by the user.  This is one of the few easy opportunities in npyscreen to create circular references - you may wish to pass in a proxy to a function instead.  I've tried to guard you against circular references as much as possible - but this is just one of those times I can't second-guess your application structure. Version 2.0pre82 adds the ability to add a shortcut. 
+   
+*addItemsFromList(text, function, [shortcut])*
+	The agument for this function should be a list or tuple. Each element of this should be a tuple of the arguments that are used for creating each item.
    
 *addNewSubmenu(name=None, shortcut=None)*
    Create a new submenu (returning a proxy to it).  This is the preferred way of creating submenus. Version 2.0pre82 adds the ability to add a keyboard shortcut.
