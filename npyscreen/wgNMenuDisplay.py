@@ -117,7 +117,7 @@ class wgMenuLine(wgannotatetextbox.AnnotateTextboxBaseRight):
     def getAnnotationAndColor(self,):
         try:
             if self.value.shortcut:
-                return (self.value.shortcut, 'LABEL')
+                return (self.safe_string(self.value.shortcut), 'LABEL')
             else:
                 return ('', 'LABEL')
         except AttributeError:
