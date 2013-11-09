@@ -9,7 +9,7 @@ class MyTestApp(npyscreen.NPSAppManaged):
 
 class MainForm(npyscreen.FormWithMenus):
     def create(self):
-        self.add(npyscreen.TitleText, name = "Text:", value= "Press Escape to quit application" )
+        self.add(npyscreen.TitleText, name = "Text:", value= "Just some text." )
         self.how_exited_handers[npyscreen.wgwidget.EXITED_ESCAPE]  = self.exit_application    
         
         # The menus are created here.
