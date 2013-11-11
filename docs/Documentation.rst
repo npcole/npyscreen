@@ -443,10 +443,14 @@ Autocomplete
 
    Of course, context is everything here.  *Autocomplete* is therefore not useful, but is intended as something you can subclass.  See the Filename and TitleFilename classes for examples. 
 
-TitleFilename, Filename
+Filename, TitleFilename
    A textbox that will attempt to 'complete' a filename or path entered by the user.
    
    This is an example of the *Autocomplete* widget.
+
+FilenameCombo, TitleFilenameCombo
+	This is a more advanced way to select files.  New in version 2.0pre82.
+
 
 MultiLineEdit
    This widget allows the user to edit several lines of text. 
