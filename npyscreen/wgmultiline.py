@@ -405,16 +405,23 @@ object to be passed to the contained widget."""
                     ord('g'):       self.h_cursor_beginning,
                     ord('G'):       self.h_cursor_end,
                     ord('x'):       self.h_select,
-                    ord('l'):       self.h_set_filter,
-                    ord('L'):       self.h_clear_filter,
-                    ord('n'):       self.move_next_filtered,
-                    ord('N'):       self.move_previous_filtered,
-                    ord('p'):       self.move_previous_filtered,
                     # "^L":        self.h_set_filtered_to_selected,
                     curses.ascii.SP:    self.h_select,
                     curses.ascii.ESC:   self.h_exit_escape,
                     curses.ascii.CR:    self.h_select_exit,
                 } )
+                
+        if self.allow_filtering:
+            self.handlers.update ( {
+                ord('l'):       self.h_set_filter,
+                ord('L'):       self.h_clear_filter,
+                ord('n'):       self.move_next_filtered,
+                ord('N'):       self.move_previous_filtered,
+                ord('p'):       self.move_previous_filtered,
+                # "^L":        self.h_set_filtered_to_selected,
+                
+            } )
+            
                 
         if self.exit_left:
             self.handlers.update({

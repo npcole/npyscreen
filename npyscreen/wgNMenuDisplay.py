@@ -98,7 +98,7 @@ class PreviousMenu(NewMenu.NewMenu):
 
 
 class MenuDisplay(MenuViewerController):
-    def __init__(self, color='CONTROL', lines=15, columns=36, show_atx=5, show_aty=2, *args, **keywords):
+    def __init__(self, color='CONTROL', lines=15, columns=41, show_atx=5, show_aty=2, *args, **keywords):
         self._DisplayArea = MenuDisplayScreen(lines=lines, 
                                     columns=columns, 
                                     show_atx=show_atx, 
@@ -140,6 +140,9 @@ class wgMenuLine(wgannotatetextbox.AnnotateTextboxBaseRight):
 
 class wgMenuListWithSortCuts(multiline.MultiLineActionWithShortcuts):
     _contained_widgets = wgMenuLine
+    def __init__(self, screen,  allow_filtering=False, *args, **keywords):
+        return super(wgMenuListWithSortCuts, self).__init__(screen, allow_filtering=allow_filtering, *args, **keywords)
+    
     #def actionHighlighted(self, act_on_this, key_press):
     #    if isinstance(act_on_this, MenuItem):
     #        return act_on_this.do()
@@ -164,9 +167,14 @@ class MenuDisplayScreen(Form.Form):
         })
         
 class HasMenus(object):
-    MENU_KEY = "^X"
+    MENU_KEY          = "^X"
+    MENU_DISPLAY_TYPE = MenuDisplay
+    MENU_WIDTH        = None
     def initialize_menus(self):
-        self._NMDisplay = MenuDisplay()
+        if self.MENU_WIDTH:
+            self._NMDisplay = self.MENU_DISPLAY_TYPE(columns=self.MENU_WIDTH)
+        else:
+            self._NMDisplay = self.MENU_DISPLAY_TYPE()
         if not hasattr(self, '_NMenuList'):
             self._NMenuList = []
         self._MainMenu  = NewMenu.NewMenu
