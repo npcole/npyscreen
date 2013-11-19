@@ -98,7 +98,7 @@ class PreviousMenu(NewMenu.NewMenu):
 
 
 class MenuDisplay(MenuViewerController):
-    def __init__(self, color='CONTROL', lines=15, columns=41, show_atx=5, show_aty=2, *args, **keywords):
+    def __init__(self, color='CONTROL', lines=15, columns=39, show_atx=5, show_aty=2, *args, **keywords):
         self._DisplayArea = MenuDisplayScreen(lines=lines, 
                                     columns=columns, 
                                     show_atx=show_atx, 
@@ -114,6 +114,7 @@ class MenuDisplayFullScreen(MenuViewerController):
 
 
 class wgMenuLine(wgannotatetextbox.AnnotateTextboxBaseRight):
+    ANNOTATE_WIDTH = 3
     def getAnnotationAndColor(self,):
         try:
             if self.value.shortcut:
