@@ -98,7 +98,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         self._my_widgets = []
         for h in range(self.height // self.__class__._contained_widget_height):
             self._my_widgets.append(self._contained_widgets(self.parent, 
-             rely=h+self.rely, relx = self.relx, 
+             rely=(h*self._contained_widget_height)+self.rely, relx = self.relx, 
              max_width=self.width, max_height=self.__class__._contained_widget_height))
 
 
