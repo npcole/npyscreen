@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre82",
+	version="2.0pre83",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -36,6 +36,8 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 2.0pre83 multiline checkbox widgets are now possible.
+
 Version 2.0pre82 changes the menu system and allows menu items to be given keyboard shortcuts.
 
 Version 2.0pre81 introduces FilenameCombo, TitleFilenameCombo.
