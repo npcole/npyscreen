@@ -647,6 +647,10 @@ Checkbox, RoundCheckBox
    These offer a single option - the label is generated from the attribute *name*, as for titled widgets.  The attribute *value* is either true or false.
    
    The function whenToggled(self) is called when the user toggles the state of the checkbox.  You can overload it.
+   
+CheckBoxMultiline, RoundCheckBoxMultiline
+	This widgets allow the label of the checkbox to be more than one line long.  The name of the widget should be specified as a
+	list or tuple of strings.
 
 
 Button

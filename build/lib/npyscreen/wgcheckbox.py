@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
-from .wgtextbox import Textfield
-from .wgwidget import Widget
+from .wgtextbox   import Textfield
+from .wgwidget    import Widget
+#from .wgmultiline import MultiLine
 from . import wgwidget as widget
 import curses
 
@@ -46,12 +47,18 @@ class Checkbox(_ToggleControl):
         self.value = value
         super(Checkbox, self).__init__(screen, **keywords)
         
-        self.label_area = Textfield(screen, rely=self.rely, relx=self.relx+5, 
-                      width=self.width-5, value=self.name)
+        self._create_label_area(screen)
+        
+        
         self.show_bold = False
         self.highlight = False
         self.important = False
         self.hide      = False
+        
+    def _create_label_area(self, screen):    
+        self.label_area = Textfield(screen, rely=self.rely, relx=self.relx+5, 
+                      width=self.width-5, value=self.name)
+        
 
     def update(self, clear=True):
         if clear: self.clear()
@@ -60,8 +67,6 @@ class Checkbox(_ToggleControl):
             return False
         if self.hide: return True
 
-        self.label_area.value = self.name
-        
         if self.value:
             cb_display = self.__class__.True_box
         else:
@@ -72,28 +77,34 @@ class Checkbox(_ToggleControl):
         else:
             self.parent.curses_pad.addstr(self.rely, self.relx, cb_display)
 
+        self._update_label_area()
 
+    def _update_label_area(self, clear=True):
+        self.label_area.value = self.name
+        self._update_label_row_attributes(self.label_area, clear=clear)
+    
+    def _update_label_row_attributes(self, row, clear=True):
         if self.editing:
-            self.label_area.highlight = True
+            row.highlight = True
         else:
-            self.label_area.highlight = False
+            row.highlight = False
         
         if self.show_bold: 
-            self.label_area.show_bold = True
+            row.show_bold = True
         else: 
-            self.label_area.show_bold = False
+            row.show_bold = False
             
         if self.important:
-            self.label_area.important = True
+            row.important = True
         else:
-            self.label_area.important = False
+            row.important = False
 
         if self.highlight: 
-            self.label_area.highlight = True
+            row.highlight = True
         else: 
-            self.label_area.highlight = False
+            row.highlight = False
 
-        self.label_area.update(clear=clear)
+        row.update(clear=clear)
         
     def calculate_area_needed(self):
         return 1,0
@@ -102,4 +113,33 @@ class Checkbox(_ToggleControl):
 class RoundCheckBox(Checkbox):
     False_box = '( )'
     True_box  = '(X)'
+    
+class CheckBoxMultiline(Checkbox):
+    def _create_label_area(self, screen):    
+        self.label_area = []
+        for y in range(self.height):
+            self.label_area.append(
+               Textfield(screen, rely=self.rely+y, 
+                           relx=self.relx+5, 
+                           width=self.width-5, 
+                           value=None) 
+            )
+    
+    def _update_label_area(self, clear=True):
+        for x in range(len(self.label_area)):
+            if x >= len(self.name):
+                self.label_area[x].value = ''
+                self.label_area[x].hidden = True
+            else:
+                self.label_area[x].value = self.name[x]
+                self.label_area[x].hidden = False
+                self._update_label_row_attributes(self.label_area[x], clear=clear)
+                
+    def calculate_area_needed(self):
+        return 0,0
+        
+class RoundCheckBoxMultiline(CheckBoxMultiline):
+    False_box = '( )'
+    True_box  = '(X)'
+    
 
