@@ -651,6 +651,19 @@ Checkbox, RoundCheckBox
 CheckBoxMultiline, RoundCheckBoxMultiline
 	This widgets allow the label of the checkbox to be more than one line long.  The name of the widget should be specified as a
 	list or tuple of strings.
+	
+	To use these widgets as part of a multiline widget, do the following::
+	
+		class MultiSelectKeys(npyscreen.MultiSelect):
+		    _contained_widgets = npyscreen.CheckBoxMultiline
+		    _contained_widget_height = 2
+    
+		    def display_value(self, vl):
+		        # this function should return a list
+				list(vl)
+	
+	
+	New in version 2.0pre83.
 
 
 Button
