@@ -654,13 +654,12 @@ CheckBoxMultiline, RoundCheckBoxMultiline
 	
 	To use these widgets as part of a multiline widget, do the following::
 	
-		class MultiSelectKeys(npyscreen.MultiSelect):
+		class MultiSelectWidgetOfSomeKind(npyscreen.MultiSelect):
 		    _contained_widgets = npyscreen.CheckBoxMultiline
 		    _contained_widget_height = 2
     
 		    def display_value(self, vl):
-		        # this function should return a list
-				list(vl)
+		        # this function should return a list of strings.
 	
 	
 	New in version 2.0pre83.

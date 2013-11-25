@@ -45,7 +45,7 @@ from .wgmultiselect             import MultiSelect, TitleMultiSelect, MultiSelec
                                        TitleMultiSelectFixed, MultiSelectAction
 from .wgeditmultiline           import MultiLineEdit
 from .wgcombobox                import ComboBox, TitleCombo
-from .wgcheckbox                import Checkbox, RoundCheckBox, CheckBoxMultiline
+from .wgcheckbox                import Checkbox, RoundCheckBox, CheckBoxMultiline, RoundCheckBoxMultiline
 from .wgFormControlCheckbox     import FormControlCheckbox
 from .wgautocomplete            import TitleFilename, Filename, Autocomplete
 from .muMenu                    import Menu
