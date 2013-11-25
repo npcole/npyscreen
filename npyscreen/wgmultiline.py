@@ -59,7 +59,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         self.widgets_inherit_color = widgets_inherit_color
         super(MultiLine, self).__init__(screen, **keywords)
         if self.height < self.__class__._MINIMUM_HEIGHT:
-            raise widget.NotEnoughSpaceForWidget("Not enough space allowed for %s" % str(self))
+            raise widget.NotEnoughSpaceForWidget("Height of %s allocated. Not enough space allowed for %s" % (self.height, str(self)))
         self.make_contained_widgets()
 
         self.value = value
@@ -204,7 +204,7 @@ object to be passed to the contained widget."""
             # Now do the final line
             line = self._my_widgets[-1]
             
-            if len(self.values) <= indexer+1:
+            if (len(self.values) <= indexer+1):# or (len(self._my_widgets)*self._contained_widget_height)<self.height:
                 self._print_line(line, indexer)
                 line.task="PRINTLINE"
                 line.update(clear=False)
@@ -236,7 +236,7 @@ object to be passed to the contained widget."""
         
         # This will prevent the program crashing if the user has changed values, and the cursor 
         # is now on the bottom line.
-        if self._my_widgets[self.cursor_line-self.start_display_at].task == MORE_LABEL: 
+        if (self._my_widgets[self.cursor_line-self.start_display_at].task == MORE_LABEL): 
             if self.slow_scroll:
                 self.start_display_at += 1
             else:

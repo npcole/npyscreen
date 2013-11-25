@@ -273,13 +273,17 @@ big a given widget is ... use .height and .width instead"""
             raise NotEnoughSpaceForWidget("Not enough space for requested size")
         
         if ny > 0:
-            if my >= ny: self.height = ny
-            else: self.height = RAISEERROR
+            if my >= ny: 
+                self.height = ny
+            else: 
+                self.height = RAISEERROR
         elif max_height:
-            if max_height < my: self.height = max_height
+            if max_height <= my: 
+                self.height = max_height
             else: 
                 self.height = self.request_height
-        else: self.height = (self.request_height or my)
+        else: 
+            self.height = (self.request_height or my)
         
         #if mx <= 0 or my <= 0:
         #    raise Exception("Not enough space for widget")
@@ -301,6 +305,7 @@ big a given widget is ... use .height and .width instead"""
         if self.height == RAISEERROR or self.width == RAISEERROR:
             # Not enough space for widget
             raise NotEnoughSpaceForWidget("Not enough space: max y and x = %s , %s. Height and Width = %s , %s " % (my, mx, self.height, self.width) ) # unsafe. Need to add error here.
+        assert self.height != False
     
     def update(self, clear=True):
         """How should object display itself on the screen. Define here, but do not actually refresh the curses
