@@ -31,6 +31,10 @@ class ScreenArea(object):
     BLANK_LINES_BASE   =0
     BLANK_COLUMNS_RIGHT=0
     DEFAULT_NEXTRELY=2
+    DEFAULT_LINES      = 0
+    DEFAULT_COLUMNS    = 0
+    SHOW_ATX           = 0
+    SHOW_ATY           = 0
     
     """A screen area that can be safely resized.  But this is a low-level class, not the
     object you are looking for."""
@@ -44,7 +48,11 @@ class ScreenArea(object):
 
         
     # Putting a default in here will override the system in _create_screen. For testing?
-
+        if not lines:
+            lines = self.__class__.DEFAULT_LINES
+        if not columns:
+            columns = self.__class__.DEFAULT_COLUMNS
+            
         if lines:   minimum_lines   = lines
         if columns: minimum_columns = columns
 
@@ -59,8 +67,8 @@ class ScreenArea(object):
         # ie. They are about the virtual, not the physical, screen.
         self.show_from_y = 0
         self.show_from_x = 0
-        self.show_atx = show_atx
-        self.show_aty = show_aty
+        self.show_atx = show_atx or self.__class__.SHOW_ATX
+        self.show_aty = show_aty or self.__class__.SHOW_ATY
         self.ALL_SHOWN = False
         
         global APPLICATION_THEME_MANAGER
