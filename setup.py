@@ -36,7 +36,8 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
-Version 2.0pre83 multiline checkbox widgets are now possible.
+Version 2.0pre83 multi-line checkbox widgets are now possible.  These can also be used as contained widgets within the multiselect class. See documentation for details.
+
 
 Version 2.0pre82 changes the menu system and allows menu items to be given keyboard shortcuts.
 
