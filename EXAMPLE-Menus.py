@@ -16,7 +16,7 @@ class MainForm(npyscreen.FormWithMenus):
         self.m1 = self.add_menu(name="Main Menu", shortcut="^M")
         self.m1.addItemsFromList([
             ("Just Beep",   self.whenJustBeep, "e"),
-            ("Exit Application", self.exit_application, "X"),
+            ("Exit Application", self.exit_application, "é"),
         ])
         
         self.m2 = self.add_menu(name="Another Menu", shortcut="b")
