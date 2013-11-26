@@ -388,7 +388,7 @@ object to be passed to the contained widget."""
         #self.cursor_line = y - self.rely - self.parent.show_aty + self.start_display_at
         
         mouse_id, rel_x, rel_y, z, bstate = self.interpret_mouse_event(mouse_event)
-        self.cursor_line = rel_y + self.start_display_at
+        self.cursor_line = rel_y // self._contained_widget_height + self.start_display_at
         
         
         ##if self.cursor_line > len(self.values):
