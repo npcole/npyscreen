@@ -109,7 +109,10 @@ class Checkbox(_ToggleControl):
     def calculate_area_needed(self):
         return 1,0
 
-        
+class CheckBox(Checkbox):
+    pass
+
+   
 class RoundCheckBox(Checkbox):
     False_box = '( )'
     True_box  = '(X)'

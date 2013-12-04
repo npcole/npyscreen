@@ -45,7 +45,7 @@ from .wgmultiselect             import MultiSelect, TitleMultiSelect, MultiSelec
                                        TitleMultiSelectFixed, MultiSelectAction
 from .wgeditmultiline           import MultiLineEdit
 from .wgcombobox                import ComboBox, TitleCombo
-from .wgcheckbox                import Checkbox, RoundCheckBox, CheckBoxMultiline, RoundCheckBoxMultiline
+from .wgcheckbox                import Checkbox, RoundCheckBox, CheckBoxMultiline, RoundCheckBoxMultiline, CheckBox
 from .wgFormControlCheckbox     import FormControlCheckbox
 from .wgautocomplete            import TitleFilename, Filename, Autocomplete
 from .muMenu                    import Menu
@@ -90,6 +90,11 @@ from . import stdfmemail
 from .wgtextboxunicode import TextfieldUnicode
 from .wgtexttokens     import TextTokens, TitleTextTokens
 from .fmFormMuttActive import FormMuttActiveTraditional, FormMuttActiveTraditionalWithMenus
+
+# Very experimental. Don't use for anything serious
+from .apOptions import OptionListDisplay, OptionChanger, OptionList, OptionLimitedChoices, OptionListDisplayLine
+from .apOptions import OptionFreeText, OptionSingleChoice, OptionMultiChoice, \
+                       OptionBoolean, OptionFilename, OptionDate, OptionMultiFreeText
 
 
 

@@ -175,6 +175,15 @@ A Form object is a screen area that contains widgets.  Forms control which widge
 Creating a Form
 ***************
 
+Forms have the following class attributes::
+
+    DEFAULT_LINES      = 0
+    DEFAULT_COLUMNS    = 0
+    SHOW_ATX           = 0
+    SHOW_ATY           = 0
+
+The default values will create a form that fills the whole screen and which is displayed in the top left corner.  See the arguments passed in to the constructor for more details on controlling the size of a form.  
+
 The Following arguments can be passed to a Form's constructor:
 
 *name=*
