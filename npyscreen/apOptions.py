@@ -33,8 +33,6 @@ class OptionListDisplay(wgmultiline.MultiLineAction):
         return vl
 
 class OptionChanger(fmPopup.ActionPopupWide):
-    pass
-
     def on_ok(self,):
         self.OPTION_TO_CHANGE.set_from_widget_value(self.OPTION_WIDGET.value)
 
