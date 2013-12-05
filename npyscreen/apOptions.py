@@ -1,5 +1,6 @@
 import weakref
 import textwrap
+import datetime
 
 from . import fmPopup
 
@@ -39,14 +40,122 @@ class OptionChanger(fmPopup.ActionPopupWide):
 class OptionList(object):
     def __init__(self, ):
         self.options = []
-
+        self.define_serialize_functions()
+    
+    def define_serialize_functions(self):
+        self.SERIALIZE_FUNCTIONS = {
+            OptionFreeText:         self.save_text,
+            OptionSingleChoice:     self.save_text,
+            OptionMultiChoice:      self.save_multi_text,
+            OptionMultiFreeText:    self.save_text,
+            OptionBoolean:          self.save_bool,
+            OptionFilename:         self.save_text,
+            OptionDate:             self.save_date,
+        }
+    
+        self.UNSERIALIZE_FUNCTIONS = {
+            OptionFreeText:         self.reload_text,
+            OptionSingleChoice:     self.reload_text,
+            OptionMultiChoice:      self.load_multi_text,
+            OptionMultiFreeText:    self.reload_text ,
+            OptionBoolean:          self.load_bool,
+            OptionFilename:         self.reload_text ,
+            OptionDate:             self.load_date ,
+        }
+    
+    
+    
+    
+    def write_to_file(self, fn, exclude_defaults=True):
+        with open(fn, 'w', encoding="utf-8") as f:
+            for opt in self.options:
+                if opt.default != opt.get():
+                    f.write('%s=%s\n' % (opt.get_real_name(), self.serialize_option_value(opt)))
+    
+    def reload_from_file(self, fn):
+         with open(fn, 'r', encoding="utf-8") as f:
+             for line in f.readlines():
+                 line = line.strip()
+                 name, value = line.split("=", maxsplit=1)
+                 for option in self.options:
+                     if option.get_real_name() == name:
+                         option.set(self.deserialize_option_value(option, value.encode('ascii')))
+    
+    def serialize_option_value(self, option):
+        return self.SERIALIZE_FUNCTIONS[option.__class__](option)
+    
+    def deserialize_option_value(self, option, serialized):
+        return self.UNSERIALIZE_FUNCTIONS[option.__class__](serialized)
+    
+    def save_text(self, option):
+        s = option.get()
+        if not s:
+            s = ''
+        return s.encode('unicode-escape').decode('ascii')
+    
+    def reload_text(self, txt):
+        return txt.decode('unicode-escape')
+    
+    def save_bool(self, option):
+        if option.get():
+            return 'True'
+        else:
+            return 'False'
+            
+    def load_bool(self, txt):
+        if txt == 'True':
+            return True
+        elif txt == 'False':
+            return False
+        else:
+            raise ValueError
+    
+    def save_multi_text(self, option):
+        line = []
+        opt = option.get()
+        if not opt:
+            return ''
+        for text_part in opt:
+            line.append(text_part.encode('unicode-escape').decode('ascii'))
+        return "\t".join(line)
+    
+    def load_multi_text(self, text):
+        parts = text.decode('ascii').split("\t")
+        rtn = []
+        for p in parts:
+            rtn.append(p.encode('ascii').decode('unicode-escape'))
+        return rtn
+    
+    def save_date(self, option):
+        if option.get():
+            return option.get().ctime()
+        else:
+            return None
+    
+    def load_date(self, txt):
+        if txt:
+            return datetime.datetime.strptime(txt.decode(), "%a %b %d %H:%M:%S %Y")
+        else:
+            return None
+    
+    
+            
 class Option(object):
-    def __init__(self, name, value=None, documentation=None, short_explanation=None):
+    DEFAULT = ''
+    def __init__(self, name, 
+                    value=None, 
+                    documentation=None, 
+                    short_explanation=None,
+                    option_widget_keywords = None,
+                    default = None,
+                    ):
         self.name = name
         self.set(value)
         self.documentation = documentation
         self.short_explanation = short_explanation
-    
+        self.option_widget_keywords = option_widget_keywords or {}
+        self.default = default or self.DEFAULT
+        
     def get(self,):
         return self.value
     
@@ -76,18 +185,20 @@ class Option(object):
         if self.documentation:
             explanation_widget = option_changing_form.add(wgmultiline.Pager, 
                                                         editable=False, value=None,
-                                                        max_height=(option_changing_form.lines - 3) //2,
+                                                        max_height=(option_changing_form.lines - 3) // 2,
                                                         autowrap=True,
                                                         )
             option_changing_form.nextrely += 1
             explanation_widget.values = self.documentation
             
         
-        option_widget = option_changing_form.add(self.WIDGET_TO_USE, name=self.get_name_user())
+        option_widget = option_changing_form.add(self.WIDGET_TO_USE, 
+                                                    name=self.get_name_user(),
+                                                    **self.option_widget_keywords 
+                                                )
         option_changing_form.OPTION_WIDGET = option_widget
         self._set_up_widget_values(option_changing_form, option_widget)        
         option_changing_form.edit()
-        
     
 
 class OptionLimitedChoices(Option):
@@ -122,6 +233,7 @@ class OptionSingleChoice(OptionLimitedChoices):
     WIDGET_TO_USE = wgselectone.TitleSelectOne
 
 class OptionMultiChoice(OptionLimitedChoices):
+    DEFAULT = []
     WIDGET_TO_USE = wgmultiselect.TitleMultiSelect
 
 class OptionMultiFreeText(Option):
@@ -131,7 +243,9 @@ class OptionBoolean(Option):
     WIDGET_TO_USE = wgcheckbox.Checkbox
 
 class OptionFilename(Option):
+    DEFAULT = ''
     WIDGET_TO_USE = wgfilenamecombo.FilenameCombo
     
 class OptionDate(Option):
+    DEFAULT = None
     WIDGET_TO_USE = wgdatecombo.DateCombo
