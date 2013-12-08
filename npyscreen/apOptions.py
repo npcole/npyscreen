@@ -2,8 +2,8 @@ import weakref
 import textwrap
 import datetime
 
+from . import fmForm
 from . import fmPopup
-
 from . import wgtitlefield
 from . import wgannotatetextbox
 from . import wgmultiline
@@ -14,6 +14,20 @@ from . import wgcheckbox
 from . import wgfilenamecombo
 from . import wgdatecombo
 
+class SimpleOptionForm(fmForm.Form):
+    def create(self,):
+        self.wOptionList = self.add(OptionListDisplay, )
+    
+    def beforeEditing(self, ):
+        try:
+            self.wOptionList.values = self.value.options
+        except AttributeError:
+            pass
+    
+    def afterEditing(self):
+        if self.value.filename:
+            self.value.write_to_file()
+        self.parentApp.switchFormPrevious()
 
 class OptionListDisplayLine(wgannotatetextbox.AnnotateTextboxBase):
     ANNOTATE_WIDTH = 25   
@@ -38,8 +52,9 @@ class OptionChanger(fmPopup.ActionPopupWide):
         self.OPTION_TO_CHANGE.set_from_widget_value(self.OPTION_WIDGET.value)
 
 class OptionList(object):
-    def __init__(self, ):
-        self.options = []
+    def __init__(self, filename=None):
+        self.options  = []
+        self.filename = filename
         self.define_serialize_functions()
     
     def define_serialize_functions(self):
@@ -51,30 +66,40 @@ class OptionList(object):
             OptionBoolean:          self.save_bool,
             OptionFilename:         self.save_text,
             OptionDate:             self.save_date,
+            OptionMultiFreeList:    self.save_list,
         }
     
         self.UNSERIALIZE_FUNCTIONS = {
             OptionFreeText:         self.reload_text,
             OptionSingleChoice:     self.reload_text,
             OptionMultiChoice:      self.load_multi_text,
-            OptionMultiFreeText:    self.reload_text ,
+            OptionMultiFreeText:    self.reload_text,
             OptionBoolean:          self.load_bool,
-            OptionFilename:         self.reload_text ,
-            OptionDate:             self.load_date ,
+            OptionFilename:         self.reload_text,
+            OptionDate:             self.load_date,
+            OptionMultiFreeList:    self.load_list,
         }
     
+    def get(self, name):
+        for o in self.options:
+            if o.get_real_name() == name:
+                return o
     
     
     
-    def write_to_file(self, fn, exclude_defaults=True):
+    def write_to_file(self, fn=None, exclude_defaults=True):
+        fn = fn or self.filename
+        if not fn:
+            raise ValueError("Must specify a filename.")
         with open(fn, 'w', encoding="utf-8") as f:
             for opt in self.options:
                 if opt.default != opt.get():
                     f.write('%s=%s\n' % (opt.get_real_name(), self.serialize_option_value(opt)))
     
-    def reload_from_file(self, fn):
-         with open(fn, 'r', encoding="utf-8") as f:
-             for line in f.readlines():
+    def reload_from_file(self, fn=None):
+        fn = fn or self.filename
+        with open(fn, 'r', encoding="utf-8") as f:
+            for line in f.readlines():
                  line = line.strip()
                  name, value = line.split("=", maxsplit=1)
                  for option in self.options:
@@ -87,14 +112,20 @@ class OptionList(object):
     def deserialize_option_value(self, option, serialized):
         return self.UNSERIALIZE_FUNCTIONS[option.__class__](serialized)
     
+    def _encode_text_for_saving(self, txt):
+        return txt.encode('unicode-escape').decode('ascii')
+    
+    def _decode_text_from_saved(self, txt):
+        return txt.decode('unicode-escape')
+        
     def save_text(self, option):
         s = option.get()
         if not s:
             s = ''
-        return s.encode('unicode-escape').decode('ascii')
+        return self._encode_text_for_saving(s)
     
     def reload_text(self, txt):
-        return txt.decode('unicode-escape')
+        return self._decode_text_from_saved(txt)
     
     def save_bool(self, option):
         if option.get():
@@ -125,6 +156,19 @@ class OptionList(object):
         for p in parts:
             rtn.append(p.encode('ascii').decode('unicode-escape'))
         return rtn
+        
+    def save_list(self, lst):
+        pts_to_save = []
+        for p in lst.get():
+            pts_to_save.append(self._encode_text_for_saving(p))
+        return "\t".join(pts_to_save)
+    
+    def load_list(self, text):
+        parts = text.decode('ascii').split("\t")
+        parts_to_return = []
+        for p in parts:
+            parts_to_return.append(self._decode_text_from_saved(p.encode('ascii')))
+        return parts_to_return
     
     def save_date(self, option):
         if option.get():
@@ -150,12 +194,16 @@ class Option(object):
                     default = None,
                     ):
         self.name = name
-        self.set(value)
+        self.default = default or self.DEFAULT
+        self.set(value or self.default)
         self.documentation = documentation
         self.short_explanation = short_explanation
         self.option_widget_keywords = option_widget_keywords or {}
         self.default = default or self.DEFAULT
-        
+    
+    def when_set(self):
+        pass
+    
     def get(self,):
         return self.value
     
@@ -167,6 +215,7 @@ class Option(object):
     
     def set(self, value):
         self.value = value
+        self.when_set()
     
     def get_real_name(self):
         # This might be for internal use
@@ -238,6 +287,15 @@ class OptionMultiChoice(OptionLimitedChoices):
 
 class OptionMultiFreeText(Option):
     WIDGET_TO_USE = wgeditmultiline.MultiLineEdit
+
+class OptionMultiFreeList(Option):
+    WIDGET_TO_USE = wgeditmultiline.MultiLineEdit
+    DEFAULT = []
+    def _set_up_widget_values(self, option_form, main_option_widget):
+        main_option_widget.value = "\n".join(self.get())
+    
+    def set_from_widget_value(self, vl):
+        self.set(vl.split("\n"))
 
 class OptionBoolean(Option):
     WIDGET_TO_USE = wgcheckbox.Checkbox

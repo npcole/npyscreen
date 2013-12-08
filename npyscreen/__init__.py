@@ -92,8 +92,9 @@ from .wgtexttokens     import TextTokens, TitleTextTokens
 from .fmFormMuttActive import FormMuttActiveTraditional, FormMuttActiveTraditionalWithMenus
 
 # Very experimental. Don't use for anything serious
+from .apOptions import SimpleOptionForm
 from .apOptions import OptionListDisplay, OptionChanger, OptionList, OptionLimitedChoices, OptionListDisplayLine
-from .apOptions import OptionFreeText, OptionSingleChoice, OptionMultiChoice, \
+from .apOptions import OptionFreeText, OptionSingleChoice, OptionMultiChoice, OptionMultiFreeList, \
                        OptionBoolean, OptionFilename, OptionDate, OptionMultiFreeText
 
 
