@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+
+# The system here is an experimental one. See documentation for details.
+
+
+
+
 import npyscreen
 class TestApp(npyscreen.NPSApp):
     def main(self):

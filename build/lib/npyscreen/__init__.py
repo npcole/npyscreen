@@ -39,6 +39,7 @@ from .wgpassword                import PasswordEntry, TitlePassword
 from .wgslider                  import Slider, TitleSlider
 
 from .wgwidget                  import DummyWidget, NotEnoughSpaceForWidget
+from . import widget
 
 from .wgmultiline               import MultiLine, Pager, TitleMultiLine, MultiLineAction
 from .wgmultiselect             import MultiSelect, TitleMultiSelect, MultiSelectFixed, \
