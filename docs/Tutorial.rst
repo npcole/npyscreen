@@ -204,7 +204,7 @@ Let's alter the myEmployeeForm to tell it that after being run in an NPSAppManag
 
     class myEmployeeForm(npyscreen.Form):
         def afterEditing(self):
-            self.parentApp.NEXT_ACTIVE_FORM = None
+            self.parentApp.setNextForm(None)
     
         def create(self):
            self.myName        = self.add(npyscreen.TitleText, name='Name')
