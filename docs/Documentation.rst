@@ -88,7 +88,7 @@ There are two methods for registering a Form object with an NPSAppManaged instan
     *id* should be a string that uniquely identifies the form.  *fm* should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - in contrast to the .addForm version.
     
 .addForm(*id*, *FormClass* ...)
-    This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  *id* should be a string that uniquely identifies the Form.  *FormClass* should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.  In most cases, you should use the *registerForm* method and not this one.
+    This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  *id* should be a string that uniquely identifies the Form.  *FormClass* should be the class of form to create.  Any additional arguments will be passed to the Form's constructor.  Use this version if you are not storing a separate reference to your form elsewhere.
 
 .addFormClass(*id*, *FormClass* ...):
     This version registers a class of form rather than an instance.  A new instance will be created every time it is edited.
