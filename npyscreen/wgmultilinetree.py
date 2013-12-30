@@ -48,12 +48,16 @@ class TreeLine(textbox.TextfieldBase):
                         if (i < _tree_depth_next) and (not self._tree_last_line): # was i+1 < # and not (_tree_depth_next==1):
                             if self.show_v_lines:
                                 self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_VLINE, curses.A_NORMAL)
+                                if self.height > 1:
+                                    for h in range(self.height-1):
+                                        self.parent.curses_pad.addch(self.rely+h+1, real_x, curses.ACS_VLINE, curses.A_NORMAL)
                             else:
                                 self.parent.curses_pad.addch(self.rely, real_x, ' ', curses.A_NORMAL)
                                 
                         else:
                             if self.show_v_lines:
                                 self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_BTEE, curses.A_NORMAL)
+                                
                             else:
                                 self.parent.curses_pad.addch(self.rely, real_x, ' ', curses.A_NORMAL)
                                 
@@ -65,6 +69,10 @@ class TreeLine(textbox.TextfieldBase):
                     
                     if self._tree_sibling_next or _tree_depth_next > self._tree_depth:
                         self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_LTEE, curses.A_NORMAL)
+                        if self.height > 1:
+                            for h in range(self.height-1):
+                                self.parent.curses_pad.addch(self.rely+h+1, real_x, curses.ACS_VLINE, curses.A_NORMAL)
+                    
                     else:
                         self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_LLCORNER, curses.A_NORMAL)
                     real_x += 1
@@ -81,6 +89,10 @@ class TreeLine(textbox.TextfieldBase):
             if self._tree_has_children:
                 if self._tree_expanded:
                     self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_TTEE, curses.A_NORMAL)
+                    if self.height > 1:
+                        for h in range(self.height-1):
+                            self.parent.curses_pad.addch(self.rely+h+1, real_x, curses.ACS_VLINE, curses.A_NORMAL)
+                    
                 else:   
                     self.parent.curses_pad.addch(self.rely, real_x, curses.ACS_RARROW, curses.A_NORMAL)
                 real_x +=1

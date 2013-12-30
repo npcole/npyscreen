@@ -9,6 +9,8 @@ TODO - fix F keys on OS X
 	- change the textfield widgets to use the new _LinePrinter class (to make everything more
 		robust)
 	- should monthbox calendar also accept utf-8 for day names?
+	- create a factory for titled widgets
+	- create a factory for multiline widgets
 
 
 2.0pre70
