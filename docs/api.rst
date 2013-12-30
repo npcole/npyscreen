@@ -42,7 +42,7 @@ main()
     After a Form has been edited, if it has an .afterEditing method, this will be called, unless it was invoked with the activate() method.A similar .beforeEditing method will be called if it exists before editing the form.  Again, the presence of a .activate method
     will override this behaviour.
     
-    Note that NEXT_ACTIVE_FORM is a string that is the name of the form that was specified when . addForm .registerForm was called.
+    Note that NEXT_ACTIVE_FORM is a string that is the name of the form that was specified when . addForm .registerForm was called.  Set it using the *setNextForm* method. 
     
 onStart()
     Override this method to perform any initialisation.  This will be called before any of the forms of your application are displayed.
