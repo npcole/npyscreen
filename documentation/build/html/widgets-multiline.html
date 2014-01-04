@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Widgets: Picking Options &mdash; npyscreen 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="npyscreen 2 documentation" href="index.html" />
+    <link rel="next" title="Widgets: Trees and Tree displays" href="widgets-trees.html" />
+    <link rel="prev" title="Widgets: Displaying Text" href="widgets-text.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="widgets-trees.html" title="Widgets: Trees and Tree displays"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="widgets-text.html" title="Widgets: Displaying Text"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="widgets-picking-options">
+<h1>Widgets: Picking Options<a class="headerlink" href="#widgets-picking-options" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>MultiLine</dt>
+<dd><p class="first">Offer the user a list of options.  (This widget could probably have a better name, but we&#8217;re stuck with it for now)</p>
+<p>The options should be stored in the attribute <em>values</em> as a list.  The attribute <em>value</em> stores the index of the user&#8217;s selection.  If you want to return the actual selected values rather than an index, use the <em>get_selected_objects()</em> method.</p>
+<p>One of the most important features of MultiLine and widgets derived from it is that it can be adapted easily to allow the user to choose different types of objects.  To do so, override the method <em>display_value(self, vl)</em>.  The argument <em>vl</em> will be the object being displayed, and the function should return a string that can be displayed on the screen.</p>
+<p>In other words you can pass in a list of objects of arbitrary types. By default, they will be displayed using <em>str()</em>, but by overriding <em>display_value</em> you can present them however you see fit.</p>
+<p>MultiLine also allows the user to &#8216;filter&#8217; entries.  (bound to keys l, L, n, p by default for filter, clear filter, next and previous). The current implementation highlights lines that match on the screen.  Future implementations may hide the other lines or offer a choice.  You can control how the filter operates by overriding the filter_value method.  This should accept an index as an argument (which looks up a line in the list .values) and should return True on a match and False otherwise.  From version 2.0pre74, the whole filtering system can be disabled by setting that attribute <em>.allow_filtering</em> to False.  This can also be passed in as an argument to the constructor.</p>
+<blockquote class="last">
+<div>Multiline widgets are a container widget that then holds a series of other widgets that handle various parts of the display.  All multiline classes have a <cite>_contained_widget</cite> class attribute. This controls how the widget is constructed.</div></blockquote>
+</dd>
+<dt>TitleMultiLine</dt>
+<dd><p class="first">A titled version of the MultiLine widget.</p>
+<p class="last">If creating your own subclasses of MultiLine, you can create Title versions by subclassing this object and changing the <em>_entry_type</em> class variable.</p>
+</dd>
+<dt>MultiSelect, TitleMultiSelect,</dt>
+<dd><p class="first">Offer the User a list of options, allow him or her to select more than one of them.</p>
+<p class="last">The <em>value</em> attribute is a list of the indexes user&#8217;s choices.  As with the MultiLine widget, the list of choices is stored in the attribue <em>values</em>.</p>
+</dd>
+<dt>SelectOne, TitleSelectOne</dt>
+<dd>Functionally, these are like the Multiline versions, but with a display similar to the MultiSelect widget.</dd>
+<dt>MultiSelectFixed, TitleMultiSelectFixed</dt>
+<dd>These special versions of MultiSelect are intended to display data, but like Textfixed do not allow the user to actually edit it.</dd>
+<dt>MultiLineAction</dt>
+<dd>A common use case for this sort of widget is to perform an action on the currently highlighted item when the user pushes Return, Space etc.  Override the method <em>actionHighlighted(self, act_on_this, key_press)</em> of this class to provide this sort of widget.  That method will be called when the user &#8216;selects&#8217; an item (though in this case .value will not actually be set) and will be passed the item highlighted and the key the user actually pressed.</dd>
+<dt>MultiSelectAction</dt>
+<dd>This is similar to the MultiLineAction widget above, except that it also provides the method <em>actionSelected(self, act_on_these, keypress)</em>.  This can be overridden, and will be called if the user pressed &#8216;;&#8217;.  The method will be passed a list of the objects selected and the keypress.  You probably want to adjust the default keybindings to make this widget useful.</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="widgets-text.html"
+                        title="previous chapter">Widgets: Displaying Text</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="widgets-trees.html"
+                        title="next chapter">Widgets: Trees and Tree displays</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/widgets-multiline.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="widgets-trees.html" title="Widgets: Trees and Tree displays"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="widgets-text.html" title="Widgets: Displaying Text"
+             >previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Nicholas Cole.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

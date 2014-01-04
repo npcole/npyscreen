@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Enhancing Mouse Support &mdash; npyscreen 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="npyscreen 2 documentation" href="index.html" />
+    <link rel="next" title="Support for Colour" href="color.html" />
+    <link rel="prev" title="All about Key Bindings" href="keybindings.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="color.html" title="Support for Colour"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="keybindings.html" title="All about Key Bindings"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="enhancing-mouse-support">
+<h1>Enhancing Mouse Support<a class="headerlink" href="#enhancing-mouse-support" title="Permalink to this headline">¶</a></h1>
+<p>Widgets that wish to handle mouse events in more detail should override the method <em>.handle_mouse_event(self, mouse_event)</em>.  Note that <em>mouse_event</em> is a tuple:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">handle_mouse_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse_event</span><span class="p">):</span>
+    <span class="n">mouse_id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">bstate</span> <span class="o">=</span> <span class="n">mouse_event</span> <span class="c"># see note below.</span>
+    <span class="c"># Do things here....</span>
+</pre></div>
+</div>
+<p>This is mostly useful, but x and y are absolute positions, rather than relative ones.  For that reason, you should use the convenience function provided to convert these values into co-ordinates relative to the widget.  Thus, most mouse handling functions will look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">handle_mouse_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mouse_event</span><span class="p">):</span>
+    <span class="n">mouse_id</span><span class="p">,</span> <span class="n">rel_x</span><span class="p">,</span> <span class="n">rel_y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">bstate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpret_mouse_event</span><span class="p">(</span><span class="n">mouse_event</span><span class="p">)</span>
+    <span class="c"># Do things here.....</span>
+</pre></div>
+</div>
+<p>The mouse handler will only be called if the widget is &#8220;editable&#8221;.  In very rare cases, you may wish to have a non-editable widget respond to mouse events.  In that case, you can set the widget&#8217;s attribute <em>.self.interested_in_mouse_even_when_not_editable</em> to True.</p>
+<p>See the Python Library curses module documentation for more detail on mouse events.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="keybindings.html"
+                        title="previous chapter">All about Key Bindings</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="color.html"
+                        title="next chapter">Support for Colour</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/mouse.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="color.html" title="Support for Colour"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="keybindings.html" title="All about Key Bindings"
+             >previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Nicholas Cole.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

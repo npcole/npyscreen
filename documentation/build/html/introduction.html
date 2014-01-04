@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>An introduction to npyscreen &mdash; npyscreen 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="npyscreen 2 documentation" href="index.html" />
+    <link rel="next" title="Creating npyscreen applications" href="application-structure.html" />
+    <link rel="prev" title="Welcome to npyscreen’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="application-structure.html" title="Creating npyscreen applications"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to npyscreen’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="an-introduction-to-npyscreen">
+<h1>An introduction to npyscreen<a class="headerlink" href="#an-introduction-to-npyscreen" title="Permalink to this headline">¶</a></h1>
+<p><em>&#8216;Writing user interfaces without all that mucking about in hyperspace&#8217;</em></p>
+<div class="section" id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h2>
+<p>Npyscreen is a python widget library and application framework for programming terminal or console applications. It is built on top of ncurses, which is part of the standard library.</p>
+<p>Wouldn&#8217;t it be really nice if asking the user to give you some information could be easy? As easy as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">MyForm</span> <span class="o">=</span> <span class="n">Form</span><span class="p">()</span>
+
+<span class="n">usrn_box</span> <span class="o">=</span> <span class="n">MyForm</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Your name:&quot;</span><span class="p">)</span>
+<span class="n">internet</span> <span class="o">=</span> <span class="n">MyForm</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Your favourite internet page:&quot;</span><span class="p">)</span>
+
+<span class="n">MyForm</span><span class="o">.</span><span class="n">edit</span><span class="p">()</span>
+
+<span class="c"># usrn_box.value and internet.value now hold the user&#39;s answers.</span>
+</pre></div>
+</div>
+<p>If you think so, this library is for you.</p>
+</div>
+<div class="section" id="example-code">
+<h2>Example Code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/screen-capture.png" class="align-center" src="_images/screen-capture.png" />
+<p>This is an example of a simple, one-screen application.  More advanced applications would use the NPSAppManaged framework:</p>
+<div class="highlight-python"><pre>#!/usr/bin/env python
+# encoding: utf-8
+
+import npyscreen
+class TestApp(npyscreen.NPSApp):
+    def main(self):
+        # These lines create the form and populate it with widgets.
+        # A fairly complex screen in only 8 or so lines of code - a line for each control.
+        F  = npyscreen.Form(name = &quot;Welcome to Npyscreen&quot;,)
+        t  = F.add(npyscreen.TitleText, name = &quot;Text:&quot;,)
+        fn = F.add(npyscreen.TitleFilename, name = &quot;Filename:&quot;)
+        fn2 = F.add(npyscreen.TitleFilenameCombo, name=&quot;Filename2:&quot;)
+        dt = F.add(npyscreen.TitleDateCombo, name = &quot;Date:&quot;)
+        s  = F.add(npyscreen.TitleSlider, out_of=12, name = &quot;Slider&quot;)
+        ml = F.add(npyscreen.MultiLineEdit,
+               value = &quot;&quot;&quot;try typing here!\nMutiline text, press ^R to reformat.\n&quot;&quot;&quot;,
+               max_height=5, rely=9)
+        ms = F.add(npyscreen.TitleSelectOne, max_height=4, value = [1,], name=&quot;Pick One&quot;,
+                values = [&quot;Option1&quot;,&quot;Option2&quot;,&quot;Option3&quot;], scroll_exit=True)
+        ms2= F.add(npyscreen.TitleMultiSelect, max_height =-2, value = [1,], name=&quot;Pick Several&quot;,
+                values = [&quot;Option1&quot;,&quot;Option2&quot;,&quot;Option3&quot;], scroll_exit=True)
+
+        # This lets the user interact with the Form.
+        F.edit()
+
+        print ms.get_selected_objects()
+
+if __name__ == &quot;__main__&quot;:
+    App = TestApp()
+    App.run()</pre>
+</div>
+</div>
+<div class="section" id="strengths">
+<h2>Strengths<a class="headerlink" href="#strengths" title="Permalink to this headline">¶</a></h2>
+<p>This framework should be powerful enough to create everything from quick, simple programs to complex, multi-screen applications. It is designed to make doing the simple tasks very quick and to take much of the pain out of writing larger applications.</p>
+<p>There is a very wide variety of default widgets - everything from simple text fields to more complex tree and grid views.</p>
+<p>The focus of this library has always been to provide a rapid way to develop console applications.  In general adding a control to the screen requires only one line of code.</p>
+</div>
+<div class="section" id="weaknesses">
+<h2>Weaknesses<a class="headerlink" href="#weaknesses" title="Permalink to this headline">¶</a></h2>
+<p>A future version will introduce a Form type which will dynamically rearrange widgets if the terminal resizes.  However, in the meantime, the library will create forms based on a fixed size (determined when the Form is created).  In real-world use, even for quite complicated applications, I have not found this to be a major limitation.</p>
+<p>On the plus side, this library does make sure that a resized terminal will not cause your application to crash. (In fact, this library was first inspired by the desire to be able to write applications that would not crash merely because a terminal window had changed shape. Things rapidly got more complicated.)</p>
+</div>
+<div class="section" id="compatibility">
+<h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h2>
+<p>Current development is done on Python 3, but the code is kept compatible with modern releases of Python 2.  Certain features related to unicode work better under Python 3.</p>
+<p>It is designed to run using only the python standard library, and the only requirements are a working python (2.4 or above) installation and a working curses library.  Npyscreen will therefore work on almost all common platforms, and even in the Cygwin environment on Windows.</p>
+</div>
+<div class="section" id="unicode">
+<h2>Unicode<a class="headerlink" href="#unicode" title="Permalink to this headline">¶</a></h2>
+<p>From version 2.0pre47 onwards all text widgets should now support utf-8 text display and entry on utf-8 capable terminals. This fixes a long-standing limitation with the library, and makes it suitable for use in projects targeting non-English-speaking users.</p>
+<p>As of version 2.0pre48 the library aims to be robust in dealing with unicode across all widgets. There are still a few places in the system where support for utf-8/unicode needs further work. Please file bug reports if you encounter them.</p>
+</div>
+<div class="section" id="similar-projects">
+<h2>Similar Projects<a class="headerlink" href="#similar-projects" title="Permalink to this headline">¶</a></h2>
+<p>You might also like to look at <a class="reference external" href="http://excess.org/urwid/">http://excess.org/urwid/</a></p>
+<p>Compared to npyscreen, urwid is more like a traditional, event-driven gui library, and targets other display devices as well as curses.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">An introduction to npyscreen</a><ul>
+<li><a class="reference internal" href="#purpose">Purpose</a></li>
+<li><a class="reference internal" href="#example-code">Example Code</a></li>
+<li><a class="reference internal" href="#strengths">Strengths</a></li>
+<li><a class="reference internal" href="#weaknesses">Weaknesses</a></li>
+<li><a class="reference internal" href="#compatibility">Compatibility</a></li>
+<li><a class="reference internal" href="#unicode">Unicode</a></li>
+<li><a class="reference internal" href="#similar-projects">Similar Projects</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to npyscreen&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="application-structure.html"
+                        title="next chapter">Creating npyscreen applications</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/introduction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="application-structure.html" title="Creating npyscreen applications"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to npyscreen’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Nicholas Cole.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>
