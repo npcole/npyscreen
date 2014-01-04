@@ -1,0 +1,38 @@
+Widgets: Picking Options
+************************
+
+MultiLine
+   Offer the user a list of options.  (This widget could probably have a better name, but we're stuck with it for now)
+
+   The options should be stored in the attribute *values* as a list.  The attribute *value* stores the index of the user's selection.  If you want to return the actual selected values rather than an index, use the *get_selected_objects()* method.
+
+   One of the most important features of MultiLine and widgets derived from it is that it can be adapted easily to allow the user to choose different types of objects.  To do so, override the method *display_value(self, vl)*.  The argument *vl* will be the object being displayed, and the function should return a string that can be displayed on the screen.
+   
+   In other words you can pass in a list of objects of arbitrary types. By default, they will be displayed using *str()*, but by overriding *display_value* you can present them however you see fit.
+   
+   MultiLine also allows the user to 'filter' entries.  (bound to keys l, L, n, p by default for filter, clear filter, next and previous). The current implementation highlights lines that match on the screen.  Future implementations may hide the other lines or offer a choice.  You can control how the filter operates by overriding the filter_value method.  This should accept an index as an argument (which looks up a line in the list .values) and should return True on a match and False otherwise.  From version 2.0pre74, the whole filtering system can be disabled by setting that attribute *.allow_filtering* to False.  This can also be passed in as an argument to the constructor.
+
+    Multiline widgets are a container widget that then holds a series of other widgets that handle various parts of the display.  All multiline classes have a `_contained_widget` class attribute. This controls how the widget is constructed.
+
+
+TitleMultiLine
+   A titled version of the MultiLine widget.  
+
+   If creating your own subclasses of MultiLine, you can create Title versions by subclassing this object and changing the *_entry_type* class variable.
+
+MultiSelect, TitleMultiSelect, 
+    Offer the User a list of options, allow him or her to select more than one of them.
+    
+    The *value* attribute is a list of the indexes user's choices.  As with the MultiLine widget, the list of choices is stored in the attribue *values*.
+
+SelectOne, TitleSelectOne
+    Functionally, these are like the Multiline versions, but with a display similar to the MultiSelect widget.
+
+MultiSelectFixed, TitleMultiSelectFixed
+    These special versions of MultiSelect are intended to display data, but like Textfixed do not allow the user to actually edit it.
+    
+MultiLineAction
+    A common use case for this sort of widget is to perform an action on the currently highlighted item when the user pushes Return, Space etc.  Override the method *actionHighlighted(self, act_on_this, key_press)* of this class to provide this sort of widget.  That method will be called when the user 'selects' an item (though in this case .value will not actually be set) and will be passed the item highlighted and the key the user actually pressed.
+    
+MultiSelectAction
+    This is similar to the MultiLineAction widget above, except that it also provides the method *actionSelected(self, act_on_these, keypress)*.  This can be overridden, and will be called if the user pressed ';'.  The method will be passed a list of the objects selected and the keypress.  You probably want to adjust the default keybindings to make this widget useful. 
