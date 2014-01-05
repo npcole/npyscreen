@@ -26,7 +26,7 @@ Contents:
    messages
    options
    muttlike
-   
+   example-addressbk
 
 
 Indices and tables

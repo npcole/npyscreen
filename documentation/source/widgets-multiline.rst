@@ -12,7 +12,7 @@ MultiLine
    
    MultiLine also allows the user to 'filter' entries.  (bound to keys l, L, n, p by default for filter, clear filter, next and previous). The current implementation highlights lines that match on the screen.  Future implementations may hide the other lines or offer a choice.  You can control how the filter operates by overriding the filter_value method.  This should accept an index as an argument (which looks up a line in the list .values) and should return True on a match and False otherwise.  From version 2.0pre74, the whole filtering system can be disabled by setting that attribute *.allow_filtering* to False.  This can also be passed in as an argument to the constructor.
 
-    Multiline widgets are a container widget that then holds a series of other widgets that handle various parts of the display.  All multiline classes have a `_contained_widget` class attribute. This controls how the widget is constructed.
+    Multiline widgets are a container widget that then holds a series of other widgets that handle various parts of the display.  All multiline classes have a `_contained_widget` class attribute. This controls how the widget is constructed.  The class attribute `_contained_widget_height` specifies how many lines of the screen each widget should be given.
 
 
 TitleMultiLine

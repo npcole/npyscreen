@@ -54,6 +54,24 @@ SimpleGrid
     *values* should be specified as a two-dimensional array.
     
     The convenience function *set_grid_values_from_flat_list(new_values, max_cols=None, reset_cursor=True) takes a flat list and displays it on the grid.
+    
+    The following arguments can be passed to the constructor::
+                
+        columns = None
+        column_width = None, 
+        col_margin=1, 
+        row_height = 1, 
+        values = None
+        always_show_cursor = False
+    
+    Classes derived from SimpleGrid may wish to modify the following class attributes::
+    
+        _contained_widgets    = textbox.Textfield
+        default_column_number = 4  
+        additional_y_offset   = 0  # additional offset to leave within the widget before the grid 
+        additional_x_offset   = 0  # additional offset to leave within the widget before the grid
+    
+    
 
 GridColTitles
     Like the simple grid, but uses the first two lines of the display to display the column titles.  These can be provided as a *col_titles* argument at the time of construction, or by setting the *col_titles* attribute at any time.  In either case, provide a list of strings.
@@ -138,5 +156,9 @@ BoxBasic
    BoxBasic prints a box with an optional name and footer on the screen.  It is intended as a base class for further widgets, not for direct use.
   
 BoxTitle
-    BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base class for more complex layouts.  This class has a `_contained_widget` attribute that puts a widget inside the box when the class is greated.
+    BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base class for more complex layouts.  This class has a `_contained_widget` attribute that puts a widget inside the box when the class is created.  In the Boxtitle class this is a Multiline widget.  
+    
+    The attribute `entry_widget` gives direct access to the contained widget.
+    
+    The properties `editable`, `values`, and `value` give direct access to the attributes of `entry_widget`.
 

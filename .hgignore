@@ -6,3 +6,5 @@ example-addressbook.db
 *.asc
 *.gpg
 *.sig
+*.DS_Store
+.DS_Store

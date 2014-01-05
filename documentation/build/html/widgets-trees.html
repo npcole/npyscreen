@@ -71,7 +71,8 @@ class.  This method should return an NPSTree instance.  The function will be
 called automatically whenever <em>values</em> is assigned.</p>
 <p class="last">By default this class uses <em>TreeLine</em> widgets
 to display each line of the tree.  In derived classes You can change this by changing
-the class attribute <em>_contained_widgets</em>.</p>
+the class attribute <em>_contained_widgets</em>.  The class attribute <cite>_contained_widget_height</cite>
+specifies how many lines of the screen each widget should be given.</p>
 </dd>
 <dt>MLTreeAnnotated, MLTreeAnnotatedAction</dt>
 <dd>By default this class uses <em>TreeLineAnnotated</em> widgets to display each line of the tree.
@@ -89,12 +90,17 @@ attribute <em>_contained_widgets</em>.</dd>
 <dd><p class="first"><em>New in version 2.0pre71</em></p>
 <p class="last">A version of the MLTreeMultiSelect class that uses <em>TreeLineSelectableAnnotated</em> as its display widgets.</p>
 </dd>
+</dl>
+</div>
+<div class="section" id="deprecated-tree-classes">
+<h2>Deprecated Tree Classes<a class="headerlink" href="#deprecated-tree-classes" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
 <dt>MultiLineTree, SelectOneTree, and MultiLineTree</dt>
 <dd>These widgets all work in a very similar way to the non-Tree versions,
 except that they expect to contain an NPSTree in their .values attribute.
 The other major difference is that their .value attribute does not contain
 the index of the selected value(s), but the selected value(s)
-itself/themselves.  However, these classes will in a future version be DEPRECATED in favour of the
+itself/themselves.  However, these classes are DEPRECATED in favour of the
 much improved <em>MLTree</em> and <em>MLTreeAction</em> classes.</dd>
 <dt>MultiLineTreeNew, MultiLineTreeNewAction</dt>
 <dd><p class="first"><em>These classes are provided solely for compatibility with old code. New classes should use the MLTree and related classes</em></p>
@@ -126,6 +132,7 @@ the class attribute <em>_contained_widgets</em>.</p>
   <ul>
 <li><a class="reference internal" href="#">Widgets: Trees and Tree displays</a><ul>
 <li><a class="reference internal" href="#trees">Trees</a></li>
+<li><a class="reference internal" href="#deprecated-tree-classes">Deprecated Tree Classes</a></li>
 </ul>
 </li>
 </ul>
