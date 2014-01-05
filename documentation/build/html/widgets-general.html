@@ -97,7 +97,23 @@
 <dd><p class="first">This offers a spreadsheet-like display.  The default is only intended to display information (in a grid of text-fields).  However, it is designed to be flexible and easy to customize to display a variety of different data.  Future versions may include new types of grids.  Note that you can control the look of the grid by specifying either <em>columns</em> or <em>column_width</em> at the time the widget is created.  It may be that in the future the other multi-line classes will be derived from this class.</p>
 <p>The cursor location is specified in the attribute <em>.edit_cell</em>.  Note that this follows the (odd) curses convention of specifying the row, then the column.</p>
 <p><em>values</em> should be specified as a two-dimensional array.</p>
-<p class="last">The convenience function <a href="#id1"><span class="problematic" id="id2">*</span></a>set_grid_values_from_flat_list(new_values, max_cols=None, reset_cursor=True) takes a flat list and displays it on the grid.</p>
+<p>The convenience function <a href="#id1"><span class="problematic" id="id2">*</span></a>set_grid_values_from_flat_list(new_values, max_cols=None, reset_cursor=True) takes a flat list and displays it on the grid.</p>
+<p>The following arguments can be passed to the constructor:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">columns</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">column_width</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+<span class="n">col_margin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="n">row_height</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="n">values</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">always_show_cursor</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<p>Classes derived from SimpleGrid may wish to modify the following class attributes:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="n">_contained_widgets</span>    <span class="o">=</span> <span class="n">textbox</span><span class="o">.</span><span class="n">Textfield</span>
+<span class="n">default_column_number</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">additional_y_offset</span>   <span class="o">=</span> <span class="mi">0</span>  <span class="c"># additional offset to leave within the widget before the grid</span>
+<span class="n">additional_x_offset</span>   <span class="o">=</span> <span class="mi">0</span>  <span class="c"># additional offset to leave within the widget before the grid</span>
+</pre></div>
+</div>
 </dd>
 <dt>GridColTitles</dt>
 <dd>Like the simple grid, but uses the first two lines of the display to display the column titles.  These can be provided as a <em>col_titles</em> argument at the time of construction, or by setting the <em>col_titles</em> attribute at any time.  In either case, provide a list of strings.</dd>
@@ -174,7 +190,10 @@ and the other if configured for black and white.</dd>
 <dt>BoxBasic</dt>
 <dd>BoxBasic prints a box with an optional name and footer on the screen.  It is intended as a base class for further widgets, not for direct use.</dd>
 <dt>BoxTitle</dt>
-<dd>BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base class for more complex layouts.  This class has a <cite>_contained_widget</cite> attribute that puts a widget inside the box when the class is greated.</dd>
+<dd><p class="first">BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base class for more complex layouts.  This class has a <cite>_contained_widget</cite> attribute that puts a widget inside the box when the class is created.  In the Boxtitle class this is a Multiline widget.</p>
+<p>The attribute <cite>entry_widget</cite> gives direct access to the contained widget.</p>
+<p class="last">The properties <cite>editable</cite>, <cite>values</cite>, and <cite>value</cite> give direct access to the attributes of <cite>entry_widget</cite>.</p>
+</dd>
 </dl>
 </div>
 

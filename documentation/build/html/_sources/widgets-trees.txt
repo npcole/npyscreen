@@ -26,7 +26,8 @@ MLTree, MLTreeAction
 
     By default this class uses *TreeLine* widgets 
     to display each line of the tree.  In derived classes You can change this by changing
-    the class attribute *_contained_widgets*.
+    the class attribute *_contained_widgets*.  The class attribute `_contained_widget_height` 
+    specifies how many lines of the screen each widget should be given.
 
 MLTreeAnnotated, MLTreeAnnotatedAction
     By default this class uses *TreeLineAnnotated* widgets to display each line of the tree.
@@ -52,12 +53,17 @@ MLTreeMultiSelectAnnotated
     A version of the MLTreeMultiSelect class that uses *TreeLineSelectableAnnotated* as its display widgets.
 
 
+
+Deprecated Tree Classes
++++++++++++++++++++++++
+
+
 MultiLineTree, SelectOneTree, and MultiLineTree
     These widgets all work in a very similar way to the non-Tree versions,
     except that they expect to contain an NPSTree in their .values attribute.
     The other major difference is that their .value attribute does not contain
     the index of the selected value(s), but the selected value(s)
-    itself/themselves.  However, these classes will in a future version be DEPRECATED in favour of the
+    itself/themselves.  However, these classes are DEPRECATED in favour of the
     much improved *MLTree* and *MLTreeAction* classes. 
 
 

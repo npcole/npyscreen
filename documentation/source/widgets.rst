@@ -84,4 +84,18 @@ Many widgets exist in two forms, one with a label, one without.  For example Tex
 
 Internally titled widgets are actually a textbox (for the label) and whatever other kind of widget is required.  You can access the separate widgets (if you ever need to - you shouldn't) through the *label_widget* and *entry_widget* attributes. However, you may never need to, since the *value* and *values* attributes of the combined widget should work as expected.
 
+Creating your own widgets
+*************************
 
+All widgets should inherit from the class `Widget`.  
+
+*calculate_area_neeeded*
+    This function is called to ask the widget how many lines and columns it requires (for a minimal display).  You should return a tuple with exactly two numbers.  Returning 0 for either argument says that the widget should be given all the remaining space on the display if it is available.
+    
+If you are writing text to the screen you should avoid using curses directly, and instead use the function
+
+*add_line(realy, realx, unicode_string, attributes_list, max_columns, force_ascii=False)*
+    This function adds a line of text to the display. `realy` and `realx` are the absolute position on the Form. `attributes_list` is a list of attributes that should be applied to each character.  If all of them require the same attribute, use the `make_attributes_list` method to create a list of the right length.
+    
+*make_attributes_list(unicode_string, attribute)*
+    A convenience function.  Retuns a list the length of the unicode_string provided, with each entry of the list containing a copy of attribute.

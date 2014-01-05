@@ -59,7 +59,7 @@
 <p>In other words you can pass in a list of objects of arbitrary types. By default, they will be displayed using <em>str()</em>, but by overriding <em>display_value</em> you can present them however you see fit.</p>
 <p>MultiLine also allows the user to &#8216;filter&#8217; entries.  (bound to keys l, L, n, p by default for filter, clear filter, next and previous). The current implementation highlights lines that match on the screen.  Future implementations may hide the other lines or offer a choice.  You can control how the filter operates by overriding the filter_value method.  This should accept an index as an argument (which looks up a line in the list .values) and should return True on a match and False otherwise.  From version 2.0pre74, the whole filtering system can be disabled by setting that attribute <em>.allow_filtering</em> to False.  This can also be passed in as an argument to the constructor.</p>
 <blockquote class="last">
-<div>Multiline widgets are a container widget that then holds a series of other widgets that handle various parts of the display.  All multiline classes have a <cite>_contained_widget</cite> class attribute. This controls how the widget is constructed.</div></blockquote>
+<div>Multiline widgets are a container widget that then holds a series of other widgets that handle various parts of the display.  All multiline classes have a <cite>_contained_widget</cite> class attribute. This controls how the widget is constructed.  The class attribute <cite>_contained_widget_height</cite> specifies how many lines of the screen each widget should be given.</div></blockquote>
 </dd>
 <dt>TitleMultiLine</dt>
 <dd><p class="first">A titled version of the MultiLine widget.</p>
