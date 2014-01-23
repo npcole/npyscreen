@@ -134,12 +134,12 @@ class OptionList(object):
             return 'False'
             
     def load_bool(self, txt):
-        if txt == 'True':
+        if txt in ('True', b'True'):
             return True
-        elif txt == 'False':
+        elif txt in ('False' or b'False'):
             return False
         else:
-            raise ValueError
+            raise ValueError("Could not decode %s" % txt)
     
     def save_multi_text(self, option):
         line = []

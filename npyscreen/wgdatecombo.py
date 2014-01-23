@@ -9,10 +9,11 @@ import curses
 
 
 class DateCombo(textbox.Textfield, monthbox.DateEntryBase):
-    def __init__(self, screen, allowPastDate=True, allowTodaysDate=True, **keywords):
+    def __init__(self, screen, allowPastDate=True, allowTodaysDate=True, allowClear=True, **keywords):
         super(DateCombo, self).__init__(screen, **keywords)
         self.allow_date_in_past = allowPastDate
         self.allow_todays_date  = allowTodaysDate
+        self.allow_clear        = allowClear
 
     def update(self, **keywords):
         keywords.update({'cursor': False})
@@ -53,7 +54,8 @@ class DateCombo(textbox.Textfield, monthbox.DateEntryBase):
                     allowPastDate   = self.allow_date_in_past,
                     allowTodaysDate = self.allow_todays_date,
                     use_max_space   = True,
-                    use_datetime    = self.use_datetime
+                    use_datetime    = self.use_datetime,
+                    allowClear      = self.allow_clear,
         )
         try:
             # Is it a date, do we think?

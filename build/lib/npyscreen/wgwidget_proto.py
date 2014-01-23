@@ -59,8 +59,8 @@ class _LinePrinter(object):
             place_in_string += 1
     
     def make_attributes_list(self, unicode_string, attribute):
-        """A convenience function.  Retuns a array the length of the unicode_string
-        provided, with each entry of the array containing a copy of attribute."""
+        """A convenience function.  Retuns a list the length of the unicode_string
+        provided, with each entry of the list containing a copy of attribute."""
         if isinstance(unicode_string, bytes):
             raise ValueError("This class is intended for unicode strings only.")
         
