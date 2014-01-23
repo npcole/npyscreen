@@ -7,10 +7,11 @@ import curses
 
 class DateEntryBase(widget.Widget):
     def __init__(self, screen, allowPastDate=True, allowTodaysDate=True, firstWeekDay=6, 
-            use_datetime = False, **keywords):
+                    use_datetime = False, allowClear=False, **keywords):
         super(DateEntryBase, self).__init__(screen, **keywords)
         self.allow_date_in_past = allowPastDate
         self.allow_todays_date  = allowTodaysDate
+        self.allow_clear        = allowClear
         self.use_datetime = use_datetime
         self._max = datetime.date.max
         self._min = datetime.date.min
@@ -58,6 +59,8 @@ depending on the value of onErrorHigher"""
                                "Y":    self.h_year_less,
                                "y":    self.h_year_more,
                                "t":    self.h_find_today,
+                               "q":    self.h_clear,
+                               "c":    self.h_clear,
                             })
     def _reduce_value_by_delta(self, delta):
         old_value = self.value
@@ -132,6 +135,11 @@ depending on the value of onErrorHigher"""
         self.value = self.date_or_datetime().today()  
         self._check_date()
         self._check_today_validity(onErrorHigher=True)
+    
+    def h_clear(self, *args):
+        if self.allow_clear:
+            self.value   = None
+            self.editing = None 
 
 class MonthBox(DateEntryBase):
     DAY_FIELD_WIDTH = 4
@@ -228,11 +236,17 @@ class MonthBox(DateEntryBase):
                         print_column += self.__class__.DAY_FIELD_WIDTH
             
                     print_line += 1
+                    
             # Print some help
-            if self.do_colors():
-                self.parent.curses_pad.addstr(self.rely+9, self.relx, "keys: dwmyDWMYt", self.parent.theme_manager.findPair(self, 'LABEL'))
+            if self.allow_clear:
+                key_help = "keys: dwmyDWMY t cq"
             else:
-                self.parent.curses_pad.addstr(self.rely+9, self.relx, "keys: dwmyDWMYt")
+                key_help = "keys: dwmyDWMY t"
+            
+            if self.do_colors():
+                self.parent.curses_pad.addstr(self.rely+9, self.relx, key_help, self.parent.theme_manager.findPair(self, 'LABEL'))
+            else:
+                self.parent.curses_pad.addstr(self.rely+9, self.relx, key_help)
 
         
     def set_up_handlers(self):

@@ -191,16 +191,37 @@ class MultiLineEdit(widget.Widget):
     def reformat_preserve_nl(self, *ignorethese):
         # Adapted from a script found at:
         #http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/148061
+        #width=self.maximum_display_width
+        #text = self.value
+        #self.value = reduce(lambda line, word, width=width: '%s%s%s' %
+        #          (line,
+        #           ' \n'[(len(line)-line.rfind('\n')-1
+        #             + len(word.split('\n',1)[0]
+        #                  ) >= width)],
+        #           word),
+        #          text.split(' ')
+        #         )
+        
         width=self.maximum_display_width
         text = self.value
-        self.value = reduce(lambda line, word, width=width: '%s%s%s' %
-                  (line,
-                   ' \n'[(len(line)-line.rfind('\n')-1
-                     + len(word.split('\n',1)[0]
-                          ) >= width)],
-                   word),
-                  text.split(' ')
-                 )
+        lines = []
+        for paragraph in text.split('\n'):
+            line = []
+            len_line = 0
+            for word in paragraph.split(' '):
+                len_word = len(word)
+                if len_line + len_word <= width:
+                    line.append(word)
+                    len_line += len_word + 1
+                else:
+                    lines.append(' '.join(line))
+                    line = [word]
+                    len_line = len_word + 1
+            lines.append(' '.join(line))
+        self.value = '\n'.join(lines)
+        return self.value
+
+
 
     def full_reformat(self, *args):
         w = DocWrapper(width=self.maximum_display_width)
