@@ -8,7 +8,8 @@ The following functions allow you to display a brief message or choice to the us
     This function displays a message on the screen.  It does not block and the user cannot interact with it - use it to display messages like "Please Wait" while other things are happening.
     
 .. py:function:: notify_wait(message, title="Message", form_color='STANDOUT', wrap=True, wide=False,)
-    This function displays a message on the screen, and blocks for a brief amount of time. The user cannot interact with it.
+    
+	This function displays a message on the screen, and blocks for a brief amount of time. The user cannot interact with it.
     
 .. py:function:: notify_confirm(message, title="Message", form_color='STANDOUT', wrap=True, wide=False, editw=0)
     

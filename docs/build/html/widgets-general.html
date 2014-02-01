@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="npyscreen 2 documentation" href="index.html" />
-    <link rel="next" title="All about Key Bindings" href="keybindings.html" />
+    <link rel="next" title="Widgets: Titled Widgets" href="widgets-title.html" />
     <link rel="prev" title="Widgets: Trees and Tree displays" href="widgets-trees.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="keybindings.html" title="All about Key Bindings"
+          <a href="widgets-title.html" title="Widgets: Titled Widgets"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="widgets-trees.html" title="Widgets: Trees and Tree displays"
@@ -53,7 +53,7 @@
 <h1>Widgets: Dates, Sliders and Combination Widgets<a class="headerlink" href="#widgets-dates-sliders-and-combination-widgets" title="Permalink to this headline">¶</a></h1>
 <dl class="docutils">
 <dt>DateCombo, TitleDateCombo</dt>
-<dd>These widgets allow a user to select a date.  The actual selection of a date is done with the class MonthBox, which is displayed in a temporary window.  The constructor can be passed the following arguments - allowPastDate=False and      allowTodaysDate=False - both of which will affect what the user is allowed to select.</dd>
+<dd>These widgets allow a user to select a date.  The actual selection of a date is done with the class MonthBox, which is displayed in a temporary window.  The constructor can be passed the following arguments - <cite>allowPastDate=False</cite> and <cite>allowTodaysDate=False</cite> - both of which will affect what the user is allowed to select. The constructor can also accept the argument <cite>allowClear=True</cite>.</dd>
 <dt>ComboBox, TitleCombo</dt>
 <dd>This box looks like a Textbox, but the user can only select from a list of options.  Which are displayed in a temporary window if the user wants to change the value.  Like the MultiLine widget, the attribute <em>value</em> is the index of a selection in the list <em>values</em>.  The ComboBox widget can also be customised by overloading the <em>display_value(self, vl)</em> method.</dd>
 <dt>FilenameCombo, TitleFilenameCombo</dt>
@@ -184,18 +184,6 @@ and the other if configured for black and white.</dd>
 </dd>
 </dl>
 </div>
-<div class="section" id="box-widgets">
-<h1>Box Widgets<a class="headerlink" href="#box-widgets" title="Permalink to this headline">¶</a></h1>
-<dl class="docutils">
-<dt>BoxBasic</dt>
-<dd>BoxBasic prints a box with an optional name and footer on the screen.  It is intended as a base class for further widgets, not for direct use.</dd>
-<dt>BoxTitle</dt>
-<dd><p class="first">BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base class for more complex layouts.  This class has a <cite>_contained_widget</cite> attribute that puts a widget inside the box when the class is created.  In the Boxtitle class this is a Multiline widget.</p>
-<p>The attribute <cite>entry_widget</cite> gives direct access to the contained widget.</p>
-<p class="last">The properties <cite>editable</cite>, <cite>values</cite>, and <cite>value</cite> give direct access to the attributes of <cite>entry_widget</cite>.</p>
-</dd>
-</dl>
-</div>
 
 
           </div>
@@ -208,15 +196,14 @@ and the other if configured for black and white.</dd>
 <li><a class="reference internal" href="#">Widgets: Dates, Sliders and Combination Widgets</a></li>
 <li><a class="reference internal" href="#widgets-grids">Widgets: Grids</a></li>
 <li><a class="reference internal" href="#widgets-other-controls">Widgets: Other Controls</a></li>
-<li><a class="reference internal" href="#box-widgets">Box Widgets</a></li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="widgets-trees.html"
                         title="previous chapter">Widgets: Trees and Tree displays</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="keybindings.html"
-                        title="next chapter">All about Key Bindings</a></p>
+  <p class="topless"><a href="widgets-title.html"
+                        title="next chapter">Widgets: Titled Widgets</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/widgets-general.txt"
@@ -246,7 +233,7 @@ and the other if configured for black and white.</dd>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="keybindings.html" title="All about Key Bindings"
+          <a href="widgets-title.html" title="Widgets: Titled Widgets"
              >next</a> |</li>
         <li class="right" >
           <a href="widgets-trees.html" title="Widgets: Trees and Tree displays"
