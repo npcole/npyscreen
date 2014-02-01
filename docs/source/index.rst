@@ -20,6 +20,7 @@ Contents:
    widgets-multiline
    widgets-trees
    widgets-general
+   widgets-title
    keybindings
    mouse
    color

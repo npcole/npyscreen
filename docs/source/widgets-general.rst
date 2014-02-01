@@ -150,15 +150,4 @@ AnnotateTextboxBase, TreeLineAnnotated, TreeLineSelectableAnnotated
         be too, since npyscreen will use one if the display is configured for colour
         and the other if configured for black and white.
 
-Box Widgets
-***********
-BoxBasic
-   BoxBasic prints a box with an optional name and footer on the screen.  It is intended as a base class for further widgets, not for direct use.
-  
-BoxTitle
-    BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base class for more complex layouts.  This class has a `_contained_widget` attribute that puts a widget inside the box when the class is created.  In the Boxtitle class this is a Multiline widget.  
-    
-    The attribute `entry_widget` gives direct access to the contained widget.
-    
-    The properties `editable`, `values`, and `value` give direct access to the attributes of `entry_widget`.
 

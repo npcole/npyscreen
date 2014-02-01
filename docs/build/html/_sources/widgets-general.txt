@@ -2,7 +2,7 @@ Widgets: Dates, Sliders and Combination Widgets
 ***********************************************
 
 DateCombo, TitleDateCombo
-    These widgets allow a user to select a date.  The actual selection of a date is done with the class MonthBox, which is displayed in a temporary window.  The constructor can be passed the following arguments - allowPastDate=False and      allowTodaysDate=False - both of which will affect what the user is allowed to select.
+    These widgets allow a user to select a date.  The actual selection of a date is done with the class MonthBox, which is displayed in a temporary window.  The constructor can be passed the following arguments - `allowPastDate=False` and `allowTodaysDate=False` - both of which will affect what the user is allowed to select. The constructor can also accept the argument `allowClear=True`.
 
 ComboBox, TitleCombo
     This box looks like a Textbox, but the user can only select from a list of options.  Which are displayed in a temporary window if the user wants to change the value.  Like the MultiLine widget, the attribute *value* is the index of a selection in the list *values*.  The ComboBox widget can also be customised by overloading the *display_value(self, vl)* method. 
@@ -150,15 +150,4 @@ AnnotateTextboxBase, TreeLineAnnotated, TreeLineSelectableAnnotated
         be too, since npyscreen will use one if the display is configured for colour
         and the other if configured for black and white.
 
-Box Widgets
-***********
-BoxBasic
-   BoxBasic prints a box with an optional name and footer on the screen.  It is intended as a base class for further widgets, not for direct use.
-  
-BoxTitle
-    BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base class for more complex layouts.  This class has a `_contained_widget` attribute that puts a widget inside the box when the class is created.  In the Boxtitle class this is a Multiline widget.  
-    
-    The attribute `entry_widget` gives direct access to the contained widget.
-    
-    The properties `editable`, `values`, and `value` give direct access to the attributes of `entry_widget`.
 
