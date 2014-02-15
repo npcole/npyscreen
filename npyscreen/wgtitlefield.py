@@ -29,44 +29,54 @@ class TitleText(widget.Widget):
             if len(self.name)+2 >= begin_entry_at: self.use_two_lines = True
             else: self.use_two_lines = False
         else: self.use_two_lines = use_two_lines
+    
+        self._passon = keywords.copy()
+        for dangerous in ('relx', 'rely','value',):# 'width','max_width'):
+            try:
+                self._passon.pop(dangerous)
+            except:
+                pass
+        try:
+            if self.field_width_request:
+                self._passon['width'] = self.field_width_request
+            else:
+                try:
+                    if self._passon['max_width']:
+                        self._passon['max_width'] -= self.text_field_begin_at+1
+                except:
+                    pass
+                try:
+                    if self._passon['width']:
+                        self._passon['width'] -= self.text_field_begin_at+1
+                except:
+                    pass
+        except:
+            pass
 
-        self.label_widget = textbox.Textfield(screen, relx=self.relx, rely=self.rely, width=len(self.name)+1, value=self.name, color=self.labelColor)
+        self.make_contained_widgets()
+    
+    def resize(self):
+        super(TitleText, self).resize()
+        self.label_widget._resize()
+        self.entry_widget._resize()
+        self.recalculate_size()
+        
+    def make_contained_widgets(self):
+        self.label_widget = textbox.Textfield(self.parent, relx=self.relx, rely=self.rely, width=len(self.name)+1, value=self.name, color=self.labelColor)
         if self.label_widget.on_last_line and self.use_two_lines:
             # we're in trouble here.
             if len(self.name) > 12: ab_label = 12
             else: ab_label = len(self.name)
             self.use_two_lines = False
-            self.label_widget = textbox.Textfield(screen, relx=self.relx, rely=self.rely, width=ab_label+1, value=self.name)
+            self.label_widget = textbox.Textfield(self.parent, relx=self.relx, rely=self.rely, width=ab_label+1, value=self.name)
             if allow_override_begin_entry_at:
                 self.text_field_begin_at = ab_label + 1
         if self.use_two_lines: tmp_y = 1
         else: tmp_y = 0
-        passon = keywords.copy()
-        for dangerous in ('relx', 'rely','value',):# 'width','max_width'):
-            try:
-                passon.pop(dangerous)
-            except:
-                pass
-        try:
-            if self.field_width_request:
-                passon['width'] = self.field_width_request
-            else:
-                try:
-                    if passon['max_width']:
-                        passon['max_width'] -= self.text_field_begin_at+1
-                except:
-                    pass
-                try:
-                    if passon['width']:
-                        passon['width'] -= self.text_field_begin_at+1
-                except:
-                    pass
-        except:
-            pass
                 
-        self.entry_widget = self.__class__._entry_type(screen, relx=(self.relx + self.text_field_begin_at), 
-                                rely=(self.rely+tmp_y), value = value,
-                                **passon)
+        self.entry_widget = self.__class__._entry_type(self.parent, relx=(self.relx + self.text_field_begin_at), 
+                                rely=(self.rely+tmp_y), value = self.value,
+                                **self._passon)
         self.entry_widget.parent_widget = weakref.proxy(self)
         self.recalculate_size()
     

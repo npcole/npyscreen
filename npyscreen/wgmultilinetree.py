@@ -176,6 +176,12 @@ class MLTree(multiline.MultiLine):
     def convertToTree(tree):
         "Override this function to convert a set of values to a tree."
         return None
+        
+    def resize(self):
+        super(MLTree, self).resize()
+        self.clearDisplayCache()
+        self.update(clear=True)
+        self.display()
     
     def clearDisplayCache(self):
         self._cached_tree = None

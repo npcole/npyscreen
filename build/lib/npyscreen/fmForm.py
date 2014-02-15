@@ -59,6 +59,9 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
         if widget_list:
             self.create_widgets_from_list(widget_list)
         self.create()
+    
+    def resize(self):
+        pass
 
     def _clear_all_widgets(self, ):
         self._widgets__     = []
@@ -82,6 +85,15 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
             if hasattr(_w, 'when_parent_changes_value'):
                 _w.when_parent_changes_value()
 
+    def _resize(self, *args):
+        self._create_screen()
+        self.resize()
+        for w in self._widgets__:
+            w._resize()
+            w.display()
+        self.display()
+
+
 
     def create(self):
         """Programmers should over-ride this in derived classes, creating widgets here"""
@@ -94,7 +106,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
                     "KEY_F(1)": self.h_display_help,
                     "^O":       self.h_display_help,
                     "^L":       self.h_display,
-                    #curses.KEY_RESIZE: self.h_display,
+                    curses.KEY_RESIZE: self._resize,
                     }
 
     def set_up_exit_condition_handlers(self):
@@ -396,6 +408,12 @@ class FormBaseNew(form_edit_loop.FormNewEditLoop, _FormBase):
 class Form(form_edit_loop.FormDefaultEditLoop, _FormBase, ):
     #use the old-style edit loop
     pass
+    
+    def resize(self):
+        super(Form, self).resize()
+        self.move_ok_button()
+    
+    
     
 class FormBaseNewExpanded(form_edit_loop.FormNewEditLoop, _FormBase):
     BLANK_LINES_BASE   = 1

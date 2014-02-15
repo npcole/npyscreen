@@ -52,7 +52,8 @@ class SimpleGrid(widget.Widget):
         if reset_cursor:
             self.edit_cell = [0,0]
         
-        
+    def resize(self):
+        self.make_contained_widgets()
 
     def make_contained_widgets(self):
         if self.column_width_requested:

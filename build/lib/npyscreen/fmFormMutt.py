@@ -66,6 +66,11 @@ class FormMutt(fmForm.FormBaseNew):
     def h_display(self, input):
         super(FormMutt, self).h_display(input)
         self.wMain.display()
+        
+    def resize(self):
+        MAXY, MAXX    = self.lines, self.columns
+        self.wStatus2.rely = MAXY-2-self.BLANK_LINES_BASE
+        self.wCommand.rely = MAXY-1-self.BLANK_LINES_BASE
 
 class FormMuttWithMenus(FormMutt, fmFormWithMenus.FormBaseNewWithMenus):
     def __init__(self, *args, **keywords):

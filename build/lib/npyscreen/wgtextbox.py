@@ -36,13 +36,19 @@ class TextfieldBase(widget.Widget):
         self.left_margin = 0
         
         self.begin_at = 0   # Where does the display string begin?
+    
+        self.set_text_widths()
+        self.update()
         
+    def set_text_widths(self):
         if self.on_last_line:
             self.maximum_string_length = self.width - 2  # Leave room for the cursor
         else:   
             self.maximum_string_length = self.width - 1  # Leave room for the cursor at the end of the string.
 
-        self.update()
+    def resize(self):
+        self.set_text_widths()
+
     
     def calculate_area_needed(self):
         "Need one line of screen, and any width going"

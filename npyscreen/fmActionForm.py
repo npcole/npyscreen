@@ -92,9 +92,21 @@ class ActionForm(fmForm.Form):
     
     def on_ok(self):
         pass
+    
+    def move_ok_button(self):
+        super(ActionForm, self).move_ok_button()
+        c_button_text = self.CANCEL_BUTTON_TEXT
+        cmy, cmx = self.curses_pad.getmaxyx()
+        cmy -= self.__class__.CANCEL_BUTTON_BR_OFFSET[0]
+        cmx -= len(c_button_text)+self.__class__.CANCEL_BUTTON_BR_OFFSET[1]
+        self.c_button.rely = cmy
+        self.c_button.relx = cmx
+        
+        
         
 class ActionFormExpanded(ActionForm):
     BLANK_LINES_BASE   = 1
     OK_BUTTON_BR_OFFSET = (1,6)
     CANCEL_BUTTON_BR_OFFSET = (1, 12)
+    
     
