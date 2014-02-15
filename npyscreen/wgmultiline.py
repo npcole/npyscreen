@@ -93,6 +93,11 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         #override - it looks nicer.
         if self.scroll_exit: self.slow_scroll=True
     
+    def resize(self):
+        super(MultiLine, self).resize()
+        self.make_contained_widgets()
+        self.reset_display_cache()
+        self.display()
     
     def make_contained_widgets(self, ):
         self._my_widgets = []

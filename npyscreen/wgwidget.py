@@ -231,7 +231,24 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         self.editable = editable
         if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
         else: self.on_last_line = False
+    
+    def _resize(self):
+        "Internal Method. This will be the method called when the terminal resizes."
+        self._recalculate_size()
+        self.resize()
+        self.when_resized()
+    
+    def resize(self):
+        "Widgets should override this to control what should happen when they are resized."
+        pass
         
+    def _recalculate_size(self):
+        return self.set_size()
+    
+    def when_resized(self):
+        # this method is called when the widget has been resized.
+        pass
+    
         
     def do_colors(self):
         "Returns True if the widget should try to paint in coloour."

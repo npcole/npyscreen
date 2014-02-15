@@ -153,7 +153,8 @@ class FileSelector(fmFormMutt.FormMutt):
             self.value=''
             self.exit_editing()
             return None
-        
+            
+        # There is a bug in the next three lines
         self.wCommand.value = os.path.join(self.value, self.wCommand.value)
         self.wCommand.value = os.path.expanduser(self.wCommand.value)
         self.wCommand.value = os.path.abspath(self.wCommand.value)

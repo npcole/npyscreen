@@ -106,3 +106,13 @@ class FormDefaultEditLoop(object):
 
         self.editing = False
         self.erase()
+    
+    def move_ok_button(self):
+        my, mx = self.curses_pad.getmaxyx()
+        my -= self.__class__.OK_BUTTON_BR_OFFSET[0]
+        mx -= len(self.__class__.OK_BUTTON_TEXT)+self.__class__.OK_BUTTON_BR_OFFSET[1]
+        self.ok_button.relx = mx
+        self.ok_button.rely = my
+
+
+    
