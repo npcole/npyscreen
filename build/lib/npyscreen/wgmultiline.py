@@ -96,6 +96,8 @@ the same effect can be achieved by altering the __str__() method of displayed ob
     def resize(self):
         super(MultiLine, self).resize()
         self.make_contained_widgets()
+        self.reset_display_cache()
+        self.display()
     
     def make_contained_widgets(self, ):
         self._my_widgets = []

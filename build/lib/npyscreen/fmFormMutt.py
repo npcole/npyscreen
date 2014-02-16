@@ -68,6 +68,7 @@ class FormMutt(fmForm.FormBaseNew):
         self.wMain.display()
         
     def resize(self):
+        super(FormMutt, self).resize()
         MAXY, MAXX    = self.lines, self.columns
         self.wStatus2.rely = MAXY-2-self.BLANK_LINES_BASE
         self.wCommand.rely = MAXY-1-self.BLANK_LINES_BASE

@@ -160,6 +160,7 @@ class NPSAppManaged(apNPSApplication.NPSApp):
                     self._FORM_VISIT_LIST.append(self.NEXT_ACTIVE_FORM)
             else:
                 self._FORM_VISIT_LIST.append(self.NEXT_ACTIVE_FORM)
+            self._THISFORM._resize()
             if hasattr(self._THISFORM, "activate"):
                 self._THISFORM.activate()
             else:
