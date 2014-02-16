@@ -380,6 +380,16 @@ subclasses, but it is the best place to set up all the widgets on a Form.  Expec
 
 <p>(Internally, this menu system is referred to as the &#8220;New&#8221; menu system - it replaces a drop-down menu system with which I was never very happy.)</p>
 </div>
+<div class="section" id="resizing-forms-new-in-version-2-0pre88">
+<h2>Resizing Forms (New in version 2.0pre88)<a class="headerlink" href="#resizing-forms-new-in-version-2-0pre88" title="Permalink to this headline">¶</a></h2>
+<p>When a form is resized, a signal is sent to the form currently on the screen.  Whether or not the form handles this is decided by three things.</p>
+<dl class="docutils">
+<dt>The class attribute <cite>ALLOW_RESIZE</cite> (=True by default).</dt>
+<dd>If this is set to false the form will not resize itself.</dd>
+</dl>
+<p>The class attribute <cite>FIX_MINIMUM_SIZE_WHEN_CREATED</cite> controls whether the form can be made smaller than the size it was when it was created.  By default this is set to <cite>False</cite>.  This is because for over a decade, npyscreen assumed that forms would never change size, and many programs may rely on the fact that the form will never be resized.  If you are writing new code from scratch, you can set this value to True, provided that you test the results to make sure that resizing the form will not crash your application.</p>
+<p>When a form is resized, the method <cite>resize</cite> will be called <em>after</em> the new size of the form has been fixed.  Forms may override this method to move widgets to new locations or alter anything else about the layout of the form as appropriate.</p>
+</div>
 </div>
 
 
@@ -402,6 +412,7 @@ subclasses, but it is the best place to set up all the widgets on a Form.  Expec
 <li><a class="reference internal" href="#mutt-like-forms">Mutt-like Forms</a></li>
 <li><a class="reference internal" href="#multi-page-forms">Multi-page Forms</a></li>
 <li><a class="reference internal" href="#menus">Menus</a></li>
+<li><a class="reference internal" href="#resizing-forms-new-in-version-2-0pre88">Resizing Forms (New in version 2.0pre88)</a></li>
 </ul>
 </li>
 </ul>

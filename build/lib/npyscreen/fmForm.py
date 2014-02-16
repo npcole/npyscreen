@@ -24,6 +24,8 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
     DEFAULT_X_OFFSET = 2
     PRESERVE_SELECTED_WIDGET_DEFAULT = False # Preserve cursor location between displays?
     FRAMED = True
+    ALLOW_RESIZE = True
+    FIX_MINIMUM_SIZE_WHEN_CREATED = True
     def __init__(self, name=None, parentApp=None, framed=None, help=None, color='FORMDEFAULT', 
                     widget_list=None, cycle_widgets=False, *args, **keywords):
         super(_FormBase, self).__init__(*args, **keywords)
@@ -59,7 +61,12 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
         if widget_list:
             self.create_widgets_from_list(widget_list)
         self.create()
-    
+        
+        if self.FIX_MINIMUM_SIZE_WHEN_CREATED:
+            self.min_l = self.lines
+            self.min_c = self.columns
+            
+            
     def resize(self):
         pass
 
@@ -86,12 +93,17 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
                 _w.when_parent_changes_value()
 
     def _resize(self, *args):
+        if not self.ALLOW_RESIZE:
+            return False
+
+        if hasattr(self, 'parentApp'):
+            self.parentApp.resize()
+            
         self._create_screen()
         self.resize()
         for w in self._widgets__:
             w._resize()
-            w.display()
-        self.display()
+        self.DISPLAY()
 
 
 
@@ -466,7 +478,7 @@ class SplitForm(Form):
                 self.draw_line_at = draw_line_at
             else:
                 self.draw_line_at = self.get_half_way()
-                
+    
     def draw_form(self,):
         MAXY, MAXX = self.curses_pad.getmaxyx()
         super(SplitForm, self).draw_form()

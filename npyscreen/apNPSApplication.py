@@ -13,6 +13,9 @@ class NPSApp(object):
     _run_called = 0
     def main(self):
         """Overload this method to create your application"""
+    
+    def resize(self):
+        pass
 
     def __remove_argument_call_main(self, screen, enable_mouse=True):
         # screen disgarded.

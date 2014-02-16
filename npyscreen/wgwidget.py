@@ -235,6 +235,8 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
     def _resize(self):
         "Internal Method. This will be the method called when the terminal resizes."
         self._recalculate_size()
+        if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
+        else: self.on_last_line = False
         self.resize()
         self.when_resized()
     

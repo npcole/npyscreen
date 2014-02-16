@@ -20,6 +20,21 @@ class FormMultiPage(fmForm.FormBaseNew):
         super(FormMultiPage, self).draw_form(*args, **keywords)
         self.display_page_number()
     
+    def _resize(self, *args):
+        if not self.ALLOW_RESIZE:
+            return False
+
+        if hasattr(self, 'parentApp'):
+            self.parentApp.resize()
+            
+        self._create_screen()
+        self.resize()
+        for page in self._pages__:
+            for w in page:
+                w._resize()
+        self.DISPLAY()
+    
+    
     def display_page_number(self):
         if not self.display_pages:
             return False
@@ -161,6 +176,26 @@ class FormMultiPageAction(FormMultiPage):
         elif self.c_button.value:
             self.c_button.value = False
             self.edit_return_value = self.on_cancel()
+    
+    def resize(self):
+        super(FormMultiPageAction, self).resize()
+        self.move_ok_button()
+          
+    def move_ok_button(self):
+        if hasattr(self, 'ok_button'):
+            my, mx = self.curses_pad.getmaxyx()
+            my -= self.__class__.OK_BUTTON_BR_OFFSET[0]
+            mx -= len(self.__class__.OK_BUTTON_TEXT)+self.__class__.OK_BUTTON_BR_OFFSET[1]
+            self.ok_button.relx = mx
+            self.ok_button.rely = my
+        if hasattr(self, 'c_button'):
+            c_button_text = self.CANCEL_BUTTON_TEXT
+            cmy, cmx = self.curses_pad.getmaxyx()
+            cmy -= self.__class__.CANCEL_BUTTON_BR_OFFSET[0]
+            cmx -= len(c_button_text)+self.__class__.CANCEL_BUTTON_BR_OFFSET[1]
+            self.c_button.rely = cmy
+            self.c_button.relx = cmx
+    
     
     def post_edit_loop(self):
         self.switch_page(self._page_for_buttons)
