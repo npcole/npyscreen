@@ -313,6 +313,8 @@ Resizing Forms (New in version 2.0pre88)
 
 When a form is resized, a signal is sent to the form currently on the screen.  Whether or not the form handles this is decided by three things.
 
+If you set the variable `npyscreen.DISABLE_RESIZE_SYSTEM` to True, forms will not resize at all.
+
 The class attribute `ALLOW_RESIZE` (=True by default).
 	If this is set to false the form will not resize itself.
 	
