@@ -478,6 +478,7 @@ class TitleFooterForm(TitleForm):
         super(TitleFooterForm, self).draw_form()
 
 class SplitForm(Form):
+    MOVE_LINE_ON_RESIZE = False
     """Just the same as the Title Form, but with a horizontal line"""
     def __init__(self, draw_line_at=None, *args, **keywords):
         super(SplitForm, self).__init__(*args, **keywords)
@@ -494,7 +495,11 @@ class SplitForm(Form):
 
     def get_half_way(self):
         return self.curses_pad.getmaxyx()[0] // 2
-        
+    
+    def resize(self):
+        super(SplitForm, self).resize()
+        if self.MOVE_LINE_ON_RESIZE:
+            self.draw_line_at = self.get_half_way()
     
 
 

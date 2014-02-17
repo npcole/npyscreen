@@ -38,8 +38,12 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
-Version 2.0pre87 Updates the documentation and contains various bug fixes.
+Version 2.0pre88 *IMPORTANT* This version supports resizing the terminal.
+Read the documentation for more detail about how to disable this feature if
+you need to.  It has been implemented in a way that should be compatible
+with existing code.  New code can make the resizing even more flexible.
 
+Version 2.0pre87 Updates the documentation and contains various bug fixes.
 
 Version 2.0pre85 and 2.0pre86 are both bugfix releases. 
 

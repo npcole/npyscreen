@@ -172,10 +172,22 @@ Standard Form Classes
    
    The SplitForm has a horizontal line across the middle.  The method *get_half_way()* will tell you where it has been drawn.
    
+    .. py:attribute:: draw_line_at
+       
+       This attribute defines the position at which the line should be drawn across the screen.  It can be set by passing `draw_line_at=`
+       to the constructor, or will be set automatically at the value returned by the method `get_half_way`.
+   
     .. py:method:: get_half_way
 
-        return the y co-ordinate of the bar across the middle of the form.
+        return the y co-ordinate of the bar across the middle of the form.  In fact in subclasses of this form, there is no
+        particular reason why the y co-ordinate should in fact be half way down the form, and subclasses may return whatever
+        value is convenient.
     
+    .. py:attribute:: MOVE_LINE_ON_RESIZE
+        
+        This class attribute specifies whether the position of the line should be moved when the form is resized.  Since 
+        any widgets below the line would also need to be moved (presumably in an overriden `resize` method on subclasses of
+        this form, this value is set to False by default).
 
    
 .. py:class:: FormWithMenus
@@ -313,10 +325,14 @@ Resizing Forms (New in version 2.0pre88)
 
 When a form is resized, a signal is sent to the form currently on the screen.  Whether or not the form handles this is decided by three things.
 
+If you set the variable `npyscreen.DISABLE_RESIZE_SYSTEM` to True, forms will not resize at all.
+
 The class attribute `ALLOW_RESIZE` (=True by default).
 	If this is set to false the form will not resize itself.
 	
 The class attribute `FIX_MINIMUM_SIZE_WHEN_CREATED` controls whether the form can be made smaller than the size it was when it was created.  By default this is set to `False`.  This is because for over a decade, npyscreen assumed that forms would never change size, and many programs may rely on the fact that the form will never be resized.  If you are writing new code from scratch, you can set this value to True, provided that you test the results to make sure that resizing the form will not crash your application.
 
-When a form is resized, the method `resize` will be called *after* the new size of the form has been fixed.  Forms may override this method to move widgets to new locations or alter anything else about the layout of the form as appropriate.  
+When a form is resized, the method `resize` will be called *after* the new size of the form has been fixed.  Forms may override this method to move widgets to new locations or alter anything else about the layout of the form as appropriate.
+
+When using the `NPSAppManaged` system, forms will be automatically resized before they are displayed.
 

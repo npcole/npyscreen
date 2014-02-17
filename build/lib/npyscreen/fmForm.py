@@ -12,6 +12,7 @@ from . import wgwidget_proto
 from . import fm_form_edit_loop   as form_edit_loop
 from . import util_viewhelp
 from . import npysGlobalOptions as GlobalOptions
+from .globals import DISABLE_RESIZE_SYSTEM
 
 class _FormBase(proto_fm_screen_area.ScreenArea, 
         widget.InputHandler, 
@@ -24,8 +25,10 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
     DEFAULT_X_OFFSET = 2
     PRESERVE_SELECTED_WIDGET_DEFAULT = False # Preserve cursor location between displays?
     FRAMED = True
+    
     ALLOW_RESIZE = True
     FIX_MINIMUM_SIZE_WHEN_CREATED = True
+    
     def __init__(self, name=None, parentApp=None, framed=None, help=None, color='FORMDEFAULT', 
                     widget_list=None, cycle_widgets=False, *args, **keywords):
         super(_FormBase, self).__init__(*args, **keywords)
@@ -93,9 +96,13 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
                 _w.when_parent_changes_value()
 
     def _resize(self, *args):
+        global DISABLE_RESIZE_SYSTEM
+        if DISABLE_RESIZE_SYSTEM:
+            return False
+            
         if not self.ALLOW_RESIZE:
             return False
-
+            
         if hasattr(self, 'parentApp'):
             self.parentApp.resize()
             
@@ -241,6 +248,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
 
 
     def h_display(self, input):
+        self._resize()
         self.DISPLAY()
         
     def safe_get_mouse_event(self):

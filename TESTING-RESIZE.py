@@ -5,7 +5,7 @@ class TestApp(npyscreen.NPSApp):
         # These lines create the form and populate it with widgets.
         # A fairly complex screen in only 8 or so lines of code - a line for each control.
         npyscreen.setTheme(npyscreen.Themes.ColorfulTheme)
-        F = npyscreen.Form(name = "Welcome to Npyscreen",)
+        F = npyscreen.SplitForm(name = "Welcome to Npyscreen",)
         t = F.add(npyscreen.Textfield, name = "Text:", )
         t1 = F.add(npyscreen.TitleText, name = "Text:", )
         t2 = F.add(npyscreen.TitleMultiSelect, name="Testing", values=range(200))
