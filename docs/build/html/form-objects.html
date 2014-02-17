@@ -224,10 +224,27 @@ subclasses, but it is the best place to set up all the widgets on a Form.  Expec
 <em class="property">class </em><tt class="descname">SplitForm</tt><a class="headerlink" href="#SplitForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>The SplitForm has a horizontal line across the middle.  The method <em>get_half_way()</em> will tell you where it has been drawn.</p>
 <blockquote>
-<div><dl class="method">
+<div><dl class="attribute">
+<dt id="SplitForm.draw_line_at">
+<tt class="descname">draw_line_at</tt><a class="headerlink" href="#SplitForm.draw_line_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>This attribute defines the position at which the line should be drawn across the screen.  It can be set by passing <cite>draw_line_at=</cite>
+to the constructor, or will be set automatically at the value returned by the method <cite>get_half_way</cite>.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="SplitForm.get_half_way">
 <tt class="descname">get_half_way</tt><big>(</big><big>)</big><a class="headerlink" href="#SplitForm.get_half_way" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the y co-ordinate of the bar across the middle of the form.</p>
+<dd><p>return the y co-ordinate of the bar across the middle of the form.  In fact in subclasses of this form, there is no
+particular reason why the y co-ordinate should in fact be half way down the form, and subclasses may return whatever
+value is convenient.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SplitForm.MOVE_LINE_ON_RESIZE">
+<tt class="descname">MOVE_LINE_ON_RESIZE</tt><a class="headerlink" href="#SplitForm.MOVE_LINE_ON_RESIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class attribute specifies whether the position of the line should be moved when the form is resized.  Since
+any widgets below the line would also need to be moved (presumably in an overriden <cite>resize</cite> method on subclasses of
+this form, this value is set to False by default).</p>
 </dd></dl>
 
 </div></blockquote>
@@ -383,12 +400,14 @@ subclasses, but it is the best place to set up all the widgets on a Form.  Expec
 <div class="section" id="resizing-forms-new-in-version-2-0pre88">
 <h2>Resizing Forms (New in version 2.0pre88)<a class="headerlink" href="#resizing-forms-new-in-version-2-0pre88" title="Permalink to this headline">¶</a></h2>
 <p>When a form is resized, a signal is sent to the form currently on the screen.  Whether or not the form handles this is decided by three things.</p>
+<p>If you set the variable <cite>npyscreen.DISABLE_RESIZE_SYSTEM</cite> to True, forms will not resize at all.</p>
 <dl class="docutils">
 <dt>The class attribute <cite>ALLOW_RESIZE</cite> (=True by default).</dt>
 <dd>If this is set to false the form will not resize itself.</dd>
 </dl>
 <p>The class attribute <cite>FIX_MINIMUM_SIZE_WHEN_CREATED</cite> controls whether the form can be made smaller than the size it was when it was created.  By default this is set to <cite>False</cite>.  This is because for over a decade, npyscreen assumed that forms would never change size, and many programs may rely on the fact that the form will never be resized.  If you are writing new code from scratch, you can set this value to True, provided that you test the results to make sure that resizing the form will not crash your application.</p>
 <p>When a form is resized, the method <cite>resize</cite> will be called <em>after</em> the new size of the form has been fixed.  Forms may override this method to move widgets to new locations or alter anything else about the layout of the form as appropriate.</p>
+<p>When using the <cite>NPSAppManaged</cite> system, forms will be automatically resized before they are displayed.</p>
 </div>
 </div>
 

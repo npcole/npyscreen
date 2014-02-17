@@ -282,10 +282,12 @@ big a given widget is ... use .height and .width instead"""
         
         max_height = self.max_height
         max_width  = self.max_width
+        # What to do if max_height or max_width is negative
         if max_height not in (None, False) and max_height < 0:
             max_height = my + max_height
         if max_width not in (None, False) and max_width < 0:
             max_width = mx + max_width
+            
         if max_height not in (None, False) and max_height <= 0:
             raise NotEnoughSpaceForWidget("Not enough space for requested size")  
         if max_width not in (None, False) and max_width <= 0:
@@ -390,8 +392,6 @@ big a given widget is ... use .height and .width instead"""
         if self.editing:
             self.editing    = False
             self.how_exited = True
-        
-        
 
     def _post_edit(self):
         self.highlight = 0

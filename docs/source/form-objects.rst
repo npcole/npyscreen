@@ -172,10 +172,22 @@ Standard Form Classes
    
    The SplitForm has a horizontal line across the middle.  The method *get_half_way()* will tell you where it has been drawn.
    
+    .. py:attribute:: draw_line_at
+       
+       This attribute defines the position at which the line should be drawn across the screen.  It can be set by passing `draw_line_at=`
+       to the constructor, or will be set automatically at the value returned by the method `get_half_way`.
+   
     .. py:method:: get_half_way
 
-        return the y co-ordinate of the bar across the middle of the form.
+        return the y co-ordinate of the bar across the middle of the form.  In fact in subclasses of this form, there is no
+        particular reason why the y co-ordinate should in fact be half way down the form, and subclasses may return whatever
+        value is convenient.
     
+    .. py:attribute:: MOVE_LINE_ON_RESIZE
+        
+        This class attribute specifies whether the position of the line should be moved when the form is resized.  Since 
+        any widgets below the line would also need to be moved (presumably in an overriden `resize` method on subclasses of
+        this form, this value is set to False by default).
 
    
 .. py:class:: FormWithMenus

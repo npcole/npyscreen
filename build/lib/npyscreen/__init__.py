@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from .globals                    import DEBUG
+from .globals                    import DEBUG, DISABLE_RESIZE_SYSTEM
 
 from .npyssafewrapper           import wrapper, wrapper_basic
 
