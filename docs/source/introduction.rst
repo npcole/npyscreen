@@ -80,10 +80,9 @@ The focus of this library has always been to provide a rapid way to develop cons
 Weaknesses
 ----------
 
-A future version will introduce a Form type which will dynamically rearrange widgets if the terminal resizes.  However, in the meantime, the library will create forms based on a fixed size (determined when the Form is created).  In real-world use, even for quite complicated applications, I have not found this to be a major limitation.
-
-On the plus side, this library does make sure that a resized terminal will not cause your application to crash. (In fact, this library was first inspired by the desire to be able to write applications that would not crash merely because a terminal window had changed shape. Things rapidly got more complicated.)
-
+Version 2.0pre88 introduces the ability of Forms to resize themselves when
+the terminal size changes.  Previous versions had always assumed a
+fixed-sized terminal. 
 
 Compatibility
 -------------
