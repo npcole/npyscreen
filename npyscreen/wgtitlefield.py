@@ -54,6 +54,8 @@ class TitleText(widget.Widget):
             pass
 
         self.make_contained_widgets()
+        self.set_value(value)
+        
     
     def resize(self):
         super(TitleText, self).resize()
@@ -79,6 +81,7 @@ class TitleText(widget.Widget):
                                 **self._passon)
         self.entry_widget.parent_widget = weakref.proxy(self)
         self.recalculate_size()
+        
     
     def recalculate_size(self):
         self.height = self.entry_widget.height
