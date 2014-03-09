@@ -7,6 +7,7 @@ import curses
 from . import wgtitlefield   as titlefield
 from . import fmPopup        as Popup
 import weakref
+import collections
 
 MORE_LABEL = "- more -" # string to tell user there are more options
 
@@ -33,6 +34,9 @@ class FilterPopupHelper(Popup.Popup):
     def adjust_widgets(self):
         self.updatestatusline()
         self.statusline.display()
+        
+        
+        
 
 class MultiLine(widget.Widget):
     _safe_to_display_cache = True
@@ -255,8 +259,7 @@ object to be passed to the contained widget."""
             else:
                 self.start_display_at = self.cursor_line
             self.update(clear=clear)
-        
-
+    
     def _before_print_lines(self):
         # Provide a function for the Tree classes to override.
         pass
@@ -765,5 +768,30 @@ class TitleMultiLine(titlefield.TitleText):
     def del_values(self):
         del self.entry_widget.value
     values = property(get_values, set_values, del_values)
+    
+
+class TitlePager(TitleMultiLine):
+    _entry_type = Pager
+
+class BufferPager(Pager):
+    def __init__(self, screen, maxlen=None, *args, **keywords):
+        super(BufferPager, self).__init__(screen, *args, **keywords)
+        self.values = collections.deque(maxlen=maxlen)
+    
+    def clearBuffer(self):
+        self.values.clear()
+    
+    def buffer(self, lines, scroll_end=True, scroll_if_editing=False):
+        "Add data to be displayed in the buffer."
+        self.values.extend(lines)
+        if scroll_end:
+            if not self.editing:
+                self.start_display_at = len(self.values) - len(self._my_widgets)
+            elif scroll_if_editing:
+                self.start_display_at = len(self.values) - len(self._my_widgets)
+        
+                
+
+
 
 
