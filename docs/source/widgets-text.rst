@@ -27,7 +27,7 @@ FilenameCombo, TitleFilenameCombo
 MultiLineEdit
    This widget allows the user to edit several lines of text. 
 
-Pager
+Pager, TitlePager
    This widget displays lines of text, allowing the user to scroll through them, but not edit them.  The text to display is held in the `.values` attribute.
 
 
