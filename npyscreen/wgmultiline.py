@@ -8,6 +8,7 @@ from . import wgtitlefield   as titlefield
 from . import fmPopup        as Popup
 import weakref
 import collections
+import copy
 
 MORE_LABEL = "- more -" # string to tell user there are more options
 
@@ -781,6 +782,18 @@ class BufferPager(Pager):
     def clearBuffer(self):
         self.values.clear()
     
+    def setValuesWrap(self, lines):
+        if self.autowrap and (lines == self._values_cache_for_wrapping):
+            return False
+        try:
+            lines = lines.split('\n')
+        except AttributeError:
+            pass
+        
+        self.clearBuffer()
+        self.buffer(self._wrap_message_lines(lines, self.width-1))
+        self._values_cache_for_wrapping = copy.deepcopy(self.values) 
+    
     def buffer(self, lines, scroll_end=True, scroll_if_editing=False):
         "Add data to be displayed in the buffer."
         self.values.extend(lines)
@@ -789,7 +802,9 @@ class BufferPager(Pager):
                 self.start_display_at = len(self.values) - len(self._my_widgets)
             elif scroll_if_editing:
                 self.start_display_at = len(self.values) - len(self._my_widgets)
-        
+                
+class TitleBufferPager(TitleMultiLine):
+        _entry_type = BufferPager
                 
 
 
