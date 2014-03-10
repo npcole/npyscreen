@@ -46,7 +46,7 @@ BufferPager, TitleBufferPager *New in Version 2.0pre90*
         
     .. py:method:: BufferPager.buffer(lines, scroll_end=True, scroll_if_editing=False)
     
-        Add `lines` to the contained deque object.  If `scroll_end` is True, scroll to the end of the buffer.  If `scroll_if_editing` is True, then scroll to the end even if the user is currently editing the Pager.
+        Add `lines` to the contained deque object.  If `scroll_end` is True, scroll to the end of the buffer.  If `scroll_if_editing` is True, then scroll to the end even if the user is currently editing the Pager.  If the contained deque object was created with a maximum length, then new data may cause older data to be forgotten.
         
         
         

@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre89",
+	version="2.0pre90",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,8 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 2.0pre90 introduces a new BufferPager and TitleBufferPager class. (User request, suggested by dennis@wsec.be)
+
 Version 2.0pre88 *IMPORTANT* This version supports resizing the terminal.
 Read the documentation for more detail about how to disable this feature if
 you need to.  It has been implemented in a way that should be compatible
@@ -51,8 +53,6 @@ Version 2.0pre84 introduces an experimental system for editing lists of
 options.  See documentation for details.
 
 Version 2.0pre83 multi-line checkbox widgets are now possible.  These can also be used as contained widgets within the multiselect class. See documentation for details.
-
-
 
 Version 2.0pre82 changes the menu system and allows menu items to be given keyboard shortcuts.
 
