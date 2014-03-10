@@ -779,8 +779,10 @@ class TitlePager(TitleMultiLine):
 class BufferPager(Pager):
     DEFAULT_MAXLEN = None
     
-    def __init__(self, screen, maxlen=None, *args, **keywords):
+    def __init__(self, screen, maxlen=False, *args, **keywords):
         super(BufferPager, self).__init__(screen, *args, **keywords)
+        if maxlen is False:
+            maxlen = self.DEFAULT_MAXLEN
         self.values = collections.deque(maxlen=maxlen)
     
     def clearBuffer(self):
