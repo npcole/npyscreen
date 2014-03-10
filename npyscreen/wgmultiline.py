@@ -629,7 +629,9 @@ class Pager(MultiLine):
         self.autowrap = autowrap
         self._values_cache_for_wrapping = []
         
-    
+    def reset_display_cache(self):
+        super(Pager, self).reset_display_cache()
+        self._values_cache_for_wrapping = False
     
     def _wrap_message_lines(self, message_lines, line_length):
         lines = []
@@ -652,12 +654,12 @@ class Pager(MultiLine):
         except AttributeError:
             pass
         self.values = self._wrap_message_lines(lines, self.width-1)
-        self._values_cache_for_wrapping = self.values 
-        
+        self._values_cache_for_wrapping = self.values
+    
     def update(self, clear=True):
         #we look this up a lot. Let's have it here.
         if self.autowrap:
-            self.setValuesWrap(self.values)
+            self.setValuesWrap(list(self.values))
             
         display_length = len(self._my_widgets)
         values_len = len(self.values)

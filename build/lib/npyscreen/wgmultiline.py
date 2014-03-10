@@ -7,6 +7,8 @@ import curses
 from . import wgtitlefield   as titlefield
 from . import fmPopup        as Popup
 import weakref
+import collections
+import copy
 
 MORE_LABEL = "- more -" # string to tell user there are more options
 
@@ -33,6 +35,9 @@ class FilterPopupHelper(Popup.Popup):
     def adjust_widgets(self):
         self.updatestatusline()
         self.statusline.display()
+        
+        
+        
 
 class MultiLine(widget.Widget):
     _safe_to_display_cache = True
@@ -255,8 +260,7 @@ object to be passed to the contained widget."""
             else:
                 self.start_display_at = self.cursor_line
             self.update(clear=clear)
-        
-
+    
     def _before_print_lines(self):
         # Provide a function for the Tree classes to override.
         pass
@@ -415,9 +419,9 @@ object to be passed to the contained widget."""
                     curses.ascii.NL:    self.h_select_exit,
                     curses.KEY_HOME:    self.h_cursor_beginning,
                     curses.KEY_END:     self.h_cursor_end,
-                    ord('g'):       self.h_cursor_beginning,
-                    ord('G'):       self.h_cursor_end,
-                    ord('x'):       self.h_select,
+                    ord('g'):           self.h_cursor_beginning,
+                    ord('G'):           self.h_cursor_end,
+                    ord('x'):           self.h_select,
                     # "^L":        self.h_set_filtered_to_selected,
                     curses.ascii.SP:    self.h_select,
                     curses.ascii.ESC:   self.h_exit_escape,
@@ -648,12 +652,12 @@ class Pager(MultiLine):
         except AttributeError:
             pass
         self.values = self._wrap_message_lines(lines, self.width-1)
-        self._values_cache_for_wrapping = self.values 
-        
+        self._values_cache_for_wrapping = self.values
+    
     def update(self, clear=True):
         #we look this up a lot. Let's have it here.
         if self.autowrap:
-            self.setValuesWrap(self.values)
+            self.setValuesWrap(list(self.values))
             
         display_length = len(self._my_widgets)
         values_len = len(self.values)
@@ -735,8 +739,10 @@ class Pager(MultiLine):
                     curses.ascii.TAB:   self.h_exit,
                     ord('j'):           self.h_scroll_line_down,
                     ord('k'):           self.h_scroll_line_up,
-                    ord('x'):       self.h_exit,
-                    ord('q'):       self.h_exit,
+                    ord('x'):           self.h_exit,
+                    ord('q'):           self.h_exit,
+                    ord('g'):           self.h_show_beginning,
+                    ord('G'):           self.h_show_end,
                     curses.ascii.ESC:   self.h_exit_escape,
                 }
 
@@ -765,5 +771,54 @@ class TitleMultiLine(titlefield.TitleText):
     def del_values(self):
         del self.entry_widget.value
     values = property(get_values, set_values, del_values)
+    
+
+class TitlePager(TitleMultiLine):
+    _entry_type = Pager
+
+class BufferPager(Pager):
+    DEFAULT_MAXLEN = None
+    
+    def __init__(self, screen, maxlen=False, *args, **keywords):
+        super(BufferPager, self).__init__(screen, *args, **keywords)
+        if maxlen is False:
+            maxlen = self.DEFAULT_MAXLEN
+        self.values = collections.deque(maxlen=maxlen)
+    
+    def clearBuffer(self):
+        self.values.clear()
+    
+    def setValuesWrap(self, lines):
+        if self.autowrap and (lines == self._values_cache_for_wrapping):
+            return False
+        try:
+            lines = lines.split('\n')
+        except AttributeError:
+            pass
+        
+        self.clearBuffer()
+        self.buffer(self._wrap_message_lines(lines, self.width-1))
+        self._values_cache_for_wrapping = copy.deepcopy(self.values) 
+    
+    def buffer(self, lines, scroll_end=True, scroll_if_editing=False):
+        "Add data to be displayed in the buffer."
+        self.values.extend(lines)
+        if scroll_end:
+            if not self.editing:
+                self.start_display_at = len(self.values) - len(self._my_widgets)
+            elif scroll_if_editing:
+                self.start_display_at = len(self.values) - len(self._my_widgets)
+                
+class TitleBufferPager(TitleMultiLine):
+    _entry_type = BufferPager
+        
+    def clearBuffer(self):
+        return self.entry_widget.clearBuffer()
+    
+    def buffer(self, *args, **values):
+        return self.entry_widget.buffer(*args, **values)
+                
+
+
 
 
