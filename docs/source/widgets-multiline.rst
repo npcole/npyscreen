@@ -11,7 +11,7 @@ MultiLine
    In other words you can pass in a list of objects of arbitrary types. By default, they will be displayed using *str()*, but by overriding *display_value* you can present them however you see fit.
    
    MultiLine also allows the user to 'filter' entries.  (bound to keys l, L, n, p by default for filter, clear filter, next and previous). The current implementation highlights lines that match on the screen.  Future implementations may hide the other lines or offer a choice.  You can control how the filter operates by overriding the filter_value method.  This should accept an index as an argument (which looks up a line in the list .values) and should return True on a match and False otherwise.  From version 2.0pre74, the whole filtering system can be disabled by setting that attribute *.allow_filtering* to False.  This can also be passed in as an argument to the constructor.
-
+    
     Multiline widgets are a container widget that then holds a series of other widgets that handle various parts of the display.  All multiline classes have a `_contained_widget` class attribute. This controls how the widget is constructed.  The class attribute `_contained_widget_height` specifies how many lines of the screen each widget should be given.
 
 
@@ -36,3 +36,17 @@ MultiLineAction
     
 MultiSelectAction
     This is similar to the MultiLineAction widget above, except that it also provides the method *actionSelected(self, act_on_these, keypress)*.  This can be overridden, and will be called if the user pressed ';'.  The method will be passed a list of the objects selected and the keypress.  You probably want to adjust the default keybindings to make this widget useful. 
+    
+BufferPager, TitleBufferPager *New in Version 2.0pre90*
+    The `BufferPager` class is a subclass of the *Pager* class.  It is designed to display text to the user in much the way that `tail -f` does under *nix.  By default, the .values attribute is set to an instance of the `collections.deque` class.  You can pass a `maxlen=` value to the constructor.  If not, the maxlen for the deque object will be taken from the class attribute `DEFAULT_MAXLEN`, which is None by default.
+    
+    .. py:method:: BufferPager.clearBuffer()
+    
+        Clear the buffer.
+        
+    .. py:method:: BufferPager.buffer(lines, scroll_end=True, scroll_if_editing=False)
+    
+        Add `lines` to the contained deque object.  If `scroll_end` is True, scroll to the end of the buffer.  If `scroll_if_editing` is True, then scroll to the end even if the user is currently editing the Pager.
+        
+        
+        

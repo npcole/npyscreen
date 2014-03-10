@@ -77,6 +77,21 @@
 <dd>A common use case for this sort of widget is to perform an action on the currently highlighted item when the user pushes Return, Space etc.  Override the method <em>actionHighlighted(self, act_on_this, key_press)</em> of this class to provide this sort of widget.  That method will be called when the user &#8216;selects&#8217; an item (though in this case .value will not actually be set) and will be passed the item highlighted and the key the user actually pressed.</dd>
 <dt>MultiSelectAction</dt>
 <dd>This is similar to the MultiLineAction widget above, except that it also provides the method <em>actionSelected(self, act_on_these, keypress)</em>.  This can be overridden, and will be called if the user pressed &#8216;;&#8217;.  The method will be passed a list of the objects selected and the keypress.  You probably want to adjust the default keybindings to make this widget useful.</dd>
+<dt>BufferPager, TitleBufferPager <em>New in Version 2.0pre90</em></dt>
+<dd><p class="first">The <cite>BufferPager</cite> class is a subclass of the <em>Pager</em> class.  It is designed to display text to the user in much the way that <cite>tail -f</cite> does under <a href="#id1"><span class="problematic" id="id2">*</span></a>nix.  By default, the .values attribute is set to an instance of the <cite>collections.deque</cite> class.  You can pass a <cite>maxlen=</cite> value to the constructor.  If not, the maxlen for the deque object will be taken from the class attribute <cite>DEFAULT_MAXLEN</cite>, which is None by default.</p>
+<dl class="method">
+<dt id="BufferPager.clearBuffer">
+<tt class="descclassname">BufferPager.</tt><tt class="descname">clearBuffer</tt><big>(</big><big>)</big><a class="headerlink" href="#BufferPager.clearBuffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the buffer.</p>
+</dd></dl>
+
+<dl class="last method">
+<dt id="BufferPager.buffer">
+<tt class="descclassname">BufferPager.</tt><tt class="descname">buffer</tt><big>(</big><em>lines</em>, <em>scroll_end=True</em>, <em>scroll_if_editing=False</em><big>)</big><a class="headerlink" href="#BufferPager.buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add <cite>lines</cite> to the contained deque object.  If <cite>scroll_end</cite> is True, scroll to the end of the buffer.  If <cite>scroll_if_editing</cite> is True, then scroll to the end even if the user is currently editing the Pager.</p>
+</dd></dl>
+
+</dd>
 </dl>
 </div>
 
