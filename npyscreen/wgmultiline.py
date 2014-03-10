@@ -419,9 +419,9 @@ object to be passed to the contained widget."""
                     curses.ascii.NL:    self.h_select_exit,
                     curses.KEY_HOME:    self.h_cursor_beginning,
                     curses.KEY_END:     self.h_cursor_end,
-                    ord('g'):       self.h_cursor_beginning,
-                    ord('G'):       self.h_cursor_end,
-                    ord('x'):       self.h_select,
+                    ord('g'):           self.h_cursor_beginning,
+                    ord('G'):           self.h_cursor_end,
+                    ord('x'):           self.h_select,
                     # "^L":        self.h_set_filtered_to_selected,
                     curses.ascii.SP:    self.h_select,
                     curses.ascii.ESC:   self.h_exit_escape,
@@ -739,8 +739,10 @@ class Pager(MultiLine):
                     curses.ascii.TAB:   self.h_exit,
                     ord('j'):           self.h_scroll_line_down,
                     ord('k'):           self.h_scroll_line_up,
-                    ord('x'):       self.h_exit,
-                    ord('q'):       self.h_exit,
+                    ord('x'):           self.h_exit,
+                    ord('q'):           self.h_exit,
+                    ord('g'):           self.h_show_beginning,
+                    ord('G'):           self.h_show_end,
                     curses.ascii.ESC:   self.h_exit_escape,
                 }
 
@@ -775,6 +777,8 @@ class TitlePager(TitleMultiLine):
     _entry_type = Pager
 
 class BufferPager(Pager):
+    DEFAULT_MAXLEN = None
+    
     def __init__(self, screen, maxlen=None, *args, **keywords):
         super(BufferPager, self).__init__(screen, *args, **keywords)
         self.values = collections.deque(maxlen=maxlen)
@@ -804,7 +808,13 @@ class BufferPager(Pager):
                 self.start_display_at = len(self.values) - len(self._my_widgets)
                 
 class TitleBufferPager(TitleMultiLine):
-        _entry_type = BufferPager
+    _entry_type = BufferPager
+        
+    def clearBuffer(self):
+        return self.entry_widget.clearBuffer()
+    
+    def buffer(self, *args, **values):
+        return self.entry_widget.buffer(*args, **values)
                 
 
 
