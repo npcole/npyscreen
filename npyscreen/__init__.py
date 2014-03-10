@@ -41,7 +41,7 @@ from .wgslider                  import Slider, TitleSlider
 from .wgwidget                  import DummyWidget, NotEnoughSpaceForWidget
 from . import wgwidget as widget
 
-from .wgmultiline               import MultiLine, Pager, TitleMultiLine, TitlePager, MultiLineAction, BufferPager
+from .wgmultiline               import MultiLine, Pager, TitleMultiLine, TitlePager, MultiLineAction, BufferPager, TitleBufferPager
 from .wgmultiselect             import MultiSelect, TitleMultiSelect, MultiSelectFixed, \
                                        TitleMultiSelectFixed, MultiSelectAction
 from .wgeditmultiline           import MultiLineEdit
