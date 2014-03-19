@@ -629,7 +629,9 @@ class Pager(MultiLine):
         self.autowrap = autowrap
         self._values_cache_for_wrapping = []
         
-    
+    def reset_display_cache(self):
+        super(Pager, self).reset_display_cache()
+        self._values_cache_for_wrapping = False
     
     def _wrap_message_lines(self, message_lines, line_length):
         lines = []
