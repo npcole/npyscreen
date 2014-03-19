@@ -12,9 +12,10 @@ class TextfieldBase(widget.Widget):
         invert_highlight_color=True,
         **keywords):
         try:
-            self.value
-        except:
             self.value = value or ""
+        except:
+            self.value = ""
+        
         
         super(TextfieldBase, self).__init__(screen, **keywords)
 
@@ -67,7 +68,8 @@ class TextfieldBase(widget.Widget):
         
         if value_to_use_for_calculations in (None, False, True):
             value_to_use_for_calculations = ''
-
+            self.value = ''
+            
         if clear: self.clear()
         
         if self.hidden:
