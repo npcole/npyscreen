@@ -64,6 +64,9 @@ class TextfieldBase(widget.Widget):
         #pmfuncs.hide_cursor()
         
         value_to_use_for_calculations = self.value
+        
+        if value_to_use_for_calculations in (None, False, True):
+            value_to_use_for_calculations = ''
 
         if clear: self.clear()
         
@@ -353,7 +356,7 @@ class Textfield(TextfieldBase):
     def edit(self):
         self.editing = 1
         if self.cursor_position is False:
-            self.cursor_position = len(self.value)
+            self.cursor_position = len(self.value or '')
         self.parent.curses_pad.keypad(1)
         
         self.old_value = self.value
