@@ -8,7 +8,7 @@ from . import wgwidget as widget
 from . import npysGlobalOptions as GlobalOptions
 
 class TextfieldBase(widget.Widget):
-    def __init__(self, screen, value=None, highlight_color='CURSOR', 
+    def __init__(self, screen, value='', highlight_color='CURSOR', 
         invert_highlight_color=True,
         **keywords):
         try:
