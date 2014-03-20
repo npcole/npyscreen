@@ -108,7 +108,7 @@ The following methods may be usefully overridden by subclassing NPSAppManaged.  
 	
 .. py:method:: NPSAppManaged.while_waiting
 
-	Applications can also have a *while_waiting* method.  You can define and override this at will, and it will be called while the application is waiting for user input (see the while_waiting method on forms).  The 
+	Applications can also have a *while_waiting* method.  You can define and override this at will, and it will be called while the application is waiting for user input (see the while_waiting method on forms). 
 
 .. py:method:: NPSAppManaged._internal_while_waiting
 
