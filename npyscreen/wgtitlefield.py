@@ -26,9 +26,12 @@ class TitleText(widget.Widget):
         if self.name is None: self.name = 'NoName'
 
         if use_two_lines is None:
-            if len(self.name)+2 >= begin_entry_at: self.use_two_lines = True
-            else: self.use_two_lines = False
-        else: self.use_two_lines = use_two_lines
+            if len(self.name)+2 >= begin_entry_at: 
+                self.use_two_lines = True
+            else: 
+                self.use_two_lines = False
+        else: 
+            self.use_two_lines = use_two_lines
     
         self._passon = keywords.copy()
         for dangerous in ('relx', 'rely','value',):# 'width','max_width'):
@@ -36,26 +39,23 @@ class TitleText(widget.Widget):
                 self._passon.pop(dangerous)
             except:
                 pass
-        try:
-            if self.field_width_request:
-                self._passon['width'] = self.field_width_request
-            else:
-                try:
-                    if self._passon['max_width']:
+        if self.field_width_request:
+            self._passon['width'] = self.field_width_request
+        else:
+            if 'max_width' in self._passon.keys():
+                if self._passon['max_width'] > 0:
+                    if self._passon['max_width'] < self.text_field_begin_at:
+                        raise ValueError("The maximum width specified is less than the text_field_begin_at value.")
+                    else:
                         self._passon['max_width'] -= self.text_field_begin_at+1
-                except:
-                    pass
                 try:
                     if self._passon['width']:
                         self._passon['width'] -= self.text_field_begin_at+1
                 except:
                     pass
-        except:
-            pass
 
         self.make_contained_widgets()
         self.set_value(value)
-        
     
     def resize(self):
         super(TitleText, self).resize()
