@@ -18,7 +18,7 @@ class TestApp(npyscreen.NPSApp):
     
         tmax = F.add(npyscreen.TitleText,  use_two_lines=None, name = "Max" ,max_width = False)
         tn20 = F.add(npyscreen.TitleText,  use_two_lines=None, name = "n20:" ,max_width = -20)
-        tn200= F.add(npyscreen.TitleText,  use_two_lines=None, name = "n200:" ,max_width = -200)
+        #tn200= F.add(npyscreen.TitleText,  use_two_lines=None, name = "n200:" ,max_width = -200)
         
     
         F.edit()
