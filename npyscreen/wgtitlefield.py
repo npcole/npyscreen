@@ -55,15 +55,17 @@ class TitleText(widget.Widget):
                 raise ValueError("The maximum width specified is less than the text_field_begin_at value.")
             elif self._passon['width'] > 0:
                 self._passon['width'] -= self.text_field_begin_at+1
-
-        self.make_contained_widgets()
-        self.set_value(value)
         
         if self.use_two_lines:
             if 'max_height' in self._passon:
                 self._passon['max_height'] -= 1
             if 'height' in self._passon:
                 self._passon['height'] -= 1
+        
+
+        self.make_contained_widgets()
+        self.set_value(value)
+        
     
     def resize(self):
         super(TitleText, self).resize()
