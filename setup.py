@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="2.0pre93",
+	version="3.0",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,15 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 3.0 *IMPORTANT* The version number has changed to version 3.0.  
+This is because newer versions of pip distinguish between pre-release and released versions, 
+and this will allow more flexibility in future releases. A version '2.0' might have caused confusion at this stage.  
+Version 3.0 fixes the specification of max_width values for titled widgets.  Please report any further problems.
+
+            
+
+
 Version 2.0pre90 introduces a new BufferPager and TitleBufferPager class. (User request, suggested by dennis@wsec.be)
 
 Version 2.0pre88 *IMPORTANT* This version supports resizing the terminal.
