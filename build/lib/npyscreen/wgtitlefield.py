@@ -26,9 +26,12 @@ class TitleText(widget.Widget):
         if self.name is None: self.name = 'NoName'
 
         if use_two_lines is None:
-            if len(self.name)+2 >= begin_entry_at: self.use_two_lines = True
-            else: self.use_two_lines = False
-        else: self.use_two_lines = use_two_lines
+            if len(self.name)+2 >= begin_entry_at: 
+                self.use_two_lines = True
+            else: 
+                self.use_two_lines = False
+        else: 
+            self.use_two_lines = use_two_lines
     
         self._passon = keywords.copy()
         for dangerous in ('relx', 'rely','value',):# 'width','max_width'):
@@ -36,22 +39,29 @@ class TitleText(widget.Widget):
                 self._passon.pop(dangerous)
             except:
                 pass
-        try:
-            if self.field_width_request:
-                self._passon['width'] = self.field_width_request
-            else:
-                try:
-                    if self._passon['max_width']:
+                
+        if self.field_width_request:
+            self._passon['width'] = self.field_width_request
+        else:
+            if 'max_width' in self._passon.keys():
+                if self._passon['max_width'] > 0:
+                    if self._passon['max_width'] < self.text_field_begin_at:
+                        raise ValueError("The maximum width specified is less than the text_field_begin_at value.")
+                    else:
                         self._passon['max_width'] -= self.text_field_begin_at+1
-                except:
-                    pass
-                try:
-                    if self._passon['width']:
-                        self._passon['width'] -= self.text_field_begin_at+1
-                except:
-                    pass
-        except:
-            pass
+
+        if 'width' in self._passon:
+            if 0 < self._passon['width'] < self.text_field_begin_at:
+                raise ValueError("The maximum width specified is less than the text_field_begin_at value.")
+            elif self._passon['width'] > 0:
+                self._passon['width'] -= self.text_field_begin_at+1
+        
+        if self.use_two_lines:
+            if 'max_height' in self._passon:
+                self._passon['max_height'] -= 1
+            if 'height' in self._passon:
+                self._passon['height'] -= 1
+        
 
         self.make_contained_widgets()
         self.set_value(value)

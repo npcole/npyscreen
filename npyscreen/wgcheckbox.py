@@ -39,7 +39,6 @@ class _ToggleControl(Widget):
 
 
 class Checkbox(_ToggleControl):
-
     False_box = '[ ]'
     True_box  = '[X]'
     
@@ -55,7 +54,12 @@ class Checkbox(_ToggleControl):
         self.important = False
         self.hide      = False
         
-    def _create_label_area(self, screen):    
+    def _create_label_area(self, screen):
+        l_a_width = self.width - 5
+        
+        if l_a_width < 1:
+             raise ValueError("Width of checkbox + label must be at least 6")
+           
         self.label_area = Textfield(screen, rely=self.rely, relx=self.relx+5, 
                       width=self.width-5, value=self.name)
         
