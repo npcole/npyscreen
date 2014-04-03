@@ -37,6 +37,49 @@ class _ToggleControl(Widget):
         self.how_exited = widget.EXITED_DOWN
 
 
+class CheckboxBare(_ToggleControl):
+    False_box = '[ ]'
+    True_box  = '[X]'
+    
+    def __init__(self, screen, value = False, **keywords):
+        super(CheckboxBare, self).__init__(screen, **keywords)
+        self.value = value
+        self.hide  = False
+    
+    def calculate_area_needed(self):
+        return 1, 4
+    
+    def update(self, clear=True):
+        if clear: self.clear()
+        if self.hidden:
+            self.clear()
+            return False
+        if self.hide: return True
+
+        if self.value:
+            cb_display = self.__class__.True_box
+        else:
+            cb_display = self.__class__.False_box
+        
+        if self.do_colors():    
+            self.parent.curses_pad.addstr(self.rely, self.relx, cb_display, self.parent.theme_manager.findPair(self, 'CONTROL'))
+        else:
+            self.parent.curses_pad.addstr(self.rely, self.relx, cb_display)
+        
+        if self.editing:
+            if self.value:
+                char_under_cur = 'X'
+            else:
+                char_under_cur = ' '
+            if self.do_colors():
+                self.parent.curses_pad.addstr(self.rely, self.relx + 1, char_under_cur, self.parent.theme_manager.findPair(self) | curses.A_STANDOUT)
+            else:
+                self.parent.curses_pad.addstr(self.rely,  self.relx + 1, curses.A_STANDOUT)
+            
+            
+    
+    
+
 
 class Checkbox(_ToggleControl):
     False_box = '[ ]'

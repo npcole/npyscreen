@@ -85,6 +85,9 @@ Checkbox, RoundCheckBox
    
    The function whenToggled(self) is called when the user toggles the state of the checkbox.  You can overload it.
    
+CheckboxBare
+    This has no label, and is only useful in special circumstances.  It was added at user request.
+   
 CheckBoxMultiline, RoundCheckBoxMultiline
 	This widgets allow the label of the checkbox to be more than one line long.  The name of the widget should be specified as a
 	list or tuple of strings.
