@@ -77,24 +77,24 @@ def wrapper_no_fork(call_function, reset=False):
         warnings.warn("""Repeated calls of endwin may cause a memory leak. Use wrapper_fork to avoid.""")
     global _SCREEN
     return_code = None
-    try:
-        if _NEVER_RUN_INITSCR:
-            _NEVER_RUN_INITSCR = False
-            locale.setlocale(locale.LC_ALL, '')
-            _SCREEN = curses.initscr()
-            try:
-                curses.start_color()
-            except:
-                pass
-            curses.noecho()
-            curses.cbreak()
-            _SCREEN.keypad(1)
-
+    if _NEVER_RUN_INITSCR:
+        _NEVER_RUN_INITSCR = False
+        locale.setlocale(locale.LC_ALL, '')
+        _SCREEN = curses.initscr()
+        try:
+            curses.start_color()
+        except:
+            pass
         curses.noecho()
         curses.cbreak()
         _SCREEN.keypad(1)
-        return_code = call_function(_SCREEN)
-        
+
+    curses.noecho()
+    curses.cbreak()
+    _SCREEN.keypad(1)
+    
+    try:
+        return_code = call_function(_SCREEN)    
     finally:
         _SCREEN.keypad(0)
         curses.echo()
