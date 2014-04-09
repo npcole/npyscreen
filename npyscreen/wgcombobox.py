@@ -8,6 +8,7 @@ from . import fmPopup       as Popup
 from . import wgtitlefield  as titlefield
 
 class ComboBox(textbox.Textfield):
+    ENSURE_STRING_VALUE = False
     def __init__(self, screen, value = None, values=None,**keywords):
         self.values = values or []
         self.value = value or None
