@@ -8,6 +8,7 @@ from . import wgwidget as widget
 from . import npysGlobalOptions as GlobalOptions
 
 class TextfieldBase(widget.Widget):
+    ENSURE_STRING_VALUE = True
     def __init__(self, screen, value='', highlight_color='CURSOR', 
         invert_highlight_color=True,
         **keywords):
@@ -64,16 +65,17 @@ class TextfieldBase(widget.Widget):
         # Not needed here -- gets called too much!
         #pmfuncs.hide_cursor()
         
-        value_to_use_for_calculations = self.value
-        
-        if value_to_use_for_calculations in (None, False, True):
-            value_to_use_for_calculations = ''
-            self.value = ''
-            
         if clear: self.clear()
         
         if self.hidden:
             return True
+        
+        value_to_use_for_calculations = self.value        
+        
+        if self.ENSURE_STRING_VALUE:
+            if value_to_use_for_calculations in (None, False, True):
+                value_to_use_for_calculations = ''
+                self.value = ''
 
         if self.begin_at < 0: self.begin_at = 0
         
