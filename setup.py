@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="3.35",
+	version="3.37",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,9 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 3.3 and the subsequent minor releases fix some bugs, mainly related
+to changes caused by allowing resized forms.
 
 Version 3.2 adds CheckboxBare - a checkbox without a label.  Added at user request. 
 
