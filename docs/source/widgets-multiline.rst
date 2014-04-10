@@ -47,6 +47,14 @@ BufferPager, TitleBufferPager *New in Version 2.0pre90*
     .. py:method:: BufferPager.buffer(lines, scroll_end=True, scroll_if_editing=False)
     
         Add `lines` to the contained deque object.  If `scroll_end` is True, scroll to the end of the buffer.  If `scroll_if_editing` is True, then scroll to the end even if the user is currently editing the Pager.  If the contained deque object was created with a maximum length, then new data may cause older data to be forgotten.
+    
         
-        
-        
+Custom Multiselect Widgets
+++++++++++++++++++++++++++
+
+Multiline widgets are a container widget that then holds a series of other widgets that handle various parts of the display.  All multiline classes have a `_contained_widget` class attribute. This controls how the widget is constructed.  The class attribute `_contained_widget_height` specifies how many lines of the screen each widget should be given.
+
+From version 3.4 onwards, contained widgets that have a `.selected` attribute are handled differently: widgets will have their `.selected` attribute set to `True` if the line is selected and `False` otherwise.  Widgets may also have their `.important` attribute set to True or False, depending on if they are included in a current filter (see above).
+
+Widgets that do not have a `selected` attribute have the value for each line put in their `name` attribute, and whether the line is selected or not put in their `value` attribute.  This is a legacy of the fact that the standard multiselect widgets use checkboxes to display each line.
+
