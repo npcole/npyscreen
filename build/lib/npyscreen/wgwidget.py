@@ -541,10 +541,11 @@ big a given widget is ... use .height and .width instead"""
         except AttributeError:
             self._old_value = copy.deepcopy(self.value)
             self.when_value_edited()
-            return True
         # Value must have changed:
         self._old_value = copy.deepcopy(self.value)
         self.when_value_edited()
+        if hasattr(self, 'parent_widget'):
+            self.parent_widget.when_value_edited()
         return True
     
     def when_value_edited(self):
