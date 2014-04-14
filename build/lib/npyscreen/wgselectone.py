@@ -25,14 +25,22 @@ class SelectOne(multiline.MultiLine):
             display_this = self.display_value(self.values[value_indexer])
             line.value = display_this
             line.hide = False
-            if (value_indexer in self.value and (self.value is not None)):
-                line.show_bold = True
-                line.name = display_this
-                line.value = True
+            if hasattr(line, 'selected'):
+                if (value_indexer in self.value and (self.value is not None)):
+                    line.selected = True
+                else:
+                    line.selected = False
+            # Most classes in the standard library use this
             else:
-                line.show_bold = False
-                line.name = display_this
-                line.value = False
+                if (value_indexer in self.value and (self.value is not None)):
+                    line.show_bold = True
+                    line.name = display_this
+                    line.value = True
+                else:
+                    line.show_bold = False
+                    line.name = display_this
+                    line.value = False
+                    
             if value_indexer in self._filtered_values_cache:
                 line.important = True
             else:

@@ -134,9 +134,10 @@ class OptionList(object):
             return 'False'
             
     def load_bool(self, txt):
-        if txt in ('True', b'True'):
+        txt = txt.decode()
+        if txt in ('True', ):
             return True
-        elif txt in ('False' or b'False'):
+        elif txt in ('False', ):
             return False
         else:
             raise ValueError("Could not decode %s" % txt)
