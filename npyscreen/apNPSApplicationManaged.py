@@ -86,12 +86,12 @@ class NPSAppManaged(apNPSApplication.NPSApp):
         self._THISFORM.editing = False
         try:
             self._THISFORM._widgets__[self._THISFORM.editw].editing = False
-        except:
+        except (AttributeError, IndexError):
             pass
         # Following is necessary to stop two keypresses being needed for titlefields
         try:
             self._THISFORM._widgets__[self._THISFORM.editw].entry_widget.editing = False
-        except:
+        except (AttributeError, IndexError):
             pass
 
     def removeLastFormFromHistory(self):

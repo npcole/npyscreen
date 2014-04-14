@@ -173,7 +173,7 @@ class MLTree(multiline.MultiLine):
         else:
             self._myFullValues = tree
     
-    def convertToTree(tree):
+    def convertToTree(self, tree):
         "Override this function to convert a set of values to a tree."
         return None
         

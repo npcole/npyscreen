@@ -143,6 +143,21 @@ class TitleText(widget.Widget):
     def del_value(self):
         del self.entry_widget.value
     value = property(get_value, set_value, del_value)
+    
+    @property
+    def editable(self):
+        try:
+            return self.entry_widget.editable
+        except AttributeError:
+            return self._editable
+        
+    @editable.setter
+    def editable(self, value):
+        self._editable = value
+        try:
+            self.entry_widget.editable = value
+        except AttributeError:
+            self._editable = value
 
 
 class TitleFixedText(TitleText):

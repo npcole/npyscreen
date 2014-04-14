@@ -11,9 +11,9 @@ class FormMultiPage(fmForm.FormBaseNew):
     page_info_pages_name = 'Page'
     page_info_out_of     = 'of'
     def __init__(self, display_pages=True, pages_label_color='NORMAL', *args, **keywords):
-        super(FormMultiPage, self).__init__(*args, **keywords)
         self.display_pages = display_pages
         self.pages_label_color = pages_label_color
+        super(FormMultiPage, self).__init__(*args, **keywords)
         self.switch_page(0)
     
     def draw_form(self, *args, **keywords):
