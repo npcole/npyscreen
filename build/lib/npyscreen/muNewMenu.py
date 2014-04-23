@@ -38,12 +38,14 @@ class NewMenu(object):
 
 class MenuItem(object):
     """docstring for MenuItem"""
-    def __init__(self, text='', onSelect=None, shortcut=None, document=None,):
+    def __init__(self, text='', onSelect=None, shortcut=None, document=None, arguments=None, keywords=None):
         self.setText(text)
         self.setOnSelect(onSelect)
         self.setDocumentation(document)
         self.shortcut = shortcut
         self.enabled = True
+        self.arguments = arguments or ()
+        self.keywords = keywords or {}
         
     def setText(self, text):
         self._text = text
@@ -65,4 +67,4 @@ class MenuItem(object):
     
     def do(self):
         if self.onSelectFunction:
-            return self.onSelectFunction()
+            return self.onSelectFunction(*self.arguments, **self.keywords)
