@@ -15,6 +15,7 @@ class MainForm(npyscreen.FormWithMenus):
         # The menus are created here.
         self.m1 = self.add_menu(name="Main Menu", shortcut="^M")
         self.m1.addItemsFromList([
+            ("Display Text", self.whenDisplayText, None, None, ("some text",)),
             ("Just Beep",   self.whenJustBeep, "e"),
             ("Exit Application", self.exit_application, "é"),
         ])
@@ -28,6 +29,9 @@ class MainForm(npyscreen.FormWithMenus):
         self.m3.addItemsFromList([
             ("Just Beep",   self.whenJustBeep),
         ])        
+
+    def whenDisplayText(self, argument):
+       npyscreen.notify_confirm(argument)
 
     def whenJustBeep(self):
         curses.beep()
