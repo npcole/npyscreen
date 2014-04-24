@@ -300,9 +300,11 @@ By default, the supporting forms will display an advert that the menu system is 
 
 Menus are usually created by calling a (supporting) Form's *new_menu* method.  Version 2.0pre82 adds the argument *shortcut=None* to this method.  In the list of menus that the Form displays, this shortcut will be displayed.  After a menu has been created, the following methods on that object are useful:
 
-.. py:method:: FormWithMenus.addItem(text='', onSelect=function, shortcut=None)
+.. py:method:: FormWithMenus.addItem(text='', onSelect=function, shortcut=None, arguments=None, keywords=None)
 
    *text* should be the string to be displayed on the menu.  `onSelect` should be a function to be called if that item is selected by the user.  This is one of the few easy opportunities in npyscreen to create circular references - you may wish to pass in a proxy to a function instead.  I've tried to guard you against circular references as much as possible - but this is just one of those times I can't second-guess your application structure. Version 2.0pre82 adds the ability to add a shortcut. 
+   
+   From version 3.6 onwards, menu items can be specified with a list of *arguments* and/or a dictionary of keywords.
    
 .. py:method:: FormWithMenus.addItemsFromList(text, function, shortcut=None)
 
