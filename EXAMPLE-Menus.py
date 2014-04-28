@@ -20,7 +20,7 @@ class MainForm(npyscreen.FormWithMenus):
             ("Exit Application", self.exit_application, "é"),
         ])
         
-        self.m2 = self.add_menu(name="Another Menu", shortcut="b")
+        self.m2 = self.add_menu(name="Another Menu", shortcut="b",)
         self.m2.addItemsFromList([
             ("Just Beep",   self.whenJustBeep),
         ])

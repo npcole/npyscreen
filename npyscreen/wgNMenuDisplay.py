@@ -48,6 +48,8 @@ class MenuViewerController(object):
         while self._editing:
             if self._menu is not None:
                 self._DisplayArea.name = self._menu.name
+            if hasattr(self._menu, 'do_pre_display_function'):
+                self._menu.do_pre_display_function()
             self._DisplayArea.display()
             self._DisplayArea._menuListWidget.value = None
             self._DisplayArea._menuListWidget.cursor_line = 0

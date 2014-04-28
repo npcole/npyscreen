@@ -310,11 +310,14 @@ Menus are usually created by calling a (supporting) Form's *new_menu* method.  V
 
 	The agument for this function should be a list or tuple. Each element of this should be a tuple of the arguments that are used for creating each item.
    
-.. py:method:: FormWithMenus.addNewSubmenu(name=None, shortcut=None)
+.. py:method:: NewMenu.addNewSubmenu(name=None, shortcut=None, preDisplayFunction=None, pdfuncArguments=None, pdfuncKeywords=None)
 
    Create a new submenu (returning a proxy to it).  This is the preferred way of creating submenus. Version 2.0pre82 adds the ability to add a keyboard shortcut.
    
-.. py:method:: FormWithMenus.addSubmenu(submenu)
+   From version 3.7 onwards, you can define a function and arguments to be called before this menu is displayed.  This might mean you
+   can adjust the content of the menu at the point it is displayed.  Added at user request.
+   
+.. py:method:: NewMenu.addSubmenu(submenu)
 
     Add an existing Menu to the Menu as a submenu.  All things considered, addNewSubmenu is usually a better bet.
 
