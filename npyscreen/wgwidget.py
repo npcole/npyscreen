@@ -58,7 +58,6 @@ class InputHandler(object):
                 if test(_input) is not False: 
                     handler(_input)
                     return True
-        
         if hasattr(self, 'parent_widget') and hasattr(self.parent_widget, 'handle_input'):
             if self.parent_widget.handle_input(_input):
                 return True
@@ -68,7 +67,6 @@ class InputHandler(object):
 
         else:
             pass
-
     # If we've got here, all else has failed, so:
         return False
 
