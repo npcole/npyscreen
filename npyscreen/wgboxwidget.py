@@ -90,6 +90,7 @@ class BoxTitle(BoxBasic):
         self._my_widgets.append(self._contained_widget(self.parent, 
          rely=self.rely+1, relx = self.relx+2, 
          max_width=self.width-4, max_height=self.height-2,
+         editable=self.editable,
          ))
         self.entry_widget = weakref.proxy(self._my_widgets[0])
             
