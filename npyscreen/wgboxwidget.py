@@ -6,6 +6,10 @@ class BoxBasic(Widget):
     def __init__(self, screen, footer=None, *args, **keywords):
         super(BoxBasic, self).__init__(screen, *args, **keywords)
         self.footer = footer
+        if 'color' in keywords:
+            self.color = keywords['color'] or 'LABEL'
+        else:
+            self.color = 'LABEL'
     
     def update(self, clear=True):
         if clear: self.clear()
@@ -38,7 +42,7 @@ class BoxBasic(Widget):
                 name = name.decode(self.encoding, 'replace')
             name_attributes = curses.A_NORMAL
             if self.do_colors() and not self.editing:
-                name_attributes = name_attributes | self.parent.theme_manager.findPair(self, 'LABEL') #| curses.A_BOLD
+                name_attributes = name_attributes | self.parent.theme_manager.findPair(self, self.color) #| curses.A_BOLD
             elif self.editing:
                 name_attributes = name_attributes | self.parent.theme_manager.findPair(self, 'HILIGHT')
             else:
@@ -75,7 +79,17 @@ class BoxBasic(Widget):
             
     
     def get_footer_attributes(self, footer_text):
-        footer_attributes = self.parent.theme_manager.findPair(self, 'LABEL')
+        footer_attributes = curses.A_NORMAL
+        if self.do_colors() and not self.editing:
+            footer_attributes = footer_attributes | self.parent.theme_manager.findPair(self, self.color) #| curses.A_BOLD
+        elif self.editing:
+            footer_attributes = footer_attributes | self.parent.theme_manager.findPair(self, 'HILIGHT')
+        else:
+            footer_attributes = footer_attributes #| curses.A_BOLD
+        
+        if self.editing:
+            footer_attributes = footer_attributes | curses.A_BOLD
+        #footer_attributes = self.parent.theme_manager.findPair(self, self.color)
         return self.make_attributes_list(footer_text, footer_attributes)
         
         
@@ -84,13 +98,14 @@ class BoxTitle(BoxBasic):
     def __init__(self, screen, *args, **keywords):
         super(BoxTitle, self).__init__(screen, *args, **keywords)
         self.make_contained_widget()
+        if 'editable' in keywords:
+            self.entry_widget.editable=keywords['editable']
     
     def make_contained_widget(self):
         self._my_widgets = []
         self._my_widgets.append(self._contained_widget(self.parent, 
          rely=self.rely+1, relx = self.relx+2, 
          max_width=self.width-4, max_height=self.height-2,
-         editable=self.editable,
          ))
         self.entry_widget = weakref.proxy(self._my_widgets[0])
             

@@ -5,11 +5,14 @@ import weakref
 
 class NewMenu(object):
     """docstring for NewMenu"""
-    def __init__(self, name=None, shortcut=None):
+    def __init__(self, name=None, shortcut=None, preDisplayFunction=None, pdfuncArguments=None, pdfuncKeywords=None):
         self.name      = name
         self._menuList = []
         self.enabled   = True
         self.shortcut  = shortcut
+        self.pre_display_function = preDisplayFunction
+        self.pdfunc_arguments= pdfuncArguments or ()
+        self.pdfunc_keywords = pdfuncKeywords  or {}
     
     def addItemsFromList(self, item_list):
         for l in item_list:
@@ -34,7 +37,10 @@ class NewMenu(object):
     
     def getItemObjects(self):
         return [itm for itm in self._menuList if itm.enabled]
-        
+    
+    def do_pre_display_function(self):
+        if self.pre_display_function:
+            return self.pre_display_function(*self.pdfunc_arguments, **self.pdfunc_keywords)
 
 class MenuItem(object):
     """docstring for MenuItem"""
