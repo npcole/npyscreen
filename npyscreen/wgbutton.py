@@ -15,6 +15,10 @@ class MiniButton(checkbox._ToggleControl):
         self.name = self.safe_string(name)
         self.label_width = len(name) + 2
         super(MiniButton, self).__init__(screen, *args, **keywords)
+        if 'color' in keywords:
+            self.color = keywords['color']
+        else:
+            self.color = 'CONTROL'
         
     def calculate_area_needed(self):
         return 1, self.label_width+2
@@ -45,7 +49,7 @@ class MiniButton(checkbox._ToggleControl):
         button_name = button_name.center(self.label_width)
         
         if self.do_colors():
-            button_attributes = self.parent.theme_manager.findPair(self, 'CONTROL') | button_state
+            button_attributes = self.parent.theme_manager.findPair(self, self.color) | button_state
         else:
             button_attributes = button_state
         
