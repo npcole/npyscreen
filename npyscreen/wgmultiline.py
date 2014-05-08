@@ -118,7 +118,7 @@ Should accept one argument (the object to be represented), and return a string o
 object to be passed to the contained widget."""
         try:
             return self.safe_string(str(vl))
-        except weakref.ReferenceError:
+        except ReferenceError:
             return "**REFERENCE ERROR**"
         
         try:

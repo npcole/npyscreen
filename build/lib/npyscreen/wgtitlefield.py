@@ -52,9 +52,9 @@ class TitleText(widget.Widget):
                         self._passon['max_width'] -= self.text_field_begin_at+1
 
         if 'width' in self._passon:
-            if 0 < self._passon['width'] < self.text_field_begin_at:
-                raise ValueError("The maximum width specified is less than the text_field_begin_at value.")
-            elif self._passon['width'] > 0:
+            #if 0 < self._passon['width'] < self.text_field_begin_at:
+            #    raise ValueError("The maximum width specified %s is less than the text_field_begin_at value %s." % (self._passon['width'], self.text_field_begin_at))
+            if self._passon['width'] > 0:
                 self._passon['width'] -= self.text_field_begin_at+1
         
         if self.use_two_lines:

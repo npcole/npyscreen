@@ -57,24 +57,24 @@ class BoxBasic(Widget):
             # end draw title
             
             # draw footer
-            if hasattr(self, 'footer') and self.footer:
-                footer_text = self.footer
-                if isinstance(footer_text, bytes):
-                    footer_text = footer_text.decode(self.encoding, 'replace')
-                footer_text = self.safe_string(footer_text)
-                footer_text = " " + footer_text + " "
-                if isinstance(footer_text, bytes):
-                    footer_text = footer_text.decode(self.encoding, 'replace')
-                
-                footer_attributes = self.get_footer_attributes(footer_text)
-                if len(footer_text) <= self.width - 4:
-                    placing = self.width - 4 - len(footer_text)
-                else:
-                    placing = 4
+        if hasattr(self, 'footer') and self.footer:
+            footer_text = self.footer
+            if isinstance(footer_text, bytes):
+                footer_text = footer_text.decode(self.encoding, 'replace')
+            footer_text = self.safe_string(footer_text)
+            footer_text = " " + footer_text + " "
+            if isinstance(footer_text, bytes):
+                footer_text = footer_text.decode(self.encoding, 'replace')
             
-                self.add_line(self.rely+HEIGHT, self.relx+placing, footer_text, 
-                    footer_attributes, 
-                    self.width-placing-2)
+            footer_attributes = self.get_footer_attributes(footer_text)
+            if len(footer_text) <= self.width - 4:
+                placing = self.width - 4 - len(footer_text)
+            else:
+                placing = 4
+        
+            self.add_line(self.rely+HEIGHT, self.relx+placing, footer_text, 
+                footer_attributes, 
+                self.width-placing-2)
         
             
     
