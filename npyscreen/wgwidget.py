@@ -46,11 +46,11 @@ class InputHandler(object):
         
         try:
             _unctrl_input = curses.ascii.unctrl(_input)
-        except ValueError:
+        except TypeError:
             _unctrl_input = None
         
-        if _unctrl_input and _unctrl_input in self.handlers:
-            self.handlers[curses.ascii.unctrl(_input)](_input)
+        if _unctrl_input and (_unctrl_input in self.handlers):
+            self.handlers[_unctrl_input](_input)
             return True
 
 
