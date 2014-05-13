@@ -624,9 +624,10 @@ class MultiLineActionWithShortcuts(MultiLineAction):
         
 
 class Pager(MultiLine):
-    def __init__(self, screen, autowrap=False,  **keywords):
+    def __init__(self, screen, autowrap=False,  center=False, **keywords):
         super(Pager, self).__init__(screen, **keywords)
         self.autowrap = autowrap
+        self.center = center
         self._values_cache_for_wrapping = []
         
     def reset_display_cache(self):
@@ -656,10 +657,16 @@ class Pager(MultiLine):
         self.values = self._wrap_message_lines(lines, self.width-1)
         self._values_cache_for_wrapping = self.values
     
+    def centerValues(self):
+        self.values  = [ l.center(self.width-1) for l in self.values ]
+    
     def update(self, clear=True):
         #we look this up a lot. Let's have it here.
         if self.autowrap:
             self.setValuesWrap(list(self.values))
+        
+        if self.center:
+            self.centerValues()
             
         display_length = len(self._my_widgets)
         values_len = len(self.values)

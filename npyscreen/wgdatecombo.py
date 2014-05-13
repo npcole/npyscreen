@@ -31,7 +31,7 @@ class DateCombo(textbox.Textfield, monthbox.DateEntryBase):
                 return self.value.strftime("%d %B, %Y")
             except ValueError:
                 return self.value.isoformat()
-            except AttribueError:
+            except AttributeError:
                 return "- Error -"
         else:
             return "- Unset -"

@@ -39,10 +39,12 @@ class FormMutt(fmForm.FormBaseNew):
                                         relx=self.__class__.STATUS_WIDGET_X_OFFSET,
                                         editable=False,  
                                         )
-        self.wMain    = self.add(self.__class__.MAIN_WIDGET_CLASS,    
-                                        rely=self.__class__.MAIN_WIDGET_CLASS_START_LINE,  
-                                        relx=0,     max_height = -2,
-                                        )
+        
+        if self.__class__.MAIN_WIDGET_CLASS:
+            self.wMain    = self.add(self.__class__.MAIN_WIDGET_CLASS,    
+                                            rely=self.__class__.MAIN_WIDGET_CLASS_START_LINE,  
+                                            relx=0,     max_height = -2,
+                                            )
         self.wStatus2 = self.add(self.__class__.STATUS_WIDGET_CLASS,  rely=MAXY-2-self.BLANK_LINES_BASE, 
                                         relx=self.__class__.STATUS_WIDGET_X_OFFSET,
                                         editable=False,  
@@ -65,7 +67,9 @@ class FormMutt(fmForm.FormBaseNew):
 
     def h_display(self, input):
         super(FormMutt, self).h_display(input)
-        self.wMain.display()
+        if hasattr(self, 'wMain'):
+            if not self.wMain.hidden:
+                self.wMain.display()
         
     def resize(self):
         super(FormMutt, self).resize()

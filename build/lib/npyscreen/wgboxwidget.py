@@ -118,6 +118,10 @@ class BoxTitle(BoxBasic):
         super(BoxTitle, self).update(clear=clear)
         for w in self._my_widgets:
             w.update(clear=clear)
+            
+    def resize(self):
+        super(BoxTitle, self).resize()
+        self.entry_widget.resize()
     
     def edit(self):
         self.editing=True
