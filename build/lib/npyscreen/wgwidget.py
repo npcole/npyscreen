@@ -43,12 +43,9 @@ class InputHandler(object):
         if _input in self.handlers:
             self.handlers[_input](_input)
             return True
-        try:
-            if curses.ascii.unctrl(_input) in self.handlers:
-                self.handlers[curses.ascii.unctrl(_input)](_input)
-                return True
-        except TypeError:
-            pass
+        if curses.ascii.unctrl(_input) in self.handlers:
+            self.handlers[curses.ascii.unctrl(_input)](_input)
+            return True
 
 
         if not hasattr(self, 'complex_handlers'): 
