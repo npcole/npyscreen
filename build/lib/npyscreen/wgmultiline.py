@@ -647,6 +647,14 @@ class Pager(MultiLine):
                     lines.append('')
         return lines
     
+    def resize(self):
+        super(Pager, self).resize()
+        #self.values = [str(self.width), str(self._my_widgets[0].width),]
+        if self.autowrap:
+            self.setValuesWrap(list(self.values))
+        if self.center:
+            self.centerValues()
+    
     def setValuesWrap(self, lines):
         if self.autowrap and (lines == self._values_cache_for_wrapping):
             return False
@@ -658,7 +666,7 @@ class Pager(MultiLine):
         self._values_cache_for_wrapping = self.values
     
     def centerValues(self):
-        self.values  = [ l.center(self.width-1) for l in self.values ]
+        self.values  = [ l.strip().center(self.width-1) for l in self.values ]
     
     def update(self, clear=True):
         #we look this up a lot. Let's have it here.
