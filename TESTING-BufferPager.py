@@ -10,7 +10,7 @@ class TestApp(npyscreen.NPSApp):
         F.wStatus1.value = "Status Line "
         F.wStatus2.value = "Second Status Line "
         F.wMain.editable  = False
-        F.wMain.autowrap = True
+        F.wMain.autowrap = False
         
         #F.wMain.buffer([str(r) for r in range(100)], scroll_if_editing=True)
         #with open("/Users/nicholas/Downloads/pg2600.txt", 'r') as war_and_peace:
