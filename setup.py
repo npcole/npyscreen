@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="3.9",
+	version="3.10",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,9 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 3.10 MultiLineEditable, MultiLineEditableTitle, MultiLineEditableBoxed classes added, allowing the user to edit lists of items. 
+See EXAMPLE-MultilineEditable for an example.   
 
 Version 3.6 Title.. widgets should now resize properly.  Menu items can now
 be specified with arguments and keywords.
