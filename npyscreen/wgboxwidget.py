@@ -100,6 +100,10 @@ class BoxTitle(BoxBasic):
         self.make_contained_widget()
         if 'editable' in keywords:
             self.entry_widget.editable=keywords['editable']
+        if 'value' in keywords:
+            self.value = keywords['value']
+        if 'values' in keywords:
+            self.values = keywords['values']
     
     def make_contained_widget(self):
         self._my_widgets = []

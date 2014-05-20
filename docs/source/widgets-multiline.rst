@@ -47,6 +47,26 @@ BufferPager, TitleBufferPager *New in Version 2.0pre90*
     .. py:method:: BufferPager.buffer(lines, scroll_end=True, scroll_if_editing=False)
     
         Add `lines` to the contained deque object.  If `scroll_end` is True, scroll to the end of the buffer.  If `scroll_if_editing` is True, then scroll to the end even if the user is currently editing the Pager.  If the contained deque object was created with a maximum length, then new data may cause older data to be forgotten.
+        
+MultiLineEditable
+    A list of items that the user can edit, based on the multiline classes.  New in version 3.9
+    
+    .. py:method:: get_new_value()
+        
+        This method should return a 'blank' object that can be used to initialize a new item on the list.  By default it returns an
+        empty string.
+        
+
+    .. py:mehod:: check_line_value(vl)
+        
+        This method should say whether vl is a valid object that can be added to the list, returning True or False.  By default, this 
+        method rejects empty strings.
+    
+MultiLineEditableTitle
+    A titled version of MultiLineEditable. The class attribute *_entry_type* controls the type of contained widget.
+    
+MultiLineEditableBoxed
+    A boxed version of MultiLineEditable. The class attribute **_entry_type* controls the type of contained widget.
     
         
 Custom Multiselect Widgets
