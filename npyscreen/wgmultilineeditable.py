@@ -9,6 +9,7 @@ class MultiLineEditable(wgmultiline.MultiLine):
     _contained_widgets      = textbox.Textfield 
     CHECK_VALUE             = True
     ALLOW_CONTINUE_EDITING  = True
+    CONTINUE_EDITING_AFTER_EDITING_ONE_LINE = True
     
     def get_new_value(self):
         return ''
@@ -22,7 +23,7 @@ class MultiLineEditable(wgmultiline.MultiLine):
     def edit_cursor_line_value(self):
         if len(self.values) == 0:
             self.insert_line_value()
-            return True
+            return False
         try:
             active_line = self._my_widgets[(self.cursor_line-self.start_display_at)]
         except IndexError:
@@ -55,18 +56,26 @@ class MultiLineEditable(wgmultiline.MultiLine):
         self.values.insert(self.cursor_line, self.get_new_value())
         self.display()
         self.edit_cursor_line_value()
-        active_line = self._my_widgets[(self.cursor_line-self.start_display_at)]
-        continue_editing = self.ALLOW_CONTINUE_EDITING
-        while active_line.how_exited == wgwidget.EXITED_DOWN and continue_editing:
-            self.values.insert(self.cursor_line+1, self.get_new_value())
-            self.cursor_line += 1
-            self.display()
-            continue_editing = self.edit_cursor_line_value()
+        self._continue_editing()
     
     def delete_line_value(self):
         if len(self.values) > 0:
             del self.values[self.cursor_line]
             self.display()
+    
+    def _continue_editing(self):
+        active_line = self._my_widgets[(self.cursor_line-self.start_display_at)]
+        continue_editing = self.ALLOW_CONTINUE_EDITING
+        if hasattr(active_line, 'how_exited'):
+            while active_line.how_exited == wgwidget.EXITED_DOWN and continue_editing:
+                self.values.insert(self.cursor_line+1, self.get_new_value())
+                self.cursor_line += 1
+                self.display()
+                continue_editing = self.edit_cursor_line_value()
+                active_line = self._my_widgets[(self.cursor_line-self.start_display_at)]
+    
+    
+    
     
     def h_insert_next_line(self, ch):
         if len(self.values) == self.cursor_line - 1 or len(self.values) == 0:
@@ -74,13 +83,17 @@ class MultiLineEditable(wgmultiline.MultiLine):
             self.cursor_line += 1
             self.display()
             self.edit_cursor_line_value()
+            self._continue_editing()
+            
         else:
             self.cursor_line += 1
             self.insert_line_value()
     
     def h_edit_cursor_line_value(self, ch):
-        self.edit_cursor_line_value()
-    
+        continue_line = self.edit_cursor_line_value()
+        if continue_line and self.CONTINUE_EDITING_AFTER_EDITING_ONE_LINE:
+            self._continue_editing()
+            
     def h_insert_value(self, ch):
         return self.insert_line_value()
     
