@@ -55,8 +55,9 @@ class MultiLineEditable(wgmultiline.MultiLine):
             self.cursor_line = 0
         self.values.insert(self.cursor_line, self.get_new_value())
         self.display()
-        self.edit_cursor_line_value()
-        self._continue_editing()
+        cont = self.edit_cursor_line_value()
+        if cont and self.ALLOW_CONTINUE_EDITING:
+            self._continue_editing()
     
     def delete_line_value(self):
         if len(self.values) > 0:
@@ -82,8 +83,9 @@ class MultiLineEditable(wgmultiline.MultiLine):
             self.values.append(self.get_new_value())
             self.cursor_line += 1
             self.display()
-            self.edit_cursor_line_value()
-            self._continue_editing()
+            cont = self.edit_cursor_line_value()
+            if cont and self.ALLOW_CONTINUE_EDITING:
+                self._continue_editing()
             
         else:
             self.cursor_line += 1
