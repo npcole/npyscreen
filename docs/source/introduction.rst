@@ -57,7 +57,7 @@ This is an example of a simple, one-screen application.  More advanced applicati
 	        # This lets the user interact with the Form.
 	        F.edit()
 
-	        print ms.get_selected_objects()
+	        print(ms.get_selected_objects())
 
 	if __name__ == "__main__":
 	    App = TestApp()
