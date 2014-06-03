@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="3.12",
+	version="4.0.1",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,10 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 4.0.0 introduces a new version scheme.  Due to a packaging error in
+the 3.0 release series some users were having problems obtaining the latest
+version. This is most easily fixed with a new major version release.
 
 Version 3.10 MultiLineEditable, MultiLineEditableTitle, MultiLineEditableBoxed classes added, allowing the user to edit lists of items. 
 See EXAMPLE-MultilineEditable for an example.   

@@ -115,6 +115,8 @@ class ScreenArea(object):
         # and see the size curses makes it.  No good to keep, though
         try:
             mxy, mxx = struct.unpack('hh', fcntl.ioctl(sys.stderr.fileno(), termios.TIOCGWINSZ, 'xxxx'))
+            if (mxy, mxx) == (0,0):
+                raise ValueError
         except (ValueError, NameError):
             mxy, mxx = curses.newwin(0,0).getmaxyx()
 
