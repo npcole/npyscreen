@@ -502,9 +502,12 @@ big a given widget is ... use .height and .width instead"""
         self.handle_input(ch)
         if self.check_value_change:
             self.when_check_value_changed()
+            if hasattr(self, 'parent_widget'):
+                self.parent_widget.when_check_value_changed()
         if self.check_cursor_move:
             self.when_check_cursor_moved()
-            
+            if hasattr(self, 'parent_widget'):
+                self.parent_widget.when_cursor_moved()
         self.try_adjust_widgets()
             
     def intersted_in_mouse_event(self, mouse_event):
