@@ -560,6 +560,8 @@ big a given widget is ... use .height and .width instead"""
             cursor = self.cursor_line
         elif hasattr(self, 'cursor_position'):
             cursor = self.cursor_position
+        elif hasattr(self, 'edit_cell'):
+            cursor = self.edit_cell
         else:
             return None
         try:
