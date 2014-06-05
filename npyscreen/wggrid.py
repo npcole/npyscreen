@@ -23,7 +23,6 @@ class SimpleGrid(widget.Widget):
         self.row_height = row_height
         self.make_contained_widgets()
         
-
         self.begin_row_display_at = 0
         self.begin_col_display_at = 0
         self.on_empty_display = ''
