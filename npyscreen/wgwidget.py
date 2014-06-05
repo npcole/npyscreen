@@ -561,7 +561,7 @@ big a given widget is ... use .height and .width instead"""
         elif hasattr(self, 'cursor_position'):
             cursor = self.cursor_position
         elif hasattr(self, 'edit_cell'):
-            cursor = self.edit_cell
+            cursor = copy.copy(self.edit_cell)
         else:
             return None
         try:
