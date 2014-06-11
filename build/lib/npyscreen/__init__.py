@@ -64,6 +64,8 @@ from .wgmultilinetreeselectable import MLTreeMultiSelectAnnotated, TreeLineSelec
 from .wgfilenamecombo           import FilenameCombo, TitleFilenameCombo
 from .wgannotatetextbox         import AnnotateTextboxBaseRight
 from .wgmultiline               import MultiLineActionWithShortcuts
+from .wgmultilineeditable       import MultiLineEditable, MultiLineEditableTitle, MultiLineEditableBoxed
+
 
 from .wgmonthbox                import MonthBox
 from .wggrid                    import SimpleGrid
