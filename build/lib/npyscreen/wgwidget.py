@@ -504,7 +504,8 @@ big a given widget is ... use .height and .width instead"""
             self.when_check_value_changed()
         if self.check_cursor_move:
             self.when_check_cursor_moved()
-            
+        
+        
         self.try_adjust_widgets()
             
     def intersted_in_mouse_event(self, mouse_event):
@@ -559,6 +560,8 @@ big a given widget is ... use .height and .width instead"""
             cursor = self.cursor_line
         elif hasattr(self, 'cursor_position'):
             cursor = self.cursor_position
+        elif hasattr(self, 'edit_cell'):
+            cursor = copy.copy(self.edit_cell)
         else:
             return None
         try:
@@ -569,6 +572,8 @@ big a given widget is ... use .height and .width instead"""
         # Value must have changed:
         self._old_cursor = cursor
         self.when_cursor_moved()
+        if hasattr(self, 'parent_widget'):
+            self.parent_widget.when_cursor_moved()
         
     def when_cursor_moved(self):
         "Called when the cursor moves"

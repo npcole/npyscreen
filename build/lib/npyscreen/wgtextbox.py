@@ -9,7 +9,7 @@ from . import npysGlobalOptions as GlobalOptions
 
 class TextfieldBase(widget.Widget):
     ENSURE_STRING_VALUE = True
-    def __init__(self, screen, value='', highlight_color='CURSOR', 
+    def __init__(self, screen, value='', highlight_color='CURSOR', highlight_whole_widget=False,
         invert_highlight_color=True,
         **keywords):
         try:
@@ -28,6 +28,7 @@ class TextfieldBase(widget.Widget):
         self.cursor_position = False
         
         self.highlight_color = highlight_color
+        self.highlight_whole_widget = highlight_whole_widget
         self.invert_highlight_color = invert_highlight_color
         self.show_bold = False
         self.highlight = False
@@ -279,7 +280,17 @@ class TextfieldBase(widget.Widget):
 
             while column <= (self.maximum_string_length - self.left_margin):
                 if not string_to_print or place_in_string > len(string_to_print)-1:
-                    break
+                    if self.highlight_whole_widget:
+                        self.parent.curses_pad.addstr(self.rely,self.relx+column+self.left_margin, 
+                            ' ', 
+                            color
+                            )
+                        column += width_of_char_to_print
+                        place_in_string += 1
+                        continue
+                    else:
+                        break
+                        
                 width_of_char_to_print = self.find_width_of_char(string_to_print[place_in_string])
                 if column - 1 + width_of_char_to_print > self.maximum_string_length:
                     break 

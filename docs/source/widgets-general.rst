@@ -63,6 +63,7 @@ SimpleGrid
         row_height = 1, 
         values = None
         always_show_cursor = False
+        select_whole_line = False (new in version 4.2)
     
     Classes derived from SimpleGrid may wish to modify the following class attributes::
     
@@ -70,7 +71,7 @@ SimpleGrid
         default_column_number = 4  
         additional_y_offset   = 0  # additional offset to leave within the widget before the grid 
         additional_x_offset   = 0  # additional offset to leave within the widget before the grid
-    
+        select_whole_line   # highlight the whole line that the cursor is on
     
 
 GridColTitles

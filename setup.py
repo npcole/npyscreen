@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="4.1.2",
+	version="4.2.0",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,8 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 4.2.0 introduces the ability of Grid widgets to highlight the whole line that the cursor is on (user request).
 
 Version 4.1.0 introduces support for hvc consoles (thanks to wu.fuheng@********* for the bug report).  Title widgets can now define a when_cursor_moved() method directly 
 on themselves that will be called as expected by the contained entry_widget during its edit loop (user request). 

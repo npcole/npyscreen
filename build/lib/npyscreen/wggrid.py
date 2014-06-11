@@ -14,6 +14,7 @@ class SimpleGrid(widget.Widget):
             column_width = None, col_margin=1, row_height = 1, 
             values = None,
             always_show_cursor = False,
+            select_whole_line = False,
             **keywords):
         super(SimpleGrid, self).__init__(screen, **keywords)
         self.col_margin = col_margin
@@ -23,10 +24,10 @@ class SimpleGrid(widget.Widget):
         self.row_height = row_height
         self.make_contained_widgets()
         
-
         self.begin_row_display_at = 0
         self.begin_col_display_at = 0
         self.on_empty_display = ''
+        self.select_whole_line = select_whole_line
         
         self.edit_cell = None
         
@@ -126,7 +127,13 @@ Should accept one argument (the object to be represented), and return a string."
             self._cell_widget_show_value_selected(cell, False)
         
         if (self.editing or self.always_show_cursor) and cell.grid_current_value_index != -1:
-            if ((self.edit_cell[0] == cell.grid_current_value_index[0]) and (self.edit_cell[1] == cell.grid_current_value_index[1])):
+            if self.select_whole_line:
+                if (self.edit_cell[0] == cell.grid_current_value_index[0]):
+                    self._cell_show_cursor(cell, True)
+                    cell.highlight_whole_widget = True
+                else:
+                    self._cell_show_cursor(cell, False)
+            elif ((self.edit_cell[0] == cell.grid_current_value_index[0]) and (self.edit_cell[1] == cell.grid_current_value_index[1])):
                 self._cell_show_cursor(cell, True)
             else:
                 self._cell_show_cursor(cell, False)
