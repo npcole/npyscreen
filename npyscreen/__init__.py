@@ -4,6 +4,10 @@ from .globals                    import DEBUG, DISABLE_RESIZE_SYSTEM
 
 from .npyssafewrapper           import wrapper, wrapper_basic
 
+
+
+
+
 from   .npysThemeManagers       import ThemeManager, disableColor, enableColor
 from   . import npysThemes      as  Themes 
 from   .apNPSApplication        import NPSApp
@@ -53,10 +57,17 @@ from .muMenu                    import Menu
 from .wgselectone               import SelectOne, TitleSelectOne
 from .wgdatecombo               import DateCombo, TitleDateCombo
 
-from .wgmultilinetree           import MultiLineTree, SelectOneTree
-from .wgmultilinetree           import MultiLineTreeNew, MultiLineTreeNewAction, TreeLine, TreeLineAnnotated # Experimental
-from .wgmultilinetree           import MultiLineTreeNewAnnotatedAction, MultiLineTreeNewAnnotated # Experimental
 from .wgmultilinetree           import MLTree, MLTreeAnnotated, MLTreeAction, MLTreeAnnotatedAction
+
+# The following are maintained for compatibility with old code only.
+
+from .compatibility_code.oldtreeclasses import MultiLineTree, SelectOneTree
+from .compatibility_code.oldtreeclasses import MultiLineTreeNew, MultiLineTreeNewAction, TreeLine, TreeLineAnnotated # Experimental
+from .compatibility_code.oldtreeclasses import MultiLineTreeNewAnnotatedAction, MultiLineTreeNewAnnotated # Experimental
+
+# End compatibility.
+
+
 
 # experimental
 from .wgmultilinetreeselectable import MLTreeMultiSelect, TreeLineSelectable
@@ -99,6 +110,8 @@ from .apOptions import SimpleOptionForm
 from .apOptions import OptionListDisplay, OptionChanger, OptionList, OptionLimitedChoices, OptionListDisplayLine
 from .apOptions import OptionFreeText, OptionSingleChoice, OptionMultiChoice, OptionMultiFreeList, \
                        OptionBoolean, OptionFilename, OptionDate, OptionMultiFreeText
+
+
 
 
 
