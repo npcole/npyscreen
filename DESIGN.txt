@@ -1,0 +1,10 @@
+1. Writing quick, simple terminal applications should be easy.
+2. Writing complicated applications should be possible.
+3. The UI should not leak memory.
+4. Not all terminals have colour.
+5. Not all terminals have extended characters.
+6. Many terminals are slow.
+7. So are some computers.
+8. Updates should not break old scripts.
+9. Unless the benefit really does outway the cost.
+10. Cosmetic changes to the API never satisfy (9).
