@@ -8,7 +8,7 @@ setup(
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
 	url="http://www.npcole.com/npyscreen/",
-	packages=['npyscreen'],
+	packages=['npyscreen', 'npyscreen.compatibility_code'],
 	license='New BSD License',
 	classifiers= [
 	    'Development Status :: 5 - Production/Stable',

@@ -154,7 +154,11 @@ Standard Form Classes
     
         Called when the cancel button is pressed. Setting the attribute `.editing` to True in this method will abort editing the form.
 
-   
+.. py:class:: ActionFormV2
+
+   New in Version 4.3.0.  This version of ActionForm behaves similarly to ActionForm above, but the code is much cleaner.  It should 
+   be much easier to subclass.  Eventually, this version may entirely replace ActionForm.
+
 .. py:class:: ActionPopup
     
     A smaller version of the ActionForm.
@@ -202,6 +206,12 @@ Standard Form Classes
    Similar to the ActionForm class, but provides the additional functionality of Popup menus.
    
    To add a new menu to the Form use the method *new_menu(name='')*.  This will create the menu and return a proxy to it.  For more details see the section on Menus below.
+   
+.. py:class:: ActionFormV2WithMenus
+
+   New in Version 4.3.0.  This version of ActionFormWithMenus behaves similarly to ActionForm above, but the code is much cleaner.  It should 
+   be much easier to subclass.  Eventually, this version may entirely replace ActionFormWithMenus.
+   
    
 .. py:class:: FormBaseNew
 
