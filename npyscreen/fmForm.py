@@ -201,32 +201,6 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
         while w.relx < self.show_from_x:
             self.show_from_x -= 1
 
-## REMOVING OLD MENU CODE  def menuOfMenus(self, *args, **keywords):
-## REMOVING OLD MENU CODE   """DEPRICATED"""
-## REMOVING OLD MENU CODE   tmpmnu = Menu.Menu(name = "All Menus", show_aty=2, show_atx=2)
-## REMOVING OLD MENU CODE   #tmpmnu.before_item_select = self.display
-## REMOVING OLD MENU CODE   for mnu in self.__menus:
-## REMOVING OLD MENU CODE       text = ""
-## REMOVING OLD MENU CODE       if mnu.name: text += mnu.name
-## REMOVING OLD MENU CODE       for keypress in self.handlers.keys():
-## REMOVING OLD MENU CODE           if self.handlers[keypress] == mnu.edit:
-## REMOVING OLD MENU CODE               if keypress: text += " (%s)" % keypress
-## REMOVING OLD MENU CODE               text += " >"
-## REMOVING OLD MENU CODE       tmpmnu.add_item(text, mnu.edit)
-## REMOVING OLD MENU CODE       tmpmnu.edit()
-## REMOVING OLD MENU CODE
-## REMOVING OLD MENU CODE  def add_menu(self, menu=None, key=None, *args, **keywords):
-## REMOVING OLD MENU CODE   """DEPRICATED"""
-## REMOVING OLD MENU CODE   if menu is None:
-## REMOVING OLD MENU CODE       mu = Menu.Menu(*args, **keywords)
-## REMOVING OLD MENU CODE       self.__menus.append(mu)
-## REMOVING OLD MENU CODE   else:
-## REMOVING OLD MENU CODE       mu = menu
-## REMOVING OLD MENU CODE       self.__menus.append(mu)
-## REMOVING OLD MENU CODE   self.add_handlers({key: mu.edit})
-## REMOVING OLD MENU CODE   return weakref.proxy(mu)
-
-
     def h_display_help(self, input):
         if self.help == None: return
         if self.name:
