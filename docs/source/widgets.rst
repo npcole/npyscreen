@@ -13,7 +13,7 @@ Constructor arguments
   You should probably give each widget a name (a string).  Where appropriate, it will be used as the label of the widget.
 
 *relx=*, *rely=*
-   The position of the widget on the Form is controlled by relx and rely integers.   You don't have to specify them, in which case the form will do its best to decide where to put the widget.  You can specify only one or the other if you so choose (eg. you probably don't usually need to specify relx).
+   The position of the widget on the Form is controlled by relx and rely integers.   You don't have to specify them, in which case the form will do its best to decide where to put the widget.  You can specify only one or the other if you so choose (eg. you probably don't usually need to specify relx).  *New in Version 4.3.0*: if you give a negative value for rely or relx, the widget will be positioned relative to the bottom or right hand side of the Form.  If the form is resized, npyscreen will do its best to keep the widget in place.
 
 *width=*, *height=*, *max_width=*, *max_height=*
    By default, widgets will expand to fill all available space to the right and downwards, unless that would not make sense - for example single lines of text do not need moe than one line, and so don't claim more than one.  To alter the size of a widget, therefore, specify a different *max_width* or *max_height*.  It is probably better to use the max\_ versions - these will not raise an error if space is getting tight and you specify too much, but will try to squash the widget into remaining space.
@@ -67,6 +67,12 @@ All widgets have the following methods:
 *edit()*
    Allow the user to interact with the widget.  The method returns when the user leaves the widget.  In most cases, you will never need to call this method yourself, and for the most part this should be regarded as part of the internal API of npyscreen.
 
+*set_relyx()*
+    Set the position of the widget on the Form.  If y or x is a negative value,
+    npyscreen will try to position it relative to the bottom or right edge of the 
+    Form.  Note that this ignores any margins that the Form may have defined. 
+    (New in Version 4.3.0).
+    
 
 Titled Widgets
 **************
@@ -99,3 +105,6 @@ If you are writing text to the screen you should avoid using curses directly, an
     
 *make_attributes_list(unicode_string, attribute)*
     A convenience function.  Retuns a list the length of the unicode_string provided, with each entry of the list containing a copy of attribute.
+
+*resize()*
+    You can override this method to perform any necessary actions when the widget is resized.  (New in version 4.3.0)
