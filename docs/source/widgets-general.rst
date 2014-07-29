@@ -110,7 +110,11 @@ Button
    Functionally similar to the Checkbox widgets, but looking different.  The Button is usually used for OK and Cancel Buttons on Forms and similar things, though they should probably be replaced with the ButtonPress type.
    
 ButtonPress
-    Not a toggle, but a control.  This widget has the method whenPressed(self), which you should overload to do your own things.
+    Not a toggle, but a control.  This widget has the method *whenPressed(self)*, which you should overload to do your own things.  
+    
+    From version 4.3.0 onwards, the constructor accepts an argument *when_pressed_function=None*.  If a callable is specified in this way, if will be called instead of the method *whenPressed*. NB.  The when_pressed_function functionality is potentially dangerous. It can set up
+a circular reference that the garbage collector will never free. If this is a risk for your program, it is best to subclass this object and
+override the *when_pressed_function* method instead.
    
 FormControlCheckbox
    A common use of Checkbox is to offer the user the option to enter additional data.  For example "Enter Expiry Date".  In such a case, the Form needs to display additional fields in some cases, but not in others.  FormControlCheckbox makes this trivial.

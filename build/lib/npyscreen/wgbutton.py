@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import curses
 import locale
+import weakref
 from . import npysGlobalOptions as GlobalOptions
 from . import wgwidget    as widget
 from . import wgcheckbox  as checkbox
@@ -61,10 +62,32 @@ class MiniButton(checkbox._ToggleControl):
 
 
 class MiniButtonPress(MiniButton):
+    # NB.  The when_pressed_function functionality is potentially dangerous. It can set up
+    # a circular reference that the garbage collector will never free. 
+    # If this is a risk for your program, it is best to subclass this object and
+    # override when_pressed_function instead.  Otherwise your program will leak memory.
+    def __init__(self, screen, when_pressed_function=None, *args, **keywords):
+        super(MiniButtonPress, self).__init__(screen, *args, **keywords)
+        self.when_pressed_function = when_pressed_function
+    
+    def set_up_handlers(self):
+        super(MiniButtonPress, self).set_up_handlers()
+        
+        self.handlers.update({
+                curses.ascii.NL: self.h_toggle,
+            })
+        
+    def destroy(self):
+        self.when_pressed_function = None
+        del self.when_pressed_function
+    
     def h_toggle(self, ch):
         self.value = True
         self.display()
-        self.whenPressed()
+        if self.when_pressed_function:
+            self.when_pressed_function()
+        else:
+            self.whenPressed()
         self.value = False
         self.display()
     
