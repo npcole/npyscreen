@@ -194,9 +194,10 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
             self.parent = weakref.proxy(screen)
         except TypeError:
             self.parent = screen
-        self.relx = relx
-        self.rely = rely
-        self.use_max_space = use_max_space
+        self.use_max_space = use_max_space    
+        self.set_relyx(rely, relx)
+        #self.relx = relx
+        #self.rely = rely
         self.color = color
         self.encoding = 'utf-8'#locale.getpreferredencoding()
         if GlobalOptions.ASCII_ONLY or locale.getpreferredencoding() == 'US-ASCII':
@@ -233,8 +234,31 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
         else: self.on_last_line = False
     
+    def set_relyx(self, y, x):
+        if y >= 0:
+            self.rely = y
+            self._requested_rely = y
+        else:
+            self._requested_rely = y
+            self.rely = self.parent.curses_pad.getmaxyx()[0] + y
+            if self.rely < 0:
+                self.rely = 0
+        if x >= 0:
+            self.relx = x
+            self._requested_relx = x
+        else:
+            self._requested_relx = x
+            self.relx = self.parent.curses_pad.getmaxyx()[1] + x
+            if self.relx < 0:
+                self.relx = 0
+    
+    def _move_widget_on_terminal_resize(self):
+        if self._requested_rely < 0 or self._requested_relx < 0:
+            self.set_relyx(self._requested_rely, self._requested_relx)
+    
     def _resize(self):
         "Internal Method. This will be the method called when the terminal resizes."
+        self._move_widget_on_terminal_resize()
         self._recalculate_size()
         if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
         else: self.on_last_line = False
