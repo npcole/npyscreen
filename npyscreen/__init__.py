@@ -4,10 +4,6 @@ from .globals                    import DEBUG, DISABLE_RESIZE_SYSTEM
 
 from .npyssafewrapper           import wrapper, wrapper_basic
 
-
-
-
-
 from   .npysThemeManagers       import ThemeManager, disableColor, enableColor
 from   . import npysThemes      as     Themes 
 from   .apNPSApplication        import NPSApp
