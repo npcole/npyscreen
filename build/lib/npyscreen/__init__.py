@@ -13,7 +13,8 @@ from   .fmForm                  import FormBaseNew, Form, TitleForm, TitleFooter
 from   .fmActionForm            import ActionForm, ActionFormExpanded
 from   .fmActionFormV2          import ActionFormV2, ActionFormExpandedV2
 from   .fmFormWithMenus         import FormWithMenus, ActionFormWithMenus, \
-                                       FormBaseNewWithMenus, SplitFormWithMenus
+                                       FormBaseNewWithMenus, SplitFormWithMenus, \
+                                       ActionFormV2WithMenus
 from   .fmPopup                 import Popup, MessagePopup, ActionPopup, PopupWide, ActionPopupWide
 from   .fmFormMutt              import FormMutt, FormMuttWithMenus
 from   .fmFileSelector          import FileSelector, selectFile
