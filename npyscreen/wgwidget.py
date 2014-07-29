@@ -235,12 +235,22 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         else: self.on_last_line = False
     
     def set_relyx(self, y, x):
+        """
+        Set the position of the widget on the Form.  If y or x is a negative value,
+        npyscreen will try to position it relative to the bottom or right edge of the 
+        Form.  Note that this ignores any margins that the Form may have defined.
+        This is currently an experimental feature.  A future version of the API may 
+        take account of the margins set by the parent Form.
+        """
         if y >= 0:
             self.rely = y
             self._requested_rely = y
         else:
             self._requested_rely = y
             self.rely = self.parent.curses_pad.getmaxyx()[0] + y
+            # I don't think there is any real value in using these margins
+            #if self.parent.BLANK_LINES_BASE and not self.use_max_space:
+            #    self.rely -= self.parent.BLANK_LINES_BASE
             if self.rely < 0:
                 self.rely = 0
         if x >= 0:
@@ -249,6 +259,9 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         else:
             self._requested_relx = x
             self.relx = self.parent.curses_pad.getmaxyx()[1] + x
+            # I don't think there is any real value in using these margins
+            #if self.parent.BLANK_COLUMNS_RIGHT and not self.use_max_space:
+            #    self.relx -= self.parent.BLANK_COLUMNS_RIGHT
             if self.relx < 0:
                 self.relx = 0
     
