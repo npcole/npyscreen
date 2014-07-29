@@ -11,7 +11,7 @@ class ActionFormV2(fmForm.FormBaseNew):
     CANCEL_BUTTON_TEXT      = "Cancel"
     
     def __init__(self, *args, **keywords):
-        super(ActionForm, self).__init__(*args, **keywords)
+        super(ActionFormV2, self).__init__(*args, **keywords)
         self._added_buttons = {}
         self.create_control_buttons()
 
@@ -46,7 +46,7 @@ class ActionFormV2(fmForm.FormBaseNew):
         self.editing = self.on_cancel() 
     
     def set_up_exit_condition_handlers(self):
-        super(ActionForm, self).set_up_exit_condition_handlers()
+        super(ActionFormV2, self).set_up_exit_condition_handlers()
         self.how_exited_handers.update({
             widget.EXITED_ESCAPE:   self.find_cancel_button
         })

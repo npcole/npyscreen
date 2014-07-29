@@ -3,6 +3,7 @@
 import curses
 from . import fmForm
 from . import fmActionForm
+from . import fmActionFormV2
 from . import wgNMenuDisplay
 
 class FormBaseNewWithMenus(fmForm.FormBaseNew, wgNMenuDisplay.HasMenus):
@@ -70,7 +71,13 @@ class ActionFormWithMenus(fmActionForm.ActionForm, wgNMenuDisplay.HasMenus):
             self.make_attributes_list(menu_advert, curses.A_NORMAL),
             self.columns - x - 1
             )
-        
+
+class ActionFormV2WithMenus(fmActionFormV2.ActionFormV2, wgNMenuDisplay.HasMenus):
+    def __init__(self, *args, **keywords):
+        super(ActionFormV2WithMenus, self).__init__(*args, **keywords)
+        self.initialize_menus()
+
+
         
 class SplitFormWithMenus(fmForm.SplitForm, FormWithMenus):
     """Just the same as the Title Form, but with a horizontal line"""
