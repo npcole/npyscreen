@@ -3,6 +3,7 @@
 
 from . import fmForm
 from . import fmActionForm
+from . import fmActionFormV2
 import curses
 
 
@@ -22,13 +23,17 @@ class Popup(fmForm.Form):
     #    self.show_atx = 10
     #    self.show_aty = 2
         
-class ActionPopup(fmActionForm.ActionForm, Popup):
+class ActionPopup(fmActionFormV2.ActionFormV2): #, Popup):
+    DEFAULT_LINES      = 12
+    DEFAULT_COLUMNS    = 60
+    SHOW_ATX           = 10
+    SHOW_ATY           = 2
     def __init__(self, *args, **keywords):
-        Popup.__init__(self, *args, **keywords)
+        super(ActionPopup, self).__init__(self, *args, **keywords)
         
 class MessagePopup(Popup):
     def __init__(self, *args, **keywords):
-        from . import multiline 
+        from . import wgmultiline as multiline 
         super(MessagePopup, self).__init__(*args, **keywords)
         self.TextWidget = self.add(multiline.Pager, scroll_exit=True, max_height=self.widget_useable_space()[0]-2)
         

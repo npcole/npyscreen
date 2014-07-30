@@ -40,7 +40,7 @@ class ActionFormV2(fmForm.FormBaseNew):
         pass
     
     def _on_ok(self):
-        self.editing = self.on_cancel()
+        self.editing = self.on_ok()
     
     def _on_cancel(self):
         self.editing = self.on_cancel() 
