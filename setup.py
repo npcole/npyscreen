@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="4.3.0",
+	version="4.3.2",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,17 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 4.3.0 allows you to specify a negative value for rely or relx when creating a widget.  This will cause the widget to be aligned
+with the bottom or right of the screen.  The new method *set_relyx(y, x)* can be used to set the position of the widget on the Form if you never need to do that manually. 
+
+The classes *ActionFormV2*, *ActionFormExpandedV2* and *ActionFormV2WithMenus* have been introduced.
+These feature cleaner code that should be easier to subclass.  
+
+The *ButtonPress* class can now be created with the argument
+*when_pressed_function=None*, which can be used in place of overriding the *whenPressed* method.  Note that this might create a reference cycle
+within your application, so use with care. 
+
 
 Version 4.2.0 introduces the ability of Grid widgets to highlight the whole line that the cursor is on (user request).
 
