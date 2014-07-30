@@ -5,11 +5,19 @@ from . import wgbutton
 from . import fmForm
 
 class ActionFormV2(fmForm.FormBaseNew):
-    OKBUTTON_TYPE = wgbutton.MiniButtonPress
+    class OK_Button(wgbutton.MiniButtonPress):
+        def whenPressed(self):
+            return self.parent._on_ok()
+    
+    class Cancel_Button(wgbutton.MiniButtonPress):
+        def whenPressed(self):
+            return self.parent._on_cancel()
+    
+    OKBUTTON_TYPE = OK_Button
+    CANCELBUTTON_TYPE = Cancel_Button
     CANCEL_BUTTON_BR_OFFSET = (2, 12)
     OK_BUTTON_TEXT          = "OK"
     CANCEL_BUTTON_TEXT      = "Cancel"
-    
     def __init__(self, *args, **keywords):
         super(ActionFormV2, self).__init__(*args, **keywords)
         self._added_buttons = {}
@@ -22,15 +30,15 @@ class ActionFormV2(fmForm.FormBaseNew):
                         self.__class__.OK_BUTTON_TEXT,
                         0 - self.__class__.OK_BUTTON_BR_OFFSET[0],
                         0 - self.__class__.OK_BUTTON_BR_OFFSET[1] - len(self.__class__.OK_BUTTON_TEXT),
-                        self._on_ok
+                        None
                         )
                         
         self._add_button('cancel_button', 
-                        self.__class__.OKBUTTON_TYPE, 
+                        self.__class__.CANCELBUTTON_TYPE, 
                         self.__class__.CANCEL_BUTTON_TEXT,
                         0 - self.__class__.CANCEL_BUTTON_BR_OFFSET[0],
                         0 - self.__class__.CANCEL_BUTTON_BR_OFFSET[1] - len(self.__class__.CANCEL_BUTTON_TEXT),
-                        self._on_cancel
+                        None
                         )
     
     def on_cancel(self):
@@ -56,7 +64,8 @@ class ActionFormV2(fmForm.FormBaseNew):
     
     def _add_button(self, button_name, button_type, button_text, button_rely, button_relx, button_function):
         tmp_rely, tmp_relx = self.nextrely, self.nextrelx
-        this_button = self.add_widget(self.__class__.OKBUTTON_TYPE, 
+        this_button = self.add_widget(
+                        button_type, 
                         name=button_text, 
                         rely=button_rely,
                         relx=button_relx,
