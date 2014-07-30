@@ -66,27 +66,28 @@
 <div class="section" id="application-structure-for-the-impatient">
 <h2>Application structure for the impatient<a class="headerlink" href="#application-structure-for-the-impatient" title="Permalink to this headline">¶</a></h2>
 <p>Most new applications should look something like:</p>
-<div class="highlight-python"><pre>import npyscreen
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">npyscreen</span>
 
-    # This application class serves as a wrapper for the initialization of curses
-    # and also manages the actual forms of the application
+<span class="c"># This application class serves as a wrapper for the initialization of curses</span>
+<span class="c"># and also manages the actual forms of the application</span>
 
-class MyTestApp(npyscreen.NPSAppManaged):
-    def onStart(self):
-        self.registerForm("MAIN", MainForm())
+<span class="k">class</span> <span class="nc">MyTestApp</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">NPSAppManaged</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">onStart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registerForm</span><span class="p">(</span><span class="s">&quot;MAIN&quot;</span><span class="p">,</span> <span class="n">MainForm</span><span class="p">())</span>
 
-# This form class defines the display that will be presented to the user.
+<span class="c"># This form class defines the display that will be presented to the user.</span>
 
-    class MainForm(npyscreen.Form):
-    def create(self):
-        self.add(npyscreen.TitleText, name = "Text:", value= "Hellow World!" )
+<span class="k">class</span> <span class="nc">MainForm</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Text:&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span> <span class="s">&quot;Hellow World!&quot;</span> <span class="p">)</span>
 
-            def afterEditing(self):
-        self.parentApp.setNextForm(None)
+    <span class="k">def</span> <span class="nf">afterEditing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parentApp</span><span class="o">.</span><span class="n">setNextForm</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
 
-if __name__ == '__main__':
-    TA = MyTestApp()
-    TA.run()</pre>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">TA</span> <span class="o">=</span> <span class="n">MyTestApp</span><span class="p">()</span>
+    <span class="n">TA</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="application-structure-in-more-detail-tutorial">

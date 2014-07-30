@@ -63,6 +63,7 @@ SimpleGrid
         row_height = 1, 
         values = None
         always_show_cursor = False
+        select_whole_line = False (new in version 4.2)
     
     Classes derived from SimpleGrid may wish to modify the following class attributes::
     
@@ -70,7 +71,7 @@ SimpleGrid
         default_column_number = 4  
         additional_y_offset   = 0  # additional offset to leave within the widget before the grid 
         additional_x_offset   = 0  # additional offset to leave within the widget before the grid
-    
+        select_whole_line   # highlight the whole line that the cursor is on
     
 
 GridColTitles
@@ -84,6 +85,9 @@ Checkbox, RoundCheckBox
    These offer a single option - the label is generated from the attribute *name*, as for titled widgets.  The attribute *value* is either true or false.
    
    The function whenToggled(self) is called when the user toggles the state of the checkbox.  You can overload it.
+   
+CheckboxBare
+    This has no label, and is only useful in special circumstances.  It was added at user request.
    
 CheckBoxMultiline, RoundCheckBoxMultiline
 	This widgets allow the label of the checkbox to be more than one line long.  The name of the widget should be specified as a
@@ -106,7 +110,11 @@ Button
    Functionally similar to the Checkbox widgets, but looking different.  The Button is usually used for OK and Cancel Buttons on Forms and similar things, though they should probably be replaced with the ButtonPress type.
    
 ButtonPress
-    Not a toggle, but a control.  This widget has the method whenPressed(self), which you should overload to do your own things.
+    Not a toggle, but a control.  This widget has the method *whenPressed(self)*, which you should overload to do your own things.  
+    
+    From version 4.3.0 onwards, the constructor accepts an argument *when_pressed_function=None*.  If a callable is specified in this way, if will be called instead of the method *whenPressed*. NB.  The when_pressed_function functionality is potentially dangerous. It can set up
+a circular reference that the garbage collector will never free. If this is a risk for your program, it is best to subclass this object and
+override the *when_pressed_function* method instead.
    
 FormControlCheckbox
    A common use of Checkbox is to offer the user the option to enter additional data.  For example "Enter Expiry Date".  In such a case, the Form needs to display additional fields in some cases, but not in others.  FormControlCheckbox makes this trivial.

@@ -154,7 +154,11 @@ Standard Form Classes
     
         Called when the cancel button is pressed. Setting the attribute `.editing` to True in this method will abort editing the form.
 
-   
+.. py:class:: ActionFormV2
+
+   New in Version 4.3.0.  This version of ActionForm behaves similarly to ActionForm above, but the code is much cleaner.  It should 
+   be much easier to subclass.  Eventually, this version may entirely replace ActionForm.
+
 .. py:class:: ActionPopup
     
     A smaller version of the ActionForm.
@@ -202,6 +206,12 @@ Standard Form Classes
    Similar to the ActionForm class, but provides the additional functionality of Popup menus.
    
    To add a new menu to the Form use the method *new_menu(name='')*.  This will create the menu and return a proxy to it.  For more details see the section on Menus below.
+   
+.. py:class:: ActionFormV2WithMenus
+
+   New in Version 4.3.0.  This version of ActionFormWithMenus behaves similarly to ActionForm above, but the code is much cleaner.  It should 
+   be much easier to subclass.  Eventually, this version may entirely replace ActionFormWithMenus.
+   
    
 .. py:class:: FormBaseNew
 
@@ -300,19 +310,24 @@ By default, the supporting forms will display an advert that the menu system is 
 
 Menus are usually created by calling a (supporting) Form's *new_menu* method.  Version 2.0pre82 adds the argument *shortcut=None* to this method.  In the list of menus that the Form displays, this shortcut will be displayed.  After a menu has been created, the following methods on that object are useful:
 
-.. py:method:: FormWithMenus.addItem(text='', onSelect=function, shortcut=None)
+.. py:method:: NewMenu.addItem(text='', onSelect=function, shortcut=None, arguments=None, keywords=None)
 
    *text* should be the string to be displayed on the menu.  `onSelect` should be a function to be called if that item is selected by the user.  This is one of the few easy opportunities in npyscreen to create circular references - you may wish to pass in a proxy to a function instead.  I've tried to guard you against circular references as much as possible - but this is just one of those times I can't second-guess your application structure. Version 2.0pre82 adds the ability to add a shortcut. 
    
-.. py:method:: FormWithMenus.addItemsFromList(text, function, shortcut=None)
+   From version 3.6 onwards, menu items can be specified with a list of *arguments* and/or a dictionary of keywords.
+   
+.. py:method:: NewMenu.addItemsFromList(text, function, shortcut=None)
 
 	The agument for this function should be a list or tuple. Each element of this should be a tuple of the arguments that are used for creating each item.
    
-.. py:method:: FormWithMenus.addNewSubmenu(name=None, shortcut=None)
+.. py:method:: NewMenu.addNewSubmenu(name=None, shortcut=None, preDisplayFunction=None, pdfuncArguments=None, pdfuncKeywords=None)
 
    Create a new submenu (returning a proxy to it).  This is the preferred way of creating submenus. Version 2.0pre82 adds the ability to add a keyboard shortcut.
    
-.. py:method:: FormWithMenus.addSubmenu(submenu)
+   From version 3.7 onwards, you can define a function and arguments to be called before this menu is displayed.  This might mean you
+   can adjust the content of the menu at the point it is displayed.  Added at user request.
+   
+.. py:method:: NewMenu.addSubmenu(submenu)
 
     Add an existing Menu to the Menu as a submenu.  All things considered, addNewSubmenu is usually a better bet.
 
