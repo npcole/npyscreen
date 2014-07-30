@@ -2,7 +2,6 @@
 # encoding: utf-8
 
 from . import fmForm
-from . import fmActionForm
 from . import fmActionFormV2
 import curses
 
@@ -12,25 +11,14 @@ class Popup(fmForm.Form):
     DEFAULT_COLUMNS    = 60
     SHOW_ATX           = 10
     SHOW_ATY           = 2
-    #def __init__(self,
-    #    lines = 12, 
-    #    columns=60,
-    #    minimum_lines=None,
-    #    minimum_columns=None,
-    #    *args, **keywords):
-    #    super(Popup, self).__init__(lines = lines, columns=columns, 
-    #    *args, **keywords)
-    #    self.show_atx = 10
-    #    self.show_aty = 2
         
-class ActionPopup(fmActionFormV2.ActionFormV2): #, Popup):
+class ActionPopup(fmActionFormV2.ActionFormV2):
     DEFAULT_LINES      = 12
     DEFAULT_COLUMNS    = 60
     SHOW_ATX           = 10
     SHOW_ATY           = 2
-    def __init__(self, *args, **keywords):
-        super(ActionPopup, self).__init__(self, *args, **keywords)
-        
+    
+    
 class MessagePopup(Popup):
     def __init__(self, *args, **keywords):
         from . import wgmultiline as multiline 
@@ -42,17 +30,9 @@ class PopupWide(Popup):
     DEFAULT_COLUMNS    = None
     SHOW_ATX           = 0
     SHOW_ATY           = 0
-    #def __init__(self,
-    #    lines = 14, 
-    #    columns=None,
-    #    minimum_lines=None,
-    #    minimum_columns=None,
-    #    *args, **keywords):
-    #    super(PopupWide, self).__init__(lines = lines, columns=columns, 
-    #    *args, **keywords)
-    #    self.show_atx = 0
-    #    self.show_aty = 0
         
-class ActionPopupWide(fmActionForm.ActionForm, PopupWide):
-    def __init__(self, *args, **keywords):
-        PopupWide.__init__(self, *args, **keywords)
+class ActionPopupWide(fmActionFormV2.ActionFormV2):
+    DEFAULT_LINES      = 14
+    DEFAULT_COLUMNS    = None
+    SHOW_ATX           = 0
+    SHOW_ATY           = 0
