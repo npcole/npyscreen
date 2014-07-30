@@ -128,16 +128,6 @@ class Slider(widget.Widget):
     def h_decrease(self, ch):
         if (self.value - self.step >= self.lowest): self.value -= self.step
 
-#   def create_subwindows(self):
-#       maximum_possible = self.space_available()[1]
-#       
-#       if self.request_width:
-#           if self.request_width > maximum_possible: ask_for = maximum_possible
-#           else: ask_for = self.request_width
-#       else:
-#           ask_for = maximum_possible
-#           
-#       self.textfield = self.parent.curses_pad.derwin(1, ask_for, self.rely, self.relx)
 
 class TitleSlider(titlefield.TitleText):
     _entry_type = Slider
