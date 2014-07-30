@@ -99,19 +99,20 @@
 <p><em>values</em> should be specified as a two-dimensional array.</p>
 <p>The convenience function <a href="#id1"><span class="problematic" id="id2">*</span></a>set_grid_values_from_flat_list(new_values, max_cols=None, reset_cursor=True) takes a flat list and displays it on the grid.</p>
 <p>The following arguments can be passed to the constructor:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">columns</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">column_width</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
-<span class="n">col_margin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="n">row_height</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-<span class="n">values</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">always_show_cursor</span> <span class="o">=</span> <span class="bp">False</span>
-</pre></div>
+<div class="highlight-python"><pre>columns = None
+column_width = None,
+col_margin=1,
+row_height = 1,
+values = None
+always_show_cursor = False
+select_whole_line = False (new in version 4.2)</pre>
 </div>
 <p>Classes derived from SimpleGrid may wish to modify the following class attributes:</p>
 <div class="last highlight-python"><div class="highlight"><pre><span class="n">_contained_widgets</span>    <span class="o">=</span> <span class="n">textbox</span><span class="o">.</span><span class="n">Textfield</span>
 <span class="n">default_column_number</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">additional_y_offset</span>   <span class="o">=</span> <span class="mi">0</span>  <span class="c"># additional offset to leave within the widget before the grid</span>
 <span class="n">additional_x_offset</span>   <span class="o">=</span> <span class="mi">0</span>  <span class="c"># additional offset to leave within the widget before the grid</span>
+<span class="n">select_whole_line</span>   <span class="c"># highlight the whole line that the cursor is on</span>
 </pre></div>
 </div>
 </dd>
@@ -126,6 +127,8 @@
 <dd><p class="first">These offer a single option - the label is generated from the attribute <em>name</em>, as for titled widgets.  The attribute <em>value</em> is either true or false.</p>
 <p class="last">The function whenToggled(self) is called when the user toggles the state of the checkbox.  You can overload it.</p>
 </dd>
+<dt>CheckboxBare</dt>
+<dd>This has no label, and is only useful in special circumstances.  It was added at user request.</dd>
 <dt>CheckBoxMultiline, RoundCheckBoxMultiline</dt>
 <dd><p class="first">This widgets allow the label of the checkbox to be more than one line long.  The name of the widget should be specified as a
 list or tuple of strings.</p>
@@ -142,7 +145,13 @@ list or tuple of strings.</p>
 <dt>Button</dt>
 <dd>Functionally similar to the Checkbox widgets, but looking different.  The Button is usually used for OK and Cancel Buttons on Forms and similar things, though they should probably be replaced with the ButtonPress type.</dd>
 <dt>ButtonPress</dt>
-<dd>Not a toggle, but a control.  This widget has the method whenPressed(self), which you should overload to do your own things.</dd>
+<dd><p class="first">Not a toggle, but a control.  This widget has the method <em>whenPressed(self)</em>, which you should overload to do your own things.</p>
+<p class="last">From version 4.3.0 onwards, the constructor accepts an argument <em>when_pressed_function=None</em>.  If a callable is specified in this way, if will be called instead of the method <em>whenPressed</em>. NB.  The when_pressed_function functionality is potentially dangerous. It can set up</p>
+</dd>
+</dl>
+<p>a circular reference that the garbage collector will never free. If this is a risk for your program, it is best to subclass this object and
+override the <em>when_pressed_function</em> method instead.</p>
+<dl class="docutils">
 <dt>FormControlCheckbox</dt>
 <dd><p class="first">A common use of Checkbox is to offer the user the option to enter additional data.  For example &#8220;Enter Expiry Date&#8221;.  In such a case, the Form needs to display additional fields in some cases, but not in others.  FormControlCheckbox makes this trivial.</p>
 <p>Two methods are defined:</p>

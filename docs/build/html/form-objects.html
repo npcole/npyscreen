@@ -214,6 +214,13 @@ subclasses, but it is the best place to set up all the widgets on a Form.  Expec
 </dd></dl>
 
 <dl class="class">
+<dt id="ActionFormV2">
+<em class="property">class </em><tt class="descname">ActionFormV2</tt><a class="headerlink" href="#ActionFormV2" title="Permalink to this definition">¶</a></dt>
+<dd><p>New in Version 4.3.0.  This version of ActionForm behaves similarly to ActionForm above, but the code is much cleaner.  It should
+be much easier to subclass.  Eventually, this version may entirely replace ActionForm.</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="ActionPopup">
 <em class="property">class </em><tt class="descname">ActionPopup</tt><a class="headerlink" href="#ActionPopup" title="Permalink to this definition">¶</a></dt>
 <dd><p>A smaller version of the ActionForm.</p>
@@ -262,6 +269,13 @@ this form, this value is set to False by default).</p>
 <em class="property">class </em><tt class="descname">ActionFormWithMenus</tt><a class="headerlink" href="#ActionFormWithMenus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Similar to the ActionForm class, but provides the additional functionality of Popup menus.</p>
 <p>To add a new menu to the Form use the method <em>new_menu(name=&#8217;&#8216;)</em>.  This will create the menu and return a proxy to it.  For more details see the section on Menus below.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ActionFormV2WithMenus">
+<em class="property">class </em><tt class="descname">ActionFormV2WithMenus</tt><a class="headerlink" href="#ActionFormV2WithMenus" title="Permalink to this definition">¶</a></dt>
+<dd><p>New in Version 4.3.0.  This version of ActionFormWithMenus behaves similarly to ActionForm above, but the code is much cleaner.  It should
+be much easier to subclass.  Eventually, this version may entirely replace ActionFormWithMenus.</p>
 </dd></dl>
 
 <dl class="class">
@@ -372,26 +386,29 @@ this form, this value is set to False by default).</p>
 <p>By default, the supporting forms will display an advert that the menu system is available to the user, and a shortcut to the list of menus.  If the form has multiple menus, a &#8216;root&#8217; menu listing all of them will be displayed.</p>
 <p>Menus are usually created by calling a (supporting) Form&#8217;s <em>new_menu</em> method.  Version 2.0pre82 adds the argument <em>shortcut=None</em> to this method.  In the list of menus that the Form displays, this shortcut will be displayed.  After a menu has been created, the following methods on that object are useful:</p>
 <dl class="method">
-<dt id="FormWithMenus.addItem">
-<tt class="descclassname">FormWithMenus.</tt><tt class="descname">addItem</tt><big>(</big><em>text=''</em>, <em>onSelect=function</em>, <em>shortcut=None</em><big>)</big><a class="headerlink" href="#FormWithMenus.addItem" title="Permalink to this definition">¶</a></dt>
+<dt id="NewMenu.addItem">
+<tt class="descclassname">NewMenu.</tt><tt class="descname">addItem</tt><big>(</big><em>text=''</em>, <em>onSelect=function</em>, <em>shortcut=None</em>, <em>arguments=None</em>, <em>keywords=None</em><big>)</big><a class="headerlink" href="#NewMenu.addItem" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>text</em> should be the string to be displayed on the menu.  <cite>onSelect</cite> should be a function to be called if that item is selected by the user.  This is one of the few easy opportunities in npyscreen to create circular references - you may wish to pass in a proxy to a function instead.  I&#8217;ve tried to guard you against circular references as much as possible - but this is just one of those times I can&#8217;t second-guess your application structure. Version 2.0pre82 adds the ability to add a shortcut.</p>
+<p>From version 3.6 onwards, menu items can be specified with a list of <em>arguments</em> and/or a dictionary of keywords.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="FormWithMenus.addItemsFromList">
-<tt class="descclassname">FormWithMenus.</tt><tt class="descname">addItemsFromList</tt><big>(</big><em>text</em>, <em>function</em>, <em>shortcut=None</em><big>)</big><a class="headerlink" href="#FormWithMenus.addItemsFromList" title="Permalink to this definition">¶</a></dt>
+<dt id="NewMenu.addItemsFromList">
+<tt class="descclassname">NewMenu.</tt><tt class="descname">addItemsFromList</tt><big>(</big><em>text</em>, <em>function</em>, <em>shortcut=None</em><big>)</big><a class="headerlink" href="#NewMenu.addItemsFromList" title="Permalink to this definition">¶</a></dt>
 <dd><p>The agument for this function should be a list or tuple. Each element of this should be a tuple of the arguments that are used for creating each item.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="FormWithMenus.addNewSubmenu">
-<tt class="descclassname">FormWithMenus.</tt><tt class="descname">addNewSubmenu</tt><big>(</big><em>name=None</em>, <em>shortcut=None</em><big>)</big><a class="headerlink" href="#FormWithMenus.addNewSubmenu" title="Permalink to this definition">¶</a></dt>
+<dt id="NewMenu.addNewSubmenu">
+<tt class="descclassname">NewMenu.</tt><tt class="descname">addNewSubmenu</tt><big>(</big><em>name=None</em>, <em>shortcut=None</em>, <em>preDisplayFunction=None</em>, <em>pdfuncArguments=None</em>, <em>pdfuncKeywords=None</em><big>)</big><a class="headerlink" href="#NewMenu.addNewSubmenu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new submenu (returning a proxy to it).  This is the preferred way of creating submenus. Version 2.0pre82 adds the ability to add a keyboard shortcut.</p>
+<p>From version 3.7 onwards, you can define a function and arguments to be called before this menu is displayed.  This might mean you
+can adjust the content of the menu at the point it is displayed.  Added at user request.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="FormWithMenus.addSubmenu">
-<tt class="descclassname">FormWithMenus.</tt><tt class="descname">addSubmenu</tt><big>(</big><em>submenu</em><big>)</big><a class="headerlink" href="#FormWithMenus.addSubmenu" title="Permalink to this definition">¶</a></dt>
+<dt id="NewMenu.addSubmenu">
+<tt class="descclassname">NewMenu.</tt><tt class="descname">addSubmenu</tt><big>(</big><em>submenu</em><big>)</big><a class="headerlink" href="#NewMenu.addSubmenu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an existing Menu to the Menu as a submenu.  All things considered, addNewSubmenu is usually a better bet.</p>
 </dd></dl>
 

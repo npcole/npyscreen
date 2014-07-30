@@ -88,11 +88,31 @@
 <dl class="last method">
 <dt id="BufferPager.buffer">
 <tt class="descclassname">BufferPager.</tt><tt class="descname">buffer</tt><big>(</big><em>lines</em>, <em>scroll_end=True</em>, <em>scroll_if_editing=False</em><big>)</big><a class="headerlink" href="#BufferPager.buffer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add <cite>lines</cite> to the contained deque object.  If <cite>scroll_end</cite> is True, scroll to the end of the buffer.  If <cite>scroll_if_editing</cite> is True, then scroll to the end even if the user is currently editing the Pager.</p>
+<dd><p>Add <cite>lines</cite> to the contained deque object.  If <cite>scroll_end</cite> is True, scroll to the end of the buffer.  If <cite>scroll_if_editing</cite> is True, then scroll to the end even if the user is currently editing the Pager.  If the contained deque object was created with a maximum length, then new data may cause older data to be forgotten.</p>
 </dd></dl>
 
 </dd>
+<dt>MultiLineEditable</dt>
+<dd><p class="first">A list of items that the user can edit, based on the multiline classes.  New in version 3.9</p>
+<dl class="last method">
+<dt id="get_new_value">
+<tt class="descname">get_new_value</tt><big>(</big><big>)</big><a class="headerlink" href="#get_new_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method should return a &#8216;blank&#8217; object that can be used to initialize a new item on the list.  By default it returns an
+empty string.</p>
+</dd></dl>
+
+</dd>
+<dt>MultiLineEditableTitle</dt>
+<dd>A titled version of MultiLineEditable. The class attribute <em>_entry_type</em> controls the type of contained widget.</dd>
+<dt>MultiLineEditableBoxed</dt>
+<dd>A boxed version of MultiLineEditable. The class attribute <a href="#id3"><span class="problematic" id="id4">**</span></a>_entry_type* controls the type of contained widget.</dd>
 </dl>
+<div class="section" id="custom-multiselect-widgets">
+<h2>Custom Multiselect Widgets<a class="headerlink" href="#custom-multiselect-widgets" title="Permalink to this headline">¶</a></h2>
+<p>Multiline widgets are a container widget that then holds a series of other widgets that handle various parts of the display.  All multiline classes have a <cite>_contained_widget</cite> class attribute. This controls how the widget is constructed.  The class attribute <cite>_contained_widget_height</cite> specifies how many lines of the screen each widget should be given.</p>
+<p>From version 3.4 onwards, contained widgets that have a <cite>.selected</cite> attribute are handled differently: widgets will have their <cite>.selected</cite> attribute set to <cite>True</cite> if the line is selected and <cite>False</cite> otherwise.  Widgets may also have their <cite>.important</cite> attribute set to True or False, depending on if they are included in a current filter (see above).</p>
+<p>Widgets that do not have a <cite>selected</cite> attribute have the value for each line put in their <cite>name</cite> attribute, and whether the line is selected or not put in their <cite>value</cite> attribute.  This is a legacy of the fact that the standard multiselect widgets use checkboxes to display each line.</p>
+</div>
 </div>
 
 
@@ -101,6 +121,14 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Widgets: Picking Options</a><ul>
+<li><a class="reference internal" href="#custom-multiselect-widgets">Custom Multiselect Widgets</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="widgets-text.html"
                         title="previous chapter">Widgets: Displaying Text</a></p>
