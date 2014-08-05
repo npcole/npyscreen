@@ -39,6 +39,9 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 *Latest Changes*:
 
+Version 4.3.5 introduces the new classes SliderNoLabel, TitleSliderNoLabel, SliderPercent, TitleSliderPercent.
+
+
 Version 4.3.4 Minor bugfixes.  The notify functions and ActionPopups derived from them now use the ActionFormV2 widgets.  
 This change should not affect existing code, but let me know if there are problems.
 

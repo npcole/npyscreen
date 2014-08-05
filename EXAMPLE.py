@@ -12,7 +12,7 @@ class TestApp(npyscreen.NPSApp):
         fn = F.add(npyscreen.TitleFilename, name = "Filename:")
         fn2 = F.add(npyscreen.TitleFilenameCombo, name="Filename2:")
         dt = F.add(npyscreen.TitleDateCombo, name = "Date:")
-        s  = F.add(npyscreen.TitleSlider, out_of=12, name = "Slider")
+        s  = F.add(npyscreen.TitleSliderPercent, accuracy=0, out_of=12, name = "Slider")
         ml = F.add(npyscreen.MultiLineEdit, 
                value = """try typing here!\nMutiline text, press ^R to reformat.\n""", 
                max_height=5, rely=9)

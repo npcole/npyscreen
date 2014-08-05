@@ -43,6 +43,8 @@ from .wgannotatetextbox         import AnnotateTextboxBase
 from .wgannotatetextbox         import AnnotateTextboxBaseRight
 
 from .wgslider                  import Slider, TitleSlider
+from .wgslider                  import SliderNoLabel, TitleSliderNoLabel
+from .wgslider                  import SliderPercent, TitleSliderPercent
 
 from .wgwidget                  import DummyWidget, NotEnoughSpaceForWidget
 from . import wgwidget as widget
