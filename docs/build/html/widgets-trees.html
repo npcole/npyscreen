@@ -51,16 +51,24 @@
             
   <div class="section" id="widgets-trees-and-tree-displays">
 <h1>Widgets: Trees and Tree displays<a class="headerlink" href="#widgets-trees-and-tree-displays" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="representing-tree-data">
+<h2>Representing Tree Data<a class="headerlink" href="#representing-tree-data" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
-<dt>NPSTreeData</dt>
-<dd><p class="first">The NPSTreeData class is used to represent tree objects.  Each nod of the tree, including the root node, is an NPSTreeData instance.  Each node may have its own content, a parent or children.</p>
-<p>The content of each node is either set when it is created or using the <em>.setContent</em> method.</p>
-<p><em>.getContent</em> returns the content.</p>
-<p><em>.getContentForDisplay</em> is used by the widgets that display trees, which expect it to return a string that can be displayed to the user to represent the content.  You might want to overload this method.</p>
-<p><em>newChild(content=...)</em> creates a new child node.</p>
-<p class="last"><em>selectable</em> (new in version 2.0pre70) If this attribute is true the user can mark a value as &#8216;selected&#8217;. This is used by MLTreeMultiSelect widget, and is True by default.</p>
+<dt>TreeData</dt>
+<dd><p class="first">The TreeData class is used to represent tree objects.  Each node of the tree, including the root node, is an NPSTreeData instance.  Each node may have its own content, a parent or children.</p>
+<p>The content of each node is either set when it is created or using the <em>.set_content</em> method.</p>
+<p><em>get_content()</em> returns the content.</p>
+<p><em>get_content_for_display()</em> is used by the widgets that display trees, which expect it to return a string that can be displayed to the user to represent the content.  You might want to overload this method.</p>
+<p><em>new_child(content=...)</em> creates a new child node.</p>
+<p><em>selectable</em> If this attribute is true the user can mark a value as &#8216;selected&#8217;. This is used by MLTreeMultiSelect widget, and is True by default.</p>
+<p><em>ignore_root</em> This attribute controls whether the root node of the tree is displayed to the user.</p>
+<p><em>expanded</em> This attribute controls whether this branch of the tree is expanded, assuming the node has any children.</p>
+<p><em>sort</em> This attribute controls whether the tree should be sorted.</p>
+<p><em>sort_function</em> If the tree is sorted, the function named in this attribute will be used as a key to sort the tree when it is being displayed.</p>
+<p class="last"><em>walk_tree(only_expanded=True, ignore_root=True, sort=None, sort_function=None)</em>  Iterate over the tree.  You can override the standard sort and sort functions, and decide whether or not to iterate over only nodes of the tree that are marked as expanded.</p>
 </dd>
 </dl>
+</div>
 <div class="section" id="trees">
 <h2>Trees<a class="headerlink" href="#trees" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
@@ -95,6 +103,14 @@ attribute <em>_contained_widgets</em>.</dd>
 <div class="section" id="deprecated-tree-classes">
 <h2>Deprecated Tree Classes<a class="headerlink" href="#deprecated-tree-classes" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
+<dt>NPSTreeData</dt>
+<dd><p class="first">DEPRECATED in favour of the TreeData class.  The NPSTreeData class is used to represent tree objects.  Each node of the tree, including the root node, is an NPSTreeData instance.  Each node may have its own content, a parent or children.</p>
+<p>The content of each node is either set when it is created or using the <em>.setContent</em> method.</p>
+<p><em>.getContent</em> returns the content.</p>
+<p><em>.getContentForDisplay</em> is used by the widgets that display trees, which expect it to return a string that can be displayed to the user to represent the content.  You might want to overload this method.</p>
+<p><em>newChild(content=...)</em> creates a new child node.</p>
+<p class="last"><em>selectable</em> (new in version 2.0pre70) If this attribute is true the user can mark a value as &#8216;selected&#8217;. This is used by MLTreeMultiSelect widget, and is True by default.</p>
+</dd>
 <dt>MultiLineTree, SelectOneTree, and MultiLineTree</dt>
 <dd>These widgets all work in a very similar way to the non-Tree versions,
 except that they expect to contain an NPSTree in their .values attribute.
@@ -131,6 +147,7 @@ the class attribute <em>_contained_widgets</em>.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Widgets: Trees and Tree displays</a><ul>
+<li><a class="reference internal" href="#representing-tree-data">Representing Tree Data</a></li>
 <li><a class="reference internal" href="#trees">Trees</a></li>
 <li><a class="reference internal" href="#deprecated-tree-classes">Deprecated Tree Classes</a></li>
 </ul>
