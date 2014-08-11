@@ -27,8 +27,6 @@ from .fmFormMuttActive          import FormMuttActiveTraditional, FormMuttActive
 from .fmFormMultiPage           import FormMultiPage, FormMultiPageAction,\
                                        FormMultiPageActionWithMenus, FormMultiPageWithMenus
 
-from   .npysNPSTree             import NPSTreeData
-
 from .npysNPSFilteredData       import NPSFilteredDataBase, NPSFilteredDataList
 
 from .wgbutton                  import MiniButton
@@ -61,6 +59,7 @@ from .muMenu                    import Menu
 from .wgselectone               import SelectOne, TitleSelectOne
 from .wgdatecombo               import DateCombo, TitleDateCombo
 
+from .npysTree import TreeData
 from .wgmultilinetree           import MLTree, MLTreeAnnotated, MLTreeAction, MLTreeAnnotatedAction
 from .wgmultilinetreeselectable import MLTreeMultiSelect, TreeLineSelectable
 from .wgmultilinetreeselectable import MLTreeMultiSelectAnnotated, TreeLineSelectableAnnotated
@@ -71,6 +70,7 @@ from .wgmultilinetreeselectable import MLTreeMultiSelectAnnotated, TreeLineSelec
 from .compatibility_code.oldtreeclasses import MultiLineTree, SelectOneTree
 from .compatibility_code.oldtreeclasses import MultiLineTreeNew, MultiLineTreeNewAction, TreeLine, TreeLineAnnotated # Experimental
 from .compatibility_code.oldtreeclasses import MultiLineTreeNewAnnotatedAction, MultiLineTreeNewAnnotated # Experimental
+from .compatibility_code.npysNPSTree import NPSTreeData
 
 # End compatibility. ###########################################################################################
 
