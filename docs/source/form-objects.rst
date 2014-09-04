@@ -159,6 +159,20 @@ Standard Form Classes
    New in Version 4.3.0.  This version of ActionForm behaves similarly to ActionForm above, but the code is much cleaner.  It should 
    be much easier to subclass.  Eventually, this version may entirely replace ActionForm.
 
+<<<<<<< /Users/nicholas/projects/spook/mnpyscreen/docs/source/form-objects.rst.orig.201322955
+.. py:class:: ActionFormMinimal
+
+    New in Version 4.4.0.  This version of ActionFormV2 only features an OK button.  Added at user request for use in
+    special circumstances.
+
+||||||| /var/folders/kr/jb8bszdn0d12pn1d86r20xm40000gp/T/form-objects.rst~base.AsoFt7
+.. py:class:: ActionFormMinimal
+
+    New in Version 4.4.0.  This version of ActionFormV2 only features an OK button.  Added at user request for use in
+    special circumstances.  
+
+=======
+>>>>>>> /var/folders/kr/jb8bszdn0d12pn1d86r20xm40000gp/T/form-objects.rst~other.IaGpjm
 .. py:class:: ActionPopup
     
     A smaller version of the ActionForm.
