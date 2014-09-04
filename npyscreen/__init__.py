@@ -11,7 +11,7 @@ from   .apNPSApplicationManaged import NPSAppManaged
 from   .proto_fm_screen_area    import setTheme
 from   .fmForm                  import FormBaseNew, Form, TitleForm, TitleFooterForm, SplitForm, FormExpanded, FormBaseNewExpanded
 from   .fmActionForm            import ActionForm, ActionFormExpanded
-from   .fmActionFormV2          import ActionFormV2, ActionFormExpandedV2
+from   .fmActionFormV2          import ActionFormV2, ActionFormExpandedV2, ActionFormMinimal
 from   .fmFormWithMenus         import FormWithMenus, ActionFormWithMenus, \
                                        FormBaseNewWithMenus, SplitFormWithMenus, \
                                        ActionFormV2WithMenus
