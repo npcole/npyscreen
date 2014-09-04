@@ -42,6 +42,14 @@ Slider, TitleSlider
       stri = stri.rjust(l)
       return stri
 
+SliderNoLabel, TitleSliderNoLabel
+    These versions of the Slider do not display a label.  (Similar to using the usual slider with *label=False*). New in Version 4.3.5
+
+SliderPercent, TitleSliderPercent
+    These versions of the Slider display a percentage in the label.  The number of decimal places can be set by setting the attribute *accuracy* or by passing in the keyword *accuracy* to the constructor.  Default is 2. New in Version 4.3.5.
+
+
+
 
 Widgets: Grids
 **************

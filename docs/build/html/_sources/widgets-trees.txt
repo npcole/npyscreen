@@ -1,19 +1,33 @@
 Widgets: Trees and Tree displays
 ********************************
 
-NPSTreeData
-    The NPSTreeData class is used to represent tree objects.  Each nod of the tree, including the root node, is an NPSTreeData instance.  Each node may have its own content, a parent or children.
 
-    The content of each node is either set when it is created or using the *.setContent* method.
+Representing Tree Data
+++++++++++++++++++++++
 
-    *.getContent* returns the content.
+TreeData
+    The TreeData class is used to represent tree objects.  Each node of the tree, including the root node, is an NPSTreeData instance.  Each node may have its own content, a parent or children.
 
-    *.getContentForDisplay* is used by the widgets that display trees, which expect it to return a string that can be displayed to the user to represent the content.  You might want to overload this method.
+    The content of each node is either set when it is created or using the *.set_content* method.
 
-    *newChild(content=...)* creates a new child node.
-    
-    *selectable* (new in version 2.0pre70) If this attribute is true the user can mark a value as 'selected'. This is used by MLTreeMultiSelect widget, and is True by default.
-    
+    *get_content()* returns the content.
+
+    *get_content_for_display()* is used by the widgets that display trees, which expect it to return a string that can be displayed to the user to represent the content.  You might want to overload this method.
+
+    *new_child(content=...)* creates a new child node.
+
+    *selectable* If this attribute is true the user can mark a value as 'selected'. This is used by MLTreeMultiSelect widget, and is True by default.
+
+    *ignore_root* This attribute controls whether the root node of the tree is displayed to the user.
+
+    *expanded* This attribute controls whether this branch of the tree is expanded, assuming the node has any children.
+
+    *sort* This attribute controls whether the tree should be sorted.
+
+    *sort_function* If the tree is sorted, the function named in this attribute will be used as a key to sort the tree when it is being displayed.
+
+    *walk_tree(only_expanded=True, ignore_root=True, sort=None, sort_function=None)*  Iterate over the tree.  You can override the standard sort and sort functions, and decide whether or not to iterate over only nodes of the tree that are marked as expanded.
+
 
 Trees
 +++++
@@ -56,6 +70,19 @@ MLTreeMultiSelectAnnotated
 
 Deprecated Tree Classes
 +++++++++++++++++++++++
+NPSTreeData
+    DEPRECATED in favour of the TreeData class.  The NPSTreeData class is used to represent tree objects.  Each node of the tree, including the root node, is an NPSTreeData instance.  Each node may have its own content, a parent or children.
+
+    The content of each node is either set when it is created or using the *.setContent* method.
+
+    *.getContent* returns the content.
+
+    *.getContentForDisplay* is used by the widgets that display trees, which expect it to return a string that can be displayed to the user to represent the content.  You might want to overload this method.
+
+    *newChild(content=...)* creates a new child node.
+
+    *selectable* (new in version 2.0pre70) If this attribute is true the user can mark a value as 'selected'. This is used by MLTreeMultiSelect widget, and is True by default.
+
 
 
 MultiLineTree, SelectOneTree, and MultiLineTree
@@ -68,7 +95,7 @@ MultiLineTree, SelectOneTree, and MultiLineTree
 
 
 MultiLineTreeNew, MultiLineTreeNewAction
-    *These classes are provided solely for compatibility with old code. New classes should use the MLTree and related classes*  
+    *These classes are provided solely for compatibility with old code. New classes should use the MLTree and related classes*
 
     The *values* attribute of this class must store an NPSTree instance.
     However, if you wish you can override the method *convertToTree* of this
@@ -81,7 +108,7 @@ MultiLineTreeNew, MultiLineTreeNewAction
     the class attribute *_contained_widgets*.
     
 MutlilineTreeNewAnnotated, MultilineTreeNewAnnotatedAction
-    *These classes are provided solely for compatibility with old code. New classes should use the MLTree and related classes*  
+    *These classes are provided solely for compatibility with old code. New classes should use the MLTree and related classes*
     
     By default this class uses *TreeLineAnnotated* widgets 
     to display each line of the tree.  In derived classes You can change this by changing
