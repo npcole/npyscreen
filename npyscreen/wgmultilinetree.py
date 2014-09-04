@@ -219,7 +219,7 @@ class MLTree(multiline.MultiLine):
         try:
             return root.walk_tree(only_expanded=only_expanded, ignore_root=ignore_root, sort=sort, sort_function=sort_function)
         except AttributeError:
-            return root.walkTree(onlyExpanded=only_expanded, ignoreRoot=ignore_root, sort=sort, sortFunction=sort_function)
+            return root.walkTree(onlyExpanded=only_expanded, ignoreRoot=ignore_root, sort=sort, sort_function=sort_function)
 
     # End Compatibility Methods
     ##########################################################################
