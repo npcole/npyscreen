@@ -128,17 +128,28 @@ class Slider(widget.Widget):
     def h_decrease(self, ch):
         if (self.value - self.step >= self.lowest): self.value -= self.step
 
-#   def create_subwindows(self):
-#       maximum_possible = self.space_available()[1]
-#       
-#       if self.request_width:
-#           if self.request_width > maximum_possible: ask_for = maximum_possible
-#           else: ask_for = self.request_width
-#       else:
-#           ask_for = maximum_possible
-#           
-#       self.textfield = self.parent.curses_pad.derwin(1, ask_for, self.rely, self.relx)
 
 class TitleSlider(titlefield.TitleText):
     _entry_type = Slider
+
+class SliderNoLabel(Slider):
+    def __init__(self, screen, label=False, *args, **kwargs):
+        super(SliderNoLabel, self).__init__(screen, label=label, *args, **kwargs)    
     
+    def translate_value(self):
+        return ''
+
+class TitleSliderNoLabel(TitleSlider):
+    _entry_type = SliderNoLabel
+
+class SliderPercent(Slider):
+    def __init__(self, screen, accuracy=2, *args, **kwargs):
+        super(SliderPercent, self).__init__(screen, *args, **kwargs)
+        self.accuracy = accuracy
+    
+    def translate_value(self):
+        pc = float(self.value) / float(self.out_of) * 100
+        return '%.*f%%' % (int(self.accuracy), pc)
+
+class TitleSliderPercent(TitleSlider):
+    _entry_type = SliderPercent
