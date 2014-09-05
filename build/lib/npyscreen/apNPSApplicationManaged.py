@@ -122,7 +122,8 @@ class NPSAppManaged(apNPSApplication.NPSApp):
 
 
     def main(self):
-        """Call this function to start your application, usually called indirectly through the function .run().  
+        """
+        This function starts the application. It is usually called indirectly through the function .run().  
         You should not override this function, but override the onInMainLoop, onStart and
         onCleanExit methods instead, if you need to modify the application's behaviour. 
 

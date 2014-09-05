@@ -1,11 +1,11 @@
 #!/usr/bin/python
-from . import wgmultiline    as multiline
-from . import wgtextbox      as textbox
-from . import wgcheckbox     as checkbox
-from . import wgselectone    as selectone
-from . import npysNPSTree    as NPSTree
 import curses
 import weakref
+
+from . import wgmultiline    as multiline
+from . import wgtextbox      as textbox
+from npyscreen.compatibility_code import npysNPSTree as NPSTree
+from .npysTree import TreeData
 
 
 class TreeLine(textbox.TextfieldBase):
@@ -21,7 +21,25 @@ class TreeLine(textbox.TextfieldBase):
         self.safe_depth_display = False
         self.show_v_lines       = True
         super(TreeLine, self).__init__(*args, **keywords)
-        
+
+    ##########################################################################
+    # Methods to enable this class to work with NPSTree and newer tree classes
+    ##########################################################################
+
+    def _get_content_for_display(self, vl):
+        try:
+            return vl.get_content_for_display()
+        except AttributeError:
+            return vl.getContentForDisplay()
+
+
+    # End Compatibility Methods
+    ##########################################################################
+
+
+
+
+
     #EXPERIMENTAL
     def _print(self, left_margin=0):
         self.left_margin = left_margin
@@ -32,7 +50,7 @@ class TreeLine(textbox.TextfieldBase):
         super(TreeLine, self)._print()
         
     def _print_tree(self, real_x):
-        if hasattr(self._tree_real_value, 'findDepth'):
+        if hasattr(self._tree_real_value, 'find_depth') or hasattr(self._tree_real_value, 'findDepth'):
             control_chars_added = 0
             this_safe_depth_display = self.safe_depth_display or ((self.width // 2) + 1)
             if self._tree_depth_next:
@@ -107,10 +125,10 @@ class TreeLine(textbox.TextfieldBase):
         
     def display_value(self, vl):
         try:
-            return self.safe_string(self._tree_real_value.getContentForDisplay())
+            return self.safe_string(self._get_content_for_display(self._tree_real_value))
         except:
             # Catch the times this is None.
-            self.safe_string(vl)
+            return self.safe_string(vl)
             
     
 
@@ -162,14 +180,58 @@ class MLTree(multiline.MultiLine):
     
     #_contained_widgets = TreeLineAnnotated
     _contained_widgets = TreeLine
+
+    ##########################################################################
+    # Methods to enable this class to work with NPSTree and newer tree classes
+    ##########################################################################
+
+    def _find_depth(self, vl):
+        try:
+            return vl.find_depth()
+        except AttributeError:
+            return vl.findDepth()
+
+    def _has_children(self, vl):
+        try:
+            return vl.has_children()
+        except AttributeError:
+            return vl.hasChildren()
+
+    def _get_content(self, vl):
+        try:
+            return vl.get_content()
+        except AttributeError:
+            return vl.getContent()
+
+    def _get_ignore_root(self, vl):
+        try:
+            return vl.ignore_root
+        except AttributeError:
+            return vl.ignoreRoot
+
+    def _get_tree_as_list(self, vl):
+        try:
+            return vl.get_tree_as_list()
+        except AttributeError:
+            return vl.getTreeAsList()
+
+    def _walk_tree(self, root, only_expanded=True, ignore_root=True, sort=None, sort_function=None):
+        try:
+            return root.walk_tree(only_expanded=only_expanded, ignore_root=ignore_root, sort=sort, sort_function=sort_function)
+        except AttributeError:
+            return root.walkTree(onlyExpanded=only_expanded, ignoreRoot=ignore_root, sort=sort, sort_function=sort_function)
+
+    # End Compatibility Methods
+    ##########################################################################
+
     def _setMyValues(self, tree):
         if tree == [] or tree == None:
-            self._myFullValues = NPSTree.NPSTreeData()
-        elif not isinstance(tree, NPSTree.NPSTreeData):
+            self._myFullValues = TreeData() #NPSTree.NPSTreeData()
+        elif not (isinstance(tree, TreeData) or isinstance(tree, NPSTree.NPSTreeData)):
             tree = self.convertToTree(tree)
             self._myFullValues = tree
-            if not isinstance(tree, NPSTree.NPSTreeData):
-                raise TypeError("MultiLineTree widget can only contain a NPSTreeData object in its values attribute")
+            if not (isinstance(tree, TreeData) or isinstance(tree, NPSTree.NPSTreeData)):
+                raise TypeError("MultiLineTree widget can only contain a TreeData or NPSTreeData object in its values attribute")
         else:
             self._myFullValues = tree
     
@@ -197,11 +259,11 @@ class MLTree(multiline.MultiLine):
             pass
         self._cached_tree = weakref.proxy(self._myFullValues)
         self._cached_sort = (self._myFullValues.sort, self._myFullValues.sort_function)
-        self._cached_tree_as_list = self._myFullValues.getTreeAsList()
+        self._cached_tree_as_list = self._get_tree_as_list(self._myFullValues)
         return self._cached_tree_as_list
     
     def _walkMyValues(self):
-        return self._myFullValues.walkTree()
+        return self._walk_tree(self._myFullValues)
     
     def _delMyValues(self):
         self._myFullValues = None
@@ -209,7 +271,7 @@ class MLTree(multiline.MultiLine):
     values = property(_getApparentValues, _setMyValues, _delMyValues)
     
     def filter_value(self, index):
-        if self._filter in self.display_value(self.values[index].getContent()):
+        if self._filter in self._get_content(self.display_value(self.values[index])):
             return True
         else:
             return False
@@ -246,17 +308,17 @@ class MLTree(multiline.MultiLine):
         try:
             line.value = self.display_value(self.values[value_indexer])
             line._tree_real_value = self.values[value_indexer]
-            line._tree_ignore_root = self._myFullValues.ignoreRoot
+            line._tree_ignore_root = self._get_ignore_root(self._myFullValues)
             try:
-                line._tree_depth        = self.values[value_indexer].findDepth()
-                line._tree_has_children = self.values[value_indexer].hasChildren()
+                line._tree_depth        = self._find_depth(self.values[value_indexer])
+                line._tree_has_children = self._has_children(self.values[value_indexer])
                 line._tree_expanded     = self.values[value_indexer].expanded
             except:
                 line._tree_depth        = False
                 line._tree_has_children = False
                 line._tree_expanded     = False
             try:
-                if line._tree_depth == self.values[value_indexer+1].findDepth():
+                if line._tree_depth == self._find_depth(self.values[value_indexer+1]):
                     line._tree_sibling_next = True
                 else:
                     line._tree_sibling_next = False
@@ -265,7 +327,7 @@ class MLTree(multiline.MultiLine):
                 line._sibling_next = False
                 line._tree_last_line = True
             try:
-                line._tree_depth_next = self.values[value_indexer+1].findDepth()
+                line._tree_depth_next = self._find_depth(self.values[value_indexer+1])
             except:
                 line._tree_depth_next = False
             line.hidden = False
@@ -275,13 +337,13 @@ class MLTree(multiline.MultiLine):
             self._set_line_blank(line)
             
     def h_collapse_tree(self, ch):
-        if self.values[self.cursor_line].expanded and self.values[self.cursor_line].hasChildren():
+        if self.values[self.cursor_line].expanded and self._has_children(self.values[self.cursor_line]):
             self.values[self.cursor_line].expanded = False
         else:
-            look_for_depth = self.values[self.cursor_line].findDepth() - 1
+            look_for_depth = self._find_depth(self.values[self.cursor_line]) - 1
             cursor_line = self.cursor_line - 1
             while cursor_line >= 0:
-                if look_for_depth == self.values[cursor_line].findDepth():
+                if look_for_depth == self._find_depth(self.values[cursor_line]):
                     self.cursor_line = cursor_line
                     self.values[cursor_line].expanded = False
                     break
@@ -294,20 +356,20 @@ class MLTree(multiline.MultiLine):
         if not self.values[self.cursor_line].expanded:
             self.values[self.cursor_line].expanded = True
         else:
-            for v in self.values[self.cursor_line].walkTree(onlyExpanded=False):
+            for v in self._walk_tree(self.values[self.cursor_line], only_expanded=False):
                 v.expanded = True
         self._cached_tree = None
         self.display()
     
     def h_collapse_all(self, ch):
-        for v in self._myFullValues.walkTree(onlyExpanded=True):
+        for v in self._walk_tree(self._myFullValues, only_expanded=True):
             v.expanded = False
         self._cached_tree = None
         self.cursor_line = 0
         self.display()
     
     def h_expand_all(self, ch):
-        for v in self._myFullValues.walkTree(onlyExpanded=False):
+        for v in self._walk_tree(self._myFullValues, only_expanded=False):
             v.expanded    = True
         self._cached_tree = None
         self.cursor_line  = 0

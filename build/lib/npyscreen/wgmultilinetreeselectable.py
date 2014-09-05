@@ -90,7 +90,7 @@ class MLTreeMultiSelect(wgmultilinetree.MLTree):
         vl = self.values[self.cursor_line]
         vl_to_set = not vl.selected
         if self.select_cascades:
-            for v in vl.walkTree(onlyExpanded=False, ignoreRoot=False):        
+            for v in self._walk_tree(vl, only_expanded=False, ignore_root=False):
                 if v.selectable:
                     v.selected = vl_to_set
         else:
@@ -101,12 +101,12 @@ class MLTreeMultiSelect(wgmultilinetree.MLTree):
         self.display()
         
     def get_selected_objects(self, return_node=True):
-        for v in self._myFullValues.walkTree(onlyExpanded=False, ignoreRoot=False):
+        for v in self._walk_tree(self._myFullValues, only_expanded=False, ignore_root=False):
             if v.selected:
                 if return_node:
                     yield v
                 else:
-                    yield v.getContent()
+                    yield self._get_content(v)
                     
 class MLTreeMultiSelectAnnotated(MLTreeMultiSelect):
     _contained_widgets = TreeLineSelectableAnnotated
