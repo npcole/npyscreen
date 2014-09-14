@@ -4,13 +4,17 @@ from . import wgwidget     as widget
 from . import wgtitlefield as titlefield
 
 class Slider(widget.Widget):
+    DEFAULT_BLOCK_COLOR = None
     def __init__(self, screen, value=0, 
                 out_of=100, step=1, lowest=0,
-                label=True, **keywords):
+                label=True, 
+                block_color = None,
+                **keywords):
         self.out_of = out_of
         self.value = value
         self.step = step
         self.lowest = lowest
+        self.block_color = block_color or self.__class__.DEFAULT_BLOCK_COLOR
         super(Slider, self).__init__(screen, **keywords)
         if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
         else: self.on_last_line = False
@@ -86,7 +90,10 @@ class Slider(widget.Widget):
     
         for n in range(int(blocks_to_fill)):
             if self.do_colors():
-                self.parent.curses_pad.addch(self.rely,n+xoffset, BARCHAR, curses.A_STANDOUT | self.parent.theme_manager.findPair(self))
+                if self.block_color:
+                    self.parent.curses_pad.addch(self.rely,n+xoffset, BARCHAR, self.parent.theme_manager.findPair(self, self.block_color))
+                else:
+                    self.parent.curses_pad.addch(self.rely,n+xoffset, BARCHAR, curses.A_STANDOUT | self.parent.theme_manager.findPair(self))
             else:
                 self.parent.curses_pad.addch(self.rely,n+xoffset, BARCHAR, curses.A_STANDOUT) #curses.ACS_BLOCK)
 

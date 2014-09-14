@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # encoding: utf-8
-"""IMPORTANT - COLOUR SUPPORT IS CURRENTLY EXTREMELY EXPERIMENTAL.  THE API MAY CHANGE, AND NO DEFAULT
-WIDGETS CURRENTLY TAKE ADVANTAGE OF THEME SUPPORT AT ALL."""
 import curses
 from . import npysGlobalOptions
 
@@ -27,7 +25,7 @@ class ThemeManager(object):
      ('BLACK_RED',        curses.COLOR_BLACK,      curses.COLOR_RED),
      ('BLACK_GREEN',      curses.COLOR_BLACK,      curses.COLOR_GREEN),
      ('BLACK_YELLOW',     curses.COLOR_BLACK,      curses.COLOR_YELLOW),
-     
+     ('BLACK_CYAN',       curses.COLOR_BLACK,       curses.COLOR_CYAN),
      ('BLUE_WHITE',       curses.COLOR_BLUE,       curses.COLOR_WHITE),
      ('CYAN_WHITE',       curses.COLOR_CYAN,       curses.COLOR_WHITE),
      ('GREEN_WHITE',      curses.COLOR_GREEN,      curses.COLOR_WHITE),
@@ -42,6 +40,7 @@ class ThemeManager(object):
         'NO_EDIT'     : 'BLUE_BLACK',
         'STANDOUT'    : 'CYAN_BLACK',
         'CURSOR'      : 'WHITE_BLACK',
+        'CURSOR_INVERSE': 'BLACK_WHITE',
         'LABEL'       : 'GREEN_BLACK',
         'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'YELLOW_BLACK',

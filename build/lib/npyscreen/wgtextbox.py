@@ -162,7 +162,7 @@ class TextfieldBase(widget.Widget):
         except TypeError:
             char_under_cur = ' '
         if self.do_colors():
-            self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, self.parent.theme_manager.findPair(self) | curses.A_STANDOUT)
+            self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, self.parent.theme_manager.findPair(self, 'CURSOR_INVERSE'))
         else:
             self.parent.curses_pad.addstr(self.rely, self.cursor_position - self.begin_at + self.relx + self.left_margin, char_under_cur, curses.A_STANDOUT)
             
