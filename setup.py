@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="4.4.0",
+	version="4.4.1",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,8 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 4.5.0 introduces a greater control of colour for certain widgets.  
 
 Version 4.4.0 introduces the new tree class TreeData.  This is a new version of NPSTreeData that follows PEP 8 conventions for method names.  NPSTreeData is now deprecated.
 The form class ActionFormMinimal has been added at a user request.  This is a special version of ActionFrom that only features an OK button by default.

@@ -32,6 +32,8 @@ Slider, TitleSlider
       The minimum value a user can select. Note that sliders are not designed to allow a user to select negative values.  *lowest* should be >= 0
    label=True
       Whether to print a text label next to the slider.  If so, see the *translate_value* method.
+   block_color = None
+       The colour of the blocks that show the level of the slider. By default (None) the same value as the colour of the slider itself.
       
    All of these options set attributes of the same name that may be altered once the widget exists.
    
@@ -115,7 +117,8 @@ CheckBoxMultiline, RoundCheckBoxMultiline
 
 
 Button
-   Functionally similar to the Checkbox widgets, but looking different.  The Button is usually used for OK and Cancel Buttons on Forms and similar things, though they should probably be replaced with the ButtonPress type.
+   Functionally similar to the Checkbox widgets, but looking different.  The Button is usually used for OK and Cancel Buttons on Forms and similar things, though they should probably be replaced with the ButtonPress type.  The colour that the button is shown when selected is
+   either an inverse of the colour of the button, or else selected by the attribute *cursor_color*.  This value can also be passed in to the constructor.  If this value is None, the inverse of the button colour will be used.
    
 ButtonPress
     Not a toggle, but a control.  This widget has the method *whenPressed(self)*, which you should overload to do your own things.  
