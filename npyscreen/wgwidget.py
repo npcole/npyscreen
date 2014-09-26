@@ -173,6 +173,7 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
             use_max_space=False,
             check_value_change=True,
             check_cursor_move=True,
+            value_changed_callback=None,
             **keywords):
         """The following named arguments may be supplied:
         name= set the name of the widget.
@@ -184,12 +185,14 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         hidden=True/False The widget is hidden.
         check_value_change=True - perform a check on every keypress and run when_value_edit if the value is different.
         check_cursor_move=True - perform a check every keypress and run when_cursor_moved if the cursor has moved.
+        value_changed_callback - should be a tuple of (function, argumentlist, keyword_dictionary)
         """
         self.check_value_change=check_value_change
         self.check_cursor_move =check_cursor_move
         self.hidden = hidden
         self.interested_in_mouse_even_when_not_editable = False# used only for rare widgets to allow user to click
                                                         # even if can't actually select the widget.  See mutt-style forms
+                                                        
         try:
             self.parent = weakref.proxy(screen)
         except TypeError:
@@ -233,6 +236,12 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         self.editable = editable
         if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
         else: self.on_last_line = False
+        
+        # value_changed_callback should be a tuple or list (function, argument_list, keyword_dictionary)
+        if value_changed_callback:
+            self.value_changed_callback = value_changed_callback
+        else:
+            self.value_changed_callback = (None, None, None)
     
     def set_relyx(self, y, x):
         """
@@ -582,10 +591,16 @@ big a given widget is ... use .height and .width instead"""
             self.when_value_edited()
         # Value must have changed:
         self._old_value = copy.deepcopy(self.value)
+        self._internal_when_value_edited()
         self.when_value_edited()
         if hasattr(self, 'parent_widget'):
             self.parent_widget.when_value_edited()
+            self.parent_widget._internal_when_value_edited()
         return True
+    
+    def _internal_when_value_edited(self):
+        if self.value_changed_callback[0]:
+            return self.value_changed_callback[0](*self.value_changed_callback[1], **self.value_changed_callback[2])
     
     def when_value_edited(self):
         """Called when the user edits the value of the widget.  Will usually also be called the first time
