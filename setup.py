@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="4.5.0",
+	version="4.6.0beta",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,8 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 4.6.0beta introduces a way to define a callback for when widget
+values change.
 
 Version 4.5.0 introduces a greater control of colour for certain widgets.  
 
