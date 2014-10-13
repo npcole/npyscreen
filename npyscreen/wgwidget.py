@@ -238,7 +238,6 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
         else: self.on_last_line = False
         
-        # value_changed_callback should be a tuple or list (function, argument_list, keyword_dictionary)
         if value_changed_callback:
             self.value_changed_callback = value_changed_callback
         else:

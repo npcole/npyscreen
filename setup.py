@@ -38,6 +38,7 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
 Version 4.6.0 introduces a way to define a callback for when widget values change.  The help system has been improved by minor interface changes.  
 Both of these were user suggestions.  Thank you to those who suggested them.
 
