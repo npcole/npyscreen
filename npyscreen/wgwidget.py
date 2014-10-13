@@ -185,7 +185,8 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         hidden=True/False The widget is hidden.
         check_value_change=True - perform a check on every keypress and run when_value_edit if the value is different.
         check_cursor_move=True - perform a check every keypress and run when_cursor_moved if the cursor has moved.
-        value_changed_callback - should be a tuple of (function, argumentlist, keyword_dictionary)
+        value_changed_callback - should be None or a Function.  If it is a function, it will have be called when the value changes
+                               and passed the keyword argument widget=self.
         """
         self.check_value_change=check_value_change
         self.check_cursor_move =check_cursor_move
@@ -241,7 +242,7 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         if value_changed_callback:
             self.value_changed_callback = value_changed_callback
         else:
-            self.value_changed_callback = (None, None, None)
+            self.value_changed_callback = None
     
     def set_relyx(self, y, x):
         """
@@ -599,8 +600,8 @@ big a given widget is ... use .height and .width instead"""
         return True
     
     def _internal_when_value_edited(self):
-        if self.value_changed_callback[0]:
-            return self.value_changed_callback[0](*self.value_changed_callback[1], **self.value_changed_callback[2])
+        if self.value_changed_callback:
+            return self.value_changed_callback(widget=self)
     
     def when_value_edited(self):
         """Called when the user edits the value of the widget.  Will usually also be called the first time
