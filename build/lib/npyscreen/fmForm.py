@@ -25,9 +25,10 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
     DEFAULT_X_OFFSET = 2
     PRESERVE_SELECTED_WIDGET_DEFAULT = False # Preserve cursor location between displays?
     FRAMED = True
-    
     ALLOW_RESIZE = True
-    FIX_MINIMUM_SIZE_WHEN_CREATED = True
+    FIX_MINIMUM_SIZE_WHEN_CREATED = True    
+    WRAP_HELP = True
+    
     
     def __init__(self, name=None, parentApp=None, framed=None, help=None, color='FORMDEFAULT', 
                     widget_list=None, cycle_widgets=False, *args, **keywords):
@@ -207,7 +208,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
             help_name="%s Help" %(self.name)
         else: help_name=None
         curses.flushinp()
-        util_viewhelp.view_help(self.help, title=help_name)
+        util_viewhelp.view_help(self.help, title=help_name, autowrap=self.WRAP_HELP)
         #select.ViewText(self.help, name=help_name)
         self.display()
         return True
