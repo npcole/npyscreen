@@ -122,6 +122,11 @@ fixed-sized terminal.</p>
 <p>Current development is done on Python 3, but the code is kept compatible with modern releases of Python 2.  Certain features related to unicode work better under Python 3.</p>
 <p>It is designed to run using only the python standard library, and the only requirements are a working python (2.4 or above) installation and a working curses library.  Npyscreen will therefore work on almost all common platforms, and even in the Cygwin environment on Windows.</p>
 </div>
+<div class="section" id="python-3-4-0">
+<h2>Python 3.4.0<a class="headerlink" href="#python-3-4-0" title="Permalink to this headline">¶</a></h2>
+<p>There is a catastrophic bug in the Python curses module in 3.4.0: <a class="reference external" href="http://bugs.python.org/issue21088">http://bugs.python.org/issue21088</a></p>
+<p>This bug is fixed in Python 3.4.1, and I was not alerted to it until 3.4.1 was already out.  I do not propose to release a workaround within npyscreen because I think the number of people who are stuck using Python 3.4.0 is very small.  If this causes a problem for you, please get in touch.</p>
+</div>
 <div class="section" id="unicode">
 <h2>Unicode<a class="headerlink" href="#unicode" title="Permalink to this headline">¶</a></h2>
 <p>From version 2.0pre47 onwards all text widgets should now support utf-8 text display and entry on utf-8 capable terminals. This fixes a long-standing limitation with the library, and makes it suitable for use in projects targeting non-English-speaking users.</p>
@@ -148,6 +153,7 @@ fixed-sized terminal.</p>
 <li><a class="reference internal" href="#strengths">Strengths</a></li>
 <li><a class="reference internal" href="#weaknesses">Weaknesses</a></li>
 <li><a class="reference internal" href="#compatibility">Compatibility</a></li>
+<li><a class="reference internal" href="#python-3-4-0">Python 3.4.0</a></li>
 <li><a class="reference internal" href="#unicode">Unicode</a></li>
 <li><a class="reference internal" href="#similar-projects">Similar Projects</a></li>
 </ul>

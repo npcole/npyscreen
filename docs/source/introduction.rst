@@ -91,6 +91,15 @@ Current development is done on Python 3, but the code is kept compatible with mo
 
 It is designed to run using only the python standard library, and the only requirements are a working python (2.4 or above) installation and a working curses library.  Npyscreen will therefore work on almost all common platforms, and even in the Cygwin environment on Windows.
 
+Python 3.4.0
+------------
+
+There is a catastrophic bug in the Python curses module in 3.4.0: http://bugs.python.org/issue21088
+
+This bug is fixed in Python 3.4.1, and I was not alerted to it until 3.4.1 was already out.  I do not propose to release a workaround within npyscreen because I think the number of people who are stuck using Python 3.4.0 is very small.  If this causes a problem for you, please get in touch.
+
+
+
 Unicode
 -------
 
