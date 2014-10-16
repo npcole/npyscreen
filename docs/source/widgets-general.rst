@@ -63,7 +63,7 @@ SimpleGrid
 
     *values* should be specified as a two-dimensional array.
     
-    The convenience function *set_grid_values_from_flat_list(new_values, max_cols=None, reset_cursor=True) takes a flat list and displays it on the grid.
+    The convenience function *set_grid_values_from_flat_list(new_values, max_cols=None, reset_cursor=True)* takes a flat list and displays it on the grid.
     
     The following arguments can be passed to the constructor::
                 
@@ -117,15 +117,12 @@ CheckBoxMultiline, RoundCheckBoxMultiline
 
 
 Button
-   Functionally similar to the Checkbox widgets, but looking different.  The Button is usually used for OK and Cancel Buttons on Forms and similar things, though they should probably be replaced with the ButtonPress type.  The colour that the button is shown when selected is
-   either an inverse of the colour of the button, or else selected by the attribute *cursor_color*.  This value can also be passed in to the constructor.  If this value is None, the inverse of the button colour will be used.
+   Functionally similar to the Checkbox widgets, but looking different.  The Button is usually used for OK and Cancel Buttons on Forms and similar things, though they should probably be replaced with the ButtonPress type.  The colour that the button is shown when selected is either an inverse of the colour of the button, or else selected by the attribute *cursor_color*.  This value can also be passed in to the constructor.  If this value is None, the inverse of the button colour will be used.
    
 ButtonPress
     Not a toggle, but a control.  This widget has the method *whenPressed(self)*, which you should overload to do your own things.  
     
-    From version 4.3.0 onwards, the constructor accepts an argument *when_pressed_function=None*.  If a callable is specified in this way, if will be called instead of the method *whenPressed*. NB.  The when_pressed_function functionality is potentially dangerous. It can set up
-a circular reference that the garbage collector will never free. If this is a risk for your program, it is best to subclass this object and
-override the *when_pressed_function* method instead.
+    From version 4.3.0 onwards, the constructor accepts an argument *when_pressed_function=None*.  If a callable is specified in this way, if will be called instead of the method *whenPressed*. NB.  The when_pressed_function functionality is potentially dangerous. It can set up a circular reference that the garbage collector will never free. If this is a risk for your program, it is best to subclass this object and override the *when_pressed_function* method instead.
    
 FormControlCheckbox
    A common use of Checkbox is to offer the user the option to enter additional data.  For example "Enter Expiry Date".  In such a case, the Form needs to display additional fields in some cases, but not in others.  FormControlCheckbox makes this trivial.

@@ -21,6 +21,7 @@ A basic theme looks like this::
         'NO_EDIT'     : 'BLUE_BLACK',
         'STANDOUT'    : 'CYAN_BLACK',
         'CURSOR'      : 'WHITE_BLACK',
+        'CURSOR_INVERSE': 'BLACK_WHITE',
         'LABEL'       : 'GREEN_BLACK',
         'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'YELLOW_BLACK',

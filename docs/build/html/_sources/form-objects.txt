@@ -159,6 +159,11 @@ Standard Form Classes
    New in Version 4.3.0.  This version of ActionForm behaves similarly to ActionForm above, but the code is much cleaner.  It should 
    be much easier to subclass.  Eventually, this version may entirely replace ActionForm.
 
+.. py:class:: ActionFormMinimal
+
+    New in Version 4.4.0.  This version of ActionFormV2 only features an OK button.  Added at user request for use in
+    special circumstances.  
+
 .. py:class:: ActionPopup
     
     A smaller version of the ActionForm.
