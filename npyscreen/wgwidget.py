@@ -251,9 +251,10 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         This is currently an experimental feature.  A future version of the API may 
         take account of the margins set by the parent Form.
         """
+        self._requested_rely = y
+        self._requested_relx = x
         if y >= 0:
             self.rely = y
-            self._requested_rely = y
         else:
             self._requested_rely = y
             self.rely = self.parent.curses_pad.getmaxyx()[0] + y
@@ -263,10 +264,8 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
             if self.rely < 0:
                 self.rely = 0
         if x >= 0:
-            self.relx = x
-            self._requested_relx = x
+            self.relx = x            
         else:
-            self._requested_relx = x
             self.relx = self.parent.curses_pad.getmaxyx()[1] + x
             # I don't think there is any real value in using these margins
             #if self.parent.BLANK_COLUMNS_RIGHT and not self.use_max_space:
