@@ -34,7 +34,7 @@ class DateCombo(textbox.Textfield, monthbox.DateEntryBase):
             except AttributeError:
                 return "- Error -"
         else:
-            return "- Unset -"
+            return "-unset-"
             
     def _print(self):
         if self.do_colors():
