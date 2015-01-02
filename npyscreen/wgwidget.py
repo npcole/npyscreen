@@ -13,6 +13,10 @@ import warnings
 
 from .globals import DEBUG
 
+# experimental
+from .eveventhandler import EventHandler
+
+
 
 EXITED_DOWN  =  1
 EXITED_UP    = -1
@@ -153,7 +157,7 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
 
 
 
-class Widget(InputHandler, wgwidget_proto._LinePrinter):
+class Widget(InputHandler, wgwidget_proto._LinePrinter, EventHandler):
     "A base class for widgets. Do not use directly"
     
     _SAFE_STRING_STRIPS_NL = True
@@ -242,6 +246,8 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
             self.value_changed_callback = value_changed_callback
         else:
             self.value_changed_callback = None
+        
+        self.initialize_event_handling()
     
     def set_relyx(self, y, x):
         """

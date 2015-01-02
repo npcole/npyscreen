@@ -106,6 +106,8 @@ from .apOptions import OptionFreeText, OptionSingleChoice, OptionMultiChoice, Op
                        OptionBoolean, OptionFilename, OptionDate, OptionMultiFreeText
 
 
-
+# This really is about as experimental as it gets
+from .apNPSApplicationEvents import StandardApp
+from .eveventhandler import Event
 
 
