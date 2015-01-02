@@ -23,6 +23,8 @@ class NPSEventQueue(object):
         
 class StandardApp(NPSAppManaged, EventHandler):
     MAINQUEUE_TYPE = NPSEventQueue
+    keypress_timeout_default = 2
+    max_events_per_queue = 10
     """This class adds event queue functionality to the existing NPSAppManaged.  The name reflects the fact that future applications
     are expected to use this class as standard.  However, it is currently an experimental class.  The API is unlikely to change, but
     no promises are made at this time.
@@ -36,7 +38,7 @@ class StandardApp(NPSAppManaged, EventHandler):
     
     def _internal_while_waiting(self):
         # Parent NPSAppManaged does not define this, so no need to call.
-        self.process_event_queues(max_events_per_queue=10)
+        self.process_event_queues(max_events_per_queue=self.max_events_per_queue)
     
         
     def initalize_application_event_queues(self):
@@ -45,7 +47,7 @@ class StandardApp(NPSAppManaged, EventHandler):
         self.event_queues['MAINQUEUE'] = main_queue
     
     def process_event_queues(self, max_events_per_queue=None):
-        for queue in event_queues.values():
+        for queue in self.event_queues.values():
             for event in queue.get(maximum=max_events_per_queue):
                 self.process_event(event)
     
@@ -58,12 +60,16 @@ class StandardApp(NPSAppManaged, EventHandler):
         self.event_queues[queue].put(event)
         
     def process_event(self, event):
+        disguard_list = []
         if event.name not in self.event_directory:
-            return False
-        if not event_directory[event.name]:
-            del event_directory[event.name]
-            return False
+            return True
+        if not self.event_directory[event.name]:
+            del self.event_directory[event.name]
+            return True
         for registered_object in self.event_directory[event.name]:
             result = registered_object.handle_event(event)
             if result is False:
-                self.event_directory.discard(registered_object)
+                disguard_list.append(registered_object)
+                
+        for registered_object in disguard_list:
+            self.event_directory[event.name].discard(registered_object)

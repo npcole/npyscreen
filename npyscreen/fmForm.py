@@ -35,6 +35,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
     def __init__(self, name=None, parentApp=None, framed=None, help=None, color='FORMDEFAULT', 
                     widget_list=None, cycle_widgets=False, *args, **keywords):
         super(_FormBase, self).__init__(*args, **keywords)
+        self.initialize_event_handling()
         self.preserve_selected_widget = self.__class__.PRESERVE_SELECTED_WIDGET_DEFAULT
         if parentApp:
             try:
@@ -72,7 +73,6 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
             self.min_l = self.lines
             self.min_c = self.columns
         
-        self.initialize_event_handling()
             
     def resize(self):
         pass
