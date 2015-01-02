@@ -12,11 +12,13 @@ from . import wgwidget_proto
 from . import fm_form_edit_loop   as form_edit_loop
 from . import util_viewhelp
 from . import npysGlobalOptions as GlobalOptions
+from .eveventhandler import EventHandler
 from .globals import DISABLE_RESIZE_SYSTEM
 
 class _FormBase(proto_fm_screen_area.ScreenArea, 
         widget.InputHandler, 
-        wgwidget_proto._LinePrinter):
+        wgwidget_proto._LinePrinter,
+        EventHandler):
     BLANK_COLUMNS_RIGHT= 2
     BLANK_LINES_BASE   = 2
     OK_BUTTON_TEXT     = 'OK'
@@ -69,7 +71,8 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
         if self.FIX_MINIMUM_SIZE_WHEN_CREATED:
             self.min_l = self.lines
             self.min_c = self.columns
-            
+        
+        self.initialize_event_handling()
             
     def resize(self):
         pass
