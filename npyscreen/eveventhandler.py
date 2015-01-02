@@ -15,13 +15,20 @@ class EventHandler(object):
         
     def add_event_hander(self, event_name, handler):
         if not event_name in self.event_handlers:
-            self.event_handlers[event_name] = weakref.WeakSet
-        self.event_handlers.add(handler)
+            self.event_handlers[event_name] = set() # weakref.WeakSet() #Why doesn't the WeakSet work?
+        self.event_handlers[event_name].add(handler)
         
         parent_app = self.find_parent_app()
         if parent_app:
             parent_app.register_for_event(self, event_name)
-    
+        else:
+            # Probably are the parent App!
+            # but could be a form outside a proper application environment
+            try:
+                self.register_for_event(self, event_name)
+            except AttributeError:
+                pass
+                
     def remove_event_handler(self, event_name, handler):
         if event_name in self.event_handlers:
             self.event_handlers[event_name].remove(handler)
@@ -31,11 +38,17 @@ class EventHandler(object):
     
     def handle_event(self, event):
         "return True if the event was handled.  Return False if the application should stop sending this event."
-        if not event.name in self.event_handlers:
+        if event.name not in self.event_handlers:
             return False
         else:
-            for handler in self.event_handlers[event_name]:
-                handler(event)
+            remove_list = []
+            for handler in self.event_handlers[event.name]:
+                try:
+                    handler(event)
+                except weakref.ReferenceError:
+                    remove_list.append(handler)
+            for dead_handler in remove_list:
+                self.event_handlers[event.name].remove(handler)
             return True
     
     def find_parent_app(self):
