@@ -30,9 +30,18 @@ RAISEERROR   = 'RAISEERROR'
 
 ALLOW_NEW_INPUT = True
 
-class NotEnoughSpaceForWidget(Exception):
+TEST_SETTINGS = {
+    'TEST_INPUT': None,
+    'TEST_INPUT_LOG': [],
+    'CONTINUE_AFTER_TEST_INPUT': False,
+    }
+
+
+class ExhaustedTestInput(Exception):
     pass
 
+class NotEnoughSpaceForWidget(Exception):
+    pass
 
 class InputHandler(object):
     "An object that can handle user input"
@@ -528,27 +537,40 @@ big a given widget is ... use .height and .width instead"""
                 self.parent.parentApp.while_waiting()
 
     def get_and_use_key_press(self):
-        curses.raw()
-        curses.cbreak()
-        curses.meta(1)
-        self.parent.curses_pad.keypad(1)
-        if self.parent.keypress_timeout:
-            curses.halfdelay(self.parent.keypress_timeout)
-            ch = self._get_ch()
-            if ch == -1:
-                return self.try_while_waiting()
+        global TEST_SETTINGS
+        if TEST_SETTINGS['TEST_INPUT'] is None:
+            curses.raw()
+            curses.cbreak()
+            curses.meta(1)
+            self.parent.curses_pad.keypad(1)
+            if self.parent.keypress_timeout:
+                curses.halfdelay(self.parent.keypress_timeout)
+                ch = self._get_ch()
+                if ch == -1:
+                    return self.try_while_waiting()
+            else:
+                self.parent.curses_pad.timeout(-1)
+                ch = self._get_ch()
+            # handle escape-prefixed rubbish.
+            if ch == curses.ascii.ESC:
+                #self.parent.curses_pad.timeout(1)
+                self.parent.curses_pad.nodelay(1)
+                ch2 = self.parent.curses_pad.getch()
+                if ch2 != -1: 
+                    ch = curses.ascii.alt(ch2)
+                self.parent.curses_pad.timeout(-1) # back to blocking mode
+                #curses.flushinp()
         else:
-            self.parent.curses_pad.timeout(-1)
-            ch = self._get_ch()
-        # handle escape-prefixed rubbish.
-        if ch == curses.ascii.ESC:
-            #self.parent.curses_pad.timeout(1)
-            self.parent.curses_pad.nodelay(1)
-            ch2 = self.parent.curses_pad.getch()
-            if ch2 != -1: 
-                ch = curses.ascii.alt(ch2)
-            self.parent.curses_pad.timeout(-1) # back to blocking mode
-            #curses.flushinp()
+            self._last_get_ch_was_unicode = True
+            try:
+                ch = TEST_SETTINGS['TEST_INPUT'].pop(0)
+                TEST_SETTINGS['TEST_INPUT_LOG'].append(ch)
+            except IndexError:
+                if TEST_SETTINGS['CONTINUE_AFTER_TEST_INPUT']:
+                    TEST_SETTINGS['TEST_INPUT'] = None
+                    return
+                else:
+                    raise ExhaustedTestInput
         
         self.handle_input(ch)
         if self.check_value_change:

@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="4.6.4",
+	version="4.7.0",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,9 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 4.7.0 adds scripting support for writing automated tests.
+
 Version 4.6.4 adds keybindings relevant to Windows.
 
 Version 4.6.3 is a minor bug-fix release.

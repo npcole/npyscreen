@@ -24,7 +24,7 @@ class NPSEventQueue(object):
 class StandardApp(NPSAppManaged, EventHandler):
     MAINQUEUE_TYPE = NPSEventQueue
     keypress_timeout_default = 2
-    max_events_per_queue = 10
+    max_events_per_queue = 50
     """This class adds event queue functionality to the existing NPSAppManaged.  The name reflects the fact that future applications
     are expected to use this class as standard.  However, it is currently an experimental class.  The API is unlikely to change, but
     no promises are made at this time.
