@@ -27,6 +27,7 @@ Contents:
    messages
    options
    muttlike
+   writing-tests
    example-addressbk
 
 

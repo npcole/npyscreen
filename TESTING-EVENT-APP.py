@@ -27,6 +27,12 @@ class EventApp(npyscreen.StandardApp):
     
     def while_waiting(self):
         self.queue_event(npyscreen.Event("TESTEVENT"))
+        
+        # The following puts more events on the queue than the default app can ever process.
+        # 100 added each time, but only 50 dealt with.
+        # this creates a memory leak.
+        #for x in range(100):
+        #    self.queue_event(npyscreen.Event("TESTEVENT"))
     
     def ev_test_event_handler(self, event):
         wg = self.getForm("MAIN").myFixedText2
