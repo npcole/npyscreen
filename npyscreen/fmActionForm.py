@@ -58,7 +58,10 @@ class ActionForm(fmForm.Form):
         self.edit_return_value = None
         while self.editing:
             if not self.ALL_SHOWN: self.on_screen()
-            self.while_editing()
+            try:
+                self.while_editing(weakref.proxy(self._widgets__[self.editw])
+            except TypeError:
+                self.while_editing()
             self._widgets__[self.editw].edit()
             self._widgets__[self.editw].display()
             
