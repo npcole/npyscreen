@@ -15,7 +15,9 @@ class TestApp(npyscreen.NPSApp):
         
         t2 = F.add(npyscreen.BoxTitle, name="Box Title:", max_height=6)
         t3 = F.add(npyscreen.BoxTitle, name="Box Title2:", max_height=6, 
-                        contained_widget_arguments={'color': "WARNING", 'widgets_inherit_color': True}
+                        contained_widget_arguments={
+                                'color': "WARNING", 
+                                'widgets_inherit_color': True,}
                         )
         
         
