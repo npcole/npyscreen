@@ -16,6 +16,12 @@ For example::
 	
 	class TitleProductSearch(TitleText):
 		_entry_type = NewTextWidget
+
+You can adjust where the child widget is placed on the screen by passing in the argument *begin_entry_at* to the constructor. The default is 16. You can also override whether the widget uses a separate line for the title by passing in the argument *use_two_lines=True|False* at the time the widget is created.  The default *use_two_lines=None* will keep the title and the contained widget on the same line, unless the label is too long.
+
+You can change the label color at creation time using the argument *labelColor='LABEL'*.  You can specify any of the color names from the theme you are using.
+
+After creation, the two widgets managed by the TitleWidget can be accessed through the *label_widget* and *entry_widget* attributes of the object. 
 		
 
 Titled multiline widgets
@@ -39,6 +45,8 @@ BoxTitle
     The attribute `entry_widget` gives direct access to the contained widget.
     
     The properties `editable`, `values`, and `value` give direct access to the attributes of `entry_widget`.
+	
+	The constructor for this widget can be passed the argument `contained_widget_arguments`. This should be a dictionary of arguments that will be passed to the entry_widget when it is created.  Note that no sanity checking is done on this dictionary at this time. (New in version 4.8.0)
 	
 Your own versions of these widgets can be created in the same way as new Titled widgets.  Create the contained widget class first, and then create the box class wrapper class::
 
