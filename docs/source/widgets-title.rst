@@ -46,6 +46,8 @@ BoxTitle
     
     The properties `editable`, `values`, and `value` give direct access to the attributes of `entry_widget`.
 	
+	The constructor for this widget can be passed the argument `contained_widget_arguments`. This should be a dictionary of arguments that will be passed to the entry_widget when it is created.  Note that no sanity checking is done on this dictionary at this time. (New in version 4.8.0)
+	
 Your own versions of these widgets can be created in the same way as new Titled widgets.  Create the contained widget class first, and then create the box class wrapper class::
 
 	class NewMultiLineClass
