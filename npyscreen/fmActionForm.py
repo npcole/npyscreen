@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import weakref
 from . import fmForm
 from . import wgwidget as widget
 class ActionForm(fmForm.Form):
