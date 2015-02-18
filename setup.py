@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="4.7.2",
+	version="4.8.0",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,10 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 4.8.0 adds a mechanism for finer control of BoxTitle contained
+widgets.
+
 Version 4.7.2 includes documentation updates.
 
 Version 4.7.1 is a bugfix release.
