@@ -139,8 +139,15 @@ Should accept one argument (the object to be represented), and return a string."
                 self._cell_show_cursor(cell, False)
         else:
             self._cell_show_cursor(cell, False)
+            
+        self.custom_print_cell(cell, cell_value)
         
         cell.update() # <-------------------- WILL NEED TO OPTIMIZE THIS
+        
+    def custom_print_cell(self, actual_cell, cell_display_value):
+        pass
+        
+        
         
     def _cell_widget_show_value(self, cell, value):
         cell.value = value
