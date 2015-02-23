@@ -595,6 +595,7 @@ class MultiLineAction(MultiLine):
         super(MultiLineAction, self).set_up_handlers()
         self.handlers.update ( {
                     curses.ascii.NL:    self.h_act_on_highlighted,
+                    curses.ascii.CR:    self.h_act_on_highlighted,
                     ord('x'):           self.h_act_on_highlighted,
                     curses.ascii.SP:    self.h_act_on_highlighted,
                     } )
@@ -757,6 +758,7 @@ class Pager(MultiLine):
                     curses.KEY_HOME:    self.h_show_beginning,
                     curses.KEY_END:     self.h_show_end,
                     curses.ascii.NL:    self.h_exit,
+                    curses.ascii.CR:    self.h_exit,
                     curses.ascii.SP:    self.h_scroll_page_down,
                     curses.ascii.TAB:   self.h_exit,
                     ord('j'):           self.h_scroll_line_down,

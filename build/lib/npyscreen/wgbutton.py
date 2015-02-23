@@ -83,6 +83,7 @@ class MiniButtonPress(MiniButton):
         
         self.handlers.update({
                 curses.ascii.NL: self.h_toggle,
+                curses.ascii.CR: self.h_toggle,
             })
         
     def destroy(self):
