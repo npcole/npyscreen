@@ -71,7 +71,7 @@ Defining custom colours (strongly discouraged)
 On some terminals, it is possible to define custom colour values.  rxvt/urxvt is one such terminal.  From version 4.8.4 onwards, support for this is built in
 to theme manager classes.  
 
-The class variable color_values will be used when the class is initialized to redefine custom colour values.
+The class variable color_values will be used when the class is initialized to redefine custom colour values::
 
 	_color_values = (
 			# redefining a standard color
