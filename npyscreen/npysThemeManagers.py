@@ -10,6 +10,12 @@ def enableColor():
     npysGlobalOptions.DISABLE_ALL_COLORS = False
 
 class ThemeManager(object):
+    # a tuple with (color_number, (r, g, b))
+    _color_values = ( 
+        #(30, (150,250,100)), 
+    )
+    
+    
     _colors_to_define = ( 
      # DO NOT DEFINE THIS COLOR - THINGS BREAK
      #('WHITE_BLACK',      DO_NOT_DO_THIS,      DO_NOT_DO_THIS),
@@ -57,6 +63,7 @@ class ThemeManager(object):
     }
     def __init__(self):
         #curses.use_default_colors()
+        self.define_colour_numbers()
         self._defined_pairs = {}
         self._names         = {}
         try:
@@ -70,6 +77,12 @@ class ThemeManager(object):
         if do_color and curses.has_colors():
             self.initialize_pairs()
             self.initialize_names()
+    
+    def define_colour_numbers(self):
+        if curses.can_change_color():
+            for c in self._color_values:
+                curses.init_color(c[0], *c[1])
+    
         
     def findPair(self, caller, request='DEFAULT'):
         if not curses.has_colors() or npysGlobalOptions.DISABLE_ALL_COLORS:
