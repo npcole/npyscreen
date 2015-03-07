@@ -2,7 +2,7 @@
 
 from .globals                    import DEBUG, DISABLE_RESIZE_SYSTEM
 
-from .wgwidget                  import TEST_SETTINGS, ExhaustedTestInput
+from .wgwidget                  import TEST_SETTINGS, ExhaustedTestInput, add_test_input_from_iterable, add_test_input_ch
 
 from .npyssafewrapper           import wrapper, wrapper_basic
 
