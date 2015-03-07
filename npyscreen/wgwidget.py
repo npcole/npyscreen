@@ -37,6 +37,17 @@ TEST_SETTINGS = {
     }
 
 
+def add_test_input_from_iterable(test_input):
+    if not TEST_SETTINGS['TEST_INPUT']:
+        TEST_SETTINGS['TEST_INPUT'] = []
+    npyscreen.TEST_SETTINGS['TEST_INPUT'].extend([ch for ch in test_input])
+    
+def add_test_input_ch(test_input):
+    if not TEST_SETTINGS['TEST_INPUT']:
+        TEST_SETTINGS['TEST_INPUT'] = []
+    npyscreen.TEST_SETTINGS['TEST_INPUT'].append(test_input)
+    
+
 class ExhaustedTestInput(Exception):
     pass
 
