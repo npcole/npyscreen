@@ -26,7 +26,7 @@ Convenience Functions (new in version 4.8.5)
 	
 	Add each item of `iterable` to `TEST_SETTINGS['TEST_INPUT']`.
 
-.. py:function:: add_test_input_ch(ch)
+.. py:function:: npyscreen.add_test_input_ch(ch)
 
 	Add `ch` to `TEST_SETTINGS['TEST_INPUT']`.
 
