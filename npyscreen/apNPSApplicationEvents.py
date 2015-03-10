@@ -60,7 +60,7 @@ class StandardApp(NPSAppManaged, EventHandler):
         self.event_queues[queue].put(event)
         
     def process_event(self, event):
-        disguard_list = []
+        discard_list = []
         if event.name not in self.event_directory:
             return True
         if not self.event_directory[event.name]:
@@ -69,7 +69,7 @@ class StandardApp(NPSAppManaged, EventHandler):
         for registered_object in self.event_directory[event.name]:
             result = registered_object.handle_event(event)
             if result is False:
-                disguard_list.append(registered_object)
+                discard_list.append(registered_object)
                 
-        for registered_object in disguard_list:
+        for registered_object in discard_list:
             self.event_directory[event.name].discard(registered_object)

@@ -3,7 +3,7 @@ import curses
 import npyscreen
 import unittest
 
-npyscreen.TEST_SETTINGS['TEST_INPUT'] = [ch for ch in 'This is a test']
+npyscreen.add_test_input_from_iterable('This is a test')
 npyscreen.TEST_SETTINGS['TEST_INPUT'].append(curses.KEY_DOWN)
 npyscreen.TEST_SETTINGS['TEST_INPUT'].append("^X")
 npyscreen.TEST_SETTINGS['CONTINUE_AFTER_TEST_INPUT'] = True

@@ -19,6 +19,18 @@ A keypress that is fed to the application in this way is automatically appended 
 
 If 'CONTINUE_AFTER_TEST_INPUT' is true, then after the automatic input has been specified, *'TEST_INPUT'* is set to *None* and the application continues normally.  If it is False, then the exception *ExhaustedTestInput* is raised instead.
 
+Convenience Functions (new in version 4.8.5)
+--------------------------------------------
+
+.. py:function:: npyscreen.add_test_input_from_iterable(iterable)
+	
+	Add each item of `iterable` to `TEST_SETTINGS['TEST_INPUT']`.
+
+.. py:function:: add_test_input_ch(ch)
+
+	Add `ch` to `TEST_SETTINGS['TEST_INPUT']`.
+
+
 Example
 -------
 
