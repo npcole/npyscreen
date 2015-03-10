@@ -64,6 +64,21 @@
 <p>If &#8216;TEST_INPUT&#8217; is None the application progresses normally.  If it is an array, keystrokes are loaded from the left hand side of the array and fed to the application in place of getting input from the keyboard.  Note that special characters such as <em>curses.KEYDOWN</em> can be handled, and control characters can be indicated by a string such as <em>&#8220;^X&#8221;</em>.</p>
 <p>A keypress that is fed to the application in this way is automatically appended to <em>&#8216;TEST_INPUT_LOG&#8217;</em>, so it is possible to see where an error occurred when handling input.</p>
 <p>If &#8216;CONTINUE_AFTER_TEST_INPUT&#8217; is true, then after the automatic input has been specified, <em>&#8216;TEST_INPUT&#8217;</em> is set to <em>None</em> and the application continues normally.  If it is False, then the exception <em>ExhaustedTestInput</em> is raised instead.</p>
+<div class="section" id="convenience-functions-new-in-version-4-8-5">
+<h2>Convenience Functions (new in version 4.8.5)<a class="headerlink" href="#convenience-functions-new-in-version-4-8-5" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="npyscreen.add_test_input_from_iterable">
+<tt class="descclassname">npyscreen.</tt><tt class="descname">add_test_input_from_iterable</tt><big>(</big><em>iterable</em><big>)</big><a class="headerlink" href="#npyscreen.add_test_input_from_iterable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add each item of <cite>iterable</cite> to <cite>TEST_SETTINGS[&#8216;TEST_INPUT&#8217;]</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="add_test_input_ch">
+<tt class="descname">add_test_input_ch</tt><big>(</big><em>ch</em><big>)</big><a class="headerlink" href="#add_test_input_ch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add <cite>ch</cite> to <cite>TEST_SETTINGS[&#8216;TEST_INPUT&#8217;]</cite>.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>The following is a trivial example:</p>
@@ -102,6 +117,7 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Writing Tests</a><ul>
+<li><a class="reference internal" href="#convenience-functions-new-in-version-4-8-5">Convenience Functions (new in version 4.8.5)</a></li>
 <li><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
