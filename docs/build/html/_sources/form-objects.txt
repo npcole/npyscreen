@@ -319,9 +319,9 @@ Menus are usually created by calling a (supporting) Form's *new_menu* method.  V
    
    From version 3.6 onwards, menu items can be specified with a list of *arguments* and/or a dictionary of keywords.
    
-.. py:method:: NewMenu.addItemsFromList(text, function, shortcut=None)
+.. py:method:: NewMenu.addItemsFromList(item_list)
 
-	The agument for this function should be a list or tuple. Each element of this should be a tuple of the arguments that are used for creating each item.
+	The agument for this function should be a list or tuple. Each element of this should be a tuple of the arguments that are used for creating each item.  This method is DEPRECATED and may be removed or altered in a future version.
    
 .. py:method:: NewMenu.addNewSubmenu(name=None, shortcut=None, preDisplayFunction=None, pdfuncArguments=None, pdfuncKeywords=None)
 
