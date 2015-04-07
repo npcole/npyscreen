@@ -580,6 +580,7 @@ object to be passed to the contained widget."""
 ##          curses.flushinp()
 
 class MultiLineAction(MultiLine):
+    RAISE_ERROR_IF_EMPTY_ACTION = False
     def __init__(self, *args, **keywords):
         self.allow_multi_action = False  
         super(MultiLineAction, self).__init__(*args, **keywords)  
@@ -589,8 +590,14 @@ class MultiLineAction(MultiLine):
         pass
     
     def h_act_on_highlighted(self, ch):
-        return self.actionHighlighted(self.values[self.cursor_line], ch)
-
+        try:
+            return self.actionHighlighted(self.values[self.cursor_line], ch)
+        except IndexError:
+            if self.RAISE_ERROR_IF_EMPTY_ACTION:
+                raise
+            else:
+                pass
+            
     def set_up_handlers(self):
         super(MultiLineAction, self).set_up_handlers()
         self.handlers.update ( {
