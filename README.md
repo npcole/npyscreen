@@ -31,15 +31,14 @@ There is a mailing list at https://groups.google.com/forum/?fromgroups#!forum/np
 
 ----
 
-==Non-English Text==
+Non-English Text
+================
 
 From version 2.0pre47 onwards all text widgets should now support utf-8 text display and entry on utf-8 capable terminals.  This fixes a long-standing limitation with the library, and makes it suitable for use in projects targeting non-English-speaking users.
 
 As of version 2.0pre48, the library aims to be robust in dealing with unicode across all widgets.  There are still a few places in the system where support for utf-8/unicode needs further work. Please file bug reports if you encounter them.
 
 The 2.0pre48 release should be considered an alpha-release for version 2. 
-
-
 
 Python 3 support
 ================
