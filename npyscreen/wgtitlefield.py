@@ -169,6 +169,5 @@ class TitleText(widget.Widget):
         except AttributeError:
             self._editable = value
 
-
 class TitleFixedText(TitleText):
     _entry_type = textbox.FixedText
