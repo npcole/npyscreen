@@ -23,7 +23,7 @@ class FormNewEditLoop(object):
     def edit_loop(self):
         self.editing = True
         self.display()
-        while not self._widgets__[self.editw].editable:
+        while not (self._widgets__[self.editw].editable and not self._widgets__[self.editw].hidden):
             self.editw += 1
             if self.editw > len(self._widgets__)-1: 
                 self.editing = False
@@ -72,7 +72,7 @@ class FormDefaultEditLoop(object):
 
         self.display()
 
-        while not self._widgets__[self.editw].editable:
+        while not (self._widgets__[self.editw].editable and not self._widgets__[self.editw].hidden):
             self.editw += 1
             if self.editw > len(self._widgets__)-1: 
                 self.editing = False

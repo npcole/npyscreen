@@ -7,9 +7,9 @@ class TestApp(npyscreen.NPSApp):
     def main(self):
         # These lines create the form and populate it with widgets.
         # A fairly complex screen in only 8 or so lines of code - a line for each control.
-        F  = npyscreen.Form(name = "Welcome to Npyscreen",)
-        t  = F.add(npyscreen.TitleText, name = "Text:",)
-        fn = F.add(npyscreen.TitleFilename, name = "Filename:")
+        F  = npyscreen.Form(name = "Welcome to Npyscreen")
+        t  = F.add(npyscreen.TitleText, name = "Text:", )
+        fn = F.add(npyscreen.TitleFilename, name = "Filename:",)
         fn2 = F.add(npyscreen.TitleFilenameCombo, name="Filename2:")
         dt = F.add(npyscreen.TitleDateCombo, name = "Date:")
         s  = F.add(npyscreen.TitleSliderPercent, accuracy=0, out_of=12, name = "Slider")
@@ -23,9 +23,7 @@ class TestApp(npyscreen.NPSApp):
         
         # This lets the user play with the Form.
         F.edit()
-
-        print(ms.get_selected_objects())
-
+        
 if __name__ == "__main__":
     App = TestApp()
     App.run()   
