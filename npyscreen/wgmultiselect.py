@@ -55,6 +55,7 @@ class MultiSelectAction(MultiSelect):
         super(MultiSelectAction, self).set_up_handlers()
         self.handlers.update ( {
                     curses.ascii.NL:    self.h_act_on_highlighted,
+                    curses.ascii.CR:    self.h_act_on_highlighted,
                     ord(';'):           self.h_act_on_selected,
                     # "^L":        self.h_set_filtered_to_selected,
                     curses.ascii.SP:    self.h_act_on_highlighted,
@@ -84,7 +85,8 @@ class MultiSelectFixed(MultiSelect):
             ord("X"):   self.user_set_value,
             curses.ascii.SP: self.user_set_value,
             "^U":        self.user_set_value,
-            curses.ascii.NL:    self.h_exit_down
+            curses.ascii.NL:    self.h_exit_down,
+            curses.ascii.CR:    self.h_exit_down,
             
         })
 

@@ -13,6 +13,10 @@ import warnings
 
 from .globals import DEBUG
 
+# experimental
+from .eveventhandler import EventHandler
+
+
 
 EXITED_DOWN  =  1
 EXITED_UP    = -1
@@ -26,9 +30,31 @@ RAISEERROR   = 'RAISEERROR'
 
 ALLOW_NEW_INPUT = True
 
-class NotEnoughSpaceForWidget(Exception):
+TEST_SETTINGS = {
+    'TEST_INPUT': None,
+    'TEST_INPUT_LOG': [],
+    'CONTINUE_AFTER_TEST_INPUT': False,
+    }
+
+
+def add_test_input_from_iterable(test_input):
+    global TEST_SETTINGS
+    if not TEST_SETTINGS['TEST_INPUT']:
+        TEST_SETTINGS['TEST_INPUT'] = []
+    TEST_SETTINGS['TEST_INPUT'].extend([ch for ch in test_input])
+    
+def add_test_input_ch(test_input):
+    global TEST_SETTINGS
+    if not TEST_SETTINGS['TEST_INPUT']:
+        TEST_SETTINGS['TEST_INPUT'] = []
+    TEST_SETTINGS['TEST_INPUT'].append(test_input)
+    
+
+class ExhaustedTestInput(Exception):
     pass
 
+class NotEnoughSpaceForWidget(Exception):
+    pass
 
 class InputHandler(object):
     "An object that can handle user input"
@@ -153,7 +179,7 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
 
 
 
-class Widget(InputHandler, wgwidget_proto._LinePrinter):
+class Widget(InputHandler, wgwidget_proto._LinePrinter, EventHandler):
     "A base class for widgets. Do not use directly"
     
     _SAFE_STRING_STRIPS_NL = True
@@ -173,6 +199,7 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
             use_max_space=False,
             check_value_change=True,
             check_cursor_move=True,
+            value_changed_callback=None,
             **keywords):
         """The following named arguments may be supplied:
         name= set the name of the widget.
@@ -184,12 +211,15 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         hidden=True/False The widget is hidden.
         check_value_change=True - perform a check on every keypress and run when_value_edit if the value is different.
         check_cursor_move=True - perform a check every keypress and run when_cursor_moved if the cursor has moved.
+        value_changed_callback - should be None or a Function.  If it is a function, it will have be called when the value changes
+                               and passed the keyword argument widget=self.
         """
         self.check_value_change=check_value_change
         self.check_cursor_move =check_cursor_move
         self.hidden = hidden
         self.interested_in_mouse_even_when_not_editable = False# used only for rare widgets to allow user to click
                                                         # even if can't actually select the widget.  See mutt-style forms
+                                                        
         try:
             self.parent = weakref.proxy(screen)
         except TypeError:
@@ -233,6 +263,13 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         self.editable = editable
         if self.parent.curses_pad.getmaxyx()[0]-1 == self.rely: self.on_last_line = True
         else: self.on_last_line = False
+        
+        if value_changed_callback:
+            self.value_changed_callback = value_changed_callback
+        else:
+            self.value_changed_callback = None
+        
+        self.initialize_event_handling()
     
     def set_relyx(self, y, x):
         """
@@ -242,9 +279,10 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
         This is currently an experimental feature.  A future version of the API may 
         take account of the margins set by the parent Form.
         """
+        self._requested_rely = y
+        self._requested_relx = x
         if y >= 0:
             self.rely = y
-            self._requested_rely = y
         else:
             self._requested_rely = y
             self.rely = self.parent.curses_pad.getmaxyx()[0] + y
@@ -254,10 +292,8 @@ class Widget(InputHandler, wgwidget_proto._LinePrinter):
             if self.rely < 0:
                 self.rely = 0
         if x >= 0:
-            self.relx = x
-            self._requested_relx = x
+            self.relx = x            
         else:
-            self._requested_relx = x
             self.relx = self.parent.curses_pad.getmaxyx()[1] + x
             # I don't think there is any real value in using these margins
             #if self.parent.BLANK_COLUMNS_RIGHT and not self.use_max_space:
@@ -514,27 +550,40 @@ big a given widget is ... use .height and .width instead"""
                 self.parent.parentApp.while_waiting()
 
     def get_and_use_key_press(self):
-        curses.raw()
-        curses.cbreak()
-        curses.meta(1)
-        self.parent.curses_pad.keypad(1)
-        if self.parent.keypress_timeout:
-            curses.halfdelay(self.parent.keypress_timeout)
-            ch = self._get_ch()
-            if ch == -1:
-                return self.try_while_waiting()
+        global TEST_SETTINGS
+        if TEST_SETTINGS['TEST_INPUT'] is None:
+            curses.raw()
+            curses.cbreak()
+            curses.meta(1)
+            self.parent.curses_pad.keypad(1)
+            if self.parent.keypress_timeout:
+                curses.halfdelay(self.parent.keypress_timeout)
+                ch = self._get_ch()
+                if ch == -1:
+                    return self.try_while_waiting()
+            else:
+                self.parent.curses_pad.timeout(-1)
+                ch = self._get_ch()
+            # handle escape-prefixed rubbish.
+            if ch == curses.ascii.ESC:
+                #self.parent.curses_pad.timeout(1)
+                self.parent.curses_pad.nodelay(1)
+                ch2 = self.parent.curses_pad.getch()
+                if ch2 != -1: 
+                    ch = curses.ascii.alt(ch2)
+                self.parent.curses_pad.timeout(-1) # back to blocking mode
+                #curses.flushinp()
         else:
-            self.parent.curses_pad.timeout(-1)
-            ch = self._get_ch()
-        # handle escape-prefixed rubbish.
-        if ch == curses.ascii.ESC:
-            #self.parent.curses_pad.timeout(1)
-            self.parent.curses_pad.nodelay(1)
-            ch2 = self.parent.curses_pad.getch()
-            if ch2 != -1: 
-                ch = curses.ascii.alt(ch2)
-            self.parent.curses_pad.timeout(-1) # back to blocking mode
-            #curses.flushinp()
+            self._last_get_ch_was_unicode = True
+            try:
+                ch = TEST_SETTINGS['TEST_INPUT'].pop(0)
+                TEST_SETTINGS['TEST_INPUT_LOG'].append(ch)
+            except IndexError:
+                if TEST_SETTINGS['CONTINUE_AFTER_TEST_INPUT']:
+                    TEST_SETTINGS['TEST_INPUT'] = None
+                    return
+                else:
+                    raise ExhaustedTestInput
         
         self.handle_input(ch)
         if self.check_value_change:
@@ -582,10 +631,16 @@ big a given widget is ... use .height and .width instead"""
             self.when_value_edited()
         # Value must have changed:
         self._old_value = copy.deepcopy(self.value)
+        self._internal_when_value_edited()
         self.when_value_edited()
         if hasattr(self, 'parent_widget'):
             self.parent_widget.when_value_edited()
+            self.parent_widget._internal_when_value_edited()
         return True
+    
+    def _internal_when_value_edited(self):
+        if self.value_changed_callback:
+            return self.value_changed_callback(widget=self)
     
     def when_value_edited(self):
         """Called when the user edits the value of the widget.  Will usually also be called the first time

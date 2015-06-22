@@ -2,6 +2,8 @@
 
 from .globals                    import DEBUG, DISABLE_RESIZE_SYSTEM
 
+from .wgwidget                  import TEST_SETTINGS, ExhaustedTestInput, add_test_input_from_iterable, add_test_input_ch
+
 from .npyssafewrapper           import wrapper, wrapper_basic
 
 from   .npysThemeManagers       import ThemeManager, disableColor, enableColor
@@ -11,7 +13,7 @@ from   .apNPSApplicationManaged import NPSAppManaged
 from   .proto_fm_screen_area    import setTheme
 from   .fmForm                  import FormBaseNew, Form, TitleForm, TitleFooterForm, SplitForm, FormExpanded, FormBaseNewExpanded
 from   .fmActionForm            import ActionForm, ActionFormExpanded
-from   .fmActionFormV2          import ActionFormV2, ActionFormExpandedV2
+from   .fmActionFormV2          import ActionFormV2, ActionFormExpandedV2, ActionFormMinimal
 from   .fmFormWithMenus         import FormWithMenus, ActionFormWithMenus, \
                                        FormBaseNewWithMenus, SplitFormWithMenus, \
                                        ActionFormV2WithMenus
@@ -27,8 +29,6 @@ from .fmFormMuttActive          import FormMuttActiveTraditional, FormMuttActive
 from .fmFormMultiPage           import FormMultiPage, FormMultiPageAction,\
                                        FormMultiPageActionWithMenus, FormMultiPageWithMenus
 
-from   .npysNPSTree             import NPSTreeData
-
 from .npysNPSFilteredData       import NPSFilteredDataBase, NPSFilteredDataList
 
 from .wgbutton                  import MiniButton
@@ -43,6 +43,8 @@ from .wgannotatetextbox         import AnnotateTextboxBase
 from .wgannotatetextbox         import AnnotateTextboxBaseRight
 
 from .wgslider                  import Slider, TitleSlider
+from .wgslider                  import SliderNoLabel, TitleSliderNoLabel
+from .wgslider                  import SliderPercent, TitleSliderPercent
 
 from .wgwidget                  import DummyWidget, NotEnoughSpaceForWidget
 from . import wgwidget as widget
@@ -59,6 +61,7 @@ from .muMenu                    import Menu
 from .wgselectone               import SelectOne, TitleSelectOne
 from .wgdatecombo               import DateCombo, TitleDateCombo
 
+from .npysTree import TreeData
 from .wgmultilinetree           import MLTree, MLTreeAnnotated, MLTreeAction, MLTreeAnnotatedAction
 from .wgmultilinetreeselectable import MLTreeMultiSelect, TreeLineSelectable
 from .wgmultilinetreeselectable import MLTreeMultiSelectAnnotated, TreeLineSelectableAnnotated
@@ -69,6 +72,7 @@ from .wgmultilinetreeselectable import MLTreeMultiSelectAnnotated, TreeLineSelec
 from .compatibility_code.oldtreeclasses import MultiLineTree, SelectOneTree
 from .compatibility_code.oldtreeclasses import MultiLineTreeNew, MultiLineTreeNewAction, TreeLine, TreeLineAnnotated # Experimental
 from .compatibility_code.oldtreeclasses import MultiLineTreeNewAnnotatedAction, MultiLineTreeNewAnnotated # Experimental
+from .compatibility_code.npysNPSTree import NPSTreeData
 
 # End compatibility. ###########################################################################################
 
@@ -104,6 +108,8 @@ from .apOptions import OptionFreeText, OptionSingleChoice, OptionMultiChoice, Op
                        OptionBoolean, OptionFilename, OptionDate, OptionMultiFreeText
 
 
-
+# This really is about as experimental as it gets
+from .apNPSApplicationEvents import StandardApp
+from .eveventhandler import Event
 
 

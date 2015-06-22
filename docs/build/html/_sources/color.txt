@@ -21,6 +21,7 @@ A basic theme looks like this::
         'NO_EDIT'     : 'BLUE_BLACK',
         'STANDOUT'    : 'CYAN_BLACK',
         'CURSOR'      : 'WHITE_BLACK',
+        'CURSOR_INVERSE': 'BLACK_WHITE',
         'LABEL'       : 'GREEN_BLACK',
         'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'YELLOW_BLACK',
@@ -62,3 +63,23 @@ When a widget is being drawn, it asks the active ThemeManager to tell it appropr
 Individual widgets often have *color* attribute of their own (which may be set by the constructor).  This is usually set to 'DEFAULT', but could be changed to any other defined name.  This mechanism typically only allows individual widgets to have one particular part of their colour-scheme changed.
 
 Title... versions of widgets also define the attribute *labelColor*, which can be used to change the colour of their label colour.
+
+
+Defining custom colours (strongly discouraged)
+***********************************************
+
+On some terminals, it is possible to define custom colour values.  rxvt/urxvt is one such terminal.  From version 4.8.4 onwards, support for this is built in
+to theme manager classes.  
+
+The class variable color_values will be used when the class is initialized to redefine custom colour values::
+
+	_color_values = (
+			# redefining a standard color
+	        (curses.COLOR_GREEN, (150,250,100)),
+			# defining another color
+			(70, (150,250,100)),
+	    )
+		
+NB. Current versions of npyscreen make no effort to reset these values when the application exits.
+
+Use of this facility is discouraged, because it is impossible to tell reliably whether or not a terminal actually supports custom colours.  This feature was added at user request to support a custom application.

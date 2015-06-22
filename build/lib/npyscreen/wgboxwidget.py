@@ -95,9 +95,12 @@ class BoxBasic(Widget):
         
 class BoxTitle(BoxBasic):
     _contained_widget = MultiLine
-    def __init__(self, screen, *args, **keywords):
+    def __init__(self, screen, contained_widget_arguments=None, *args, **keywords):
         super(BoxTitle, self).__init__(screen, *args, **keywords)
-        self.make_contained_widget()
+        if contained_widget_arguments:
+            self.make_contained_widget(contained_widget_arguments=contained_widget_arguments)
+        else:
+            self.make_contained_widget()
         if 'editable' in keywords:
             self.entry_widget.editable=keywords['editable']
         if 'value' in keywords:
@@ -110,12 +113,20 @@ class BoxTitle(BoxBasic):
             self.entry_widget.scroll_exit = keywords['slow_scroll']
         
     
-    def make_contained_widget(self):
+    def make_contained_widget(self, contained_widget_arguments=None):
         self._my_widgets = []
-        self._my_widgets.append(self._contained_widget(self.parent, 
-         rely=self.rely+1, relx = self.relx+2, 
-         max_width=self.width-4, max_height=self.height-2,
-         ))
+        if contained_widget_arguments:
+            self._my_widgets.append(self._contained_widget(self.parent, 
+                                rely=self.rely+1, relx = self.relx+2, 
+                                max_width=self.width-4, max_height=self.height-2,
+                                **contained_widget_arguments
+                            ))
+            
+        else:
+            self._my_widgets.append(self._contained_widget(self.parent, 
+                                rely=self.rely+1, relx = self.relx+2, 
+                                max_width=self.width-4, max_height=self.height-2,
+                            ))
         self.entry_widget = weakref.proxy(self._my_widgets[0])
             
     def update(self, clear=True):

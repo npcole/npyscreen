@@ -107,9 +107,14 @@ the same effect can be achieved by altering the __str__() method of displayed ob
     def make_contained_widgets(self, ):
         self._my_widgets = []
         for h in range(self.height // self.__class__._contained_widget_height):
-            self._my_widgets.append(self._contained_widgets(self.parent, 
-             rely=(h*self._contained_widget_height)+self.rely, relx = self.relx, 
-             max_width=self.width, max_height=self.__class__._contained_widget_height))
+            self._my_widgets.append(
+                    self._contained_widgets(self.parent, 
+                        rely=(h*self._contained_widget_height)+self.rely, 
+                        relx = self.relx, 
+                        max_width=self.width, 
+                        max_height=self.__class__._contained_widget_height
+                    )
+                )
 
 
     def display_value(self, vl):
@@ -239,7 +244,7 @@ object to be passed to the contained widget."""
                     self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
         
             if self.editing or self.always_show_cursor: 
-                self._my_widgets[(self.cursor_line-self.start_display_at)].highlight=True
+                self.set_is_line_cursor(self._my_widgets[(self.cursor_line-self.start_display_at)], True)
                 self._my_widgets[(self.cursor_line-self.start_display_at)].update(clear=True)
             else:
                 # There is a bug somewhere that affects the first line.  This cures it.
@@ -294,18 +299,25 @@ object to be passed to the contained widget."""
                 
     def _set_line_highlighting(self, line, value_indexer):
         if value_indexer in self._filtered_values_cache:
-            line.important = True
+            self.set_is_line_important(line, True)
         else:
-            line.important = False
+            self.set_is_line_important(line, False)
         
         if (value_indexer == self.value) and \
             (self.value is not None):
-            line.show_bold=True
+            self.set_is_line_bold(line, True)
         else: 
-            line.show_bold=False
+            self.set_is_line_bold(line, False)
+        self.set_is_line_cursor(line, False)
+        
+    def set_is_line_important(self, line, value):
+        line.important = value
     
-        line.highlight=False
-            
+    def set_is_line_bold(self, line, value):
+        line.show_bold = value
+    
+    def set_is_line_cursor(self, line, value):
+        line.highlight = value
 
     def get_filtered_indexes(self, force_remake_cache=False):
         if not force_remake_cache:
@@ -575,6 +587,7 @@ object to be passed to the contained widget."""
 ##          curses.flushinp()
 
 class MultiLineAction(MultiLine):
+    RAISE_ERROR_IF_EMPTY_ACTION = False
     def __init__(self, *args, **keywords):
         self.allow_multi_action = False  
         super(MultiLineAction, self).__init__(*args, **keywords)  
@@ -584,12 +597,19 @@ class MultiLineAction(MultiLine):
         pass
     
     def h_act_on_highlighted(self, ch):
-        return self.actionHighlighted(self.values[self.cursor_line], ch)
-
+        try:
+            return self.actionHighlighted(self.values[self.cursor_line], ch)
+        except IndexError:
+            if self.RAISE_ERROR_IF_EMPTY_ACTION:
+                raise
+            else:
+                pass
+            
     def set_up_handlers(self):
         super(MultiLineAction, self).set_up_handlers()
         self.handlers.update ( {
                     curses.ascii.NL:    self.h_act_on_highlighted,
+                    curses.ascii.CR:    self.h_act_on_highlighted,
                     ord('x'):           self.h_act_on_highlighted,
                     curses.ascii.SP:    self.h_act_on_highlighted,
                     } )
@@ -752,6 +772,7 @@ class Pager(MultiLine):
                     curses.KEY_HOME:    self.h_show_beginning,
                     curses.KEY_END:     self.h_show_end,
                     curses.ascii.NL:    self.h_exit,
+                    curses.ascii.CR:    self.h_exit,
                     curses.ascii.SP:    self.h_scroll_page_down,
                     curses.ascii.TAB:   self.h_exit,
                     ord('j'):           self.h_scroll_line_down,

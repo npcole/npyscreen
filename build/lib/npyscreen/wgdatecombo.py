@@ -32,9 +32,9 @@ class DateCombo(textbox.Textfield, monthbox.DateEntryBase):
             except ValueError:
                 return self.value.isoformat()
             except AttributeError:
-                return "- Error -"
+                return "-error-"
         else:
-            return "- Unset -"
+            return "-unset-"
             
     def _print(self):
         if self.do_colors():

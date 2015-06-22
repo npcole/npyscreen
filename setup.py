@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="4.4.0",
+	version="4.8.7",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,50 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 4.8.7 New methods added to the Multiline class to assist widget authors. 
+
+
+Version 4.8.6 MultiLineAction widgets no longer raise an exception if empty
+and selected unless set to do so explicitly.
+
+Version 4.8.5 improves the writing of tests.
+
+Version 4.8.4 adds support for custom-defined colours (not recommended.
+Added at user request for a custom application).
+
+Version 4.8.3 updates the documentation.
+
+Version 4.8.2 makes the standard grid widget easier to customize by adding
+the custom_print_cell method.
+
+Version 4.8.1 fixes a bug that causes npyscreen to crash.
+
+Version 4.8.0 adds a mechanism for finer control of BoxTitle contained
+widgets.
+
+Version 4.7.2 includes documentation updates.
+
+Version 4.7.1 is a bugfix release.
+
+Version 4.7.0 adds scripting support for writing automated tests.
+
+Version 4.6.4 adds keybindings relevant to Windows.
+
+Version 4.6.3 is a minor bug-fix release.
+
+Version 4.6.1 updates the documentation to note that there is a bug in
+Python's curses library in 3.4.0.  This is fixed in 3.4.1.  I do not propose
+to put a workaround into npyscreen, which would complicate the code a great
+deal for a bug that very few people face.  For more details, see:
+http://bugs.python.org/issue21088
+
+
+
+
+Version 4.6.0 introduces a way to define a callback for when widget values change.  The help system has been improved by minor interface changes.  
+Both of these were user suggestions.  Thank you to those who suggested them.
+
+Version 4.5.0 introduces a greater control of colour for certain widgets.  
 
 Version 4.4.0 introduces the new tree class TreeData.  This is a new version of NPSTreeData that follows PEP 8 conventions for method names.  NPSTreeData is now deprecated.
 The form class ActionFormMinimal has been added at a user request.  This is a special version of ActionFrom that only features an OK button by default.

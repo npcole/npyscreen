@@ -14,6 +14,7 @@ class _ToggleControl(Widget):
                 curses.ascii.SP: self.h_toggle,
                 ord('x'):        self.h_toggle,
                 curses.ascii.NL: self.h_select_exit,
+                curses.ascii.CR: self.h_select_exit,
                 ord('j'):        self.h_exit_down,
                 ord('k'):        self.h_exit_up,
                 ord('h'):        self.h_exit_left,

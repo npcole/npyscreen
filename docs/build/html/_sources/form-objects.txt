@@ -25,8 +25,6 @@ The Following arguments can be passed to a Form's constructor:
 *lines=0, columns=0, minimum_lines=24, minimum_columns=80*
     You can adjust the size of the Form, either providing an absolute size (with *lines=* and *columns=*) or a minimum size (*minimum_lines=* and *minimum_columns=*).  The default minimums (24x80) provide the standard size for terminal.  If you plan your Forms to fit within that size, they should be viewable on almost all systems without the need to scroll the Form.  Note that you can use the absolute sizing in one direction and the minimum in the other, should you wish.
     
-Forms cannot be resized once created.  A system to dynamically re-arrange widgets as a terminal is resized is in a experimental state but is not part of the current distribution.
-
 The standard constructor will call the method *.create()*, which you should override to create the Form widgets.  See below.
 
 Placing widgets on a Form
@@ -158,6 +156,11 @@ Standard Form Classes
 
    New in Version 4.3.0.  This version of ActionForm behaves similarly to ActionForm above, but the code is much cleaner.  It should 
    be much easier to subclass.  Eventually, this version may entirely replace ActionForm.
+
+.. py:class:: ActionFormMinimal
+
+    New in Version 4.4.0.  This version of ActionFormV2 only features an OK button.  Added at user request for use in
+    special circumstances.  
 
 .. py:class:: ActionPopup
     
@@ -316,9 +319,9 @@ Menus are usually created by calling a (supporting) Form's *new_menu* method.  V
    
    From version 3.6 onwards, menu items can be specified with a list of *arguments* and/or a dictionary of keywords.
    
-.. py:method:: NewMenu.addItemsFromList(text, function, shortcut=None)
+.. py:method:: NewMenu.addItemsFromList(item_list)
 
-	The agument for this function should be a list or tuple. Each element of this should be a tuple of the arguments that are used for creating each item.
+	The agument for this function should be a list or tuple. Each element of this should be a tuple of the arguments that are used for creating each item.  This method is DEPRECATED and may be removed or altered in a future version.
    
 .. py:method:: NewMenu.addNewSubmenu(name=None, shortcut=None, preDisplayFunction=None, pdfuncArguments=None, pdfuncKeywords=None)
 

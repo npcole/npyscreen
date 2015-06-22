@@ -14,6 +14,7 @@ class FileCommand(wgautocomplete.Filename):
         super(FileCommand, self).set_up_handlers()
         self.handlers.update ({
             curses.ascii.NL:    self.h_select_file,
+            curses.ascii.CR:    self.h_select_file,
             "^W":               self.h_up_level,
         })
         
@@ -85,6 +86,7 @@ class FileGrid(wggrid.SimpleGrid):
         super(FileGrid, self).set_up_handlers()
         self.handlers.update ({
             curses.ascii.NL:    self.h_select_file,
+            curses.ascii.CR:    self.h_select_file,
             curses.ascii.SP:    self.h_select_file,
         })
     

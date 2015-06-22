@@ -74,7 +74,6 @@
 <dt><em>lines=0, columns=0, minimum_lines=24, minimum_columns=80</em></dt>
 <dd>You can adjust the size of the Form, either providing an absolute size (with <em>lines=</em> and <em>columns=</em>) or a minimum size (<em>minimum_lines=</em> and <em>minimum_columns=</em>).  The default minimums (24x80) provide the standard size for terminal.  If you plan your Forms to fit within that size, they should be viewable on almost all systems without the need to scroll the Form.  Note that you can use the absolute sizing in one direction and the minimum in the other, should you wish.</dd>
 </dl>
-<p>Forms cannot be resized once created.  A system to dynamically re-arrange widgets as a terminal is resized is in a experimental state but is not part of the current distribution.</p>
 <p>The standard constructor will call the method <em>.create()</em>, which you should override to create the Form widgets.  See below.</p>
 </div>
 <div class="section" id="placing-widgets-on-a-form">
@@ -218,6 +217,13 @@ subclasses, but it is the best place to set up all the widgets on a Form.  Expec
 <em class="property">class </em><tt class="descname">ActionFormV2</tt><a class="headerlink" href="#ActionFormV2" title="Permalink to this definition">¶</a></dt>
 <dd><p>New in Version 4.3.0.  This version of ActionForm behaves similarly to ActionForm above, but the code is much cleaner.  It should
 be much easier to subclass.  Eventually, this version may entirely replace ActionForm.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ActionFormMinimal">
+<em class="property">class </em><tt class="descname">ActionFormMinimal</tt><a class="headerlink" href="#ActionFormMinimal" title="Permalink to this definition">¶</a></dt>
+<dd><p>New in Version 4.4.0.  This version of ActionFormV2 only features an OK button.  Added at user request for use in
+special circumstances.</p>
 </dd></dl>
 
 <dl class="class">
@@ -394,8 +400,8 @@ be much easier to subclass.  Eventually, this version may entirely replace Actio
 
 <dl class="method">
 <dt id="NewMenu.addItemsFromList">
-<tt class="descclassname">NewMenu.</tt><tt class="descname">addItemsFromList</tt><big>(</big><em>text</em>, <em>function</em>, <em>shortcut=None</em><big>)</big><a class="headerlink" href="#NewMenu.addItemsFromList" title="Permalink to this definition">¶</a></dt>
-<dd><p>The agument for this function should be a list or tuple. Each element of this should be a tuple of the arguments that are used for creating each item.</p>
+<tt class="descclassname">NewMenu.</tt><tt class="descname">addItemsFromList</tt><big>(</big><em>item_list</em><big>)</big><a class="headerlink" href="#NewMenu.addItemsFromList" title="Permalink to this definition">¶</a></dt>
+<dd><p>The agument for this function should be a list or tuple. Each element of this should be a tuple of the arguments that are used for creating each item.  This method is DEPRECATED and may be removed or altered in a future version.</p>
 </dd></dl>
 
 <dl class="method">

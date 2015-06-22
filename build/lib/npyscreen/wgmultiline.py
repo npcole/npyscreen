@@ -107,9 +107,14 @@ the same effect can be achieved by altering the __str__() method of displayed ob
     def make_contained_widgets(self, ):
         self._my_widgets = []
         for h in range(self.height // self.__class__._contained_widget_height):
-            self._my_widgets.append(self._contained_widgets(self.parent, 
-             rely=(h*self._contained_widget_height)+self.rely, relx = self.relx, 
-             max_width=self.width, max_height=self.__class__._contained_widget_height))
+            self._my_widgets.append(
+                    self._contained_widgets(self.parent, 
+                        rely=(h*self._contained_widget_height)+self.rely, 
+                        relx = self.relx, 
+                        max_width=self.width, 
+                        max_height=self.__class__._contained_widget_height
+                    )
+                )
 
 
     def display_value(self, vl):
@@ -575,6 +580,7 @@ object to be passed to the contained widget."""
 ##          curses.flushinp()
 
 class MultiLineAction(MultiLine):
+    RAISE_ERROR_IF_EMPTY_ACTION = False
     def __init__(self, *args, **keywords):
         self.allow_multi_action = False  
         super(MultiLineAction, self).__init__(*args, **keywords)  
@@ -584,12 +590,19 @@ class MultiLineAction(MultiLine):
         pass
     
     def h_act_on_highlighted(self, ch):
-        return self.actionHighlighted(self.values[self.cursor_line], ch)
-
+        try:
+            return self.actionHighlighted(self.values[self.cursor_line], ch)
+        except IndexError:
+            if self.RAISE_ERROR_IF_EMPTY_ACTION:
+                raise
+            else:
+                pass
+            
     def set_up_handlers(self):
         super(MultiLineAction, self).set_up_handlers()
         self.handlers.update ( {
                     curses.ascii.NL:    self.h_act_on_highlighted,
+                    curses.ascii.CR:    self.h_act_on_highlighted,
                     ord('x'):           self.h_act_on_highlighted,
                     curses.ascii.SP:    self.h_act_on_highlighted,
                     } )
@@ -752,6 +765,7 @@ class Pager(MultiLine):
                     curses.KEY_HOME:    self.h_show_beginning,
                     curses.KEY_END:     self.h_show_end,
                     curses.ascii.NL:    self.h_exit,
+                    curses.ascii.CR:    self.h_exit,
                     curses.ascii.SP:    self.h_scroll_page_down,
                     curses.ascii.TAB:   self.h_exit,
                     ord('j'):           self.h_scroll_line_down,

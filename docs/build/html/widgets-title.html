@@ -63,6 +63,9 @@
 class TitleProductSearch(TitleText):
         _entry_type = NewTextWidget</pre>
 </div>
+<p>You can adjust where the child widget is placed on the screen by passing in the argument <em>begin_entry_at</em> to the constructor. The default is 16. You can also override whether the widget uses a separate line for the title by passing in the argument <em>use_two_lines=True|False</em> at the time the widget is created.  The default <em>use_two_lines=None</em> will keep the title and the contained widget on the same line, unless the label is too long.</p>
+<p>You can change the label color at creation time using the argument <em>labelColor=&#8217;LABEL&#8217;</em>.  You can specify any of the color names from the theme you are using.</p>
+<p>After creation, the two widgets managed by the TitleWidget can be accessed through the <em>label_widget</em> and <em>entry_widget</em> attributes of the object.</p>
 <div class="section" id="titled-multiline-widgets">
 <h2>Titled multiline widgets<a class="headerlink" href="#titled-multiline-widgets" title="Permalink to this headline">¶</a></h2>
 <p>If you are creating titled versions of the multiline widgets, you will find it better to inherit from the class <cite>TitleMultiLine</cite> instead, which wraps more of the multiline functionality.</p>
@@ -77,7 +80,9 @@ class TitleProductSearch(TitleText):
 <dt>BoxTitle</dt>
 <dd><p class="first">BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base class for more complex layouts.  This class has a <cite>_contained_widget</cite> attribute that puts a widget inside the box when the class is created.  In the Boxtitle class this is a Multiline widget.  The title of the widget can be passed to <cite>__init__</cite> the parameter <cite>name=....</cite>.  Another perimeter  <cite>footer=...</cite> gives the text for the footer of the box.  These correspond to attributes named <cite>name</cite> and <cite>footer</cite> which can be changed at any time.</p>
 <p>The attribute <cite>entry_widget</cite> gives direct access to the contained widget.</p>
-<p class="last">The properties <cite>editable</cite>, <cite>values</cite>, and <cite>value</cite> give direct access to the attributes of <cite>entry_widget</cite>.</p>
+<p>The properties <cite>editable</cite>, <cite>values</cite>, and <cite>value</cite> give direct access to the attributes of <cite>entry_widget</cite>.</p>
+<blockquote class="last">
+<div>The constructor for this widget can be passed the argument <cite>contained_widget_arguments</cite>. This should be a dictionary of arguments that will be passed to the entry_widget when it is created.  Note that no sanity checking is done on this dictionary at this time. (New in version 4.8.0)</div></blockquote>
 </dd>
 </dl>
 <p>Your own versions of these widgets can be created in the same way as new Titled widgets.  Create the contained widget class first, and then create the box class wrapper class:</p>

@@ -104,3 +104,4 @@ class ActionFormMinimal(ActionFormV2):
                         0 - self.__class__.OK_BUTTON_BR_OFFSET[1] - len(self.__class__.OK_BUTTON_TEXT),
                         None
                         )
+

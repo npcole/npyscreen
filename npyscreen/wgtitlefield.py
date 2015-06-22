@@ -98,7 +98,8 @@ class TitleText(widget.Widget):
         else: 
             self._contained_rely_offset = 0
                 
-        self.entry_widget = self.__class__._entry_type(self.parent, relx=(self.relx + self.text_field_begin_at), 
+        self.entry_widget = self.__class__._entry_type(self.parent, 
+                                relx=(self.relx + self.text_field_begin_at), 
                                 rely=(self.rely+self._contained_rely_offset), value = self.value,
                                 **self._passon)
         self.entry_widget.parent_widget = weakref.proxy(self)
@@ -167,7 +168,6 @@ class TitleText(widget.Widget):
             self.entry_widget.editable = value
         except AttributeError:
             self._editable = value
-
 
 class TitleFixedText(TitleText):
     _entry_type = textbox.FixedText

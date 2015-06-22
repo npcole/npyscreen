@@ -67,7 +67,7 @@ MultiLineEditableTitle
     
 MultiLineEditableBoxed
     A boxed version of MultiLineEditable. The class attribute **_entry_type* controls the type of contained widget.
-    
+
         
 Custom Multiselect Widgets
 ++++++++++++++++++++++++++
@@ -77,4 +77,6 @@ Multiline widgets are a container widget that then holds a series of other widge
 From version 3.4 onwards, contained widgets that have a `.selected` attribute are handled differently: widgets will have their `.selected` attribute set to `True` if the line is selected and `False` otherwise.  Widgets may also have their `.important` attribute set to True or False, depending on if they are included in a current filter (see above).
 
 Widgets that do not have a `selected` attribute have the value for each line put in their `name` attribute, and whether the line is selected or not put in their `value` attribute.  This is a legacy of the fact that the standard multiselect widgets use checkboxes to display each line.
+
+From version 4.8.7 onwards, multiline widgets use the methods `set_is_line_important`, `set_is_line_bold` and `set_is_line_cursor` to control the display of each line.  These methods are passed the widget object in question and a Boolean value.  They are intended to be overridden. 
 

@@ -7,8 +7,10 @@ from . import wgwidget    as widget
 from . import wgcheckbox  as checkbox
 
 class MiniButton(checkbox._ToggleControl):
-    def __init__(self, screen, name='Button', *args, **keywords):
+    DEFAULT_CURSOR_COLOR = None
+    def __init__(self, screen, name='Button', cursor_color=None, *args, **keywords):
         self.encoding = 'utf-8'
+        self.cursor_color = cursor_color or self.__class__.DEFAULT_CURSOR_COLOR
         if GlobalOptions.ASCII_ONLY or locale.getpreferredencoding() == 'US-ASCII':
             self._force_ascii = True
         else:
@@ -50,7 +52,13 @@ class MiniButton(checkbox._ToggleControl):
         button_name = button_name.center(self.label_width)
         
         if self.do_colors():
-            button_attributes = self.parent.theme_manager.findPair(self, self.color) | button_state
+            if self.cursor_color:
+                if self.editing:
+                    button_attributes = self.parent.theme_manager.findPair(self, self.cursor_color)
+                else:
+                    button_attributes  = self.parent.theme_manager.findPair(self, self.color)
+            else:    
+                button_attributes = self.parent.theme_manager.findPair(self, self.color) | button_state
         else:
             button_attributes = button_state
         
@@ -75,6 +83,7 @@ class MiniButtonPress(MiniButton):
         
         self.handlers.update({
                 curses.ascii.NL: self.h_toggle,
+                curses.ascii.CR: self.h_toggle,
             })
         
     def destroy(self):

@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # encoding: utf-8
-"""IMPORTANT - COLOUR SUPPORT IS CURRENTLY EXTREMELY EXPERIMENTAL.  THE API MAY CHANGE, AND NO DEFAULT
-WIDGETS CURRENTLY TAKE ADVANTAGE OF THEME SUPPORT AT ALL."""
 import curses
 from . import npysGlobalOptions
 
@@ -12,8 +10,18 @@ def enableColor():
     npysGlobalOptions.DISABLE_ALL_COLORS = False
 
 class ThemeManager(object):
+    # a tuple with (color_number, (r, g, b))
+    # you can use this to redefine colour values.
+    # This will only work on compatible terminals.
+    # Betware that effects will last beyond the end of the 
+    # application.
+    _color_values = ( 
+        #(curses.COLOR_GREEN, (150,250,100)), 
+    )
+    
+    
     _colors_to_define = ( 
-     # DO NOT DEFINE THIS COLOR - THINGS BREAK
+     # DO NOT DEFINE THE WHITE_BLACK COLOR - THINGS BREAK
      #('WHITE_BLACK',      DO_NOT_DO_THIS,      DO_NOT_DO_THIS),
      ('BLACK_WHITE',      curses.COLOR_BLACK,      curses.COLOR_WHITE),
      #('BLACK_ON_DEFAULT', curses.COLOR_BLACK,      -1),
@@ -27,7 +35,7 @@ class ThemeManager(object):
      ('BLACK_RED',        curses.COLOR_BLACK,      curses.COLOR_RED),
      ('BLACK_GREEN',      curses.COLOR_BLACK,      curses.COLOR_GREEN),
      ('BLACK_YELLOW',     curses.COLOR_BLACK,      curses.COLOR_YELLOW),
-     
+     ('BLACK_CYAN',       curses.COLOR_BLACK,       curses.COLOR_CYAN),
      ('BLUE_WHITE',       curses.COLOR_BLUE,       curses.COLOR_WHITE),
      ('CYAN_WHITE',       curses.COLOR_CYAN,       curses.COLOR_WHITE),
      ('GREEN_WHITE',      curses.COLOR_GREEN,      curses.COLOR_WHITE),
@@ -42,6 +50,7 @@ class ThemeManager(object):
         'NO_EDIT'     : 'BLUE_BLACK',
         'STANDOUT'    : 'CYAN_BLACK',
         'CURSOR'      : 'WHITE_BLACK',
+        'CURSOR_INVERSE': 'BLACK_WHITE',
         'LABEL'       : 'GREEN_BLACK',
         'LABELBOLD'   : 'WHITE_BLACK',
         'CONTROL'     : 'YELLOW_BLACK',
@@ -58,6 +67,7 @@ class ThemeManager(object):
     }
     def __init__(self):
         #curses.use_default_colors()
+        self.define_colour_numbers()
         self._defined_pairs = {}
         self._names         = {}
         try:
@@ -71,6 +81,12 @@ class ThemeManager(object):
         if do_color and curses.has_colors():
             self.initialize_pairs()
             self.initialize_names()
+    
+    def define_colour_numbers(self):
+        if curses.can_change_color():
+            for c in self._color_values:
+                curses.init_color(c[0], *c[1])
+    
         
     def findPair(self, caller, request='DEFAULT'):
         if not curses.has_colors() or npysGlobalOptions.DISABLE_ALL_COLORS:

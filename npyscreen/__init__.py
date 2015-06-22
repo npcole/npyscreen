@@ -2,6 +2,8 @@
 
 from .globals                    import DEBUG, DISABLE_RESIZE_SYSTEM
 
+from .wgwidget                  import TEST_SETTINGS, ExhaustedTestInput, add_test_input_from_iterable, add_test_input_ch
+
 from .npyssafewrapper           import wrapper, wrapper_basic
 
 from   .npysThemeManagers       import ThemeManager, disableColor, enableColor
@@ -106,6 +108,8 @@ from .apOptions import OptionFreeText, OptionSingleChoice, OptionMultiChoice, Op
                        OptionBoolean, OptionFilename, OptionDate, OptionMultiFreeText
 
 
-
+# This really is about as experimental as it gets
+from .apNPSApplicationEvents import StandardApp
+from .eveventhandler import Event
 
 

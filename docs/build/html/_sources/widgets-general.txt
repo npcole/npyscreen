@@ -32,6 +32,8 @@ Slider, TitleSlider
       The minimum value a user can select. Note that sliders are not designed to allow a user to select negative values.  *lowest* should be >= 0
    label=True
       Whether to print a text label next to the slider.  If so, see the *translate_value* method.
+   block_color = None
+       The colour of the blocks that show the level of the slider. By default (None) the same value as the colour of the slider itself.
       
    All of these options set attributes of the same name that may be altered once the widget exists.
    
@@ -61,7 +63,7 @@ SimpleGrid
 
     *values* should be specified as a two-dimensional array.
     
-    The convenience function *set_grid_values_from_flat_list(new_values, max_cols=None, reset_cursor=True) takes a flat list and displays it on the grid.
+    The convenience function *set_grid_values_from_flat_list(new_values, max_cols=None, reset_cursor=True)* takes a flat list and displays it on the grid.
     
     The following arguments can be passed to the constructor::
                 
@@ -86,6 +88,55 @@ GridColTitles
     Like the simple grid, but uses the first two lines of the display to display the column titles.  These can be provided as a *col_titles* argument at the time of construction, or by setting the *col_titles* attribute at any time.  In either case, provide a list of strings.
 
 
+Customizing the appearance of individual grid cells 
++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+New in version 4.8.2.
+
+For some applications it may be desirable to customize the attributes of the contained grid widgets depending upon their content. Grid widgets call a method called `custom_print_cell(actual_cell, display_value)` after they have set the value of a cell and before the content of the cell is drawn to the screen.  The parameter `actual_cell` is the underlying widget object being used for display, while `display_value` is the object that has been set as the content of the cell (which is the output of the `display_value` method).
+
+The following code demonstrates how to use this facility to adjust the color of the text displayed in a grid. My thanks are due to Johan Lundström for suggesting this feature::
+
+
+
+    class MyGrid(npyscreen.GridColTitles):
+        # You need to override custom_print_cell to manipulate how
+        # a cell is printed. In this example we change the color of the
+        # text depending on the string value of cell.
+        def custom_print_cell(self, actual_cell, cell_display_value):
+            if cell_display_value =='FAIL': 
+               actual_cell.color = 'DANGER' 
+            elif cell_display_value == 'PASS': 
+               actual_cell.color = 'GOOD' 
+            else: 
+               actual_cell.color = 'DEFAULT' 
+
+    def myFunction(*args):
+        # making an example Form
+        F = npyscreen.Form(name='Example viewer')
+        myFW = F.add(npyscreen.TitleText)
+        gd = F.add(MyGrid)
+    
+        # Adding values to the Grid, this code just randomly
+        # fills a 2 x 4 grid with random PASS/FAIL strings.
+        gd.values = []
+        for x in range(2):
+            row = []
+            for y in range(4):
+                if bool(random.getrandbits(1)):
+                    row.append("PASS")
+                else:
+                    row.append("FAIL")
+            gd.values.append(row)
+        F.edit()
+
+    if __name__ == '__main__':
+        npyscreen.wrapper_basic(myFunction)
+
+
+
+
+
 Widgets: Other Controls
 ***********************
 
@@ -98,31 +149,29 @@ CheckboxBare
     This has no label, and is only useful in special circumstances.  It was added at user request.
    
 CheckBoxMultiline, RoundCheckBoxMultiline
-	This widgets allow the label of the checkbox to be more than one line long.  The name of the widget should be specified as a
-	list or tuple of strings.
-	
-	To use these widgets as part of a multiline widget, do the following::
-	
-		class MultiSelectWidgetOfSomeKind(npyscreen.MultiSelect):
-		    _contained_widgets = npyscreen.CheckBoxMultiline
-		    _contained_widget_height = 2
+    This widgets allow the label of the checkbox to be more than one line long.  The name of the widget should be specified as a
+    list or tuple of strings.
     
-		    def display_value(self, vl):
-		        # this function should return a list of strings.
-	
-	
-	New in version 2.0pre83.
+    To use these widgets as part of a multiline widget, do the following::
+    
+        class MultiSelectWidgetOfSomeKind(npyscreen.MultiSelect):
+            _contained_widgets = npyscreen.CheckBoxMultiline
+            _contained_widget_height = 2
+    
+            def display_value(self, vl):
+                # this function should return a list of strings.
+    
+    
+    New in version 2.0pre83.
 
 
 Button
-   Functionally similar to the Checkbox widgets, but looking different.  The Button is usually used for OK and Cancel Buttons on Forms and similar things, though they should probably be replaced with the ButtonPress type.
+   Functionally similar to the Checkbox widgets, but looking different.  The Button is usually used for OK and Cancel Buttons on Forms and similar things, though they should probably be replaced with the ButtonPress type.  The colour that the button is shown when selected is either an inverse of the colour of the button, or else selected by the attribute *cursor_color*.  This value can also be passed in to the constructor.  If this value is None, the inverse of the button colour will be used.
    
 ButtonPress
     Not a toggle, but a control.  This widget has the method *whenPressed(self)*, which you should overload to do your own things.  
     
-    From version 4.3.0 onwards, the constructor accepts an argument *when_pressed_function=None*.  If a callable is specified in this way, if will be called instead of the method *whenPressed*. NB.  The when_pressed_function functionality is potentially dangerous. It can set up
-a circular reference that the garbage collector will never free. If this is a risk for your program, it is best to subclass this object and
-override the *when_pressed_function* method instead.
+    From version 4.3.0 onwards, the constructor accepts an argument *when_pressed_function=None*.  If a callable is specified in this way, if will be called instead of the method *whenPressed*. NB.  The when_pressed_function functionality is potentially dangerous. It can set up a circular reference that the garbage collector will never free. If this is a risk for your program, it is best to subclass this object and override the *when_pressed_function* method instead.
    
 FormControlCheckbox
    A common use of Checkbox is to offer the user the option to enter additional data.  For example "Enter Expiry Date".  In such a case, the Form needs to display additional fields in some cases, but not in others.  FormControlCheckbox makes this trivial.
