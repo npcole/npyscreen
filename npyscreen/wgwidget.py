@@ -34,6 +34,7 @@ TEST_SETTINGS = {
     'TEST_INPUT': None,
     'TEST_INPUT_LOG': [],
     'CONTINUE_AFTER_TEST_INPUT': False,
+    'INPUT_GENERATOR': None,
     }
 
 
@@ -551,7 +552,7 @@ big a given widget is ... use .height and .width instead"""
 
     def get_and_use_key_press(self):
         global TEST_SETTINGS
-        if TEST_SETTINGS['TEST_INPUT'] is None:
+        if (TEST_SETTINGS['TEST_INPUT'] is None) and (TEST_SETTINGS['INPUT_GENERATOR'] is None):
             curses.raw()
             curses.cbreak()
             curses.meta(1)
@@ -573,6 +574,16 @@ big a given widget is ... use .height and .width instead"""
                     ch = curses.ascii.alt(ch2)
                 self.parent.curses_pad.timeout(-1) # back to blocking mode
                 #curses.flushinp()
+        elif (TEST_SETTINGS['INPUT_GENERATOR']):
+            self._last_get_ch_was_unicode = True
+            try:
+                ch = next(TEST_SETTINGS['INPUT_GENERATOR'])
+            except StopIteration:
+                if TEST_SETTINGS['CONTINUE_AFTER_TEST_INPUT']:
+                    TEST_SETTINGS['INPUT_GENERATOR'] = None
+                    return
+                else:
+                    raise ExhaustedTestInput
         else:
             self._last_get_ch_was_unicode = True
             try:

@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="4.8.7",
+	version="4.9.1",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,12 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 4.9.1: minor change to Multiline widgets to make custom versions easier (final widget value is never set to MORE_LABEL).
+
+Version 4.9:  new function blank_terminal() added. (User request)  Improvements to facilities for writing unit tests. (user request)
+Bugs related to hidden widgets fixed.
+
 Version 4.8.7 New methods added to the Multiline class to assist widget authors. 
 
 

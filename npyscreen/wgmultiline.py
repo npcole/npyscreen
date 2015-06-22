@@ -232,7 +232,7 @@ object to be passed to the contained widget."""
                 else:
                     self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
             else:
-                line.value = MORE_LABEL
+                #line.value = MORE_LABEL
                 line.name = MORE_LABEL
                 line.task = MORE_LABEL
                 #line.highlight = False
