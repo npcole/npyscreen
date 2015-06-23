@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Application Objects &mdash; npyscreen 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="npyscreen 2 documentation" href="index.html" />
+    <link rel="next" title="Form Objects" href="form-objects.html" />
+    <link rel="prev" title="Creating npyscreen applications" href="application-structure.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="form-objects.html" title="Form Objects"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="application-structure.html" title="Creating npyscreen applications"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="application-objects">
+<h1>Application Objects<a class="headerlink" href="#application-objects" title="Permalink to this headline">¶</a></h1>
+<p>NPSAppManaged provides a framework to start and end your application and to manage the display of the various Forms that you have created, in a way that should not create recursion depth problems.</p>
+<p>Unless you have exceptionally good reasons to do otherwise, <em>NPSAppManaged</em> is almost certainly the best way to manage your application.</p>
+<p>Unlike the plain NPSApp class, you do not need to write your own main loop - <em>NPSAppManaged</em> will manage the display of each Form of your application.  Set up your form objects and simply call the <em>.run()</em> method of your NPSAppManaged instance.</p>
+<div class="section" id="letting-npsappmanaged-manage-your-forms">
+<h2>Letting NPSAppManaged manage your Forms<a class="headerlink" href="#letting-npsappmanaged-manage-your-forms" title="Permalink to this headline">¶</a></h2>
+<p>There are three methods for registering a Form object with an NPSAppManaged instance:</p>
+<dl class="method">
+<dt id="NPSAppManaged.addForm">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">addForm</tt><big>(</big><em>*id*</em>, <em>*FormClass*</em>, <em>...</em><big>)</big><a class="headerlink" href="#NPSAppManaged.addForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>This version creates a new form and registers it with the NPSAppManaged instance.  It returns a weakref.proxy to the form object.  <em>id</em> should be a string that uniquely identifies the Form.  <em>FormClass</em> should be the class of form to create.  Any additional arguments will be passed to the Form&#8217;s constructor.  Use this version if you are not storing a separate reference to your form elsewhere.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged.addFormClass">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">addFormClass</tt><big>(</big><em>*id*</em>, <em>*FormClass* ...</em><big>)</big><a class="headerlink" href="#NPSAppManaged.addFormClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>This version registers a class of form rather than an instance.  A new instance will be created every time it is edited.  Additional arguements will be passed to the form&#8217;s constructor every time it is created.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged.registerForm">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">registerForm</tt><big>(</big><em>id</em>, <em>fm</em><big>)</big><a class="headerlink" href="#NPSAppManaged.registerForm" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>id</em> should be a string that uniquely identifies the form.  <em>fm</em> should be a Form object.  Note that this version only stores a weakref.proxy inside NPSAppManaged - in contrast to the .addForm version.</p>
+</dd></dl>
+
+<p>All Forms registered with an NPSAppManaged instance can access the controlling application as <em>self.parentApp</em>.</p>
+<p>If for any reason you need to remove a Form, you can do with the <cite>.removeForm(*id*)</cite> method.</p>
+</div>
+<div class="section" id="running-an-npsapplicationmanaged-application">
+<h2>Running an NPSApplicationManaged application<a class="headerlink" href="#running-an-npsapplicationmanaged-application" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start an NPSAppManaged application mainloop.  This method will activate the default form, which should have been given an id of &#8220;MAIN&#8221;.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="NPSAppManaged.STARTING_FORM">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">STARTING_FORM</tt><a class="headerlink" href="#NPSAppManaged.STARTING_FORM" title="Permalink to this definition">¶</a></dt>
+<dd><p>If for any reason you need to change the name of the default form, you can change it here.</p>
+</dd></dl>
+
+<p>Once an application is running, the following methods control which form is presented to the user.</p>
+<dl class="method">
+<dt id="NPSAppManaged.setNextForm">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">setNextForm</tt><big>(</big><em>formid</em><big>)</big><a class="headerlink" href="#NPSAppManaged.setNextForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the form to be displayed when the current one exits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged.setNextFormPrevious">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">setNextFormPrevious</tt><big>(</big><big>)</big><a class="headerlink" href="#NPSAppManaged.setNextFormPrevious" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the form to be displayed when the current one exits to the previous one in the history</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged.switchForm">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">switchForm</tt><big>(</big><em>formid</em><big>)</big><a class="headerlink" href="#NPSAppManaged.switchForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Immediately switch to the named form, bypassing any exit logic of the current form.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged.switchFormPrevious">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">switchFormPrevious</tt><big>(</big><big>)</big><a class="headerlink" href="#NPSAppManaged.switchFormPrevious" title="Permalink to this definition">¶</a></dt>
+<dd><p>Immediately switch to the previous form in the history.</p>
+</dd></dl>
+
+<div class="section" id="in-detail">
+<h3>In detail<a class="headerlink" href="#in-detail" title="Permalink to this headline">¶</a></h3>
+<p>Once all of your forms are ready and registered with an NPSAppManaged instance, you should call .run()</p>
+<p>This method will activate the default form, which should have been given an id of &#8220;MAIN&#8221;.  You can change this default by changing the class/instance variable <cite>.STARTING_FORM</cite>.</p>
+<p>Thereafter, the next form to be displayed will be the one specified by the instance variable <em>NEXT_ACTIVE_FORM</em>.  Whenever a Form edit loop exits, the Form specified here will be activated.  If <em>NEXT_ACTIVE_FORM</em> is None, the main loop will exit.  <em>NEXT_ACTIVE_FORM</em> should be set by calling the application&#8217;s <em>setNextForm(formid)</em> method.  This documentation used to suggest that you set the attribute directly. While there are no immediate plans to deprecate this attribute, setting it directly should be avoided.</p>
+<p>There are three mechanisms that Forms should use to control <cite>NEXT_ACTIVE_FORM</cite>.</p>
+<ol class="arabic">
+<li><p class="first">All Forms registered with an NPSAppManaged which do <em>not</em> have the special method <em>.activate()</em> will have their method <em>.afterEditing</em> called, if they have it.  Logic to determine which the <em>NEXT_ACTIVE_FORM</em> should be should go here.  <em>NEXT_ACTIVE_FORM</em> should be set by calling the application&#8217;s <em>setNextForm(formid)</em> method.  If you are expecting your users to select an ok or cancel button, this is the preferred way to switch screens.</p>
+</li>
+<li><p class="first">The application method <em>switchForm(formid)</em> causes the application to immediately stop editing the current form and switch to the one specified. Depending on the type of Form, the logic associated with them may be bypassed too.</p>
+</li>
+<li><p class="first">Forms registered with an NPSAppManaged may be given an <em>.activate()</em> method, which NPSAppManaged will call instead of the usual <em>.edit()</em> method.  This can contain additional logic.  This is NOT the preferred method, but may allow greater flexibility.  Note that in this case, the usual .edit() method will not be called, unless you call it explicitly.   For example, an .activate() method might look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">edit</span><span class="p">()</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">parentApp</span><span class="o">.</span><span class="n">setNextForm</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which would cause the mainloop to exit after the Form was complete.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="additional-services-offered-by-npsappmanaged">
+<h2>Additional Services offered by NPSAppManaged<a class="headerlink" href="#additional-services-offered-by-npsappmanaged" title="Permalink to this headline">¶</a></h2>
+<p>The following methods may be usefully overridden by subclassing NPSAppManaged.  By default they do nothing.</p>
+<dl class="method">
+<dt id="NPSAppManaged.onInMainLoop">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">onInMainLoop</tt><big>(</big><big>)</big><a class="headerlink" href="#NPSAppManaged.onInMainLoop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called between each screen while the application is running. Not called before the first screen.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged.onStart">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">onStart</tt><big>(</big><big>)</big><a class="headerlink" href="#NPSAppManaged.onStart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to perform any initialisation.  If you wish, you can set up your application&#8217;s Forms here.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged.onCleanExit">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">onCleanExit</tt><big>(</big><big>)</big><a class="headerlink" href="#NPSAppManaged.onCleanExit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to perform any cleanup when application is exiting without error.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="NPSAppManaged.keypress_timeout_default">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">keypress_timeout_default</tt><a class="headerlink" href="#NPSAppManaged.keypress_timeout_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this is set, new forms will be created with keypress_timeout set to this, provided they know what application they belong to - i.e. they have been passed <em>parentApp=</em> at creation time. If you are using NPSAppManaged, this will happen automatically.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged.while_waiting">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">while_waiting</tt><big>(</big><big>)</big><a class="headerlink" href="#NPSAppManaged.while_waiting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applications can also have a <em>while_waiting</em> method.  You can define and override this at will, and it will be called while the application is waiting for user input (see the while_waiting method on forms).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged._internal_while_waiting">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">_internal_while_waiting</tt><big>(</big><big>)</big><a class="headerlink" href="#NPSAppManaged._internal_while_waiting" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is for internal use by npyscreen.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">switchForm</tt><big>(</big><em>formid</em><big>)</big></dt>
+<dd><p>Immediately stop editing the current form and switch to the specified form.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">switchFormPrevious</tt><big>(</big><big>)</big></dt>
+<dd><p>Immediately switch to the previous form in the history.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged.resetHistory">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">resetHistory</tt><big>(</big><big>)</big><a class="headerlink" href="#NPSAppManaged.resetHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forget the previous forms visted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NPSAppManaged.getHistory">
+<tt class="descclassname">NPSAppManaged.</tt><tt class="descname">getHistory</tt><big>(</big><big>)</big><a class="headerlink" href="#NPSAppManaged.getHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of the Forms visited</p>
+</dd></dl>
+
+</div>
+<div class="section" id="methods-and-attributes-on-forms-managed-by-this-class">
+<h2>Methods and attributes on Forms managed by this class<a class="headerlink" href="#methods-and-attributes-on-forms-managed-by-this-class" title="Permalink to this headline">¶</a></h2>
+<p>Forms called by NPSAppManaged can be given the methods</p>
+<dl class="method">
+<dt id="Form.beforeEditing">
+<tt class="descclassname">Form.</tt><tt class="descname">beforeEditing</tt><big>(</big><big>)</big><a class="headerlink" href="#Form.beforeEditing" title="Permalink to this definition">¶</a></dt>
+<dd><p>called before the edit loop of the form is called</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Form.afterEditing">
+<tt class="descclassname">Form.</tt><tt class="descname">afterEditing</tt><big>(</big><big>)</big><a class="headerlink" href="#Form.afterEditing" title="Permalink to this definition">¶</a></dt>
+<dd><p>called when the form is exited</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Form.activate">
+<tt class="descclassname">Form.</tt><tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#Form.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The presence of this method entirely overrides the existing .beforeEditing .edit  and afterEditing methods.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="other-application-classes">
+<h1>Other Application classes<a class="headerlink" href="#other-application-classes" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="NPSApp">
+<em class="property">class </em><tt class="descname">NPSApp</tt><a class="headerlink" href="#NPSApp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>To use NPSApp subclass it and provide your own <cite>.main()</cite> definition.  When you are ready to run the application call <cite>.run()</cite> and your mainloop will be executed.</p>
+<p>While it provides maximum flexibility, NPSApp is in almost every other way inferior to NPSAppManaged.  Do not use it for new projects, and reguard it as an internal base class only.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Application Objects</a><ul>
+<li><a class="reference internal" href="#letting-npsappmanaged-manage-your-forms">Letting NPSAppManaged manage your Forms</a></li>
+<li><a class="reference internal" href="#running-an-npsapplicationmanaged-application">Running an NPSApplicationManaged application</a><ul>
+<li><a class="reference internal" href="#in-detail">In detail</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#additional-services-offered-by-npsappmanaged">Additional Services offered by NPSAppManaged</a></li>
+<li><a class="reference internal" href="#methods-and-attributes-on-forms-managed-by-this-class">Methods and attributes on Forms managed by this class</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-application-classes">Other Application classes</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="application-structure.html"
+                        title="previous chapter">Creating npyscreen applications</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="form-objects.html"
+                        title="next chapter">Form Objects</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/application-objects.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="form-objects.html" title="Form Objects"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="application-structure.html" title="Creating npyscreen applications"
+             >previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Nicholas Cole.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Creating npyscreen applications &mdash; npyscreen 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="npyscreen 2 documentation" href="index.html" />
+    <link rel="next" title="Application Objects" href="application-objects.html" />
+    <link rel="prev" title="An introduction to npyscreen" href="introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="application-objects.html" title="Application Objects"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="An introduction to npyscreen"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="creating-npyscreen-applications">
+<h1>Creating npyscreen applications<a class="headerlink" href="#creating-npyscreen-applications" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="objects-overview">
+<h2>Objects Overview<a class="headerlink" href="#objects-overview" title="Permalink to this headline">¶</a></h2>
+<p>Npyscreen applications are build out of three main types of object.</p>
+<dl class="docutils">
+<dt>Form Objects</dt>
+<dd>Form objects (typically the size of a whole terminal, but sometimes larger or - for menus and the like - smaller) provide an area which can contain widget objects.  They may provide additional functions like a system for handling menus, or routines that will be run if a user selects an &#8220;ok&#8221; button.  They may also define operations carried out between key-presses, or as the user moves around the Form.</dd>
+<dt>Widget Objects</dt>
+<dd>These are the individual controls on a form - text boxes, labels, sliders, and so on.</dd>
+<dt>Application Objects</dt>
+<dd>These objects provide a convenient way to manage the running of your application.  Although it is possible to program simple applications without using the Application objects, it is not advisable.  Application objects make the management of multiple screens much less error-prone (in the &#8216;bugs that may at any time crash your application&#8217;) sense.  In addition, making use of these objects will enable you to take advantage of additional features as npyscreen is developed.</dd>
+</dl>
+</div>
+<div class="section" id="application-structure-for-the-impatient">
+<h2>Application structure for the impatient<a class="headerlink" href="#application-structure-for-the-impatient" title="Permalink to this headline">¶</a></h2>
+<p>Most new applications should look something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">npyscreen</span>
+
+<span class="c"># This application class serves as a wrapper for the initialization of curses</span>
+<span class="c"># and also manages the actual forms of the application</span>
+
+<span class="k">class</span> <span class="nc">MyTestApp</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">NPSAppManaged</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">onStart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registerForm</span><span class="p">(</span><span class="s">&quot;MAIN&quot;</span><span class="p">,</span> <span class="n">MainForm</span><span class="p">())</span>
+
+<span class="c"># This form class defines the display that will be presented to the user.</span>
+
+<span class="k">class</span> <span class="nc">MainForm</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Text:&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span> <span class="s">&quot;Hellow World!&quot;</span> <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">afterEditing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parentApp</span><span class="o">.</span><span class="n">setNextForm</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">TA</span> <span class="o">=</span> <span class="n">MyTestApp</span><span class="p">()</span>
+    <span class="n">TA</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="application-structure-in-more-detail-tutorial">
+<h2>Application structure in more detail (Tutorial)<a class="headerlink" href="#application-structure-in-more-detail-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>First time users may find the code above confusing.  If so, the following tutorial explains the structure of an npyscreen application in more detail.  You should be able to follow it even if you know very little about the underlying curses system.</p>
+<div class="section" id="forms-widgets-and-applications">
+<h3>Forms, Widgets and Applications<a class="headerlink" href="#forms-widgets-and-applications" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="using-a-wrapper">
+<h4>Using a wrapper<a class="headerlink" href="#using-a-wrapper" title="Permalink to this headline">¶</a></h4>
+<p>Switiching into and out of a curses environment is a very boring task.  The python curses module provides a wrapper to do this, and this is exposed by npyscreen as wrapper_basic.  The basic framework for a very simple application looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">npyscreen</span>
+
+<span class="k">def</span> <span class="nf">myFunction</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">npyscreen</span><span class="o">.</span><span class="n">wrapper_basic</span><span class="p">(</span><span class="n">myFunction</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;Blink and you missed it!&quot;</span>
+</pre></div>
+</div>
+<p>Which doesn&#8217;t do anything clever.  The curses environment starts and exits without actually doing anything.  But it&#8217;s a start.</p>
+<p>Note that npyscreen also provides other wrappers that do slightly different things.</p>
+</div>
+<div class="section" id="using-a-form">
+<h4>Using a Form<a class="headerlink" href="#using-a-form" title="Permalink to this headline">¶</a></h4>
+<p>Now let&#8217;s try putting something on the screen.  For that we need a <em>Form</em> instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">F</span> <span class="o">=</span> <span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;My Test Application&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>should do the trick.  Let&#8217;s put that into our wrapper:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">npyscreen</span>
+
+<span class="k">def</span> <span class="nf">myFunction</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;My Test Application&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">npyscreen</span><span class="o">.</span><span class="n">wrapper_basic</span><span class="p">(</span><span class="n">myFunction</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;Blink and you missed it!&quot;</span>
+</pre></div>
+</div>
+<p>Which still seems to do nothing &#8211; because we haven&#8217;t actually displayed the Form.  <em>F.display()</em> would put it on the screen, but we actually want to let the user play with it, so let&#8217;s do F.edit() instead:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">npyscreen</span>
+
+<span class="k">def</span> <span class="nf">myFunction</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;My Test Application&#39;</span><span class="p">)</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">edit</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">npyscreen</span><span class="o">.</span><span class="n">wrapper_basic</span><span class="p">(</span><span class="n">myFunction</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;Blink and you missed it!&quot;</span>
+</pre></div>
+</div>
+<p>Which won&#8217;t run, because when we try to edit the Form npyscreen discovers there&#8217;s no widget to edit.  Let&#8217;s put that right.</p>
+</div>
+<div class="section" id="adding-the-first-widget">
+<h4>Adding the first widget<a class="headerlink" href="#adding-the-first-widget" title="Permalink to this headline">¶</a></h4>
+<p>Let&#8217;s put a textbox with a title in place.  We do that with the code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">F</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;First Widget&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The full code is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">npyscreen</span>
+
+<span class="k">def</span> <span class="nf">myFunction</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;My Test Application&#39;</span><span class="p">)</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;First Widget&quot;</span><span class="p">)</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">edit</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">npyscreen</span><span class="o">.</span><span class="n">wrapper_basic</span><span class="p">(</span><span class="n">myFunction</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;Blink and you missed it!&quot;</span>
+</pre></div>
+</div>
+<p>Much better! That gives us something looking like an application.  With just a three small changes we can change closing the message displayed to whatever the user typed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">npyscreen</span>
+
+<span class="k">def</span> <span class="nf">myFunction</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;My Test Application&#39;</span><span class="p">)</span>
+    <span class="n">myFW</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;First Widget&quot;</span><span class="p">)</span>   <span class="c"># &lt;------- Change 1</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">edit</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">myFW</span><span class="o">.</span><span class="n">value</span>   <span class="c"># &lt;------- Change 2</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">npyscreen</span><span class="o">.</span><span class="n">wrapper_basic</span><span class="p">(</span><span class="n">myFunction</span><span class="p">)</span>  <span class="c"># &lt;---- and change 3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="let-s-be-a-little-more-object-oriented">
+<h4>Let&#8217;s be a little more object-oriented<a class="headerlink" href="#let-s-be-a-little-more-object-oriented" title="Permalink to this headline">¶</a></h4>
+<p>The approach we&#8217;ve been using works fine for simple applications, but once we start creating lots of widgets on a form, it is better to tuck all of that code away inside a Form object.</p>
+<p>Instead of using the base Form() class in a very procedural way, let&#8217;s create our own Form class.  We&#8217;ll override the Form&#8217;s <em>create()</em> method, which is called whenever a Form is created:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">myEmployeeForm</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">myEmployeeForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>  <span class="c"># This line is not strictly necessary: the API promises that the create method does nothing by default.</span>
+                                              <span class="c"># I&#39;ve ommitted it from later example code.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myName</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myDepartment</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Department&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myDate</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleDateCombo</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Date Employed&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can use our wrapper code from before to use it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">npyscreen</span>
+
+<span class="k">class</span> <span class="nc">myEmployeeForm</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myName</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myDepartment</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Department&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myDate</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleDateCombo</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Date Employed&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">myFunction</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">myEmployeeForm</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;New Employee&quot;</span><span class="p">)</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">edit</span><span class="p">()</span>
+    <span class="k">return</span> <span class="s">&quot;Created record for &quot;</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">myName</span><span class="o">.</span><span class="n">value</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">npyscreen</span><span class="o">.</span><span class="n">wrapper_basic</span><span class="p">(</span><span class="n">myFunction</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="offering-choice">
+<h4>Offering Choice<a class="headerlink" href="#offering-choice" title="Permalink to this headline">¶</a></h4>
+<p>Actually, we probably don&#8217;t want just any old department name typed in - we want to offer a list of choices.  Let&#8217;s use the TitleSelectOne widget.  It&#8217;s a multi-line widget, so we need to take care that it takes up only a few lines of the screen (left to itself it would take up all the remaining space on the screen):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">myDepartment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleSelectOne</span><span class="p">,</span> <span class="n">max_height</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s">&#39;Department&#39;</span><span class="p">,</span>
+                                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Department 1&#39;</span><span class="p">,</span> <span class="s">&#39;Department 2&#39;</span><span class="p">,</span> <span class="s">&#39;Department 3&#39;</span><span class="p">],</span>
+                                <span class="n">scroll_exit</span> <span class="o">=</span> <span class="bp">True</span>  <span class="c"># Let the user move out of the widget by pressing the down arrow instead of tab.  Try it without</span>
+                                                    <span class="c"># to see the difference.</span>
+                                <span class="p">)</span>
+</pre></div>
+</div>
+<p>Putting that in context:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">npyscreen</span>
+
+<span class="k">class</span> <span class="nc">myEmployeeForm</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myName</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myDepartment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleSelectOne</span><span class="p">,</span> <span class="n">scroll_exit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_height</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Department&#39;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Department 1&#39;</span><span class="p">,</span> <span class="s">&#39;Department 2&#39;</span><span class="p">,</span> <span class="s">&#39;Department 3&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myDate</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleDateCombo</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Date Employed&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">myFunction</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">myEmployeeForm</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;New Employee&quot;</span><span class="p">)</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">edit</span><span class="p">()</span>
+    <span class="k">return</span> <span class="s">&quot;Created record for &quot;</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">myName</span><span class="o">.</span><span class="n">value</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">npyscreen</span><span class="o">.</span><span class="n">wrapper_basic</span><span class="p">(</span><span class="n">myFunction</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="being-even-more-object-oriented">
+<h4>Being Even More Object-Oriented<a class="headerlink" href="#being-even-more-object-oriented" title="Permalink to this headline">¶</a></h4>
+<p>What we&#8217;ve done so far is all very well, but still ugly at the edges.  We&#8217;re still calling F.edit() ourselves, which is fine in a single-form application, but could lead to problems with recursion-depth later if we are not careful.  It also prevents some of the more sophisticated features of the library from operating.  The better solution is to use the <em>NPSAppManaged</em> class to manage your application.</p>
+<p>Let&#8217;s scrap the framework that has supported us so far, and start with a different basis for our application:</p>
+<div class="highlight-python"><pre>import npyscreen
+
+class MyApplication(npyscreen.NPSAppManaged):
+    pass
+
+ if __name__ == '__main__':
+    TestApp = MyApplication().run()
+    print "All objects, baby."</pre>
+</div>
+<p>Which will exit with an exception, because you have no &#8216;MAIN&#8217; Form, which is the starting point for all NPSAppManaged applications.</p>
+<p>Let&#8217;s put that right.  We&#8217;ll use the Form class from before:</p>
+<div class="highlight-python"><pre> import npyscreen
+
+ class myEmployeeForm(npyscreen.Form):
+     def create(self):
+        self.myName        = self.add(npyscreen.TitleText, name='Name')
+        self.myDepartment = self.add(npyscreen.TitleSelectOne, scroll_exit=True, max_height=3, name='Department', values = ['Department 1', 'Department 2', 'Department 3'])
+        self.myDate        = self.add(npyscreen.TitleDateCombo, name='Date Employed')
+
+class MyApplication(npyscreen.NPSAppManaged):
+    def onStart(self):
+        self.addForm('MAIN', myEmployeeForm, name='New Employee')
+
+if __name__ == '__main__':
+    TestApp = MyApplication().run()
+    print "All objects, baby."</pre>
+</div>
+<p>If you run the above code, you&#8217;ll find yourself frustrated, because the application will continually display the form for you to edit, and you&#8217;ll have to press &#8220;^C&#8221; (Control C) to exit.</p>
+<p>That&#8217;s because the NPSAppManaged class continually displays whatever form is named by its NEXT_ACTIVE_FORM attribute (in this case, the default - &#8216;MAIN&#8217;).  Older versions of this tutorial suggested setting that directly, but you should use the setNextForm(formid) method.</p>
+<p>Let&#8217;s alter the myEmployeeForm to tell it that after being run in an NPSAppManaged context, it should tell its NPSAppManaged parent to stop displaying Forms.  We do that by creating the special method called <em>afterEditing</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">myEmployeeForm</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">afterEditing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parentApp</span><span class="o">.</span><span class="n">setNextForm</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">myName</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">myDepartment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleSelectOne</span><span class="p">,</span> <span class="n">scroll_exit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_height</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Department&#39;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Department 1&#39;</span><span class="p">,</span> <span class="s">&#39;Department 2&#39;</span><span class="p">,</span> <span class="s">&#39;Department 3&#39;</span><span class="p">])</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">myDate</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleDateCombo</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Date Employed&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If we preferred, we could achieve the same result by defining a special method <em>onInMainLoop</em> in our MyApplication class - this method would get called after each form has been edited.</p>
+<p>Our code now looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">npyscreen</span>
+
+<span class="k">class</span> <span class="nc">myEmployeeForm</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">afterEditing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parentApp</span><span class="o">.</span><span class="n">setNextForm</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">myName</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleText</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Name&#39;</span><span class="p">)</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">myDepartment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleSelectOne</span><span class="p">,</span> <span class="n">scroll_exit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_height</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Department&#39;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Department 1&#39;</span><span class="p">,</span> <span class="s">&#39;Department 2&#39;</span><span class="p">,</span> <span class="s">&#39;Department 3&#39;</span><span class="p">])</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">myDate</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">TitleDateCombo</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Date Employed&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MyApplication</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">NPSAppManaged</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">onStart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">addForm</span><span class="p">(</span><span class="s">&#39;MAIN&#39;</span><span class="p">,</span> <span class="n">myEmployeeForm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;New Employee&#39;</span><span class="p">)</span>
+       <span class="c"># A real application might define more forms here.......</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+   <span class="n">TestApp</span> <span class="o">=</span> <span class="n">MyApplication</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="choosing-an-approach">
+<h4>Choosing an approach<a class="headerlink" href="#choosing-an-approach" title="Permalink to this headline">¶</a></h4>
+<p>The last example above is probably over-kill for a very simple application.  But it provides a much more robust framework with which to build larger applications than the framework we used at the start of the tutorial, at the cost of only a few lines of code.  If you are displaying more than one screen, or running an application continuously, this is the approach you should take.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Creating npyscreen applications</a><ul>
+<li><a class="reference internal" href="#objects-overview">Objects Overview</a></li>
+<li><a class="reference internal" href="#application-structure-for-the-impatient">Application structure for the impatient</a></li>
+<li><a class="reference internal" href="#application-structure-in-more-detail-tutorial">Application structure in more detail (Tutorial)</a><ul>
+<li><a class="reference internal" href="#forms-widgets-and-applications">Forms, Widgets and Applications</a><ul>
+<li><a class="reference internal" href="#using-a-wrapper">Using a wrapper</a></li>
+<li><a class="reference internal" href="#using-a-form">Using a Form</a></li>
+<li><a class="reference internal" href="#adding-the-first-widget">Adding the first widget</a></li>
+<li><a class="reference internal" href="#let-s-be-a-little-more-object-oriented">Let&#8217;s be a little more object-oriented</a></li>
+<li><a class="reference internal" href="#offering-choice">Offering Choice</a></li>
+<li><a class="reference internal" href="#being-even-more-object-oriented">Being Even More Object-Oriented</a></li>
+<li><a class="reference internal" href="#choosing-an-approach">Choosing an approach</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="previous chapter">An introduction to npyscreen</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="application-objects.html"
+                        title="next chapter">Application Objects</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/application-structure.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="application-objects.html" title="Application Objects"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="An introduction to npyscreen"
+             >previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Nicholas Cole.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

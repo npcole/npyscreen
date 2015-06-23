@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Widgets: Displaying Text &mdash; npyscreen 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="npyscreen 2 documentation" href="index.html" />
+    <link rel="next" title="Widgets: Picking Options" href="widgets-multiline.html" />
+    <link rel="prev" title="Widgets: Basic Features" href="widgets.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="widgets-multiline.html" title="Widgets: Picking Options"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="widgets.html" title="Widgets: Basic Features"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="widgets-displaying-text">
+<h1>Widgets: Displaying Text<a class="headerlink" href="#widgets-displaying-text" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>Textbox, TitleText</dt>
+<dd>A single line of text, although of arbitrary length - the basic entry widget.</dd>
+<dt>FixedText, TitleFixedText</dt>
+<dd>A single line of text, but with the editing functions of Textbox removed.</dd>
+<dt>PasswordEntry, TitlePassword</dt>
+<dd>A textbox but altered so that the exact letters of <em>.value</em> are not displayed.</dd>
+<dt>Autocomplete</dt>
+<dd><p class="first">This is a textbox but with additional functionality - the idea is that if the user presses TAB the widget will attempt to &#8216;complete&#8217; what the user was typing, offering a choice of options if appropriate.   The method called is <cite>auto_complete(inputch)</cite>.</p>
+<p class="last">Of course, context is everything here.  <em>Autocomplete</em> is therefore not useful, but is intended as something you can subclass.  See the Filename and TitleFilename classes for examples.</p>
+</dd>
+<dt>Filename, TitleFilename</dt>
+<dd><p class="first">A textbox that will attempt to &#8216;complete&#8217; a filename or path entered by the user.</p>
+<p class="last">This is an example of the <em>Autocomplete</em> widget.</p>
+</dd>
+<dt>FilenameCombo, TitleFilenameCombo</dt>
+<dd>This is a more advanced way to select files.  New in version 2.0pre82.</dd>
+<dt>MultiLineEdit</dt>
+<dd>This widget allows the user to edit several lines of text.</dd>
+<dt>Pager, TitlePager</dt>
+<dd>This widget displays lines of text, allowing the user to scroll through them, but not edit them.  The text to display is held in the <cite>.values</cite> attribute.</dd>
+</dl>
+<div class="section" id="in-detail">
+<h2>In detail<a class="headerlink" href="#in-detail" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Textbox">
+<em class="property">class </em><tt class="descname">Textbox</tt><a class="headerlink" href="#Textbox" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Textbox.display_value">
+<tt class="descname">display_value</tt><big>(</big><em>vl</em><big>)</big><a class="headerlink" href="#Textbox.display_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Control how the value of the <cite>.value</cite> attribute is displayed.  Since versions of the text widgets are used in other, compound widgets (such as most of the multiline classes), this method is often overridden.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Textbox.show_brief_message">
+<tt class="descname">show_brief_message</tt><big>(</big><big>)</big><a class="headerlink" href="#Textbox.show_brief_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Beep and display a brief message to the user.  In general, there are better ways to do this, but this is somtimes useful, for example when showing errors in Autocomplete classes.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Widgets: Displaying Text</a><ul>
+<li><a class="reference internal" href="#in-detail">In detail</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="widgets.html"
+                        title="previous chapter">Widgets: Basic Features</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="widgets-multiline.html"
+                        title="next chapter">Widgets: Picking Options</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/widgets-text.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="widgets-multiline.html" title="Widgets: Picking Options"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="widgets.html" title="Widgets: Basic Features"
+             >previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Nicholas Cole.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

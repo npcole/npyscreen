@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing More Complex Forms &mdash; npyscreen 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="npyscreen 2 documentation" href="index.html" />
+    <link rel="next" title="Writing Tests" href="writing-tests.html" />
+    <link rel="prev" title="Application Support" href="options.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="writing-tests.html" title="Writing Tests"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="options.html" title="Application Support"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="writing-more-complex-forms">
+<h1>Writing More Complex Forms<a class="headerlink" href="#writing-more-complex-forms" title="Permalink to this headline">¶</a></h1>
+<p>A very typical style of programming for terminal applications has been to have a screen that has a command line, typically at the bottom of the screen, and then some kind of list widget or other display taking up most of the screen, with a title bar at the top and a status bar above the command line.  Variations on this scheme are found in applications like Mutt, less, Vim, irssi and so on.</p>
+<p>To make writing these kinds of form easier, npyscreen provides a series of classes that are intended to work together.</p>
+<dl class="docutils">
+<dt>FormMuttActive, FormMuttActiveWithMenus, FormMuttActiveTraditional, FormMuttActiveTraditionalWithMenus</dt>
+<dd><p class="first">These classes define the basic form.  The following <em>class attributes</em> dictate exactly how the form is created:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">MAIN_WIDGET_CLASS</span>   <span class="o">=</span> <span class="n">wgmultiline</span><span class="o">.</span><span class="n">MultiLine</span>
+<span class="n">MAIN_WIDGET_CLASS_START_LINE</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">STATUS_WIDGET_CLASS</span> <span class="o">=</span> <span class="n">wgtextbox</span><span class="o">.</span><span class="n">Textfield</span>
+<span class="n">STATUS_WIDGET_X_OFFSET</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">COMMAND_WIDGET_CLASS</span><span class="o">=</span> <span class="n">wgtextbox</span><span class="o">.</span><span class="n">Textfield</span>
+<span class="n">COMMAND_WIDGET_NAME</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">COMMAND_WIDGET_BEGIN_ENTRY_AT</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">COMMAND_ALLOW_OVERRIDE_BEGIN_ENTRY_AT</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">DATA_CONTROLER</span>    <span class="o">=</span> <span class="n">npysNPSFilteredData</span><span class="o">.</span><span class="n">NPSFilteredDataList</span>
+
+<span class="n">ACTION_CONTROLLER</span>  <span class="o">=</span> <span class="n">ActionControllerSimple</span>
+</pre></div>
+</div>
+<p>The default definition makes the following instance attributes available after initalization:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Widgets -</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">wStatus1</span> <span class="c"># by default a title bar</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">wStatus2</span> <span class="c"># just above the command line</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">wMain</span>    <span class="c"># the main area of the form - by default a MultiLine object</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">wCommand</span> <span class="c"># the command widget</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">action_controller</span> <span class="c"># not a widget. See below.</span>
+</pre></div>
+</div>
+<p>The form&#8217;s <em>.value</em> attribute is set to an instance of the object specified by DATA_CONTROLLER.</p>
+<p>Typically, and application will want to define its own DATA_CONTROLLER and ACTION_CONTROLLER.</p>
+<p class="last">The difference between the traditional and non-traditional forms is that in the traditional form, the focus stays always with the command line widget, although some keypresses will be passed to the MAIN_WIDGET_CLASS - so that, from the user&#8217;s point of view, it looks as if he/she is interacting with both at once.</p>
+</dd>
+<dt>TextCommandBox</dt>
+<dd>The TextCommandBox is like a usual text box, except that it passes what the user types to the action_controller.  In addition, it can keep a history of the commands entered.  See the documentation on ActionControllerSimple for more details.</dd>
+<dt>TextCommandBoxTraditional</dt>
+<dd><p class="first">This is the same as the TextCommandBox, except that it additionally will pass certain keystrokes to the widget specified by <em>self.linked_widget</em>.  In the default case, any keystroke that does not match a handler in TextCommandBoxTraditional will be passed to the linked widget.  Additionally, any keystroke that is listed in the list <em>self.always_pass_to_linked_widget</em> will be handled by the linked widget.  However, if the current command line begins with any character that is listed in the class attribute <em>BEGINNING_OF_COMMAND_LINE_CHARS</em>, the user input will be handled by this class, not by the linked widget.</p>
+<p>This is rather complicated, but an example will make it clearer.  The default BEGINNING_OF_COMMAND_LINE_CHARS specifies that &#8216;:&#8217; or &#8216;/&#8217; marks the beginning of a command.  After that point, keypresses are handled by this widget, not by the linked widget, so that the up and down arrows start to navigate the command history.  However, if the command line is currently empty, those keys navigate instead the linked widget.</p>
+<p class="last">As in the TextCommandBox widget, the value of the command line is passed to the parent form&#8217;s action_controller object.</p>
+</dd>
+<dt>ActionControllerSimple</dt>
+<dd><p class="first">This object receives command lines and executes call-back functions.</p>
+<p>It recognises two types of command line - a &#8220;live&#8221; command line, where an action is taken with every change in the command line, and a command that is executed when the return key is pressed.</p>
+<p>Callbacks are added using the <em>add_action(ident, function, live)</em>, method.  &#8216;ident&#8217; is a regular expression that will be matched against the command line, <em>function</em> is the callback itself and <em>live</em> is either True or False, to specify whether the callback should be executed with every keypress (assuming that &#8216;ident&#8217; matches).</p>
+<p>Command lines that match the regular expression &#8216;ident&#8217; cause the call-back to be called with the following arguments: <em>call_back(command_line, control_widget_proxy, live=True)</em>.  Here <em>command_line</em> is the string that is the command line, <em>control_widget_proxy</em> is a weak reference to the command line widget, and live specifies whether the function is being called &#8216;live&#8217; or as a result of a return.</p>
+<p class="last">The method <em>create()</em> can be overridden. It is called when the object is created. The default does nothing.  You probably want to use this as a place to call <em>self.add_action</em>.</p>
+</dd>
+<dt>NPSFilteredDataBase</dt>
+<dd>The default <em>NPSFilteredDataBase</em> class suggests how the code to manage the display might be separated out into a separate object.  The precise methods will be very application dependent.  This is not an essential part of this kind of application, but it is good practice to keep the logic of (for example) database access separate from the logic of the user interface.</dd>
+</dl>
+<div class="section" id="example-code">
+<h2>Example Code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h2>
+<p>The following example shows how this model works.  The application creates an ActionController that has a search action.  This action calls the user-defined function set_search, which communicates with the Form&#8217;s parent.value (actually a NPSFilteredDataBase class). It then uses this class to set the values in wMain.values and calls wMain.display() to update the display.</p>
+<p>FmSearchActive is simply a FormMuttActiveTraditional class, with a class attribute that specifies that the form should use our action controller:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ActionControllerSearch</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">ActionControllerSimple</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="s">&#39;^/.*&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_search</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_line</span><span class="p">,</span> <span class="n">widget_proxy</span><span class="p">,</span> <span class="n">live</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">set_filter</span><span class="p">(</span><span class="n">command_line</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">wMain</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">wMain</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">FmSearchActive</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">FormMuttActiveTraditional</span><span class="p">):</span>
+    <span class="n">ACTION_CONTROLLER</span> <span class="o">=</span> <span class="n">ActionControllerSearch</span>
+
+<span class="k">class</span> <span class="nc">TestApp</span><span class="p">(</span><span class="n">npyscreen</span><span class="o">.</span><span class="n">NPSApp</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="n">FmSearchActive</span><span class="p">()</span>
+        <span class="n">F</span><span class="o">.</span><span class="n">wStatus1</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;Status Line &quot;</span>
+        <span class="n">F</span><span class="o">.</span><span class="n">wStatus2</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;Second Status Line &quot;</span>
+        <span class="n">F</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">set_values</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">)])</span>
+        <span class="n">F</span><span class="o">.</span><span class="n">wMain</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="n">F</span><span class="o">.</span><span class="n">edit</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">App</span> <span class="o">=</span> <span class="n">TestApp</span><span class="p">()</span>
+    <span class="n">App</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Writing More Complex Forms</a><ul>
+<li><a class="reference internal" href="#example-code">Example Code</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="options.html"
+                        title="previous chapter">Application Support</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="writing-tests.html"
+                        title="next chapter">Writing Tests</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/muttlike.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="writing-tests.html" title="Writing Tests"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="options.html" title="Application Support"
+             >previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Nicholas Cole.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

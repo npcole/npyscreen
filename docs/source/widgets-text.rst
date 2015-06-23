@@ -1,0 +1,45 @@
+Widgets: Displaying Text
+************************
+
+Textbox, TitleText
+   A single line of text, although of arbitrary length - the basic entry widget.
+
+FixedText, TitleFixedText
+   A single line of text, but with the editing functions of Textbox removed.
+
+PasswordEntry, TitlePassword
+   A textbox but altered so that the exact letters of *.value* are not displayed.  
+
+Autocomplete
+   This is a textbox but with additional functionality - the idea is that if the user presses TAB the widget will attempt to 'complete' what the user was typing, offering a choice of options if appropriate.   The method called is `auto_complete(inputch)`.
+
+   Of course, context is everything here.  *Autocomplete* is therefore not useful, but is intended as something you can subclass.  See the Filename and TitleFilename classes for examples. 
+
+Filename, TitleFilename
+   A textbox that will attempt to 'complete' a filename or path entered by the user.
+   
+   This is an example of the *Autocomplete* widget.
+
+FilenameCombo, TitleFilenameCombo
+	This is a more advanced way to select files.  New in version 2.0pre82.
+
+
+MultiLineEdit
+   This widget allows the user to edit several lines of text. 
+
+Pager, TitlePager
+   This widget displays lines of text, allowing the user to scroll through them, but not edit them.  The text to display is held in the `.values` attribute.
+
+
+In detail
++++++++++
+
+.. py:class:: Textbox
+
+    .. py:method:: display_value(vl)
+        
+        Control how the value of the `.value` attribute is displayed.  Since versions of the text widgets are used in other, compound widgets (such as most of the multiline classes), this method is often overridden. 
+        
+    .. py:method:: show_brief_message 
+    
+        Beep and display a brief message to the user.  In general, there are better ways to do this, but this is somtimes useful, for example when showing errors in Autocomplete classes.

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Widgets: Titled Widgets &mdash; npyscreen 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="npyscreen 2 documentation" href="index.html" />
+    <link rel="next" title="All about Key Bindings" href="keybindings.html" />
+    <link rel="prev" title="Widgets: Dates, Sliders and Combination Widgets" href="widgets-general.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="keybindings.html" title="All about Key Bindings"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="widgets-general.html" title="Widgets: Dates, Sliders and Combination Widgets"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="widgets-titled-widgets">
+<h1>Widgets: Titled Widgets<a class="headerlink" href="#widgets-titled-widgets" title="Permalink to this headline">¶</a></h1>
+<p>Most versions of the standard widget set come in two forms - a basic version and a corresponding version that also prints a label with the name of the widget.  For example, Textfield and TitleText.</p>
+<p>The Title versions are in fact a wrapper around a contained widget, rather than being a proper widget in their own right, and this can be a cause of confusion when modifying their behaviour.</p>
+<p>In general, to create your own version of these widgets, you should first create the contained widget, and then create a titled version.</p>
+<p>For example:</p>
+<div class="highlight-python"><pre>class NewTextWidget(textbox.Textfield):
+        # all of the custom code for this class
+        # should go here.
+
+
+class TitleProductSearch(TitleText):
+        _entry_type = NewTextWidget</pre>
+</div>
+<p>You can adjust where the child widget is placed on the screen by passing in the argument <em>begin_entry_at</em> to the constructor. The default is 16. You can also override whether the widget uses a separate line for the title by passing in the argument <em>use_two_lines=True|False</em> at the time the widget is created.  The default <em>use_two_lines=None</em> will keep the title and the contained widget on the same line, unless the label is too long.</p>
+<p>You can change the label color at creation time using the argument <em>labelColor=&#8217;LABEL&#8217;</em>.  You can specify any of the color names from the theme you are using.</p>
+<p>After creation, the two widgets managed by the TitleWidget can be accessed through the <em>label_widget</em> and <em>entry_widget</em> attributes of the object.</p>
+<div class="section" id="titled-multiline-widgets">
+<h2>Titled multiline widgets<a class="headerlink" href="#titled-multiline-widgets" title="Permalink to this headline">¶</a></h2>
+<p>If you are creating titled versions of the multiline widgets, you will find it better to inherit from the class <cite>TitleMultiLine</cite> instead, which wraps more of the multiline functionality.</p>
+</div>
+</div>
+<div class="section" id="widgets-box-widgets">
+<h1>Widgets: Box Widgets<a class="headerlink" href="#widgets-box-widgets" title="Permalink to this headline">¶</a></h1>
+<p>These widgets work in a similar way to the Titled versions of widgets.  The box widget contains a widget of another class.</p>
+<dl class="docutils">
+<dt>BoxBasic</dt>
+<dd>BoxBasic prints a box with an optional name and footer on the screen.  It is intended as a base class for further widgets, not for direct use.</dd>
+<dt>BoxTitle</dt>
+<dd><p class="first">BoxTitle is a hybrid of the Title widget and the Multiline widget.  Again, it is mostly intended as a base class for more complex layouts.  This class has a <cite>_contained_widget</cite> attribute that puts a widget inside the box when the class is created.  In the Boxtitle class this is a Multiline widget.  The title of the widget can be passed to <cite>__init__</cite> the parameter <cite>name=....</cite>.  Another perimeter  <cite>footer=...</cite> gives the text for the footer of the box.  These correspond to attributes named <cite>name</cite> and <cite>footer</cite> which can be changed at any time.</p>
+<p>The attribute <cite>entry_widget</cite> gives direct access to the contained widget.</p>
+<p>The properties <cite>editable</cite>, <cite>values</cite>, and <cite>value</cite> give direct access to the attributes of <cite>entry_widget</cite>.</p>
+<blockquote class="last">
+<div>The constructor for this widget can be passed the argument <cite>contained_widget_arguments</cite>. This should be a dictionary of arguments that will be passed to the entry_widget when it is created.  Note that no sanity checking is done on this dictionary at this time. (New in version 4.8.0)</div></blockquote>
+</dd>
+</dl>
+<p>Your own versions of these widgets can be created in the same way as new Titled widgets.  Create the contained widget class first, and then create the box class wrapper class:</p>
+<div class="highlight-python"><pre>class NewMultiLineClass
+        # Do all sorts of clever things here!
+        # ....
+
+ class BoxTitle(BoxBasic):
+     _contained_widget = NewMultiLineClass</pre>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Widgets: Titled Widgets</a><ul>
+<li><a class="reference internal" href="#titled-multiline-widgets">Titled multiline widgets</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#widgets-box-widgets">Widgets: Box Widgets</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="widgets-general.html"
+                        title="previous chapter">Widgets: Dates, Sliders and Combination Widgets</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="keybindings.html"
+                        title="next chapter">All about Key Bindings</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/widgets-title.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="keybindings.html" title="All about Key Bindings"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="widgets-general.html" title="Widgets: Dates, Sliders and Combination Widgets"
+             >previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Nicholas Cole.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

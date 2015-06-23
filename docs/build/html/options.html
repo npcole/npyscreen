@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Application Support &mdash; npyscreen 2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="npyscreen 2 documentation" href="index.html" />
+    <link rel="next" title="Writing More Complex Forms" href="muttlike.html" />
+    <link rel="prev" title="Displaying Brief Messages and Choices" href="messages.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="muttlike.html" title="Writing More Complex Forms"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="messages.html" title="Displaying Brief Messages and Choices"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="application-support">
+<h1>Application Support<a class="headerlink" href="#application-support" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="options-and-option-lists">
+<h2>Options and Option Lists<a class="headerlink" href="#options-and-option-lists" title="Permalink to this headline">¶</a></h2>
+<p>One common problem is to display a list of options to the user.  In simple applications, a custom designed form may be used for this purpose, but for many tasks an automatically generated form is desirable.  An <em>experimental</em> system to support this was introduced in version 2.0pre84.</p>
+<p>At the core of this system is the concept of the <em>Option</em> object.  These objects store either single values or lists of values depending on their type, as well as any documentation that goes with the option in question and which should be presented to the user.  Options are created with the following arguments: <em>OptionType(name, value=None, documentation=None, short_explanation=None, option_widget_keywords = None, default = None)</em>.  The <em>short_explanation</em> argument is currently not used by the default widgets but will be used in future versions.  Option classes designed to allow the user to select from a limited range of options may also be created with the <em>choices</em> arguement.</p>
+<p>All option classes also have the class attributes DEFAULT and WIDGET_TO_USE.  The first of these defines a default value if this is not specified.  The second specifies the class of widget that is used to allow the user to adjust the option in question.</p>
+<p>The following option classes are currently defined: <cite>OptionFreeText</cite>, <cite>OptionSingleChoice</cite>, <cite>OptionMultiChoice</cite>, <cite>OptionMultiFreeList</cite>, <cite>OptionBoolean</cite>, <cite>OptionFilename</cite>, <cite>OptionDate</cite>, <cite>OptionMultiFreeText</cite>.  The value stored in the Option object should be set with the <em>set(value)</em> method and retrieved with the <em>get()</em> method.  All Option classes also define a method <em>when_set</em> which can be overridden and which will be called after the value is changed.  Options that allow the user to select from a series of limited choices also have the methods <em>setChoices(choices)</em> and <em>getChoices</em>.</p>
+<p>An option list can be displayed using the <em>OptionListDisplay</em> widget.  This takes a list of options as its <em>values</em> attribute.  If an option is selected, a form will be presented to the user that will display the documentation (if any) and allow the user to change the value of it.</p>
+<p>Option collections may be gathered together with an <em>OptionList</em> object.  <em>OptionList</em> classes have an attribute <em>options</em>.  This is simply a list, to which Option objects may be appended. Future versions may define a different API.  The purpose of <em>OptionList</em> objects is to help saving and restoring collections of objects to test files.  The format of these files is a custom text format, similar to standard unix file but capable of storing and restoring lists of strings (using tab characters as a seperator.)  This format is still evolving, and may be changed in future versions.  Only values that vary from the default are stored.</p>
+<p><em>OptionList</em> objects may be created with a <em>filename</em> argument, and have the methods <em>write_to_file(fn=None)</em> and <em>reload_from_file(fn=None)</em>.</p>
+<p>The class <em>SimpleOptionForm</em> is a form designed to show how these elements work.  The <em>OptionListDisplay</em> widget is created as an attribute with the name <em>wOptionList</em>.</p>
+</div>
+<div class="section" id="example-code">
+<h2>Example Code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h2>
+<p>The following short demo program will store the specified options in the file &#8216;/tmp/test&#8217; between invocations:</p>
+<div class="highlight-python"><pre>#!/usr/bin/env python
+# encoding: utf-8
+
+import npyscreen
+class TestApp(npyscreen.NPSApp):
+    def main(self):
+        Options = npyscreen.OptionList()
+
+        # just for convenience so we don't have to keep writing Options.options
+        options = Options.options
+
+        options.append(npyscreen.OptionFreeText('FreeText', value='', documentation="This is some documentation."))
+        options.append(npyscreen.OptionMultiChoice('Multichoice', choices=['Choice 1', 'Choice 2', 'Choice 3']))
+        options.append(npyscreen.OptionFilename('Filename', ))
+        options.append(npyscreen.OptionDate('Date', ))
+        options.append(npyscreen.OptionMultiFreeText('Multiline Text', value=''))
+        options.append(npyscreen.OptionMultiFreeList('Multiline List'))
+
+                try:
+                Options.reload_from_file('/tmp/test')
+        except FileNotFoundError:
+                        pass
+
+        F  = npyscreen.Form(name = "Welcome to Npyscreen",)
+
+        ms = F.add(npyscreen.OptionListDisplay, name="Option List",
+                values = options,
+                scroll_exit=True,
+                max_height=None)
+
+        F.edit()
+
+        Options.write_to_file('/tmp/test')
+
+if __name__ == "__main__":
+    App = TestApp()
+    App.run()</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Application Support</a><ul>
+<li><a class="reference internal" href="#options-and-option-lists">Options and Option Lists</a></li>
+<li><a class="reference internal" href="#example-code">Example Code</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="messages.html"
+                        title="previous chapter">Displaying Brief Messages and Choices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="muttlike.html"
+                        title="next chapter">Writing More Complex Forms</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/options.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="muttlike.html" title="Writing More Complex Forms"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="messages.html" title="Displaying Brief Messages and Choices"
+             >previous</a> |</li>
+        <li><a href="index.html">npyscreen 2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Nicholas Cole.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>
