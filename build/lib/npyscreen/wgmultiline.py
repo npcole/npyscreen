@@ -232,7 +232,7 @@ object to be passed to the contained widget."""
                 else:
                     self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
             else:
-                line.value = MORE_LABEL
+                #line.value = MORE_LABEL
                 line.name = MORE_LABEL
                 line.task = MORE_LABEL
                 #line.highlight = False
@@ -244,7 +244,7 @@ object to be passed to the contained widget."""
                     self.parent.curses_pad.addstr(self.rely+self.height-1, self.relx, MORE_LABEL)
         
             if self.editing or self.always_show_cursor: 
-                self._my_widgets[(self.cursor_line-self.start_display_at)].highlight=True
+                self.set_is_line_cursor(self._my_widgets[(self.cursor_line-self.start_display_at)], True)
                 self._my_widgets[(self.cursor_line-self.start_display_at)].update(clear=True)
             else:
                 # There is a bug somewhere that affects the first line.  This cures it.
@@ -299,18 +299,25 @@ object to be passed to the contained widget."""
                 
     def _set_line_highlighting(self, line, value_indexer):
         if value_indexer in self._filtered_values_cache:
-            line.important = True
+            self.set_is_line_important(line, True)
         else:
-            line.important = False
+            self.set_is_line_important(line, False)
         
         if (value_indexer == self.value) and \
             (self.value is not None):
-            line.show_bold=True
+            self.set_is_line_bold(line, True)
         else: 
-            line.show_bold=False
+            self.set_is_line_bold(line, False)
+        self.set_is_line_cursor(line, False)
+        
+    def set_is_line_important(self, line, value):
+        line.important = value
     
-        line.highlight=False
-            
+    def set_is_line_bold(self, line, value):
+        line.show_bold = value
+    
+    def set_is_line_cursor(self, line, value):
+        line.highlight = value
 
     def get_filtered_indexes(self, force_remake_cache=False):
         if not force_remake_cache:

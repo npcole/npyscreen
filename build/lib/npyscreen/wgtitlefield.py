@@ -17,7 +17,6 @@ class TitleText(widget.Widget):
         allow_override_begin_entry_at=True,
         **keywords):
         
-        self.hidden = hidden
         self.text_field_begin_at = begin_entry_at
         self.field_width_request = field_width
         self.labelColor = labelColor
@@ -69,6 +68,8 @@ class TitleText(widget.Widget):
 
         self.make_contained_widgets()
         self.set_value(value)
+        self.hidden = hidden
+        
         
     
     def resize(self):
@@ -168,7 +169,6 @@ class TitleText(widget.Widget):
             self.entry_widget.editable = value
         except AttributeError:
             self._editable = value
-
 
 class TitleFixedText(TitleText):
     _entry_type = textbox.FixedText

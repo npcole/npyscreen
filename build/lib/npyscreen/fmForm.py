@@ -480,6 +480,9 @@ class SplitForm(Form):
             self.draw_line_at = self.get_half_way()
     
 
-
+def blank_terminal():
+    F = _FormBase(framed=False)
+    F.erase()
+    F.display()
 
 

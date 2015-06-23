@@ -7,4 +7,5 @@ example-addressbook.db
 *.gpg
 *.sig
 *.DS_Store
+buid/*
 .DS_Store
