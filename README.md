@@ -14,6 +14,27 @@ The library can be downloaded from:
 
 https://pypi.python.org/pypi/npyscreen/
 
+Official Repository
+===================
+
+Please note that the official source code repository is at:
+
+https://bitbucket.org/npcole/npyscreen
+
+There is a github repository at:
+
+https://github.com/npcole/npyscreen
+
+for users that prefer github.  If possible, though, please file bug reports at the bitbucket repository.
+
+The original source code archive was at:
+
+https://code.google.com/p/npyscreen/
+
+This archive will continue to be updated for as long as code.google.com accepts updates.
+
+
+
 Strengths
 =========
 
