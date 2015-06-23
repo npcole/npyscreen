@@ -29,3 +29,10 @@ The following function will display a dialog box for the user to select a filena
 .. py:function:: selectFile(select_dir=False, must_exist=False, confirm_if_exists=True,sort_by_extension=True,)
 
     This form is currently experimental.  The return value is the name of the file.
+    
+Blanking the Screen
+===================
+
+.. py:function:: blank_terminal()
+
+    This function blanks the terminal.  It may sometimes be needed if Forms are being displayed that do not fill the whole screen.

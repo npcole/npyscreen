@@ -58,12 +58,14 @@
     <span class="s">&#39;TEST_INPUT&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
     <span class="s">&#39;TEST_INPUT_LOG&#39;</span><span class="p">:</span> <span class="p">[],</span>
     <span class="s">&#39;CONTINUE_AFTER_TEST_INPUT&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="s">&#39;INPUT_GENERATOR&#39;</span><span class="p">:</span> <span class="bp">False</span>
     <span class="p">}</span>
 </pre></div>
 </div>
 <p>If &#8216;TEST_INPUT&#8217; is None the application progresses normally.  If it is an array, keystrokes are loaded from the left hand side of the array and fed to the application in place of getting input from the keyboard.  Note that special characters such as <em>curses.KEYDOWN</em> can be handled, and control characters can be indicated by a string such as <em>&#8220;^X&#8221;</em>.</p>
 <p>A keypress that is fed to the application in this way is automatically appended to <em>&#8216;TEST_INPUT_LOG&#8217;</em>, so it is possible to see where an error occurred when handling input.</p>
-<p>If &#8216;CONTINUE_AFTER_TEST_INPUT&#8217; is true, then after the automatic input has been specified, <em>&#8216;TEST_INPUT&#8217;</em> is set to <em>None</em> and the application continues normally.  If it is False, then the exception <em>ExhaustedTestInput</em> is raised instead.</p>
+<p>If &#8216;CONTINUE_AFTER_TEST_INPUT&#8217; is true, then after the automatic input has been specified, <em>&#8216;TEST_INPUT&#8217;</em> is set to <em>None</em> and the application continues normally.  If it is False, then the exception <em>ExhaustedTestInput</em> is raised instead.  This would allow a unittest to then test the state of the application.</p>
+<p>&#8216;INPUT_GENERATOR&#8217; can be set to an iterable object.  Each keypress will be read by calling <cite>next(INPUT_GENERATOR)</cite>.  Provided the iterable object chosen is thread-safe, this makes it easy to use one thread to feed the test input.  This can be used in preference to TEST_INPUT.  New in Version 4.9 and added at user request.</p>
 <div class="section" id="convenience-functions-new-in-version-4-8-5">
 <h2>Convenience Functions (new in version 4.8.5)<a class="headerlink" href="#convenience-functions-new-in-version-4-8-5" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -79,13 +81,16 @@
 </dd></dl>
 
 </div>
+<div class="section" id="preventing-forking-for-writing-unittests">
+<h2>Preventing Forking for writing unittests<a class="headerlink" href="#preventing-forking-for-writing-unittests" title="Permalink to this headline">¶</a></h2>
+<p>In order to avoid a memory leak in the underlying curses module, the npyscreen library sometimes chooses to run the application code in a forked process.  For testing purposes this is usually undesirable, and you probably want to pass <cite>fork=False</cite> to the <cite>run()</cite> method of your application for testing purposes.</p>
+</div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>The following is a trivial example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
 <span class="kn">import</span> <span class="nn">curses</span>
 <span class="kn">import</span> <span class="nn">npyscreen</span>
-<span class="kn">import</span> <span class="nn">unittest</span>
 
 <span class="n">npyscreen</span><span class="o">.</span><span class="n">TEST_SETTINGS</span><span class="p">[</span><span class="s">&#39;TEST_INPUT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ch</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="s">&#39;This is a test&#39;</span><span class="p">]</span>
 <span class="n">npyscreen</span><span class="o">.</span><span class="n">TEST_SETTINGS</span><span class="p">[</span><span class="s">&#39;TEST_INPUT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curses</span><span class="o">.</span><span class="n">KEY_DOWN</span><span class="p">)</span>
@@ -102,7 +107,8 @@
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">TestApp</span><span class="p">()</span>
-    <span class="n">A</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fork</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="c"># &#39;This is a test&#39; will appear in the first widget, as if typed by the user.</span>
 </pre></div>
 </div>
 </div>
@@ -118,6 +124,7 @@
   <ul>
 <li><a class="reference internal" href="#">Writing Tests</a><ul>
 <li><a class="reference internal" href="#convenience-functions-new-in-version-4-8-5">Convenience Functions (new in version 4.8.5)</a></li>
+<li><a class="reference internal" href="#preventing-forking-for-writing-unittests">Preventing Forking for writing unittests</a></li>
 <li><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
