@@ -69,7 +69,8 @@ class RecordList(npyscreen.MultiLineAction):
 
     def display_value(self, vl):
         return "%s, %s" % (vl[1], vl[2])
-    
+
+    #Quand on selection la ligne avec entr
     def actionHighlighted(self, act_on_this, keypress):
         self.parent.parentApp.getForm('EDITRECORDFM').value =act_on_this[0]
         self.parent.parentApp.switchForm('EDITRECORDFM')
@@ -78,20 +79,76 @@ class RecordList(npyscreen.MultiLineAction):
         self.parent.parentApp.getForm('EDITRECORDFM').value = None
         self.parent.parentApp.switchForm('EDITRECORDFM')
     
+    # quand on suprimme
     def when_delete_record(self, *args, **keywords):
         self.parent.parentApp.myDatabase.delete_record(self.values[self.cursor_line][0])
         self.parent.update_list()
 
 
-class RecordListDisplay(npyscreen.FormMutt):
+# ACTION CONTROLLER
+class ActionControllerSearch(npyscreen.ActionControllerSimple):
+    def create(self):
+        # ACTION de recherche
+        self.add_action('^/.*', self.set_search, True)
+        # ACTION de commandes
+        self.add_action('^:.*', self.actionCLI, False)
+
+    def set_search(self, command_line, widget_proxy, live):
+        self.parent.value.set_filter(command_line[1:])
+        self.parent.wMain.values = self.parent.value.get()
+        self.parent.wMain.display()
+
+    def actionCLI(self, command_line, prox, live):
+        if str(command_line) == ':?':
+            npyscreen.notify_confirm(["add:      Ajouter un contact",
+                                        "list:     Lister les contacts",
+                                        "del:      Suprimmer le contact selectioné",
+                                        "q:        Quitter"], title= 'Aide',form_color='STANDOUT', wrap=True, wide=True, editw=1)
+
+
+        elif str(command_line) == ':list':
+            self.parent.wMain.values = self.parent.parentApp.myDatabase.list_all_records()
+        elif str(command_line) == ':add':
+            self.parent.parentApp.getForm('EDITRECORDFM').value = None
+            self.parent.parentApp.switchForm('EDITRECORDFM')
+        elif str(command_line) == ':del':
+            # parent = FmSearchActive
+            # parent.wMain = la partie main de FmSearchActive
+            # parent.parentApp = APP principale
+            self.parent.parentApp.myDatabase.delete_record(self.parent.wMain.values[self.parent.wMain.cursor_line][0])
+            self.parent.update_list()
+        elif str(command_line) == ':q':
+            self.parent.tchao(self)
+
+        self.parent.wMain.display()     
+ 
+
+class FmSearchActive(npyscreen.FormMuttActiveTraditional):
+    ACTION_CONTROLLER = ActionControllerSearch
     MAIN_WIDGET_CLASS = RecordList
+
     def beforeEditing(self):
+        self.add_handlers({
+            "^Q": self.tchao
+        })
         self.update_list()
     
     def update_list(self):
-        self.wMain.values = self.parentApp.myDatabase.list_all_records()
-        self.wMain.display()
-    
+        self.wStatus1.value = "CONTACT "
+        self.wStatus2.value = "COMMAND LINE "
+
+        self.value.set_values(self.parentApp.myDatabase.list_all_records())
+        self.wMain.values = self.value.get()
+
+    def tchao(self, *args, **keywords):
+        '''methode pour quitter l'application depuis le formulaire MAIN'''
+        exiting = npyscreen.notify_yes_no("Etes vous sur de vouloir quitter ?", editw = 2)
+        if exiting:
+            exit('Bye Bye !')
+        else:
+            pass
+
+
     
 class EditRecord(npyscreen.ActionForm):
     def create(self):
@@ -138,7 +195,7 @@ class EditRecord(npyscreen.ActionForm):
 class AddressBookApplication(npyscreen.NPSAppManaged):
     def onStart(self):
         self.myDatabase = AddressDatabase()
-        self.addForm("MAIN", RecordListDisplay)
+        self.addForm("MAIN", FmSearchActive)
         self.addForm("EDITRECORDFM", EditRecord)
     
 if __name__ == '__main__':
