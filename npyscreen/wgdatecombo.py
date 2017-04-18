@@ -9,11 +9,12 @@ import curses
 
 
 class DateCombo(textbox.Textfield, monthbox.DateEntryBase):
-    def __init__(self, screen, allowPastDate=True, allowTodaysDate=True, allowClear=True, **keywords):
+    def __init__(self, screen, allowPastDate=True, allowTodaysDate=True, allowClear=True, dateFmt='%d %B, %Y', **keywords):
         super(DateCombo, self).__init__(screen, **keywords)
         self.allow_date_in_past = allowPastDate
         self.allow_todays_date  = allowTodaysDate
         self.allow_clear        = allowClear
+        self.dateFmt            = dateFmt
 
     def update(self, **keywords):
         keywords.update({'cursor': False})
@@ -28,7 +29,7 @@ class DateCombo(textbox.Textfield, monthbox.DateEntryBase):
             try:
                 # in python 2.4 this will raise ValueError if date is before 1900
                 #return self.value.strftime("%a, %d %B, %Y")
-                return self.value.strftime("%d %B, %Y")
+                return self.value.strftime(self.dateFmt)
             except ValueError:
                 return self.value.isoformat()
             except AttributeError:
