@@ -216,7 +216,7 @@ class FormMultiPageAction(FormBaseMultiPage):
 class FormMultiPage(FormMultiPageAction):
     def pre_edit_loop(self):
         super(FormMultiPage, self).pre_edit_loop()
-        del self.c_button
+        self.c_button = None
 
 
 class FormMultiPageWithMenus(FormMultiPage, wgNMenuDisplay.HasMenus):
