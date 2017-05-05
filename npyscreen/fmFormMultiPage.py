@@ -5,7 +5,7 @@ from .wgwidget import NotEnoughSpaceForWidget
 from .         import wgNMenuDisplay
 
 
-class FormMultiPage(fmForm.FormBaseNew):
+class FormBaseMultiPage(fmForm.FormBaseNew):
     page_info_pre_pages_display = '[ '
     page_info_post_pages_display = ' ]'
     page_info_pages_name = 'Page'
@@ -14,11 +14,11 @@ class FormMultiPage(fmForm.FormBaseNew):
     def __init__(self, display_pages=True, pages_label_color='NORMAL', *args, **keywords):
         self.display_pages = display_pages
         self.pages_label_color = pages_label_color
-        super(FormMultiPage, self).__init__(*args, **keywords)
+        super(FormBaseMultiPage, self).__init__(*args, **keywords)
         self.switch_page(0)
     
     def draw_form(self, *args, **keywords):
-        super(FormMultiPage, self).draw_form(*args, **keywords)
+        super(FormBaseMultiPage, self).draw_form(*args, **keywords)
         self.display_page_number()
     
     def _resize(self, *args):
@@ -79,7 +79,7 @@ class FormMultiPage(fmForm.FormBaseNew):
             
     
     def _clear_all_widgets(self,):
-        super(FormMultiPage, self)._clear_all_widgets()
+        super(FormBaseMultiPage, self)._clear_all_widgets()
         self._pages__     = [ [],]
         self._active_page = 0
         self.switch_page(self._active_page, display=False)
@@ -129,9 +129,16 @@ class FormMultiPage(fmForm.FormBaseNew):
                 if self._widgets__[n].editable and not self._widgets__[n].hidden: 
                     self.editw = n
                     break
-                    
-                    
-class FormMultiPageAction(FormMultiPage):
+
+
+class FormMultiPage(FormBaseMultiPage):
+
+    def resize(self):
+        super(Form, self).resize()
+        self.move_ok_button()
+
+
+class FormMultiPageAction(FormBaseMultiPage):
     CANCEL_BUTTON_BR_OFFSET = (2, 12)
     OK_BUTTON_TEXT          = "OK"
     CANCEL_BUTTON_TEXT      = "Cancel"
