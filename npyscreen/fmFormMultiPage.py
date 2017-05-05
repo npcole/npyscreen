@@ -132,6 +132,7 @@ class FormBaseMultiPage(fmForm.FormBaseNew):
 
 
 class FormMultiPage(FormBaseMultiPage):
+    OK_BUTTON_BR_OFFSET = (1, 6)
 
     def resize(self):
         super(Form, self).resize()
