@@ -10,6 +10,7 @@ class FormMultiPage(fmForm.FormBaseNew):
     page_info_post_pages_display = ' ]'
     page_info_pages_name = 'Page'
     page_info_out_of     = 'of'
+    edit_return_value = None
     def __init__(self, display_pages=True, pages_label_color='NORMAL', *args, **keywords):
         self.display_pages = display_pages
         self.pages_label_color = pages_label_color
@@ -212,10 +213,25 @@ class FormMultiPageAction(FormMultiPage):
         return self.edit_return_value
 
 
-class FormMultiPageWithMenus(fmForm.FormBaseNew):
+class FormMultiPageWithMenus(FormMultiPage, wgNMenuDisplay.HasMenus):
     def __init__(self, *args, **keywords):
         super(FormMultiPageWithMenus, self).__init__(*args, **keywords)
         self.initialize_menus()
+
+    def display_menu_advert_at(self):
+        return self.lines-1, 1
+
+    def draw_form(self):
+        super(FormMultiPageWithMenus, self).draw_form()
+        menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
+        if isinstance(menu_advert, bytes):
+            menu_advert = menu_advert.decode('utf-8', 'replace')
+        y, x = self.display_menu_advert_at()
+        self.add_line(y, x,
+            menu_advert,
+            self.make_attributes_list(menu_advert, curses.A_NORMAL),
+            self.columns - x - 1
+            )
 
 class FormMultiPageActionWithMenus(FormMultiPageAction, wgNMenuDisplay.HasMenus):
     def __init__(self, *args, **keywords):
@@ -226,7 +242,7 @@ class FormMultiPageActionWithMenus(FormMultiPageAction, wgNMenuDisplay.HasMenus)
         return self.lines-1, 1
 
     def draw_form(self):
-        super(FormBaseNewWithMenus, self).draw_form()
+        super(FormMultiPageActionWithMenus, self).draw_form()
         menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
         if isinstance(menu_advert, bytes):
             menu_advert = menu_advert.decode('utf-8', 'replace')
