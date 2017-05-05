@@ -221,3 +221,18 @@ class FormMultiPageActionWithMenus(FormMultiPageAction, wgNMenuDisplay.HasMenus)
     def __init__(self, *args, **keywords):
         super(FormMultiPageActionWithMenus, self).__init__(*args, **keywords)
         self.initialize_menus()
+
+    def display_menu_advert_at(self):
+        return self.lines-1, 1
+
+    def draw_form(self):
+        super(FormBaseNewWithMenus, self).draw_form()
+        menu_advert = " " + self.__class__.MENU_KEY + ": Menu "
+        if isinstance(menu_advert, bytes):
+            menu_advert = menu_advert.decode('utf-8', 'replace')
+        y, x = self.display_menu_advert_at()
+        self.add_line(y, x,
+            menu_advert,
+            self.make_attributes_list(menu_advert, curses.A_NORMAL),
+            self.columns - x - 1
+            )
