@@ -5,7 +5,7 @@ from .wgwidget import NotEnoughSpaceForWidget
 from .         import wgNMenuDisplay
 
 
-class FormMultiPage(fmForm.Form):
+class FormMultiPage(fmForm.FormBaseNew):
     page_info_pre_pages_display = '[ '
     page_info_post_pages_display = ' ]'
     page_info_pages_name = 'Page'
