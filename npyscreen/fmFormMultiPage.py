@@ -132,7 +132,9 @@ class FormBaseMultiPage(fmForm.FormBaseNew):
 
 
 class FormMultiPage(FormBaseMultiPage):
-    OK_BUTTON_TEXT          = "OK"
+    """A MultiPage Form with just an OK button."""
+
+    OK_BUTTON_TEXT = "OK"
 
     def on_ok(self):
         pass
@@ -163,7 +165,7 @@ class FormMultiPage(FormBaseMultiPage):
             self.edit_return_value = self.on_ok()
 
     def resize(self):
-        super(FormMultiPageAction, self).resize()
+        super(FormMultiPage, self).resize()
         self.move_ok_button()
 
     def move_ok_button(self):
