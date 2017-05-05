@@ -140,11 +140,11 @@ class FormMultiPage(fmForm.Form):
     def __init__(self, display_pages=True, pages_label_color='NORMAL', *args, **keywords):
         self.display_pages = display_pages
         self.pages_label_color = pages_label_color
-        super(FormBaseMultiPage, self).__init__(*args, **keywords)
+        super(FormMultiPage, self).__init__(*args, **keywords)
         self.switch_page(0)
     
     def draw_form(self, *args, **keywords):
-        super(FormBaseMultiPage, self).draw_form(*args, **keywords)
+        super(FormMultiPage, self).draw_form(*args, **keywords)
         self.display_page_number()
     
     def _resize(self, *args):
@@ -205,7 +205,7 @@ class FormMultiPage(fmForm.Form):
             
     
     def _clear_all_widgets(self,):
-        super(FormBaseMultiPage, self)._clear_all_widgets()
+        super(FormMultiPage, self)._clear_all_widgets()
         self._pages__     = [ [],]
         self._active_page = 0
         self.switch_page(self._active_page, display=False)
