@@ -68,7 +68,7 @@ class MultiSelectAction(MultiSelect):
             return self.actionHighlighted(self.values[self.cursor_line], ch)
     
     def h_act_on_selected(self, ch):
-        if self.vale:
+        if self.value:
             return self.actionSelected(self.get_selected_objects(), ch)
     
         
