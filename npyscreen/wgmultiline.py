@@ -771,6 +771,7 @@ class Pager(MultiLine):
                     curses.KEY_PPAGE:   self.h_scroll_page_up,
                     curses.KEY_HOME:    self.h_show_beginning,
                     curses.KEY_END:     self.h_show_end,
+                    curses.KEY_BTAB:    self.h_exit_up,
                     curses.ascii.NL:    self.h_exit,
                     curses.ascii.CR:    self.h_exit,
                     curses.ascii.SP:    self.h_scroll_page_down,
