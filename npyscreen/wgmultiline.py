@@ -715,6 +715,7 @@ class Pager(MultiLine):
             self._print_line(line, indexer)
         else:
             line.value = MORE_LABEL
+            line.hidden = False
             line.highlight = False
             line.show_bold = False
         
