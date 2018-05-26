@@ -691,7 +691,7 @@ class Pager(MultiLine):
     def update(self, clear=True):
         #we look this up a lot. Let's have it here.
         if self.autowrap:
-            self.setValuesWrap(list(self.values))
+            self.setValuesWrap(list(self.display_value(l) for l in self.values))
         
         if self.center:
             self.centerValues()
