@@ -398,10 +398,7 @@ object to be passed to the contained widget."""
                 break
 
     def get_selected_objects(self):
-        if self.value == None:
-            return None
-        else:
-            return [self.values[x] for x in self.value]
+        return self.value
                         
     def handle_mouse_event(self, mouse_event):
         # unfinished
