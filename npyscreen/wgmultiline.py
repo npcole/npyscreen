@@ -10,7 +10,7 @@ import weakref
 import collections
 import copy
 
-MORE_LABEL = "- more -" # string to tell user there are more options
+MORE_LABEL = "-more-" # string to tell user there are more options
 
 class FilterPopupHelper(Popup.Popup):
     def create(self):
