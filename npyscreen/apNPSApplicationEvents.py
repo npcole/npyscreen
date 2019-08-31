@@ -15,7 +15,7 @@ class NPSEventQueue(object):
             try:
                 yield self.interal_queue.pop()
             except IndexError:
-                raise StopIteration
+                return
             counter += 1
     
     def put(self, event):
