@@ -18,7 +18,7 @@ class FilenameCombo(wgcombobox.ComboBox):
         
     def _print(self):
         if self.value == None:
-            printme = '- Unset -'
+            printme = '-unset-'
         else:
             try:
                 printme = self.display_value(self.value)
