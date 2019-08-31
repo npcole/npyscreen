@@ -1,5 +1,6 @@
 from . import fmPopup
 from . import wgmultiline
+from . import wgtitlefield
 from . import fmPopup
 import curses
 import textwrap
@@ -93,4 +94,17 @@ def notify_yes_no(message, title="Message", form_color='STANDOUT', wrap=True, ed
     F.edit()
     return F.value
 
-    
+
+def notify_input(text, pre_text='', title="Input", form_color='STANDOUT', editw = 0,):
+    """Notify with only form caption and text input field."""
+    F   = ConfirmCancelPopup(name=title, color=form_color)
+    F.preserve_selected_widget = True
+    input_field = F.add(wgtitlefield.TitleText, name=text)
+    input_field.value = pre_text
+    F.editw = editw
+    F.edit()
+
+    if F.value:
+        return input_field.value
+    else:
+        return False

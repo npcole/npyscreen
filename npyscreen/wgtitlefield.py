@@ -69,6 +69,8 @@ class TitleText(widget.Widget):
         self.make_contained_widgets()
         self.set_value(value)
         self.hidden = hidden
+
+        self.how_exited = None
         
         
     
