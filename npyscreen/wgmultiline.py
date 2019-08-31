@@ -259,12 +259,15 @@ object to be passed to the contained widget."""
         
         # This will prevent the program crashing if the user has changed values, and the cursor 
         # is now on the bottom line.
-        if (self._my_widgets[self.cursor_line-self.start_display_at].task in (MORE_LABEL, "PRINTLINELASTOFSCREEN")): 
-            if self.slow_scroll:
-                self.start_display_at += 1
-            else:
-                self.start_display_at = self.cursor_line
-            self.update(clear=clear)
+        try:
+            if (self._my_widgets[self.cursor_line-self.start_display_at].task in (MORE_LABEL, "PRINTLINELASTOFSCREEN")): 
+                if self.slow_scroll:
+                    self.start_display_at += 1
+                else:
+                    self.start_display_at = self.cursor_line
+                self.update(clear=clear)
+        except Exception:
+            pass
     
     def _before_print_lines(self):
         # Provide a function for the Tree classes to override.
