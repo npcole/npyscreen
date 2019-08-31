@@ -93,4 +93,26 @@ def notify_yes_no(message, title="Message", form_color='STANDOUT', wrap=True, ed
     F.edit()
     return F.value
 
-    
+def single_line_input(default_value="Input Text", title="Message", form_color='STANDOUT'):
+    ''' Convenience function for requesting a single line of user input
+
+    Args:
+        default_value (str): The default value for the input textfield
+        title (str): Title for the popup
+        form_color (str): Color scheme used (as defined by the theme used)
+
+    Returns:
+        str: - None if the user pressed "Cancel"
+             - Value of the text input field if the user pressed "OK"
+    '''
+
+    F = ConfirmCancelPopup(name=title, color=form_color)
+    F.preserve_selected_widget = True
+    tf = F.add(npyscreen.Textfield)
+    tf.width = tf.width - 1
+    tf.value = default_value
+    F.edit()
+    if F.value is True:
+        return tf.value
+    else:
+        return None
