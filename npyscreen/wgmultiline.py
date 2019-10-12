@@ -44,7 +44,6 @@ class MultiLine(widget.Widget):
     """Display a list of items to the user.  By overloading the display_value method, this widget can be made to 
 display different kinds of objects.  Given the standard definition, 
 the same effect can be achieved by altering the __str__() method of displayed objects"""
-    _MINIMUM_HEIGHT = 2 # Raise an error if not given this.
     _contained_widgets = textbox.Textfield
     _contained_widget_height = 1
     def __init__(self, screen, values = None, value = None,
@@ -63,7 +62,9 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         self.allow_filtering = allow_filtering
         self.widgets_inherit_color = widgets_inherit_color
         super(MultiLine, self).__init__(screen, **keywords)
-        if self.height < self.__class__._MINIMUM_HEIGHT:
+        
+        # Requires space for at least two widgets, one for content and another for "more"
+        if self.height < self._contained_widget_height * 2:
             raise widget.NotEnoughSpaceForWidget("Height of %s allocated. Not enough space allowed for %s" % (self.height, str(self)))
         self.make_contained_widgets()
 
