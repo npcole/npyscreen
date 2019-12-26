@@ -43,4 +43,4 @@ if __name__ == "__main__":
     App = TestApp()
     App.run()   
     for v in RETURN:
-        print v
+        print(v)

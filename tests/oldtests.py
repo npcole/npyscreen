@@ -12,7 +12,7 @@ def testme(sa):
 if __name__ == '__main__':
     import curses.wrapper
     curses.wrapper(testme)
-    print "Use the force"
+    print("Use the force")
 
 
 ## DateCombo
@@ -29,8 +29,8 @@ def testing(src):
 if __name__ == '__main__':
     import curses
     r = curses.wrapper(testing)
-    print r
-    print "Your faith in your friends is yours"
+    print(r)
+    print("Your faith in your friends is yours")
 
 ## EditMultiLine
 
@@ -50,7 +50,7 @@ def testme(sa):
 if __name__ == '__main__':
     import safewrapper
     safewrapper.wrapper(testme)
-    print "Your powers are weak, old man"
+    print("Your powers are weak, old man")
 
 ## Form
 
@@ -93,7 +93,7 @@ def testme(sa):
 
 if __name__ == '__main__':
     curses.wrapper(testme)
-    print "No Luke, I am your father"
+    print("No Luke, I am your father")
 
 ## FormControlCheckBox
 
@@ -125,7 +125,7 @@ def testme(w):
 if __name__ == '__main__':
     import curses
     curses.wrapper(testme)
-    print "No Luke, I am your father"
+    print("No Luke, I am your father")
 
 ## FormWithMenus
 
@@ -146,7 +146,7 @@ def main(arg):
 
     F.add(titlefield.TitleText, name='Test')
     F.edit()
-    print "I have you now"
+    print("I have you now")
 
 
 if __name__ == '__main__':
@@ -177,8 +177,8 @@ def testme(sa):
 
 if __name__ == '__main__':
     import curses.wrapper
-    print curses.wrapper(testme)
-    print "No, I'll never join you"
+    print(curses.wrapper(testme))
+    print("No, I'll never join you")
 
 ## GridColTitles
 
@@ -203,8 +203,8 @@ def testme(sa):
 
 if __name__ == '__main__':
     import curses.wrapper
-    print curses.wrapper(testme)
-    print "No, I'll never join you"
+    print(curses.wrapper(testme))
+    print("No, I'll never join you")
 
 ## Menu
 
@@ -240,7 +240,7 @@ if __name__ == "__main__":
     import curses
     import curses.wrapper
     curses.wrapper(quicktest)
-    print "The circle is now complete"
+    print("The circle is now complete")
 
 ## Multiline
 
@@ -268,8 +268,8 @@ def testme(sa):
 
 if __name__ == '__main__':
     import curses.wrapper
-    print curses.wrapper(testme)
-    print "No, I'll never join you"
+    print(curses.wrapper(testme))
+    print("No, I'll never join you")
 
 
 ## MultiLineTree
@@ -304,8 +304,8 @@ if __name__ == '__main__':
         w.edit()
     
     import curses.wrapper
-    print curses.wrapper(testme)
-    print "No, I'll never join you"
+    print(curses.wrapper(testme))
+    print("No, I'll never join you")
 
 
 ## MultiSelect
@@ -324,8 +324,8 @@ def simpletest(screen):
 
 if __name__ == "__main__":
     import curses.wrapper
-    print curses.wrapper(simpletest)
-    print "The circle is now complete"
+    print(curses.wrapper(simpletest))
+    print("The circle is now complete")
 
 
 ## MultiSelectTree
@@ -356,8 +356,8 @@ if __name__ == '__main__':
         w.edit()
 
     import curses.wrapper
-    print curses.wrapper(testme)
-    print "No, I'll never join you"
+    print(curses.wrapper(testme))
+    print("No, I'll never join you")
 
 
 ## NewMenuDisplay
@@ -397,8 +397,8 @@ def main(*args):
 if __name__ == '__main__':
     import curses
     q = curses.wrapper(main)
-    print q
-    print "Now I am the Master"
+    print(q)
+    print("Now I am the Master")
 
 
 ## NPSApplication
@@ -408,7 +408,7 @@ if __name__ == '__main__':
      App = NPSApp(); App.run()
      App = NPSApp(); App.run()
 
-    print "A Jedi, who was a pupil of mine..."
+    print("A Jedi, who was a pupil of mine...")
 
 ## NPSAppManaged
 
@@ -454,8 +454,8 @@ if __name__ == '__main__':
         gc1  = n1.newChild(content = "GrandChild1")
         n2   = Tree.newChild(content = "newChild2")
         for item in Tree.walkTree():
-            print '->' * item.findDepth(), item.getContent()
-        print Tree.getTreeAsList()
+            print('->' * item.findDepth(), item.getContent())
+        print(Tree.getTreeAsList())
     
     Test1()
 
@@ -471,7 +471,7 @@ if __name__ == "__main__":
     import curses.wrapper
     import screen_area
     curses.wrapper(testloop)
-    print "When I wrote you, I had much to learn"
+    print("When I wrote you, I had much to learn")
 
 ## Popup
 
@@ -512,7 +512,7 @@ def test_loop(screen):
 
 if __name__ == '__main__':
     curses.wrapper(test_loop)
-    print "The circle is now complete"
+    print("The circle is now complete")
 
 
 
@@ -530,7 +530,7 @@ def testme(sa):
 if __name__ == '__main__':
     import curses.wrapper
     curses.wrapper(testme)
-    print "Only now...do you see the truth"
+    print("Only now...do you see the truth")
 
 
 ## Textbox
@@ -573,8 +573,8 @@ if __name__ == "__main__":
     import locale
     import safewrapper
     safewrapper.wrapper(unicodetest)
-    print locale.getlocale()[1]
-    print "The circle is now complete"
+    print(locale.getlocale()[1])
+    print("The circle is now complete")
 
 
 ## Textbox_ControlChars
@@ -592,7 +592,7 @@ def simpletest(screen):
 
 if __name__ == "__main__":
     curses.wrapper(simpletest)
-    print "The circle is now complete"
+    print("The circle is now complete")
 
 ## titlefield
 
@@ -622,7 +622,7 @@ def cleartest(screen):
 if __name__ == '__main__':
     import curses.wrapper
     curses.wrapper(cleartest)
-    print "The circle is now complete"
+    print("The circle is now complete")
 
 
 ## widget
@@ -636,6 +636,6 @@ def simpletest(scr):
 
 if __name__ == "__main__":
     import safewrapper
-    print safewrapper.wrapper(simpletest)
-    print locale.getlocale()[1]
-    print "The circle is now complete"
+    print(safewrapper.wrapper(simpletest))
+    print(locale.getlocale()[1])
+    print("The circle is now complete")
