@@ -34,4 +34,4 @@ class TestApp(npyscreen.NPSApp):
 
 if __name__ == "__main__":
 	App = TestApp()
-	print App.run()
+	print(App.run())

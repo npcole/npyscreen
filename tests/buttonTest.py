@@ -10,4 +10,4 @@ def testme(sa):
 if __name__ == '__main__':
     import curses.wrapper
     curses.wrapper(testme)
-    print "Join me, and we will end this destructive conflict"
+    print("Join me, and we will end this destructive conflict")
