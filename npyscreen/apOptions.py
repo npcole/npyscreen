@@ -60,7 +60,7 @@ class OptionList(object):
     def define_serialize_functions(self):
         self.SERIALIZE_FUNCTIONS = {
             OptionFreeText:         self.save_text,
-            OptionSingleChoice:     self.save_text,
+            OptionSingleChoice:     self.save_multi_text,
             OptionMultiChoice:      self.save_multi_text,
             OptionMultiFreeText:    self.save_text,
             OptionBoolean:          self.save_bool,
@@ -71,7 +71,7 @@ class OptionList(object):
     
         self.UNSERIALIZE_FUNCTIONS = {
             OptionFreeText:         self.reload_text,
-            OptionSingleChoice:     self.reload_text,
+            OptionSingleChoice:     self.load_multi_text,
             OptionMultiChoice:      self.load_multi_text,
             OptionMultiFreeText:    self.reload_text,
             OptionBoolean:          self.load_bool,
