@@ -110,7 +110,7 @@ class BoxTitle(BoxBasic):
         if 'scroll_exit' in keywords:
             self.entry_widget.scroll_exit = keywords['scroll_exit']
         if 'slow_scroll' in keywords:
-            self.entry_widget.scroll_exit = keywords['slow_scroll']
+            self.entry_widget.slow_scroll = keywords['slow_scroll']
         
     
     def make_contained_widget(self, contained_widget_arguments=None):
