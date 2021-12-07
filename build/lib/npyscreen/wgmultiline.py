@@ -10,7 +10,7 @@ import weakref
 import collections
 import copy
 
-MORE_LABEL = "- more -" # string to tell user there are more options
+MORE_LABEL = "-more-" # string to tell user there are more options
 
 class FilterPopupHelper(Popup.Popup):
     def create(self):
@@ -90,8 +90,8 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         #These are just to do some optimisation tricks
         self._last_start_display_at = None
         self._last_cursor_line = None
-        self._last_values = copy.copy(values)
-        self._last_value = copy.copy(value)
+        self._last_values = copy.copy(list(values))
+        self._last_value = copy.copy(list(value))
         self._last_filter = None
         self._filtered_values_cache = []
 
@@ -254,8 +254,8 @@ object to be passed to the contained widget."""
 
         self._last_start_display_at = self.start_display_at
         self._last_cursor_line = self.cursor_line
-        self._last_values = copy.copy(self.values)
-        self._last_value  = copy.copy(self.value)
+        self._last_values = copy.copy(list(self.values))
+        self._last_value  = copy.copy(list(self.value))
         
         # This will prevent the program crashing if the user has changed values, and the cursor 
         # is now on the bottom line.
@@ -329,7 +329,7 @@ object to be passed to the contained widget."""
                 pass
         
         self._last_filter = self._filter
-        self._last_values = copy.copy(self.values)
+        self._last_values = copy.copy(list(self.values))
         if self._filter == None or self._filter == '':
             return []
         list_of_indexes = []
@@ -771,6 +771,7 @@ class Pager(MultiLine):
                     curses.KEY_PPAGE:   self.h_scroll_page_up,
                     curses.KEY_HOME:    self.h_show_beginning,
                     curses.KEY_END:     self.h_show_end,
+                    curses.KEY_BTAB:    self.h_exit_up,
                     curses.ascii.NL:    self.h_exit,
                     curses.ascii.CR:    self.h_exit,
                     curses.ascii.SP:    self.h_scroll_page_down,
