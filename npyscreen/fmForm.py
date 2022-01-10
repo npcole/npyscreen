@@ -268,15 +268,14 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
 
 
     def find_next_editable(self, *args):
-        if not self.editw == len(self._widgets__):
-            if not self.cycle_widgets:
-                r = list(range(self.editw+1, len(self._widgets__)))
-            else:
-                r = list(range(self.editw+1, len(self._widgets__))) + list(range(0, self.editw))
-            for n in r:
-                if self._widgets__[n].editable and not self._widgets__[n].hidden: 
-                    self.editw = n
-                    break
+        if not self.cycle_widgets:
+            r = list(range(self.editw+1, len(self._widgets__)))
+        else:
+            r = list(range(self.editw+1, len(self._widgets__))) + list(range(0, self.editw))
+        for n in r:
+            if self._widgets__[n].editable and not self._widgets__[n].hidden: 
+                self.editw = n
+                break
         self.display()
 
 

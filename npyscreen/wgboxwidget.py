@@ -128,6 +128,7 @@ class BoxTitle(BoxBasic):
                                 max_width=self.width-4, max_height=self.height-2,
                             ))
         self.entry_widget = weakref.proxy(self._my_widgets[0])
+        self.entry_widget.parent_widget = weakref.proxy(self)
             
     def update(self, clear=True):
         if self.hidden and clear:

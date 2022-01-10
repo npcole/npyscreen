@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import curses
+import os
 
 class ResizeError(Exception):
     "The screen has been resized"

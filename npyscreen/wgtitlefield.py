@@ -170,5 +170,11 @@ class TitleText(widget.Widget):
         except AttributeError:
             self._editable = value
 
+    def add_handlers(self, handler_dictionary):
+        """
+        Pass handlers to entry_widget
+        """
+        self.entry_widget.add_handlers(handler_dictionary)
+
 class TitleFixedText(TitleText):
     _entry_type = textbox.FixedText

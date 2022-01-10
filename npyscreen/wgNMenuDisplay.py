@@ -183,7 +183,6 @@ class HasMenus(object):
         self._MainMenu  = NewMenu.NewMenu
         self.add_handlers({self.__class__.MENU_KEY: self.root_menu})
         
-        
     def new_menu(self, name=None, *args, **keywords):
         if not hasattr(self, '_NMenuList'):
             self._NMenuList = []
@@ -205,6 +204,13 @@ class HasMenus(object):
             self._NMDisplay.setMenu(_root_menu)
             self._NMDisplay.edit()
         self.DISPLAY()
+    
+    def use_existing_menu(self, _mnu):
+        if not hasattr(self, '_NMenuList'):
+            self._NMenuList = []
+        self._NMenuList.append(_mnu)
+        return weakref.proxy(_mnu)
+    
         
     def popup_menu(self, menu):
         self._NMDisplay.setMenu(menu)

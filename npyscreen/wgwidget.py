@@ -145,23 +145,33 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
 
     def h_exit_down(self, _input):
         """Called when user leaves the widget to the next widget"""
+        if not self._test_safe_to_exit():
+            return False
         self.editing = False
         self.how_exited = EXITED_DOWN
         
     def h_exit_right(self, _input):
+        if not self._test_safe_to_exit():
+            return False
         self.editing = False
         self.how_exited = EXITED_RIGHT
 
     def h_exit_up(self, _input):
+        if not self._test_safe_to_exit():
+            return False
         """Called when the user leaves the widget to the previous widget"""
         self.editing = False
         self.how_exited = EXITED_UP
         
     def h_exit_left(self, _input):
+        if not self._test_safe_to_exit():
+            return False
         self.editing = False
         self.how_exited = EXITED_LEFT
         
     def h_exit_escape(self, _input):
+        if not self._test_safe_to_exit():
+            return False
         self.editing = False
         self.how_exited = EXITED_ESCAPE
 
@@ -170,12 +180,13 @@ but in most cases the add_handers or add_complex_handlers methods are what you w
         if mouse_event and self.intersted_in_mouse_event(mouse_event):
             self.handle_mouse_event(mouse_event)
         else:
-            if mouse_event:
+            if mouse_event and self._test_safe_to_exit():
                 curses.ungetmouse(*mouse_event)
                 ch = self.parent.curses_pad.getch()
                 assert ch == curses.KEY_MOUSE
             self.editing = False
             self.how_exited = EXITED_MOUSE
+    
     
 
 
@@ -631,6 +642,19 @@ big a given widget is ... use .height and .width instead"""
     #def when_parent_changes_value(self):
         # Can be called by forms when they chage their value.
         #pass
+
+    def _safe_to_exit(self):
+        return True
+        
+    def safe_to_exit(self):
+        return True
+    
+    def _test_safe_to_exit(self):
+        if self._safe_to_exit() and self.safe_to_exit():
+            return True
+        else:
+            return False
+    
 
     def when_check_value_changed(self):
         "Check whether the widget's value has changed and call when_valued_edited if so."

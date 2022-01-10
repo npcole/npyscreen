@@ -212,7 +212,7 @@ class FormMultiPageAction(FormMultiPage):
         return self.edit_return_value
 
 
-class FormMultiPageWithMenus(fmForm.FormBaseNew):
+class FormMultiPageWithMenus(FormMultiPage, wgNMenuDisplay.HasMenus):
     def __init__(self, *args, **keywords):
         super(FormMultiPageWithMenus, self).__init__(*args, **keywords)
         self.initialize_menus()

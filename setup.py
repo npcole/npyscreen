@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="4.9.1",
+	version="4.10.5",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,13 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+
+Version 4.10.5:  Merged in bug-fixes and enhancements suggested by Nathan Lewis. 
+
+Version 4.10.0: All widgets have a safe_to_exit() method that will be called
+(at least by the default handlers) before exiting a widget.  Users can
+perform input verification functions here.  Return True if the widget should
+allow exiting, or False if it should not.  Various minor bug-fixes.
 
 Version 4.9.1: minor change to Multiline widgets to make custom versions easier (final widget value is never set to MORE_LABEL).
 
