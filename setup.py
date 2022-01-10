@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
 	name="npyscreen",
-	version="4.10.5",
+	version="4.11.0",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -38,6 +38,7 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 
 *Latest Changes*:
+Version 4.11.0: Cleaned up a couple of syntax errors, added Numericfield (in addition to Textfield), and corrected behavior of safe_to_exit() so that it works with TitleText and TitleNumeric classes. 
 
 Version 4.10.5:  Merged in bug-fixes and enhancements suggested by Nathan Lewis. 
 
