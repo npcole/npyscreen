@@ -4,25 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="de2590de-6511-4bbd-ab94-1a6fe99bc17e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mnpyscreen.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mnpyscreen.iml" afterDir="false" />
+    <list default="true" id="de2590de-6511-4bbd-ab94-1a6fe99bc17e" name="Default" comment="rebased to 4.10.5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PKG-INFO" beforeDir="false" afterPath="$PROJECT_DIR$/PKG-INFO" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/apNPSApplicationEvents.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/apNPSApplicationEvents.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/fmForm.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/fmForm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/fmFormMultiPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/fmFormMultiPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npyscreen/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/npyscreen/npyspmfuncs.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/npyspmfuncs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/utilNotify.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/utilNotify.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wgNMenuDisplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgNMenuDisplay.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wgboxwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgboxwidget.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wgfilenamecombo.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgfilenamecombo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wggrid.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wggrid.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npyscreen/proto_fm_screen_area.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/proto_fm_screen_area.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npyscreen/wgautocomplete.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgautocomplete.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npyscreen/wgcombobox.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgcombobox.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npyscreen/wgmonthbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgmonthbox.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/npyscreen/wgmultiline.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgmultiline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wgmultiselect.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgmultiselect.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npyscreen/wgtextbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgtextbox.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/npyscreen/wgtitlefield.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgtitlefield.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/npyscreen/wgwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgwidget.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,6 +159,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="options.lastSelected" value="preferences.keymap" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -337,7 +334,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1407673373943</updated>
-      <workItem from="1641835591875" duration="211000" />
+      <workItem from="1641835591875" duration="3983000" />
     </task>
     <task id="LOCAL-00001" summary="Removed some old files.">
       <created>1407673528936</created>
@@ -367,7 +364,14 @@
       <option name="project" value="LOCAL" />
       <updated>1409820611012</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="rebased to 4.10.5">
+      <created>1641835865937</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1641835865937</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -419,6 +423,29 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
       <collection />
@@ -432,7 +459,8 @@
     <MESSAGE value="Begin conversion of the tree classes to pep8 method_names." />
     <MESSAGE value="Updated the documentation." />
     <MESSAGE value="Updated the documentation. Added ActionFormMinimal. Release 4.4.0." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated the documentation. Added ActionFormMinimal. Release 4.4.0." />
+    <MESSAGE value="rebased to 4.10.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="rebased to 4.10.5" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/npyscreen/apOptions.py">

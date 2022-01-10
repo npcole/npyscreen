@@ -645,9 +645,22 @@ big a given widget is ... use .height and .width instead"""
 
     def _safe_to_exit(self):
         return True
-        
+
+    # if this isn't overridden, we should check if it's a TitleText or TitleNumeric
     def safe_to_exit(self):
-        return True
+        theclass = self.__class__
+        try:
+            parent_widget = getattr(self, "parent_widget")
+        except AttributeError:
+            return True
+        try:
+            ste = getattr(parent_widget, "safe_to_exit")
+        except AttributeError:
+            return True
+        return ste()
+
+    #def safe_to_exit(self):
+    #    return True
     
     def _test_safe_to_exit(self):
         if self._safe_to_exit() and self.safe_to_exit():

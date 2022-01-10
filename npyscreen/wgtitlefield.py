@@ -178,3 +178,11 @@ class TitleText(widget.Widget):
 
 class TitleFixedText(TitleText):
     _entry_type = textbox.FixedText
+
+class TitleNumeric(TitleText):
+    """a TitleText box that accepts only numeric input"""
+    _entry_type = textbox.Numericfield
+
+    def __init__(self, *args, **keywords):
+        self.last_value = None
+        super(TitleNumeric, self).__init__(*args, **keywords)

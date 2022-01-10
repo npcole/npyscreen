@@ -26,7 +26,7 @@ def CallSubShell(subshell):
     
     rtn = os.system("%s" % (subshell))
     curses.reset_prog_mode()
-    if rtn is not 0: return False
+    if rtn != 0: return False
     else: return True
 
     curses.reset_prog_mode()
