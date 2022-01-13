@@ -4,18 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="de2590de-6511-4bbd-ab94-1a6fe99bc17e" name="Default" comment="rebased to 4.10.5">
+    <list default="true" id="de2590de-6511-4bbd-ab94-1a6fe99bc17e" name="Default" comment="Minor bug/syntax fixes, added Numeric field support">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mnpyscreen.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/npyscreen.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/npyspmfuncs.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/npyspmfuncs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/proto_fm_screen_area.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/proto_fm_screen_area.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wgautocomplete.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgautocomplete.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wgcombobox.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgcombobox.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wgmonthbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgmonthbox.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wgmultiline.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgmultiline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wgtextbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgtextbox.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npyscreen/wgtitlefield.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgtitlefield.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/npyscreen/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/npyscreen/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/npyscreen/fmForm.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/npyscreen/fmForm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/npyscreen/wgmultiline.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/npyscreen/wgmultiline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/npyscreen/wgtitlefield.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/npyscreen/wgtitlefield.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/npyscreen/wgwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/npyscreen/wgwidget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npyscreen/fmForm.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/fmForm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/npyscreen/wgwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/npyscreen/wgwidget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,6 +138,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="FileHistory.org.zmlx.hg4idea.provider.HgHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.org.zmlx.hg4idea.provider.HgHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.org.zmlx.hg4idea.provider.HgHistoryProvider_flatOrder2" value="2" />
@@ -169,6 +171,14 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="settings.editor.selected.configurable" value="advanced.settings" />
   </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="mnpyscreen" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="mnpyscreen" />
+      </console-settings>
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/npyscreen/widgets" />
@@ -196,132 +206,6 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DjangoTestsConfigurationType">
-      <module name="mnpyscreen" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="TARGET" value="" />
-      <option name="SETTINGS_FILE" value="" />
-      <option name="CUSTOM_SETTINGS" value="false" />
-      <option name="USE_OPTIONS" value="false" />
-      <option name="OPTIONS" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <module name="mnpyscreen" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="docs" factoryName="Docutils task">
-      <module name="mnpyscreen" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="docutils_input_file" value="" />
-      <option name="docutils_output_file" value="" />
-      <option name="docutils_params" value="" />
-      <option name="docutils_task" value="" />
-      <option name="docutils_open_in_browser" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Doctests">
-      <module name="mnpyscreen" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Nosetests">
-      <module name="mnpyscreen" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_regexPattern" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <module name="mnpyscreen" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="py.test">
-      <module name="mnpyscreen" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -334,7 +218,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1407673373943</updated>
-      <workItem from="1641835591875" duration="3983000" />
+      <workItem from="1641835591875" duration="6827000" />
+      <workItem from="1641848831733" duration="55000" />
+      <workItem from="1641940271041" duration="2118000" />
+      <workItem from="1642081163912" duration="2814000" />
     </task>
     <task id="LOCAL-00001" summary="Removed some old files.">
       <created>1407673528936</created>
@@ -371,7 +258,21 @@
       <option name="project" value="LOCAL" />
       <updated>1641835865937</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Minor bug/syntax fixes, added Numeric field support">
+      <created>1641845385585</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1641845385585</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Minor bug/syntax fixes, added Numeric field support">
+      <created>1641847737945</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1641847737945</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -445,6 +346,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -455,12 +357,25 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Removed some old files." />
     <MESSAGE value="Begin conversion of the tree classes to pep8 method_names." />
     <MESSAGE value="Updated the documentation." />
     <MESSAGE value="Updated the documentation. Added ActionFormMinimal. Release 4.4.0." />
     <MESSAGE value="rebased to 4.10.5" />
-    <option name="LAST_COMMIT_MESSAGE" value="rebased to 4.10.5" />
+    <MESSAGE value="Minor bug/syntax fixes, added Numeric field support" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor bug/syntax fixes, added Numeric field support" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/setup.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/npyscreen/apOptions.py">

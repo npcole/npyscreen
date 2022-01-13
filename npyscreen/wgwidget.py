@@ -388,7 +388,7 @@ big a given widget is ... use .height and .width instead"""
             if max_height <= my: 
                 self.height = max_height
             else: 
-                self.height = self.request_height
+                self.height = (self.request_height or my)
         else: 
             self.height = (self.request_height or my)
         
