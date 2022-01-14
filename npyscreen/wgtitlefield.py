@@ -26,7 +26,7 @@ class TitleText(widget.Widget):
         if self.name is None: self.name = 'NoName'
 
         if use_two_lines is None:
-            if len(self.name)+2 >= begin_entry_at: 
+            if len(self.name) >= begin_entry_at:
                 self.use_two_lines = True
             else: 
                 self.use_two_lines = False
