@@ -267,7 +267,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
         else:
             r = list(range(self.editw + 1, len(self._widgets__))) + list(range(0, self.editw))
         for n in r:
-            if self._widgets__[n].editable and not self._widgets__[n].hidden:
+            if self._widgets_by_id[n].editable and not self._widgets_by_id[n].hidden:
                 self.editw = n
                 break
         self.display()
@@ -277,7 +277,7 @@ class _FormBase(proto_fm_screen_area.ScreenArea,
             # remember that xrange does not return the 'last' value,
             # so go to -1, not 0! (fence post error in reverse)
             for n in range(self.editw - 1, -1, -1):
-                if self._widgets__[n].editable and not self._widgets__[n].hidden:
+                if self._widgets_by_id[n].editable and not self._widgets_by_id[n].hidden:
                     self.editw = n
                     break
 
