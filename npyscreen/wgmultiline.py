@@ -90,8 +90,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         # These are just to do some optimisation tricks
         self._last_start_display_at = None
         self._last_cursor_line = None
-        self._last_values = copy.copy(list(values))
-        # self._last_value = copy.copy(list(value))   # this breaks if value==None (user contrib)
+        self._last_values = copy.copy(values)
         self._last_value = copy.copy(value)
         self._last_filter = None
         self._filtered_values_cache = []
