@@ -91,7 +91,8 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         self._last_start_display_at = None
         self._last_cursor_line = None
         self._last_values = copy.copy(list(values))
-        self._last_value = copy.copy(list(value))
+        # self._last_value = copy.copy(list(value))   # this breaks if value==None (user contrib)
+        self._last_value = copy.copy(value)
         self._last_filter = None
         self._filtered_values_cache = []
 
@@ -407,8 +408,10 @@ object to be passed to the contained widget."""
         mouse_id, rel_x, rel_y, z, bstate = self.interpret_mouse_event(mouse_event)
         self.cursor_line = rel_y // self._contained_widget_height + self.start_display_at
 
-        ##if self.cursor_line > len(self.values):
-        ##    self.cursor_line = len(self.values)
+        # Toggle here if rel_x == 1? (ie: they clicked IN the checkbox)
+        if rel_x == 1 and hasattr(self,"h_select_toggle"):  # not sure if this should be done elsewhere
+            self.h_select_toggle(" ")
+
         self.display()
 
     def set_up_handlers(self):
