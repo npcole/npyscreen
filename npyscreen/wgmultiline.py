@@ -410,6 +410,7 @@ object to be passed to the contained widget."""
         # Toggle here if rel_x == 1? (ie: they clicked IN the checkbox)
         if rel_x == 1 and hasattr(self,"h_select_toggle"):  # not sure if this should be done elsewhere
             self.h_select_toggle(" ")
+            self.when_check_value_changed()
 
         self.display()
 
