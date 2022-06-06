@@ -26,7 +26,7 @@ class TitleText(widget.Widget):
         if self.name is None: self.name = 'NoName'
 
         if use_two_lines is None:
-            if len(self.name)+2 >= begin_entry_at: 
+            if len(self.name) >= begin_entry_at:
                 self.use_two_lines = True
             else: 
                 self.use_two_lines = False
@@ -170,5 +170,19 @@ class TitleText(widget.Widget):
         except AttributeError:
             self._editable = value
 
+    def add_handlers(self, handler_dictionary):
+        """
+        Pass handlers to entry_widget
+        """
+        self.entry_widget.add_handlers(handler_dictionary)
+
 class TitleFixedText(TitleText):
     _entry_type = textbox.FixedText
+
+class TitleNumeric(TitleText):
+    """a TitleText box that accepts only numeric input"""
+    _entry_type = textbox.Numericfield
+
+    def __init__(self, *args, **keywords):
+        self.last_value = None
+        super(TitleNumeric, self).__init__(*args, **keywords)

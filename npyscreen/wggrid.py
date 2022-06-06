@@ -15,6 +15,7 @@ class SimpleGrid(widget.Widget):
             values = None,
             always_show_cursor = False,
             select_whole_line = False,
+            on_select_callback = None,
             **keywords):
         super(SimpleGrid, self).__init__(screen, **keywords)
         self.col_margin = col_margin
@@ -35,6 +36,8 @@ class SimpleGrid(widget.Widget):
             self.values = None
         else:
             self.values = values
+
+        self.on_select_callback = on_select_callback
             
     def set_grid_values_from_flat_list(self, new_values, max_cols=None, reset_cursor=True):
         if not max_cols:
@@ -186,6 +189,7 @@ Should accept one argument (the object to be represented), and return a string."
                     ord('g'):           self.h_show_beginning,
                     ord('G'):           self.h_show_end,
                     curses.ascii.TAB:   self.h_exit,
+                    curses.KEY_BTAB:     self.h_exit_up,
                     '^P':               self.h_exit_up,
                     '^N':               self.h_exit_down,
                     #curses.ascii.NL:    self.h_exit,
@@ -221,10 +225,12 @@ Should accept one argument (the object to be represented), and return a string."
         self.begin_col_display_at = 0
         self.begin_row_display_at = 0
         self.edit_cell = [0, 0]
+        self.on_select(inpt)
     
     def h_show_end(self, inpt):
         self.edit_cell = [len(self.values) - 1 , len(self.values[-1]) - 1]
         self.ensure_cursor_on_display_down_right()
+        self.on_select(inpt)
         
     def h_move_cell_left(self, inpt):
         if self.edit_cell[1] > 0:
@@ -232,6 +238,7 @@ Should accept one argument (the object to be represented), and return a string."
         
         if self.edit_cell[1] < self.begin_col_display_at:
             self.h_scroll_left(inpt)
+        self.on_select(inpt)
     
     def h_move_cell_right(self, inpt):
         if self.edit_cell[1] <= len(self.values[self.edit_cell[0]]) -2:   # Only allow move to end of current line
@@ -239,6 +246,7 @@ Should accept one argument (the object to be represented), and return a string."
         
         if self.edit_cell[1] > self.begin_col_display_at + self.columns - 1:
             self.h_scroll_right(inpt)
+        self.on_select(inpt)
     
     def h_move_line_down(self, inpt):
         if self.edit_cell[0] <= (len(self.values) -2) \
@@ -246,6 +254,7 @@ Should accept one argument (the object to be represented), and return a string."
             self.edit_cell[0] += 1
         if self.begin_row_display_at  + len(self._my_widgets) - 1 < self.edit_cell[0]:
             self.h_scroll_display_down(inpt)
+        self.on_select(inpt)
     
     def h_move_line_up(self, inpt):
         if self.edit_cell[0] > 0:
@@ -253,10 +262,12 @@ Should accept one argument (the object to be represented), and return a string."
             
         if self.edit_cell[0] < self.begin_row_display_at:
             self.h_scroll_display_up(inpt)
+        self.on_select(inpt)
     
     def h_scroll_right(self, inpt):
         if self.begin_col_display_at + self.columns < len(self.values[self.edit_cell[0]]):
             self.begin_col_display_at += self.columns
+        self.on_select(inpt)
         
     def h_scroll_left(self, inpt):
         if self.begin_col_display_at > 0:
@@ -264,22 +275,26 @@ Should accept one argument (the object to be represented), and return a string."
         
         if self.begin_col_display_at < 0:
             self.begin_col_display_at = 0
+        self.on_select(inpt)
 
     def h_scroll_display_down(self, inpt):
         if self.begin_row_display_at + len(self._my_widgets) < len(self.values):
             self.begin_row_display_at += len(self._my_widgets)
+        self.on_select(inpt)
         
     def h_scroll_display_up(self, inpt):
         if self.begin_row_display_at > 0:
             self.begin_row_display_at -= len(self._my_widgets)
         if self.begin_row_display_at < 0:
             self.begin_row_display_at = 0
+        self.on_select(inpt)
     
     def h_move_page_up(self, inpt):
         self.edit_cell[0] -= len(self._my_widgets)
         if self.edit_cell[0] < 0:
              self.edit_cell[0] = 0
         self.ensure_cursor_on_display_up()
+        self.on_select(inpt)
              
     def h_move_page_down(self, inpt):
         self.edit_cell[0] += len(self._my_widgets)
@@ -287,10 +302,21 @@ Should accept one argument (the object to be represented), and return a string."
              self.edit_cell[0] = len(self.values) -1
         
         self.ensure_cursor_on_display_down_right()
-        
+        self.on_select(inpt)
+
+    def on_select(self, input):
+        if self.on_select_callback:
+            self.on_select_callback()
+
     def h_exit(self, ch):
         self.editing = False
         self.how_exited = True
+
+    def selected_row(self):
+        try:
+            return self.values[self.edit_cell[0]]
+        except KeyError:
+            pass
 
     
     

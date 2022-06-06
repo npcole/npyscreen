@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-from distutils.core import setup
+from setuptools import setup
 
 setup(
 	name="npyscreen",
-	version="4.9.1",
+	version="4.11.1",
 	description="Writing user interfaces without all that ugly mucking about in hyperspace",
 	author="Nicholas Cole",
 	author_email="n@npcole.com",
@@ -28,7 +28,7 @@ This framework should be powerful enough to create everything from quick, simple
 
 There is a very wide variety of default widgets - everything from simple text fields to more complex tree and grid views.
 
-I have used versions of this library for private scripts and small applications for around ten years. As a result, it is fairly mature.	
+I have used versions of this library for private scripts and small applications for around ten years. As a result, it is fairly mature.
 
 Documentation is online at http://npyscreen.readthedocs.org
 
@@ -39,12 +39,23 @@ There is a mailing list available at https://groups.google.com/forum/?fromgroups
 
 *Latest Changes*:
 
+Version 4.11.1:  Merged pull request #120 with code to access curses screen directly
+
+Version 4.11.0: Cleaned up a couple of syntax errors, added Numericfield (in addition to Textfield), and corrected behavior of safe_to_exit() so that it works with TitleText and TitleNumeric classes.
+
+Version 4.10.5:  Merged in bug-fixes and enhancements suggested by Nathan Lewis.
+
+Version 4.10.0: All widgets have a safe_to_exit() method that will be called
+(at least by the default handlers) before exiting a widget.  Users can
+perform input verification functions here.  Return True if the widget should
+allow exiting, or False if it should not.  Various minor bug-fixes.
+
 Version 4.9.1: minor change to Multiline widgets to make custom versions easier (final widget value is never set to MORE_LABEL).
 
 Version 4.9:  new function blank_terminal() added. (User request)  Improvements to facilities for writing unit tests. (user request)
 Bugs related to hidden widgets fixed.
 
-Version 4.8.7 New methods added to the Multiline class to assist widget authors. 
+Version 4.8.7 New methods added to the Multiline class to assist widget authors.
 
 
 Version 4.8.6 MultiLineAction widgets no longer raise an exception if empty
@@ -84,10 +95,10 @@ http://bugs.python.org/issue21088
 
 
 
-Version 4.6.0 introduces a way to define a callback for when widget values change.  The help system has been improved by minor interface changes.  
+Version 4.6.0 introduces a way to define a callback for when widget values change.  The help system has been improved by minor interface changes.
 Both of these were user suggestions.  Thank you to those who suggested them.
 
-Version 4.5.0 introduces a greater control of colour for certain widgets.  
+Version 4.5.0 introduces a greater control of colour for certain widgets.
 
 Version 4.4.0 introduces the new tree class TreeData.  This is a new version of NPSTreeData that follows PEP 8 conventions for method names.  NPSTreeData is now deprecated.
 The form class ActionFormMinimal has been added at a user request.  This is a special version of ActionFrom that only features an OK button by default.
@@ -95,32 +106,32 @@ The form class ActionFormMinimal has been added at a user request.  This is a sp
 Version 4.3.5 introduces the new classes SliderNoLabel, TitleSliderNoLabel, SliderPercent, TitleSliderPercent.
 
 
-Version 4.3.4 Minor bugfixes.  The notify functions and ActionPopups derived from them now use the ActionFormV2 widgets.  
+Version 4.3.4 Minor bugfixes.  The notify functions and ActionPopups derived from them now use the ActionFormV2 widgets.
 This change should not affect existing code, but let me know if there are problems.
 
 Version 4.3.0 allows you to specify a negative value for rely or relx when creating a widget.  This will cause the widget to be aligned
-with the bottom or right of the screen.  The new method *set_relyx(y, x)* can be used to set the position of the widget on the Form if you never need to do that manually. 
+with the bottom or right of the screen.  The new method *set_relyx(y, x)* can be used to set the position of the widget on the Form if you never need to do that manually.
 
 The classes *ActionFormV2*, *ActionFormExpandedV2* and *ActionFormV2WithMenus* have been introduced.
-These feature cleaner code that should be easier to subclass.  
+These feature cleaner code that should be easier to subclass.
 
 The *ButtonPress* class can now be created with the argument
 *when_pressed_function=None*, which can be used in place of overriding the *whenPressed* method.  Note that this might create a reference cycle
-within your application, so use with care. 
+within your application, so use with care.
 
 
 Version 4.2.0 introduces the ability of Grid widgets to highlight the whole line that the cursor is on (user request).
 
-Version 4.1.0 introduces support for hvc consoles (thanks to wu.fuheng@********* for the bug report).  Title widgets can now define a when_cursor_moved() method directly 
-on themselves that will be called as expected by the contained entry_widget during its edit loop (user request). 
+Version 4.1.0 introduces support for hvc consoles (thanks to wu.fuheng@********* for the bug report).  Title widgets can now define a when_cursor_moved() method directly
+on themselves that will be called as expected by the contained entry_widget during its edit loop (user request).
 
 
 Version 4.0.0 introduces a new version scheme.  Due to a packaging error in
 the 3.0 release series some users were having problems obtaining the latest
 version. This is most easily fixed with a new major version release.
 
-Version 3.10 MultiLineEditable, MultiLineEditableTitle, MultiLineEditableBoxed classes added, allowing the user to edit lists of items. 
-See EXAMPLE-MultilineEditable for an example.   
+Version 3.10 MultiLineEditable, MultiLineEditableTitle, MultiLineEditableBoxed classes added, allowing the user to edit lists of items.
+See EXAMPLE-MultilineEditable for an example.
 
 Version 3.6 Title.. widgets should now resize properly.  Menu items can now
 be specified with arguments and keywords.
@@ -132,13 +143,13 @@ Version 3.4 Fixed bugs in Title.. widgets and in the App classes.
 Version 3.3 and the subsequent minor releases fix some bugs, mainly related
 to changes caused by allowing resized forms.
 
-Version 3.2 adds CheckboxBare - a checkbox without a label.  Added at user request. 
+Version 3.2 adds CheckboxBare - a checkbox without a label.  Added at user request.
 
-Version 3.0 *IMPORTANT* The version number has changed to version 3.0.  
-This is because newer versions of pip distinguish between pre-release and released versions, 
-and this will allow more flexibility in future releases. A version '2.0' might have caused confusion at this stage.  
+Version 3.0 *IMPORTANT* The version number has changed to version 3.0.
+This is because newer versions of pip distinguish between pre-release and released versions,
+and this will allow more flexibility in future releases. A version '2.0' might have caused confusion at this stage.
 
-Version 3.0 fixes the specification of max_width values for titled widgets (Thanks to Phil Rich for the bug report).  
+Version 3.0 fixes the specification of max_width values for titled widgets (Thanks to Phil Rich for the bug report).
 Please report any further problems.
 
 Version 2.0pre90 introduces a new BufferPager and TitleBufferPager class. (User request, suggested by dennis@wsec.be)
@@ -150,7 +161,7 @@ with existing code.  New code can make the resizing even more flexible.
 
 Version 2.0pre87 Updates the documentation and contains various bug fixes.
 
-Version 2.0pre85 and 2.0pre86 are both bugfix releases. 
+Version 2.0pre85 and 2.0pre86 are both bugfix releases.
 
 Version 2.0pre84 introduces an experimental system for editing lists of
 options.  See documentation for details.
@@ -180,7 +191,7 @@ Version 2.0pre71 new tree classes introduced. Bug fixes.
 
 Version 2.0pre70 introduces the MLTreeMultiSelect class.
 
-Version 2.0pre69 fixes and tidies up some of the new tree classes.  There is an API change assocatied with this, noted in the documentation, though backward compatibility should have been maintained. 
+Version 2.0pre69 fixes and tidies up some of the new tree classes.  There is an API change assocatied with this, noted in the documentation, though backward compatibility should have been maintained.
 
 Version 2.0pre68 setting a form's .editing attribute to False now causes it to exit immediately,
 even if a widget is still being edited.
@@ -194,7 +205,7 @@ easier to write.
 Version 2.0pre64 extends multi-page support and includes revision to the
 documentation.
 
-Version 2.0pre63 adds initial support for multi-page forms.  See documentation on the 
+Version 2.0pre63 adds initial support for multi-page forms.  See documentation on the
 FormMultiPage class for details.
 
 Version 2.0pre57 fixes color support - it should now be possible to display
