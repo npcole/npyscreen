@@ -147,8 +147,8 @@ class ScreenArea(object):
             self.curses_pad.refresh(self.show_from_y,self.show_from_x,self.show_aty,self.show_atx,_my,_mx)
         except curses.error:
             pass
-        if self.show_from_y is 0 and \
-        self.show_from_x is 0 and \
+        if self.show_from_y == 0 and \
+        self.show_from_x == 0 and \
         (_my >= self.lines) and \
         (_mx >= self.columns):
             self.ALL_SHOWN = True
