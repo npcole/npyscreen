@@ -114,7 +114,7 @@ class ScreenArea(object):
         # let's see how big we could be: create a temp screen
         # and see the size curses makes it.  No good to keep, though
         try:
-            mxy, mxx = struct.unpack('hh', fcntl.ioctl(sys.stderr.fileno(), termios.TIOCGWINSZ, 'xxxx'))
+            mxy, mxx, _, _ = struct.unpack('hhhh', fcntl.ioctl(sys.stderr.fileno(), termios.TIOCGWINSZ, b'\x00'*8))
             if (mxy, mxx) == (0,0):
                 raise ValueError
         except (ValueError, NameError):

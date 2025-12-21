@@ -19,21 +19,7 @@ Official Repository
 
 Please note that the official source code repository is at:
 
-https://bitbucket.org/npcole/npyscreen
-
-There is a github repository at:
-
 https://github.com/npcole/npyscreen
-
-for users that prefer github.  If possible, though, please file bug reports at the bitbucket repository.
-
-The original source code archive was at:
-
-https://code.google.com/p/npyscreen/
-
-This archive will continue to be updated for as long as code.google.com accepts updates.
-
-
 
 Strengths
 =========
@@ -61,10 +47,18 @@ As of version 2.0pre48, the library aims to be robust in dealing with unicode ac
 
 The 2.0pre48 release should be considered an alpha-release for version 2. 
 
+Version 5
+=========
+
+Version 5 of this library is the first release in 10 years, and incorporates some pull requests from the community, for which I am very grateful.  It also fixes a bug that 
+stopped the library from running on Python3.14.
+
 Python 3 support
 ================
 
-From version 2.0pre31 onwards this library should work on python 3, though some of the internals have been rewritten.  The public api is unchanged, and the new code continues to work on python 2.  I am currently still using python 2 for development.  All future versions will target both python 2 and 3, unless a feature unique to python 3 becomes vital.
+From version 5.0 onwards, all attempts to target version 2 has finally been abandoned.  It's long past time.
+
+From version 2.0pre31 onwards this library should work on python 3, though some of the internals have been rewritten.  The public api is unchanged.
 
 Similar Projects
 ================

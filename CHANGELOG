@@ -1,6 +1,6 @@
 KNOWN BUGS:
     - Only part of the UI can handle Unicode.
-    
+
 
 
 TODO - fix F keys on OS X
@@ -12,6 +12,174 @@ TODO - fix F keys on OS X
 	- create a factory for titled widgets
 	- create a factory for multiline widgets
 
+
+5.0.0
+BREAKING CHANGE: Python 3 only (requires Python 3.7+).
+Modernized packaging with pyproject.toml (PEP 517/518/621).
+Updated project metadata and URLs.
+
+4.10.0
+Dynamic dateformat support in date widgets.
+Fix typo in wgboxwidget.py.
+Fix StopIteration generator issue for Python 3.7+.
+Added convenience function for requesting single line of user input.
+Added missing handler for back tab in pager.
+Fixed typo that broke actionSelected method in wgmultiselect.
+Made "-more-" text stylistically consistent.
+Made unset label consistent with other combos.
+Various documentation updates.
+
+4.9.1
+Minor change to Multiline widgets to make custom versions easier
+(final widget value is never set to MORE_LABEL).
+
+4.9.0
+New function blank_terminal() added (user request).
+Improvements to facilities for writing unit tests (user request).
+Bugs related to hidden widgets fixed.
+
+4.8.7
+New methods added to the Multiline class to assist widget authors.
+
+4.8.6
+MultiLineAction widgets no longer raise an exception if empty
+and selected unless set to do so explicitly.
+
+4.8.5
+Improvements to writing tests.
+
+4.8.4
+Support for custom-defined colours added (user request for custom application).
+
+4.8.3
+Documentation updates.
+
+4.8.2
+Standard grid widget easier to customize via custom_print_cell method.
+
+4.8.1
+Bug fix release (crash fix).
+
+4.8.0
+Mechanism for finer control of BoxTitle contained widgets.
+
+4.7.2
+Documentation updates.
+
+4.7.1
+Bug fix release.
+
+4.7.0
+Scripting support for writing automated tests.
+
+4.6.4
+Keybindings relevant to Windows added.
+
+4.6.3
+Minor bug fix release.
+
+4.6.1
+Documentation update noting Python 3.4.0 curses library bug
+(fixed in 3.4.1). See http://bugs.python.org/issue21088.
+
+4.6.0
+Way to define callback for when widget values change.
+Help system improvements.
+
+4.5.0
+Greater control of colour for certain widgets.
+
+4.4.0
+New tree class TreeData (follows PEP 8 conventions).
+NPSTreeData deprecated.
+ActionFormMinimal added (ActionForm with only OK button).
+
+4.3.5
+New classes: SliderNoLabel, TitleSliderNoLabel, SliderPercent, TitleSliderPercent.
+
+4.3.4
+Minor bug fixes. notify functions and ActionPopups now use ActionFormV2 widgets.
+
+4.3.0
+Negative rely/relx values now align widgets with bottom/right of screen.
+New set_relyx(y, x) method for widget positioning.
+ActionFormV2, ActionFormExpandedV2, ActionFormV2WithMenus introduced.
+ButtonPress class now accepts when_pressed_function parameter.
+
+4.2.0
+Grid widgets can highlight the whole line that the cursor is on.
+
+4.1.0
+Support for hvc consoles.
+Title widgets can define when_cursor_moved() method.
+
+4.0.0
+New version scheme (fixes packaging issues from 3.0 series).
+
+3.10
+MultiLineEditable, MultiLineEditableTitle, MultiLineEditableBoxed classes added.
+
+3.6
+Title widgets resize properly.
+Menu items can be specified with arguments and keywords.
+
+3.5
+when_value_edited on Title widgets now works as expected.
+
+3.4
+Bug fixes in Title widgets and App classes.
+
+3.3
+Bug fixes related to resized forms.
+
+3.2
+CheckboxBare added (checkbox without label).
+
+3.0
+Version number changed to 3.0 for pip pre-release/release distinction.
+Fixed max_width specification for titled widgets.
+
+2.0pre90
+BufferPager and TitleBufferPager classes added.
+
+2.0pre88
+Terminal resizing support added.
+
+2.0pre87
+Documentation updates and bug fixes.
+
+2.0pre85-86
+Bug fix releases.
+
+2.0pre84
+Experimental system for editing lists of options.
+
+2.0pre83
+Multi-line checkbox widgets added.
+
+2.0pre82
+Menu system changes with keyboard shortcuts.
+
+2.0pre81
+FilenameCombo, TitleFilenameCombo introduced.
+
+2.0pre79
+Bug fix release.
+
+2.0pre76
+Improved mouse event handling on compatible terminals.
+
+2.0pre75
+Mouse handling improvements.
+
+2.0pre74
+Bug fixes. Box widgets editable attribute linked to contained widget.
+
+2.0pre73
+Bug fixes (thanks to Lasse).
+
+2.0pre71
+New tree classes and bug fixes.
 
 2.0pre70
 MLTreeMultiSelect introduced.
