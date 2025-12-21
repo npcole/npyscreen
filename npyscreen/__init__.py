@@ -36,8 +36,8 @@ from .wgbutton                  import MiniButtonPress
 from .wgbutton                  import MiniButton      as Button
 from .wgbutton                  import MiniButtonPress as ButtonPress
 
-from .wgtextbox                 import Textfield, FixedText
-from .wgtitlefield              import TitleText, TitleFixedText
+from .wgtextbox                 import Textfield, FixedText, Numericfield
+from .wgtitlefield              import TitleText, TitleFixedText, TitleNumeric
 from .wgpassword                import PasswordEntry, TitlePassword
 from .wgannotatetextbox         import AnnotateTextboxBase
 from .wgannotatetextbox         import AnnotateTextboxBaseRight
