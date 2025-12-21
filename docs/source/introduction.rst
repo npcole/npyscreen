@@ -87,9 +87,7 @@ fixed-sized terminal.
 Compatibility
 -------------
 
-Current development is done on Python 3, but the code is kept compatible with modern releases of Python 2.  Certain features related to unicode work better under Python 3.
-
-It is designed to run using only the python standard library, and the only requirements are a working python (2.6 or above) installation and a working curses library.  Npyscreen will therefore work on almost all common platforms, and even in the Cygwin environment on Windows.
+Version 5.0 is the first official release in more than 10 years; it drops all support for Python 2.0.  Future development will target modern versions of Python.
 
 Python 3.4.0
 ------------

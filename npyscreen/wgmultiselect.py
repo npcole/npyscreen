@@ -39,7 +39,7 @@ class MultiSelect(selectone.SelectOne):
         if self.value == [] or self.value == None:
             return None
         else:
-            return [self.values[x] for x in self.value]
+            return [list(self.values)[x] for x in self.value]
             
 class MultiSelectAction(MultiSelect):
     always_act_on_many = False

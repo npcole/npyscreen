@@ -22,7 +22,7 @@ class SelectOne(multiline.MultiLine):
 
     def _print_line(self, line, value_indexer):
         try:
-            display_this = self.display_value(self.values[value_indexer])
+            display_this = self.display_value(list(self.values)[value_indexer])
             line.value = display_this
             line.hide = False
             if hasattr(line, 'selected'):

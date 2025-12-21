@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "npyscreen"
+version = "5.0.1"
+description = "Writing user interfaces without all that ugly mucking about in hyperspace"
+readme = "README.md"
+license = "BSD-3-Clause"
+authors = [
+    { name = "Nicholas Cole", email = "n@npcole.com" }
+]
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: Console :: Curses",
+    "Intended Audience :: Developers",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Terminals",
+]
+keywords = ["curses", "ncurses", "terminal", "tui", "console", "user-interface"]
+
+[project.urls]
+Homepage = "https://github.com/npcole/npyscreen"
+Documentation = "https://npyscreen.readthedocs.org/"
+Repository = "https://github.com/npcole/npyscreen"
+Issues = "https://github.com/npcole/npyscreen/issues"
+
+[tool.setuptools.packages.find]
+include = ["npyscreen*"]
