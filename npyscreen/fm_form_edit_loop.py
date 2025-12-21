@@ -23,7 +23,7 @@ class FormNewEditLoop(object):
     def edit_loop(self):
         self.editing = True
         self.display()
-        while not (self._widgets__[self.editw].editable and not self._widgets__[self.editw].hidden):
+        while not (self._widgets_by_id[self.editw].editable and not self._widgets_by_id[self.editw].hidden):
             self.editw += 1
             if self.editw > len(self._widgets__)-1: 
                 self.editing = False
@@ -31,16 +31,17 @@ class FormNewEditLoop(object):
         
         while self.editing:
             if not self.ALL_SHOWN: self.on_screen()
-            self.while_editing(weakref.proxy(self._widgets__[self.editw]))
+            #self.while_editing(weakref.proxy(self._widgets__[self.editw]))
+            self.while_editing(self._widgets_by_id[self.editw])
             self._during_edit_loop()
             if not self.editing:
                 break
-            self._widgets__[self.editw].edit()
-            self._widgets__[self.editw].display()
+            self._widgets_by_id[self.editw].edit()
+            self._widgets_by_id[self.editw].display()
 
-            self.handle_exiting_widgets(self._widgets__[self.editw].how_exited)
+            self.handle_exiting_widgets(self._widgets_by_id[self.editw].how_exited)
 
-            if self.editw > len(self._widgets__)-1: self.editw = len(self._widgets__)-1
+            if self.editw > len(self._widgets_by_id)-1: self.editw = len(self._widgets__)-1
         
     def edit(self):
         self.pre_edit_loop()
@@ -67,12 +68,12 @@ class FormDefaultEditLoop(object):
             self.editw = len(self._widgets__)-1
         if not self.preserve_selected_widget:
             self.editw = 0
-        if not self._widgets__[self.editw].editable: self.find_next_editable()
+        if not self._widgets_by_id[self.editw].editable: self.find_next_editable()
 
 
         self.display()
 
-        while not (self._widgets__[self.editw].editable and not self._widgets__[self.editw].hidden):
+        while not (self._widgets_by_id[self.editw].editable and not self._widgets_by_id[self.editw].hidden):
             self.editw += 1
             if self.editw > len(self._widgets__)-1: 
                 self.editing = False
@@ -80,13 +81,13 @@ class FormDefaultEditLoop(object):
 
         while self.editing:
             if not self.ALL_SHOWN: self.on_screen()
-            self.while_editing(weakref.proxy(self._widgets__[self.editw]))
+            self.while_editing(weakref.proxy(self._widgets_by_id[self.editw]))
             if not self.editing:
                 break
-            self._widgets__[self.editw].edit()
-            self._widgets__[self.editw].display()
+            self._widgets_by_id[self.editw].edit()
+            self._widgets_by_id[self.editw].display()
 
-            self.handle_exiting_widgets(self._widgets__[self.editw].how_exited)
+            self.handle_exiting_widgets(self._widgets_by_id[self.editw].how_exited)
 
             if self.editw > len(self._widgets__)-1: self.editw = len(self._widgets__)-1
             if self.ok_button.value:
