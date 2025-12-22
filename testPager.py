@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import npyscreen
 
 test_text = """\
