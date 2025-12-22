@@ -91,7 +91,7 @@ the same effect can be achieved by altering the __str__() method of displayed ob
         self._last_start_display_at = None
         self._last_cursor_line = None
         self._last_values = copy.copy(list(values) if values else [])
-        self._last_value = copy.copy(list(value) if value else [])
+        self._last_value = copy.copy(value)
         self._last_filter = None
         self._filtered_values_cache = []
 
@@ -255,7 +255,7 @@ object to be passed to the contained widget."""
         self._last_start_display_at = self.start_display_at
         self._last_cursor_line = self.cursor_line
         self._last_values = copy.copy(list(self.values) if self.values else [])
-        self._last_value  = copy.copy(list(self.value) if self.value else [])
+        self._last_value  = copy.copy(self.value)
         
         # This will prevent the program crashing if the user has changed values, and the cursor 
         # is now on the bottom line.
