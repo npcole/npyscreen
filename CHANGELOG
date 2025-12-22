@@ -13,6 +13,12 @@ TODO - fix F keys on OS X
 	- create a factory for multiline widgets
 
 
+5.0.2
+Fix a regression introduced in 5.0.1
+
+5.0.1
+Merge in some pull requests.
+
 5.0.0
 BREAKING CHANGE: Python 3 only (requires Python 3.7+).
 Modernized packaging with pyproject.toml (PEP 517/518/621).
