@@ -15,7 +15,7 @@ class TestApp(npyscreen.NPSApp):
         # This lets the user play with the Form.
         F.edit()
 
-        print ms.get_selected_objects()
+        print(ms.get_selected_objects())
 
 if __name__ == "__main__":
     App = TestApp()

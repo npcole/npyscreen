@@ -14,7 +14,7 @@ def main(*args):
     for m in members:
         name, cl = m
         if isinstance(m, npyscreen.Form):
-            print "True"
+            print("True")
         
 
 

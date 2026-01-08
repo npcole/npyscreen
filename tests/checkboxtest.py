@@ -10,4 +10,4 @@ def testme(sa):
 if __name__ == '__main__':
     import curses.wrapper
     curses.wrapper(testme)
-    print "Use the force"
+    print("Use the force")

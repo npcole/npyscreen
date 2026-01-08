@@ -21,4 +21,4 @@ def testme(sa):
 if __name__ == '__main__':
     import curses
     curses.wrapper(testme)
-    print "No Luke, I am your father"
+    print("No Luke, I am your father")

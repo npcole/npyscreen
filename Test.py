@@ -16,5 +16,5 @@ class MyApplication(npyscreen.NPSAppManaged):
        
 if __name__ == '__main__':
    TestApp = MyApplication().run()
-   print "All objects, baby."
+   print("All objects, baby.")
 
