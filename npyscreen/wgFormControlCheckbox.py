@@ -33,26 +33,47 @@ class FormControlCheckbox(wgcheckbox.Checkbox):
         self.updateDependents()
     
     def updateDependents(self):
-        # This doesn't yet work.
+        # Support dependents with multiple FormControlCheckbox parents
+        # A dependent should be visible only when all parents agree
         if self.value:
             for w in self._visibleWhenSelected:
-                w.hidden    = False
-                w.editable  = True
+                try:
+                    w.fc_visible
+                except AttributeError:
+                    w.fc_visible = {}
+                w.fc_visible[self.name] = True
             for w in self._notVisibleWhenSelected:
-                w.hidden    =  True
-                w.editable  =  False
+                try:
+                    w.fc_visible
+                except AttributeError:
+                    w.fc_visible = {}
+                w.fc_visible[self.name] = False
         else:
             for w in self._visibleWhenSelected:
-                w.hidden    = True
-                w.editable  = False
+                try:
+                    w.fc_visible
+                except AttributeError:
+                    w.fc_visible = {}
+                w.fc_visible[self.name] = False
             for w in self._notVisibleWhenSelected:
-                w.hidden    =  False
-                w.editable  =  True
+                try:
+                    w.fc_visible
+                except AttributeError:
+                    w.fc_visible = {}
+                w.fc_visible[self.name] = True
+        for w in self._visibleWhenSelected + self._notVisibleWhenSelected:
+            w.hidden = False in w.fc_visible.values()
+            w.editable = not False in w.fc_visible.values()
         self.parent.display()
 
     def h_toggle(self, *args):
         super(FormControlCheckbox, self).h_toggle(*args)
         self.updateDependents()
         
+    def set_value(self, value):
+        self.value = value
+        self.display()
 
-        
+    def display(self):
+        self.updateDependents()
+        super()
