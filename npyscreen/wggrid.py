@@ -234,13 +234,17 @@ Should accept one argument (the object to be represented), and return a string."
             self.h_scroll_left(inpt)
     
     def h_move_cell_right(self, inpt):
+        if self.values is None or len(self.values) == 0:
+            return
         if self.edit_cell[1] <= len(self.values[self.edit_cell[0]]) -2:   # Only allow move to end of current line
             self.edit_cell[1] += 1
-        
+
         if self.edit_cell[1] > self.begin_col_display_at + self.columns - 1:
             self.h_scroll_right(inpt)
-    
+
     def h_move_line_down(self, inpt):
+        if self.values is None or len(self.values) == 0:
+            return
         if self.edit_cell[0] <= (len(self.values) -2) \
         and (len(self.values[self.edit_cell[0]+1]) > self.edit_cell[1]):
             self.edit_cell[0] += 1
