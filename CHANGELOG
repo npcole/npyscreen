@@ -13,6 +13,9 @@ TODO - fix F keys on OS X
 	- create a factory for multiline widgets
 
 
+5.0.3
+Fix IndexError in SimpleGrid / GridColTitles navigation when values is None or empty.
+
 5.0.2
 Fix a regression introduced in 5.0.1
 
