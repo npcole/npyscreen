@@ -13,6 +13,9 @@ TODO - fix F keys on OS X
 	- create a factory for multiline widgets
 
 
+5.0.4
+Clean up SyntaxWarnings on modern Python: replace `is`/`is not` comparisons against int/str literals with `==`/`!=`, and use a raw string for the wrap-on regex in wgeditmultiline.
+
 5.0.3
 Fix IndexError in SimpleGrid / GridColTitles navigation when values is None or empty.
 

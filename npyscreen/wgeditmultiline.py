@@ -22,7 +22,7 @@ class MultiLineEdit(widget.Widget):
         self.scroll_exit = scroll_exit
         self.encoding = locale.getpreferredencoding()
         self.autowrap = autowrap
-        self.wrapon = re.compile("\s+|-+")
+        self.wrapon = re.compile(r"\s+|-+")
         
         if GlobalOptions.ASCII_ONLY or locale.getpreferredencoding() == 'US-ASCII':
             self._force_ascii = True
